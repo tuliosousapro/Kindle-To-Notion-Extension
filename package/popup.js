@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const spinnerIcon = document.querySelector('.spinner');
   const eyeIcon = toggleTokenIcon.querySelector('.eye-icon:not(.hidden)');
   const slashedEyeIcon = toggleTokenIcon.querySelector('.eye-icon.hidden');
+  const versionInfo = document.getElementById('versionInfo');
 
   // Load saved settings
   chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty'], (result) => {
@@ -28,6 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('No token, set to text with eye icon');
     }
   });
+
+  // Set version info from manifest
+  fetch(chrome.runtime.getURL('manifest.json'))
+    .then((response) => response.json())
+    .then((manifest) => {
+      versionInfo.textContent = `v${manifest.version}`;
+    });
 
   // Toggle token visibility
   toggleTokenIcon.addEventListener('click', () => {
@@ -64,13 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const titleProperty = titlePropertyInput.value;
     const authorProperty = authorPropertyInput.value;
 
-    // Extract Database ID from URL if provided
     const urlPattern = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
     if (databaseId.startsWith('https://www.notion.so/')) {
       const match = databaseId.match(urlPattern);
       if (match) {
-        databaseId = match[1].replace(/-/g, ''); // Normalize ID (remove dashes if present)
-        databaseIdInput.value = databaseId; // Update input with extracted ID
+        databaseId = match[1].replace(/-/g, '');
+        databaseIdInput.value = databaseId;
         spinner.classList.remove('hidden');
         spinnerIcon.classList.add('hidden');
         spinnerText.textContent = 'Valid Database ID extracted';
@@ -90,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Validate Database ID
     if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
