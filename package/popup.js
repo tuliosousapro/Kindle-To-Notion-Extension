@@ -60,9 +60,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // Save settings
   saveButton.addEventListener('click', () => {
     const token = tokenInput.value;
-    const databaseId = databaseIdInput.value;
+    let databaseId = databaseIdInput.value.trim();
     const titleProperty = titlePropertyInput.value;
     const authorProperty = authorPropertyInput.value;
+
+    // Extract Database ID from URL if provided
+    const urlPattern = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
+    if (databaseId.startsWith('https://www.notion.so/')) {
+      const match = databaseId.match(urlPattern);
+      if (match) {
+        databaseId = match[1].replace(/-/g, ''); // Normalize ID (remove dashes if present)
+        databaseIdInput.value = databaseId; // Update input with extracted ID
+        spinner.classList.remove('hidden');
+        spinnerIcon.classList.add('hidden');
+        spinnerText.textContent = 'Valid Database ID extracted';
+        setTimeout(() => {
+          spinner.classList.add('hidden');
+          spinnerText.textContent = '';
+        }, 2000);
+      } else {
+        spinner.classList.remove('hidden');
+        spinnerIcon.classList.add('hidden');
+        spinnerText.textContent = 'Error: Invalid Notion URL or Database ID';
+        setTimeout(() => {
+          spinner.classList.add('hidden');
+          spinnerText.textContent = '';
+        }, 2000);
+        return;
+      }
+    }
+
+    // Validate Database ID
     if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
@@ -73,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 2000);
       return;
     }
+
     if (!titleProperty || !authorProperty) {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
@@ -83,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 2000);
       return;
     }
+
     chrome.storage.local.set({ token, databaseId, titleProperty, authorProperty }, () => {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
