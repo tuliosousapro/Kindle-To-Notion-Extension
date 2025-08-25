@@ -3,12 +3,20 @@
 </p>
 
 <h1 align="center">Kindle To Notion Extension v1.3.0</h1>
-<p align="center"><em>Export your Kindle highlights to Notion with a touch of retro fantasy magic.</em></p>
+<p align="center"><em>Easily export your Kindle highlights into Notion databases</em></p>
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue">  <img src="https://img.shields.io/badge/Notion-API-blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=social">
 </p>
 
-A Chrome extension to export highlights and notes from Amazon Kindle's notebook page (`https://read.amazon.com/notebook`), or if you are from Brazil (`https://ler.amazon.com.br/notebook`), to a Notion database.
+Have you ever used a Kindle to read your books?
+Have you ever tried to work on your notes?
+Maybe tried to organize for further reference?
+
+Well, I have. And it happens to be the most boring task in the world. Copy and pasting just sucks. It's time-consuming and definitely gives you more work than organization.
+
+> Kindle To Notion was created to solve your note-taking problems. 
+
+It's your ultimate tool for organizing reading insights. It exports highlights and notes from your Kindle notebook pages directly to your Notion database. With just a few clicks, it extracts book titles, authors, cover images, and colored annotations.
 
 <h1 align="center">🧙‍♂️YOU... SHALL TAKE NOTES!!!⭐</h1>
 
@@ -45,24 +53,24 @@ A Chrome extension to export highlights and notes from Amazon Kindle's notebook 
 > 💡 Prefer a one-click install? [Get it from the Chrome Web Store](https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR)
 
 ## ⚙️Setup
-1. Create a Notion integration:
+1. **Create a Notion integration:**
    - Go to [Notion's Integrations page](https://www.notion.so/my-integrations).
    - Create a new integration and copy the "Internal Integration Token."
    - Share your target database with the integration (via the database's "Share" menu).
-2. Create or open your Notion database:
+2. **Create or open your Notion database:**
    - Go to Notion, create or select your destination page.
    - Certify that you have a database with at least the properties for Author and Book Title.
    - Open your database as a page and copy the Notion database ID
-      - Database Link: `https://www.notion.so/f7979b5axerequinha2f8fa?v=796edexemplokabal79a096`
-      - Database Id: `f7979b5axerequinha2f8fa`
+      - **Database Link:** `https://www.notion.so/f7979b5axerequinha2f8fa?v=796edexemplokabal79a096`
+      - **Database Id:** `f7979b5axerequinha2f8fa`
 
-3. Open the extension's pop-up (click the extension icon in Chrome).
-4. Enter:
-   - **Notion API Token**: Your integration token.
+3. **Open the extension's pop-up (click the extension icon in Chrome).**
+4. **Enter:**
+   - **Notion API Token**: Your integration token. (e.g., `ntn_300224xerequinhadepilada7Xm`).
    - **Notion Database ID**: Found in the database URL (e.g., `f7979b5axerequinha2f8fa`).
    - **Title Property Name**: The exact name of your database's title property (e.g., `Título do Livro`).
    - **Author Property Name**: The exact name of your database's author property (e.g., `Autor`).
-5. Click "Save Settings."🎉
+5. Click **"Save Settings."🎉**
 
 ## 🚀Usage
 1. Navigate to [ler.amazon.com.br/notebook](https://ler.amazon.com.br/notebook) or [read.amazon.com/notebook](https://read.amazon.com/notebook) in Chrome.

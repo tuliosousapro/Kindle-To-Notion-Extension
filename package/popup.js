@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const authorPropertyInput = document.getElementById('authorProperty');
   const saveButton = document.getElementById('save');
   const exportButton = document.getElementById('export');
+  const navigateButton = document.getElementById('navigateHighlights');
   const toggleTokenIcon = document.getElementById('toggleToken');
   const spinner = document.getElementById('spinner');
   const spinnerText = document.querySelector('.spinner-text');
@@ -41,6 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
       slashedEyeIcon.classList.remove('hidden');
       console.log('Toggled to hidden: password, slashed-eye icon');
     }
+  });
+
+  // Navigate to highlights page
+  navigateButton.addEventListener('click', () => {
+    chrome.tabs.update({ url: 'https://read.amazon.com/notebook' }, () => {
+      spinner.classList.remove('hidden');
+      spinnerIcon.classList.add('hidden');
+      spinnerText.textContent = 'Navigating to Kindle highlights...';
+      setTimeout(() => {
+        spinner.classList.add('hidden');
+        spinnerText.textContent = '';
+      }, 2000);
+    });
   });
 
   // Save settings
