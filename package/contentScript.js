@@ -3,22 +3,55 @@ console.log("Content script loaded");
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'export') {
     console.log("Export message received");
-    const title = document.querySelector('h3.kp-notebook-metadata')?.textContent.trim() || 'Unknown Title';
-    const author = document.querySelector('p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata')?.textContent.trim() || 'Unknown Author';
-    const coverUrl = document.querySelector('img.kp-notebook-cover-image-border')?.src || '';
-    const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim() || '0';
-    const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim() || '0';
+    // Enhanced metadata extraction with fallbacks
+    const title = document.querySelector('h3.kp-notebook-metadata')?.textContent.trim() ||
+                 document.querySelector('.kp-notebook-title')?.textContent.trim() ||
+                 'Unknown Title';
+    const author = document.querySelector('p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata')?.textContent.trim() ||
+                  document.querySelector('.kp-notebook-author')?.textContent.trim() ||
+                  'Unknown Author';
+    const coverUrl = document.querySelector('img.kp-notebook-cover-image-border')?.src ||
+                    document.querySelector('.kp-notebook-cover img')?.src ||
+                    '';
+    const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim() ||
+                          document.querySelector('.highlight-count')?.textContent.trim() ||
+                          '0';
+    const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim() ||
+                     document.querySelector('.note-count')?.textContent.trim() ||
+                     '0';
 
     const highlights = [];
-    const highlightElements = document.querySelectorAll('.kp-notebook-highlight');
+    // Multiple selector strategies for highlight elements
+    const highlightSelectors = [
+      '.kp-notebook-highlight',
+      '.highlight-item',
+      'div[data-testid="highlight"]'
+    ];
+    let highlightElements = [];
+    highlightSelectors.some(selector => {
+      highlightElements = Array.from(document.querySelectorAll(selector));
+      return highlightElements.length > 0;
+    });
+
     highlightElements.forEach(highlight => {
-      const text = highlight.querySelector('#highlight')?.textContent.trim() || '';
-      const colorClass = Array.from(highlight.classList).find(cls => cls.startsWith('kp-notebook-highlight-'));
+      const text = highlight.querySelector('#highlight')?.textContent.trim() ||
+                  highlight.querySelector('.highlight-text')?.textContent.trim() ||
+                  '';
+      const colorClass = Array.from(highlight.classList).find(cls => cls.startsWith('kp-notebook-highlight-')) ||
+                        Array.from(highlight.classList).find(cls => cls.includes('highlight-color-'));
       const color = colorClass ? colorClass.split('-').pop() : 'default';
       let note = '';
       const nextSibling = highlight.nextElementSibling;
-      if (nextSibling && nextSibling.classList.contains('kp-notebook-note')) {
-        note = nextSibling.querySelector('#note')?.textContent.trim() || '';
+      const noteSelectors = ['.kp-notebook-note', '.note-item', 'div[data-testid="note"]'];
+      let noteElement = null;
+      noteSelectors.some(selector => {
+        noteElement = nextSibling?.querySelector(selector);
+        return noteElement !== null;
+      });
+      if (noteElement) {
+        note = noteElement.querySelector('#note')?.textContent.trim() ||
+              noteElement.querySelector('.note-text')?.textContent.trim() ||
+              '';
       }
       highlights.push({ text, color, note });
     });
