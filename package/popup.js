@@ -134,28 +134,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Export to Notion
-  exportButton.addEventListener('click', () => {
-    spinner.classList.remove('hidden');
-    spinnerIcon.classList.remove('hidden');
-    spinnerText.textContent = 'Exporting to Notion...';
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0].url.startsWith('https://ler.amazon.com.br/notebook') || tabs[0].url.startsWith('https://read.amazon.com/notebook')) {
-        chrome.tabs.sendMessage(tabs[0].id, { action: 'export' }, (response) => {
-          spinner.classList.remove('hidden');
-          spinnerIcon.classList.add('hidden');
-          if (chrome.runtime.lastError) {
-            spinnerText.textContent = 'Oops! Unable to connect to the Kindle page. Please try again.';
-          } else if (response && response.status) {
-            spinnerText.textContent = response.status;
+  // Export to Notion with retry logic
+  async function exportWithRetry(tabId, attempt = 1, maxAttempts = 4) {
+    const baseDelay = 1000; // 1 second base delay
+    spinnerText.textContent = `Exporting to Notion${attempt > 1 ? ` (Attempt ${attempt}/${maxAttempts})...` : '...'}`;
+    return new Promise((resolve) => {
+      chrome.tabs.sendMessage(tabId, { action: 'export' }, (response) => {
+        if (chrome.runtime.lastError || !response || !response.status) {
+          if (attempt < maxAttempts) {
+            const delay = baseDelay * Math.pow(2, attempt - 1); // Exponential backoff: 1s, 2s, 4s, 8s
+            setTimeout(() => exportWithRetry(tabId, attempt + 1, maxAttempts).then(resolve), delay);
           } else {
-            spinnerText.textContent = 'Oops! Something went wrong during export. Please check your settings and try again.';
+            spinnerIcon.classList.add('hidden');
+            spinnerText.textContent = 'Oops! Export failed after 4 attempts. Please check your internet or Notion settings.';
+            setTimeout(() => {
+              spinner.classList.add('hidden');
+              spinnerText.textContent = '';
+            }, 2000);
+            resolve();
           }
+        } else {
+          spinnerIcon.classList.add('hidden');
+          spinnerText.textContent = response.status;
           setTimeout(() => {
             spinner.classList.add('hidden');
             spinnerText.textContent = '';
           }, 2000);
-        });
+          resolve();
+        }
+      });
+    });
+  }
+
+  // Export to Notion
+  exportButton.addEventListener('click', () => {
+    spinner.classList.remove('hidden');
+    spinnerIcon.classList.remove('hidden');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0].url.startsWith('https://ler.amazon.com.br/notebook') || tabs[0].url.startsWith('https://read.amazon.com/notebook')) {
+        exportWithRetry(tabs[0].id);
       } else {
         spinner.classList.remove('hidden');
         spinnerIcon.classList.add('hidden');
