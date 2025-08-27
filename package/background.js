@@ -22,13 +22,11 @@ async function fetchHighResCover(amazonLink) {
     }
 
     const text = await response.text();
-
-    // Regex patterns based on examples
     const patterns = [
       /data-old-hires="([^"]*_SL1500_\.jpg)"/,
       /"hiRes":"([^"]*_SL1500_\.jpg)"/,
       /src="([^"]*_SL1500_\.jpg)"/,
-      /"large":"([^"]*_SL1500_\.jpg)"/  // Additional pattern if needed
+      /"large":"([^"]*_SL1500_\.jpg)"/
     ];
 
     for (const pattern of patterns) {
@@ -147,8 +145,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           for (let i = 0; i < allBlocks.length; i++) {
             if (allBlocks[i]?.type === 'quote' && allBlocks[i].quote?.rich_text?.[0]?.text) {
               const text = allBlocks[i].quote.rich_text[0].text.content;
-              const note = allBlocks[i + 1]?.type === 'paragraph' && allBlocks[i + 1].paragraph?.rich_text?.[0]?.text ? allBlocks[i + 1].paragraph.rich_text[0].text.content : '';
-              existingHighlights.push({ text: text.trim(), note: note?.trim() || '' });
+              let note = '';
+              if (allBlocks[i + 1]?.type === 'callout' && allBlocks[i + 1].callout?.rich_text?.length >= 3) {
+                // Extract the actual note content from the third rich_text element
+                note = allBlocks[i + 1].callout.rich_text[2].text.content.trim();
+              }
+              existingHighlights.push({ text: text.trim(), note: note || '' });
               i += note ? 1 : 0;
             } else {
               console.log('Skipping non-quote block or malformed data at index:', i, allBlocks[i]);
@@ -164,7 +166,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
 
           chrome.runtime.sendMessage({ action: 'progress', status: `Appending ${newHighlights.length} new highlights...` });
-          const newBlocksToAppend = newHighlights.map(({ text, color, note }) => {
+          const newBlocksToAppend = newHighlights.map(({ text, color, note }, index) => {
             const notionColor = colorMap[color.toLowerCase()] || 'gray_background';
             const blocks = [{
               type: 'quote',
@@ -174,10 +176,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               }
             }];
             if (note) {
+              console.log(`Adding note as callout block for highlight ${index + 1}:`, note);
               blocks.push({
-                type: 'paragraph',
-                paragraph: {
-                  rich_text: [{ text: { content: note } }]
+                type: 'callout',
+                callout: {
+                  rich_text: [
+                    {
+                      text: { content: 'Note:' },
+                      annotations: { bold: true, color: 'red' }
+                    },
+                    { text: { content: ' ' } },
+                    {
+                      text: { content: note },
+                      annotations: { italic: true }
+                    }
+                  ],
+                  icon: {
+                    type: 'emoji',
+                    emoji: '🔖'
+                  }
                 }
               });
             }
@@ -207,12 +224,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
           }
           console.log('All append batches completed successfully');
-          sendResponse({ status: `Updated existing book with ${newBlocksToAppend.length} new highlights` });
+          sendResponse({ status: `Updated existing book with ${newHighlights.length} new highlights (including ${newHighlights.filter(h => h.note).length} with notes)` });
           return;
         }
 
         chrome.runtime.sendMessage({ action: 'progress', status: 'Exporting...' });
-        const allChildren = highlights.map(({ text, color, note }) => {
+        const allChildren = highlights.map(({ text, color, note }, index) => {
           const notionColor = colorMap[color.toLowerCase()] || 'gray_background';
           const blocks = [{
             type: 'quote',
@@ -222,10 +239,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
           }];
           if (note) {
+            console.log(`Adding note as callout block for highlight ${index + 1}:`, note);
             blocks.push({
-              type: 'paragraph',
-              paragraph: {
-                rich_text: [{ text: { content: note } }]
+              type: 'callout',
+              callout: {
+                rich_text: [
+                  {
+                    text: { content: 'Note:' },
+                    annotations: { bold: true, color: 'red' }
+                  },
+                  { text: { content: ' ' } },
+                  {
+                    text: { content: note },
+                    annotations: { italic: true }
+                  }
+                ],
+                icon: {
+                  type: 'emoji',
+                  emoji: '🔖'
+                }
               }
             });
           }

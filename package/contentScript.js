@@ -43,8 +43,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const noteSelectors = ['.kp-notebook-note', '.note-item', 'div[data-testid="note"]'];
       let noteElement = null;
       noteSelectors.some(selector => {
-        noteElement = nextSibling?.querySelector(selector);
-        return noteElement !== null;
+        if (nextSibling && nextSibling.matches(selector)) {
+          noteElement = nextSibling;
+          return true;
+        }
+        return false;
       });
       if (noteElement) {
         note = noteElement.querySelector('#note')?.textContent.trim() ||
