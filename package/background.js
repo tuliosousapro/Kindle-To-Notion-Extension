@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           return;
         }
 
-        sendResponse({ status: 'Processing started, checking duplicates...' });
+        chrome.runtime.sendMessage({ action: 'progress', status: 'Checking duplicates...' });
         console.log('Sent initial response, proceeding with duplicate check');
 
         let searchResponse;
@@ -67,6 +67,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (searchData.results.length > 0) {
           const existingPage = searchData.results[0];
           const pageId = existingPage.id;
+          chrome.runtime.sendMessage({ action: 'progress', status: 'Fetching existing highlights...' });
           let allBlocks = [];
           let startCursor = null;
 
@@ -137,6 +138,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             return;
           }
 
+          chrome.runtime.sendMessage({ action: 'progress', status: 'Exporting...' });
           for (let i = 0; i < newBlocksToAppend.length; i += 100) {
             const batch = newBlocksToAppend.slice(i, i + 100);
             console.log(`Sending append batch ${Math.floor(i/100) + 1} of ${Math.ceil(newBlocksToAppend.length/100)} with ${batch.length} blocks`);
@@ -164,6 +166,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           return;
         }
 
+        chrome.runtime.sendMessage({ action: 'progress', status: 'Exporting...' });
         const allChildren = highlights.map(({ text, color, note }) => {
           const notionColor = colorMap[color.toLowerCase()] || 'gray_background';
           const blocks = [{

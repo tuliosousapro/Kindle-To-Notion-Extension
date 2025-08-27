@@ -129,6 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  chrome.runtime.onMessage.addListener((msg) => {
+    if (msg.action === 'progress') {
+      spinnerText.textContent = msg.status;
+    }
+  });
+
   async function exportWithRetry(tabId, attempt = 1, maxAttempts = 4) {
     const baseDelay = 1000;
     spinnerText.textContent = `Exporting to Notion${attempt > 1 ? ` (Attempt ${attempt}/${maxAttempts})...` : '...'}`;
