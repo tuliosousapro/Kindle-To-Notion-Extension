@@ -5,12 +5,12 @@
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
-* [Publish your docs](getting-started/publish-your-docs.md)
+* [Installation](getting-started/publish-your-docs.md)
+* [Getting Started](getting-started/publish-your-docs-1.md)
+* [Usage](getting-started/usage.md)
 
-## Basics
+## HELP CENTER
 
-* [Editor](basics/editor.md)
-* [Markdown](basics/markdown.md)
-* [Images & media](basics/images-and-media.md)
-* [Interactive blocks](basics/interactive-blocks.md)
-* [Integrations](basics/integrations.md)
+* [Frequent Asked Questions](help-center/frequent-asked-questions.md)
+* [Issues](help-center/issues.md)
+* [Privacy Policy](help-center/privacy-policy.md)
