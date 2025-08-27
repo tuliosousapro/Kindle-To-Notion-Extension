@@ -5,8 +5,8 @@
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
-* [Installation](getting-started/publish-your-docs.md)
-* [Getting Started](getting-started/publish-your-docs-1.md)
+* [Installation](getting-started/installation.md)
+* [Getting Started](getting-started/getting-started.md)
 * [Usage](getting-started/usage.md)
 
 ## HELP CENTER
