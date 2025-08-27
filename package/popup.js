@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const slashedEyeIcon = toggleTokenIcon.querySelector('.eye-icon.hidden');
   const versionInfo = document.getElementById('versionInfo');
 
-  // Load saved settings
   chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty'], (result) => {
     tokenInput.value = result.token || '';
     databaseIdInput.value = result.databaseId || '';
@@ -30,14 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Set version info from manifest
   fetch(chrome.runtime.getURL('manifest.json'))
     .then((response) => response.json())
     .then((manifest) => {
       versionInfo.textContent = `v${manifest.version}`;
     });
 
-  // Toggle token visibility
   toggleTokenIcon.addEventListener('click', () => {
     if (tokenInput.type === 'password') {
       tokenInput.type = 'text';
@@ -52,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Navigate to highlights page
   navigateButton.addEventListener('click', () => {
     chrome.tabs.update({ url: 'https://read.amazon.com/notebook' }, () => {
       spinner.classList.remove('hidden');
@@ -65,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Save settings
   saveButton.addEventListener('click', () => {
     const token = tokenInput.value;
     let databaseId = databaseIdInput.value.trim();
@@ -134,15 +129,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Export to Notion with retry logic
   async function exportWithRetry(tabId, attempt = 1, maxAttempts = 4) {
-    const baseDelay = 1000; // 1 second base delay
+    const baseDelay = 1000;
     spinnerText.textContent = `Exporting to Notion${attempt > 1 ? ` (Attempt ${attempt}/${maxAttempts})...` : '...'}`;
+    spinner.classList.remove('hidden');
+    spinnerIcon.classList.remove('hidden');
+
     return new Promise((resolve) => {
       chrome.tabs.sendMessage(tabId, { action: 'export' }, (response) => {
         if (chrome.runtime.lastError || !response || !response.status) {
           if (attempt < maxAttempts) {
-            const delay = baseDelay * Math.pow(2, attempt - 1); // Exponential backoff: 1s, 2s, 4s, 8s
+            const delay = baseDelay * Math.pow(2, attempt - 1);
             setTimeout(() => exportWithRetry(tabId, attempt + 1, maxAttempts).then(resolve), delay);
           } else {
             spinnerIcon.classList.add('hidden');
@@ -150,29 +147,31 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
               spinner.classList.add('hidden');
               spinnerText.textContent = '';
-            }, 2000);
+            }, 5000);
             resolve();
           }
         } else {
           spinnerIcon.classList.add('hidden');
           spinnerText.textContent = response.status;
+          console.log('Popup received final response:', response.status);
           setTimeout(() => {
             spinner.classList.add('hidden');
             spinnerText.textContent = '';
-          }, 2000);
+          }, 5000);
           resolve();
         }
       });
     });
   }
 
-  // Export to Notion
   exportButton.addEventListener('click', () => {
     spinner.classList.remove('hidden');
     spinnerIcon.classList.remove('hidden');
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0].url.startsWith('https://ler.amazon.com.br/notebook') || tabs[0].url.startsWith('https://read.amazon.com/notebook')) {
-        exportWithRetry(tabs[0].id);
+        exportWithRetry(tabs[0].id).then(() => {
+          console.log('Export process completed');
+        });
       } else {
         spinner.classList.remove('hidden');
         spinnerIcon.classList.add('hidden');

@@ -10,18 +10,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const author = document.querySelector('p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata')?.textContent.trim() ||
                   document.querySelector('.kp-notebook-author')?.textContent.trim() ||
                   'Unknown Author';
-    const coverUrl = document.querySelector('img.kp-notebook-cover-image-border')?.src ||
-                    document.querySelector('.kp-notebook-cover img')?.src ||
-                    '';
-    const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim() ||
-                          document.querySelector('.highlight-count')?.textContent.trim() ||
-                          '0';
-    const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim() ||
-                     document.querySelector('.note-count')?.textContent.trim() ||
-                     '0';
+    const coverUrlElements = document.querySelectorAll('img.kp-notebook-cover-image-border, .kp-notebook-cover img');
+    const coverUrl = Array.from(coverUrlElements)
+      .filter(img => img.src && img.src.includes('images/I/') && !img.src.includes('default'))
+      .map(img => img.src)[0] || '';
+    console.log('Extracted coverUrl elements:', coverUrlElements.length, 'Found coverUrl:', coverUrl); // Debug log
+    const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
+    const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
 
     const highlights = [];
-    // Multiple selector strategies for highlight elements
     const highlightSelectors = [
       '.kp-notebook-highlight',
       '.highlight-item',
@@ -34,9 +31,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
 
     highlightElements.forEach(highlight => {
-      const text = highlight.querySelector('#highlight')?.textContent.trim() ||
-                  highlight.querySelector('.highlight-text')?.textContent.trim() ||
-                  '';
+      const textElement = highlight.querySelector('#highlight') || highlight.querySelector('.highlight-text');
+      const text = textElement?.textContent.trim() || '';
+      if (!text) return; // Skip if no text is found
       const colorClass = Array.from(highlight.classList).find(cls => cls.startsWith('kp-notebook-highlight-')) ||
                         Array.from(highlight.classList).find(cls => cls.includes('highlight-color-'));
       const color = colorClass ? colorClass.split('-').pop() : 'default';
@@ -57,14 +54,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
 
     const data = { title, author, coverUrl, highlights, highlightCount, noteCount };
+    console.log('Sending data to background:', data);
     chrome.runtime.sendMessage({ action: 'sendToNotion', data }, (response) => {
       if (chrome.runtime.lastError) {
         console.error('Error sending to background:', chrome.runtime.lastError);
         sendResponse({ status: 'Error: Failed to send data to background' });
       } else {
+        console.log('Response from background:', response);
         sendResponse(response);
       }
     });
-    return true; // Keep the channel open for async response
+    return true;
   }
 });
