@@ -2,7 +2,7 @@
   <img src="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/blob/main/docs/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg?raw=true" alt="Kindle To Notion Extension Banner" width="100%" />
 </p>
 
-<h1 align="center">Kindle To Notion Extension v1.3.0</h1>
+<h1 align="center">Kindle To Notion Extension v1.4.5</h1>
 <p align="center"><em>Easily export your Kindle highlights into Notion databases</em></p>
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue">  <img src="https://img.shields.io/badge/Notion-API-blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=social">
@@ -22,26 +22,29 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 
 ## 🧙‍♂️Features
 #### 📖 Kindle Integration
-- Extracts highlights and notes directly from the Kindle notebook page (`read.amazon.com/notebook` or `ler.amazon.com.br/notebook`)
-- Supports highlight colors and associated notes
-- Retrieves book title, author, and cover image
+- Extracts highlights and notes directly from the Kindle notebook page (`read.amazon.com/notebook` or `ler.amazon.com.br/notebook`).
+- Supports highlights with color coding (blue, yellow, orange, pink, etc.) and associated notes.
+- Extracts book title, author, highlight count, note count, and high-resolution cover images from Kindle notebook pages.
 
 #### 🧠 Notion Export
-- Exports highlights as quote blocks with optional notes
-- Adds a summary count at the top of the Notion page (e.g., `265 Destaque(s) | 10 Nota(s)`)
-- Supports custom property names for book title and author
-- Smart batching to respect Notion’s 100-block API limit
+- Exports highlights as Notion quote blocks with color mapping.
+- Adds a summary count at the top of the Notion page (e.g., `265 Destaque(s) | 10 Nota(s)`).
+- Supports custom property names for book title and author.
+- Prevents duplicate highlights by checking existing Notion database entries.
+- Smart batching to respect Notion’s 100-block API limit.
 
 #### 🛡️ Security & Privacy
-- Notion API Token is masked with a blink-eye icon for visibility toggle
-- Securely stores token using `chrome.storage.local`
-- No data collection, ads, or tracking
+- Notion API Token is masked with a blink-eye icon for visibility toggle.
+- Securely stores token using `chrome.storage.local`.
+- No data collection, ads, or tracking.
 
 #### 🧰 UI & UX Enhancements
-- Simple pop-up UI for configuration and export actions
-- Dual-ring spinner for export feedback
-- Centered text for notifications and error messages
-- Tooltips for Notion API Token and Database ID fields
+- Simple pop-up UI for configuration and export actions.
+- "Go to Highlights" button to easily navigate to Kindle notebook.
+- Dual-ring spinner for export feedback.
+- Centered text for notifications and error messages.
+- Tooltips for Notion API Token and Database ID fields.
+- Supports dark/light mode via matchMedia and WCAG 2.1-compliant UI.
 
 ## 🛠️Installation
 1. Clone or download this repository.
