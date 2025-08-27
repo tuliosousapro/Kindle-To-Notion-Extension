@@ -5,14 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const authorPropertyInput = document.getElementById('authorProperty');
   const saveButton = document.getElementById('save');
   const exportButton = document.getElementById('export');
+  const navigateButton = document.getElementById('navigateHighlights');
   const toggleTokenIcon = document.getElementById('toggleToken');
   const spinner = document.getElementById('spinner');
   const spinnerText = document.querySelector('.spinner-text');
   const spinnerIcon = document.querySelector('.spinner');
   const eyeIcon = toggleTokenIcon.querySelector('.eye-icon:not(.hidden)');
   const slashedEyeIcon = toggleTokenIcon.querySelector('.eye-icon.hidden');
+  const versionInfo = document.getElementById('versionInfo');
 
-  // Load saved settings
   chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty'], (result) => {
     tokenInput.value = result.token || '';
     databaseIdInput.value = result.databaseId || '';
@@ -28,7 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Toggle token visibility
+  fetch(chrome.runtime.getURL('manifest.json'))
+    .then((response) => response.json())
+    .then((manifest) => {
+      versionInfo.textContent = `v${manifest.version}`;
+    });
+
   toggleTokenIcon.addEventListener('click', () => {
     if (tokenInput.type === 'password') {
       tokenInput.type = 'text';
@@ -43,36 +49,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Save settings
+  navigateButton.addEventListener('click', () => {
+    chrome.tabs.update({ url: 'https://read.amazon.com/notebook' }, () => {
+      spinner.classList.remove('hidden');
+      spinnerIcon.classList.add('hidden');
+      spinnerText.textContent = 'Navigating to Kindle highlights...';
+      setTimeout(() => {
+        spinner.classList.add('hidden');
+        spinnerText.textContent = '';
+      }, 2000);
+    });
+  });
+
   saveButton.addEventListener('click', () => {
     const token = tokenInput.value;
-    const databaseId = databaseIdInput.value;
+    let databaseId = databaseIdInput.value.trim();
     const titleProperty = titlePropertyInput.value;
     const authorProperty = authorPropertyInput.value;
+
+    const urlPattern = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
+    if (databaseId.startsWith('https://www.notion.so/')) {
+      const match = databaseId.match(urlPattern);
+      if (match) {
+        databaseId = match[1].replace(/-/g, '');
+        databaseIdInput.value = databaseId;
+        spinner.classList.remove('hidden');
+        spinnerIcon.classList.add('hidden');
+        spinnerText.textContent = 'Valid Database ID extracted!';
+        setTimeout(() => {
+          spinner.classList.add('hidden');
+          spinnerText.textContent = '';
+        }, 2000);
+      } else {
+        spinner.classList.remove('hidden');
+        spinnerIcon.classList.add('hidden');
+        spinnerText.textContent = 'Oops! Please enter a valid Notion URL or Database ID.';
+        setTimeout(() => {
+          spinner.classList.add('hidden');
+          spinnerText.textContent = '';
+        }, 2000);
+        return;
+      }
+    }
+
     if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
-      spinnerText.textContent = 'Error: Invalid Database ID format';
+      spinnerText.textContent = 'Oops! Please enter a valid 32-character Database ID.';
       setTimeout(() => {
         spinner.classList.add('hidden');
         spinnerText.textContent = '';
       }, 2000);
       return;
     }
+
     if (!titleProperty || !authorProperty) {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
-      spinnerText.textContent = 'Error: Title and Author property names are required';
+      spinnerText.textContent = 'Oops! Please fill in both Title and Author property names.';
       setTimeout(() => {
         spinner.classList.add('hidden');
         spinnerText.textContent = '';
       }, 2000);
       return;
     }
+
     chrome.storage.local.set({ token, databaseId, titleProperty, authorProperty }, () => {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
-      spinnerText.textContent = 'Settings saved!';
+      spinnerText.textContent = 'Settings saved successfully!';
       tokenInput.type = 'password';
       eyeIcon.classList.add('hidden');
       slashedEyeIcon.classList.remove('hidden');
@@ -84,32 +129,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Export to Notion
-  exportButton.addEventListener('click', () => {
+  chrome.runtime.onMessage.addListener((msg) => {
+    if (msg.action === 'progress') {
+      spinnerText.textContent = msg.status;
+    }
+  });
+
+  async function exportWithRetry(tabId, attempt = 1, maxAttempts = 4) {
+    const baseDelay = 1000;
+    spinnerText.textContent = `Exporting to Notion${attempt > 1 ? ` (Attempt ${attempt}/${maxAttempts})...` : '...'}`;
     spinner.classList.remove('hidden');
     spinnerIcon.classList.remove('hidden');
-    spinnerText.textContent = 'Exporting...';
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0].url.startsWith('https://ler.amazon.com.br/notebook') || tabs[0].url.startsWith('https://read.amazon.com/notebook')) {
-        chrome.tabs.sendMessage(tabs[0].id, { action: 'export' }, (response) => {
-          spinner.classList.remove('hidden');
-          spinnerIcon.classList.add('hidden');
-          if (chrome.runtime.lastError) {
-            spinnerText.textContent = 'Error: Could not connect to content script';
-          } else if (response && response.status) {
-            spinnerText.textContent = response.status;
+
+    return new Promise((resolve) => {
+      chrome.tabs.sendMessage(tabId, { action: 'export' }, (response) => {
+        if (chrome.runtime.lastError || !response || !response.status) {
+          if (attempt < maxAttempts) {
+            const delay = baseDelay * Math.pow(2, attempt - 1);
+            setTimeout(() => exportWithRetry(tabId, attempt + 1, maxAttempts).then(resolve), delay);
           } else {
-            spinnerText.textContent = 'Error: Invalid response from content script';
+            spinnerIcon.classList.add('hidden');
+            spinnerText.textContent = 'Oops! Export failed after 4 attempts. Please check your internet or Notion settings.';
+            setTimeout(() => {
+              spinner.classList.add('hidden');
+              spinnerText.textContent = '';
+            }, 5000);
+            resolve();
           }
+        } else {
+          spinnerIcon.classList.add('hidden');
+          spinnerText.textContent = response.status;
+          console.log('Popup received final response:', response.status);
           setTimeout(() => {
             spinner.classList.add('hidden');
             spinnerText.textContent = '';
-          }, 2000);
+          }, 5000);
+          resolve();
+        }
+      });
+    });
+  }
+
+  exportButton.addEventListener('click', () => {
+    spinner.classList.remove('hidden');
+    spinnerIcon.classList.remove('hidden');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0].url.startsWith('https://ler.amazon.com.br/notebook') || tabs[0].url.startsWith('https://read.amazon.com/notebook')) {
+        exportWithRetry(tabs[0].id).then(() => {
+          console.log('Export process completed');
         });
       } else {
         spinner.classList.remove('hidden');
         spinnerIcon.classList.add('hidden');
-        spinnerText.textContent = 'Error: Not on a Kindle notes page';
+        spinnerText.textContent = 'Oops! Please navigate to the Kindle highlights page first.';
         setTimeout(() => {
           spinner.classList.add('hidden');
           spinnerText.textContent = '';

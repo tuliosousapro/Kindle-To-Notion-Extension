@@ -4,8 +4,23 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.version-info {
+  font-size: 10px;
+  color: #666;
+  opacity: 0.5;
+  text-align: right;
+}
+
 h3 {
-  margin-top: 0;
+  margin: 0;
+  font-size: 16px;
 }
 
 label {
@@ -32,10 +47,10 @@ label[title]:hover:after {
 
 input {
   width: 100%;
-  padding: 5px 30px 5px 5px; /* Right padding for icon */
+  padding: 5px 30px 5px 5px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  line-height: 20px; /* Standardize input height for consistent icon alignment */
+  line-height: 20px;
 }
 
 button {
@@ -93,9 +108,9 @@ button:hover {
 
 .toggle-icon {
   position: absolute;
-  right: 8px; /* Slightly increased for better spacing */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Align to middle of input */
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 20px;
   height: 20px;
   cursor: pointer;
