@@ -10,11 +10,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const author = document.querySelector('p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata')?.textContent.trim() ||
                   document.querySelector('.kp-notebook-author')?.textContent.trim() ||
                   'Unknown Author';
-    const coverUrlElements = document.querySelectorAll('img.kp-notebook-cover-image-border, .kp-notebook-cover img');
-    const coverUrl = Array.from(coverUrlElements)
-      .filter(img => img.src && img.src.includes('images/I/') && !img.src.includes('default'))
-      .map(img => img.src)[0] || '';
-    console.log('Extracted coverUrl elements:', coverUrlElements.length, 'Found coverUrl:', coverUrl); // Debug log
+    
+    // Extract Amazon store link for the current book
+    const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon.com"]');
+    const amazonLink = amazonLinkElement?.href || '';
+    console.log('Extracted Amazon link:', amazonLink);
+    
     const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
     const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
 
@@ -53,7 +54,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       highlights.push({ text, color, note });
     });
 
-    const data = { title, author, coverUrl, highlights, highlightCount, noteCount };
+    const data = { title, author, amazonLink, highlights, highlightCount, noteCount };
     console.log('Sending data to background:', data);
     chrome.runtime.sendMessage({ action: 'sendToNotion', data }, (response) => {
       if (chrome.runtime.lastError) {

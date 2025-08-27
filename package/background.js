@@ -8,6 +8,46 @@ const colorMap = {
   'orange': 'orange_background'
 };
 
+async function fetchHighResCover(amazonLink) {
+  try {
+    if (!amazonLink || !amazonLink.includes('amazon.com') || !amazonLink.includes('/dp/')) {
+      console.warn('Invalid Amazon link:', amazonLink);
+      return '';
+    }
+
+    const response = await fetch(amazonLink, { method: 'GET', credentials: 'omit' });
+    if (!response.ok) {
+      console.warn('Failed to fetch Amazon page:', response.status, response.statusText);
+      return '';
+    }
+
+    const text = await response.text();
+
+    // Regex patterns based on examples
+    const patterns = [
+      /data-old-hires="([^"]*_SL1500_\.jpg)"/,
+      /"hiRes":"([^"]*_SL1500_\.jpg)"/,
+      /src="([^"]*_SL1500_\.jpg)"/,
+      /"large":"([^"]*_SL1500_\.jpg)"/  // Additional pattern if needed
+    ];
+
+    for (const pattern of patterns) {
+      const match = text.match(pattern);
+      if (match && match[1]) {
+        const coverUrl = match[1];
+        console.log('Fetched high-res cover:', coverUrl);
+        return coverUrl;
+      }
+    }
+
+    console.warn('High-res cover image not found for:', amazonLink);
+    return '';
+  } catch (error) {
+    console.error('Error fetching high-res cover for:', amazonLink, error);
+    return '';
+  }
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('Background received message:', message);
   if (message.action === 'sendToNotion') {
@@ -26,13 +66,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           return;
         }
 
-        const { title, author, coverUrl, highlights, highlightCount, noteCount } = message.data;
-        console.log('Extracted data:', { title, highlightCount, noteCount, highlightsLength: highlights?.length, coverUrl });
+        let { title, author, amazonLink, highlights, highlightCount, noteCount } = message.data;
+        console.log('Extracted data:', { title, highlightCount, noteCount, highlightsLength: highlights?.length, amazonLink });
 
         if (!highlights || highlights.length === 0) {
           console.warn('No highlights data received');
           sendResponse({ status: 'Error: No highlights data to process' });
           return;
+        }
+
+        // Fetch high-res cover if amazonLink is provided
+        let coverUrl = '';
+        if (amazonLink) {
+          chrome.runtime.sendMessage({ action: 'progress', status: 'Fetching book cover...' });
+          coverUrl = await fetchHighResCover(amazonLink);
         }
 
         chrome.runtime.sendMessage({ action: 'progress', status: 'Checking duplicates...' });
@@ -109,11 +156,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
           console.log('Total existing highlights count:', existingHighlights.length);
 
-          const newHighlights = highlights.map(h => ({ text: h.text.trim(), note: h.note?.trim() || '' }));
+          const newHighlights = highlights.filter(h => !existingHighlights.some(eh => eh.text === h.text.trim() && eh.note === (h.note?.trim() || '')));
+          if (newHighlights.length === 0) {
+            console.log('No new highlights to add');
+            sendResponse({ status: 'Info: No new highlights to add' });
+            return;
+          }
 
-          const existingSet = new Set(existingHighlights.map(h => JSON.stringify({ text: h.text, note: h.note })));
-          const newBlocksToAppend = newHighlights.filter(h => !existingSet.has(JSON.stringify({ text: h.text, note: h.note }))).map(({ text, note }) => {
-            const color = highlights.find(h => h.text.trim() === text)?.color || 'default';
+          chrome.runtime.sendMessage({ action: 'progress', status: `Appending ${newHighlights.length} new highlights...` });
+          const newBlocksToAppend = newHighlights.map(({ text, color, note }) => {
             const notionColor = colorMap[color.toLowerCase()] || 'gray_background';
             const blocks = [{
               type: 'quote',
@@ -133,15 +184,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             return blocks;
           }).flat();
 
-          if (newBlocksToAppend.length === 0) {
-            sendResponse({ status: 'Info: No new highlights to add' });
-            return;
-          }
-
-          chrome.runtime.sendMessage({ action: 'progress', status: 'Exporting...' });
           for (let i = 0; i < newBlocksToAppend.length; i += 100) {
             const batch = newBlocksToAppend.slice(i, i + 100);
-            console.log(`Sending append batch ${Math.floor(i/100) + 1} of ${Math.ceil(newBlocksToAppend.length/100)} with ${batch.length} blocks`);
+            console.log(`Appending batch ${Math.floor(i/100) + 1} of ${Math.ceil(newBlocksToAppend.length/100)} with ${batch.length} blocks`);
             let appendResponse;
             try {
               appendResponse = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
