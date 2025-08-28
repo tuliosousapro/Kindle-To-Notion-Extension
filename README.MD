@@ -78,7 +78,7 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 
 ## 🚀Usage
 1. Open the extension popup and click **"Go to Highlights"**
-  > Alternatively, navigate to [ler.amazon.com.br/notebook](https://ler.amazon.com.br/notebook) or [read.amazon.com/notebook](https://read.amazon.com/notebook) in your browser.
+- > Alternatively, navigate to [ler.amazon.com.br/notebook](https://ler.amazon.com.br/notebook) or [read.amazon.com/notebook](https://read.amazon.com/notebook) in your browser.
 2. Once in the highlights page, open the extension popup and click **"Export to Notion."**
 3. Check the status message in the pop-up for success or errors.
 4. Verify the new page in your Notion database.
