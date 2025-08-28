@@ -53,7 +53,7 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 4. Click "Load unpacked" and select the folder containing the extension files.
 5. Voilà — The extension will appear in your Chrome toolbar.
 
-> 💡 Prefer a one-click install? [Get it from the Chrome Web Store](https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR)
+> 💡 Prefer a one-click install? [**Get it from the Chrome Web Store**](https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR)
 
 ## ⚙️Setup
 1. **Create a Notion integration:**
