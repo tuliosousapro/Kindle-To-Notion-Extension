@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Kindle to Notion – Highlight Sync Made Simple",
+  "version": "1.4.9",
+  "description": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": [
+    "https://ler.amazon.com.br/notebook*",
+    "https://read.amazon.com/notebook*",
+    "https://api.notion.com/*",
+    "https://www.amazon.com/*",
+    "https://www.amazon.com.br/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ler.amazon.com.br/notebook*",
+        "https://read.amazon.com/notebook*"
+      ],
+      "js": ["contentScript.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "96": "icons/icon96.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "96": "icons/icon96.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["popup.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
