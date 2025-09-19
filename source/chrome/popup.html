@@ -7,13 +7,6 @@
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <div class="tab-container">
-    <div class="tab-header">
-      <button class="tab-btn active" id="tab-action-btn" tabindex="0" aria-selected="true">Sync</button>
-      <button class="tab-btn" id="tab-options-btn" tabindex="0" aria-selected="false">Options</button>
-    </div>
-    <div class="tab-content" id="tab-action">
-      <div class="card">
         <div class="header">
           <img src="icons/icon48.png" alt="Kindle to Notion Logo" class="logo" />
           <div>
@@ -21,6 +14,13 @@
             <div id="versionInfo" class="version-info"></div>
           </div>
         </div>
+  <div class="tab-container">
+    <div class="tab-header">
+      <button class="tab-btn active" id="tab-action-btn" tabindex="0" aria-selected="true">Highlights</button>
+      <button class="tab-btn" id="tab-options-btn" tabindex="0" aria-selected="false">Settings</button>
+    </div>
+    <div class="tab-content" id="tab-action">
+      <div class="card">
         <div class="status-row">
           <span id="amazonStatus" class="status-badge">Amazon: <span class="status-dot disconnected"></span></span>
           <span id="notionStatus" class="status-badge">Notion: <span class="status-dot disconnected"></span></span>
