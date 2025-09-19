@@ -1,4 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Tab logic
+  const tabActionBtn = document.getElementById('tab-action-btn');
+  const tabOptionsBtn = document.getElementById('tab-options-btn');
+  const tabAction = document.getElementById('tab-action');
+  const tabOptions = document.getElementById('tab-options');
+
+  tabActionBtn.addEventListener('click', () => {
+    tabActionBtn.classList.add('active');
+    tabOptionsBtn.classList.remove('active');
+    tabAction.classList.remove('hidden');
+    tabOptions.classList.add('hidden');
+  });
+
+  tabOptionsBtn.addEventListener('click', () => {
+    tabOptionsBtn.classList.add('active');
+    tabActionBtn.classList.remove('active');
+    tabOptions.classList.remove('hidden');
+    tabAction.classList.add('hidden');
+  });
+
+  // Accessibility: allow tab switching with keyboard
+  [tabActionBtn, tabOptionsBtn].forEach((btn, idx) => {
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const next = idx === 0 ? tabOptionsBtn : tabActionBtn;
+        next.focus();
+      }
+      if (e.key === 'Enter' || e.key === ' ') {
+        btn.click();
+      }
+    });
+  });
+
   const tokenInput = document.getElementById('token');
   const databaseIdInput = document.getElementById('databaseId');
   const titlePropertyInput = document.getElementById('titleProperty');
@@ -170,13 +204,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Status badge logic (simulate for now)
+  function updateStatus() {
+    // Simulate: check if user is logged in to Amazon/Notion
+    // Replace with real logic if available
+    document.getElementById('amazonStatus').querySelector('.status-dot').classList.add('connected');
+    document.getElementById('notionStatus').querySelector('.status-dot').classList.add('connected');
+  }
+  updateStatus();
+
+  // Toast feedback
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  // Show spinner and feedback during export
   exportButton.addEventListener('click', () => {
     spinner.classList.remove('hidden');
     spinnerIcon.classList.remove('hidden');
+    showToast('Export started...');
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0].url.startsWith('https://ler.amazon.com.br/notebook') || tabs[0].url.startsWith('https://read.amazon.com/notebook')) {
         exportWithRetry(tabs[0].id).then(() => {
           console.log('Export process completed');
+          showToast('Export complete!');
+        }).catch(() => {
+          showToast('Notion authentication required.');
         });
       } else {
         spinner.classList.remove('hidden');
