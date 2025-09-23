@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kindle to Notion Setup Guide</title>
+  <link rel="stylesheet" href="onboarding.css">
+</head>
+<body>
+  <!-- Onboarding Container -->
+  <div id="onboarding-container" class="onboarding-container">
+    <!-- Progress Bar -->
+    <div class="onboarding-progress">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="step-indicators">
+        <div class="step-dot active" data-step="1"></div>
+        <div class="step-dot" data-step="2"></div>
+        <div class="step-dot" data-step="3"></div>
+        <div class="step-dot" data-step="4"></div>
+        <div class="step-dot" data-step="5"></div>
+      </div>
+    </div>
+
+    <!-- Step 1: Welcome -->
+    <div class="onboarding-step active" id="step-1">
+      <div class="step-content">
+        <div class="step-icon">
+          <img src="icons/icon96.png" alt="Kindle to Notion" class="welcome-icon">
+        </div>
+        <h1>Welcome to Kindle to Notion!</h1>
+        <p class="step-description">
+          Sync your Kindle highlights and notes to Notion with just one click. 
+          Let's get you set up in a few simple steps.
+        </p>
+        <div class="feature-highlights">
+          <div class="feature-item">
+            <span class="feature-icon">📚</span>
+            <span>Export all your Kindle highlights</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <span>One-click sync to Notion</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🎯</span>
+            <span>Organize by book and author</span>
+          </div>
+        </div>
+        <button class="btn-primary" id="start-setup">Get Started</button>
+        <button class="btn-secondary" id="skip-guide">Skip Setup</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Notion Integration -->
+    <div class="onboarding-step" id="step-2">
+      <div class="step-content">
+        <div class="step-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14,2 14,8 20,8"></polyline>
+          </svg>
+        </div>
+        <h2>Connect to Notion</h2>
+        <p class="step-description">
+          First, we need to connect your Notion account. You'll need a Notion API token and database ID.
+        </p>
+        <div class="setup-instructions">
+          <div class="instruction-step">
+            <span class="step-number">1</span>
+            <div class="instruction-content">
+              <strong>Go to Notion Integrations</strong>
+              <p>Visit <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a> and create a new integration</p>
+            </div>
+          </div>
+          <div class="instruction-step">
+            <span class="step-number">2</span>
+            <div class="instruction-content">
+              <strong>Copy your API Token</strong>
+              <p>Copy the "Internal Integration Token" from your new integration</p>
+            </div>
+          </div>
+          <div class="instruction-step">
+            <span class="step-number">3</span>
+            <div class="instruction-content">
+              <strong>Create a Database</strong>
+              <p>Create a new database in Notion and copy its URL or ID</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" id="continue-to-settings">Continue to Settings</button>
+        <button class="btn-secondary" id="back-to-welcome">Back</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Settings Configuration -->
+    <div class="onboarding-step" id="step-3">
+      <div class="step-content">
+        <div class="step-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </div>
+        <h2>Configure Your Settings</h2>
+        <p class="step-description">
+          Now let's set up your Notion integration. Fill in the details below.
+        </p>
+        <div class="settings-preview">
+          <label>
+            Notion API Token:
+            <input type="password" id="onboarding-token" placeholder="Enter your Notion API token">
+          </label>
+          <label>
+            Database ID:
+            <input type="text" id="onboarding-database-id" placeholder="Enter your database ID or URL">
+          </label>
+          <label>
+            Title Property:
+            <input type="text" id="onboarding-title-prop" value="Título do Livro">
+          </label>
+          <label>
+            Author Property:
+            <input type="text" id="onboarding-author-prop" value="Autor">
+          </label>
+        </div>
+        <div class="onboarding-notice">
+          <p>💡 <strong>Tip:</strong> You can change these settings later in the Settings tab</p>
+        </div>
+        <button class="btn-primary" id="test-connection">Test Connection</button>
+        <button class="btn-secondary" id="back-to-notion">Back</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Kindle Access -->
+    <div class="onboarding-step" id="step-4">
+      <div class="step-content">
+        <div class="step-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
+        <h2>Access Your Kindle Highlights</h2>
+        <p class="step-description">
+          Now you need to navigate to your Kindle highlights page to start syncing.
+        </p>
+        <div class="kindle-instructions">
+          <div class="instruction-step">
+            <span class="step-number">1</span>
+            <div class="instruction-content">
+              <strong>Go to Kindle Highlights</strong>
+              <p>Navigate to <strong>read.amazon.com/notebook</strong> or <strong>ler.amazon.com.br/notebook</strong></p>
+            </div>
+          </div>
+          <div class="instruction-step">
+            <span class="step-number">2</span>
+            <div class="instruction-content">
+              <strong>Make sure you're logged in</strong>
+              <p>Ensure you're signed into your Amazon account</p>
+            </div>
+          </div>
+          <div class="instruction-step">
+            <span class="step-number">3</span>
+            <div class="instruction-content">
+              <strong>Click the extension icon</strong>
+              <p>Return here and click "Export to Notion" to sync your highlights</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" id="go-to-highlights">Go to Highlights Page</button>
+        <button class="btn-secondary" id="back-to-settings">Back</button>
+      </div>
+    </div>
+
+    <!-- Step 5: First Sync -->
+    <div class="onboarding-step" id="step-5">
+      <div class="step-content">
+        <div class="step-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22,4 12,14.01 9,11.01"></polyline>
+          </svg>
+        </div>
+        <h2>Ready to Sync!</h2>
+        <p class="step-description">
+          Everything is set up! You're now ready to export your Kindle highlights to Notion.
+        </p>
+        <div class="sync-preview">
+          <div class="sync-item">
+            <span class="sync-icon">📖</span>
+            <span>Extract highlights from your Kindle books</span>
+          </div>
+          <div class="sync-item">
+            <span class="sync-icon">📝</span>
+            <span>Format them as Notion blocks</span>
+          </div>
+          <div class="sync-item">
+            <span class="sync-icon">☁️</span>
+            <span>Save to your Notion database</span>
+          </div>
+        </div>
+        <div class="onboarding-notice success">
+          <p>🎉 <strong>You're all set!</strong> Your first sync will happen automatically when you click "Export to Notion"</p>
+        </div>
+        <button class="btn-primary" id="finish-setup">Start Using the Extension</button>
+        <button class="btn-secondary" id="back-to-kindle">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay for highlighting elements -->
+  <div id="highlight-overlay" class="highlight-overlay hidden"></div>
+  
+  <!-- Tooltip for guided tour -->
+  <div id="guide-tooltip" class="guide-tooltip hidden">
+    <div class="tooltip-content">
+      <div class="tooltip-arrow"></div>
+      <h4 id="tooltip-title"></h4>
+      <p id="tooltip-description"></p>
+      <button class="btn-primary" id="tooltip-next">Next</button>
+      <button class="btn-secondary" id="tooltip-skip">Skip Tour</button>
+    </div>
+  </div>
+
+  <script src="onboarding.js"></script>
+</body>
+</html>

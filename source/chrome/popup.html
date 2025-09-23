@@ -5,46 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kindle to Notion Extension</title>
   <link rel="stylesheet" href="popup.css">
+  <script src="onboarding-check.js"></script>
 </head>
 <body>
-  <div class="header">
-    <h3>Kindle to Notion Extension</h3>
-    <div id="versionInfo" class="version-info"></div>
-  </div>
-  <label title="Generate a Notion integration token at https://www.notion.so/my-integrations">
-    Notion API Token:
-    <div class="input-group">
-      <input type="text" id="token" placeholder="Enter Notion API Token">
-      <div id="toggleToken" class="toggle-icon">
-        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        <svg class="eye-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-          <line x1="1" y1="1" x2="23" y2="23"></line>
-        </svg>
+        <div class="header">
+          <img src="icons/icon48.png" alt="Kindle to Notion Logo" class="logo" />
+          <div>
+            <h3>Kindle to Notion</h3>
+            <div id="versionInfo" class="version-info"></div>
+          </div>
+        </div>
+  <div class="tab-container">
+    <div class="tab-header">
+      <button class="tab-btn active" id="tab-action-btn" tabindex="0" aria-selected="true">Highlights</button>
+      <button class="tab-btn" id="tab-options-btn" tabindex="0" aria-selected="false">Settings</button>
+    </div>
+    <div class="tab-content" id="tab-action">
+      <div class="card">
+        <div class="status-row">
+          <span id="amazonStatus" class="status-badge">Amazon: <span class="status-dot disconnected"></span></span>
+          <span id="notionStatus" class="status-badge">Notion: <span class="status-dot disconnected"></span></span>
+        </div>
+        <button id="export" class="main-action" aria-label="Export highlights to Notion">Export to Notion</button>
+        <button id="navigateHighlights" class="secondary-action" aria-label="Go to Kindle highlights">Go to Highlights</button>
+        <div id="spinner" class="spinner-container hidden" aria-live="polite">
+          <div class="spinner"></div>
+          <span class="spinner-text"></span>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
       </div>
     </div>
-  </label>
-  <label title="Copy the Database ID from the URL of your Notion database (e.g., xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)">
-    Notion Database ID:
-    <input type="text" id="databaseId" placeholder="Enter Notion Database ID">
-  </label>
-  <label>
-    Title Property Name:
-    <input type="text" id="titleProperty" placeholder="Título do Livro">
-  </label>
-  <label>
-    Author Property Name:
-    <input type="text" id="authorProperty" placeholder="Autor">
-  </label>
-  <button id="save">Save Settings</button>
-  <button id="export">Export to Notion</button>
-  <button id="navigateHighlights">Go to Highlights</button>
-  <div id="spinner" class="spinner-container hidden">
-    <div class="spinner"></div>
-    <span class="spinner-text"></span>
+    <div class="tab-content hidden" id="tab-options">
+      <div class="card">
+        <!-- Settings form as before -->
+        <label title="Generate a Notion integration token at https://www.notion.so/my-integrations">
+          Notion API Token:
+          <div class="input-group">
+            <input type="text" id="token" placeholder="Enter Notion API Token" autocomplete="off">
+            <div id="toggleToken" class="toggle-icon" tabindex="0" aria-label="Show/hide token">
+              <!-- Eye icons as before -->
+              <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <svg class="eye-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+              </svg>
+            </div>
+          </div>
+        </label>
+        <label title="Copy the Database ID from the URL of your Notion database (e.g., xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)">
+          Notion Database ID:
+          <input type="text" id="databaseId" placeholder="Enter Notion Database ID" autocomplete="off">
+        </label>
+        <label>
+          Title Property Name:
+          <input type="text" id="titleProperty" placeholder="Título do Livro" autocomplete="off">
+        </label>
+        <label>
+          Author Property Name:
+          <input type="text" id="authorProperty" placeholder="Autor" autocomplete="off">
+        </label>
+        <button id="save" class="main-action">Save Settings</button>
+      </div>
+    </div>
   </div>
   <script src="popup.js"></script>
 </body>
