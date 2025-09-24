@@ -1,7 +1,7 @@
 ---
 description: Easily export your Kindle highlights into Notion databases
 icon: hand-wave
-cover: ../docs/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg
+cover: ../assets/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg
 coverY: -36.1474435196195
 layout:
   width: wide
