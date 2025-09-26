@@ -60,6 +60,9 @@ This template helps you:
 
 ![Preview of Notion Template](https://www.notion.com/_next/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fpublic.notion-static.com%2Ftemplate%2F42e933e3-954d-4a10-bc4d-c0039f52839d%2F1756346706460%2Fdesktop.jpg&w=3840&q=75)
 
+Kindle To Notion - Highlights Exporter - Watch Video
+
+
 
 ## ⚙️Setup
 1. **Create a Notion integration:**
