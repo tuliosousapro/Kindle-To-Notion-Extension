@@ -47,6 +47,20 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
   </a>
 </p>
 
+## 🧠 Recommended Notion Template
+
+To make the most of your Kindle highlights, use this free Notion template built by Machina Labs:
+
+👉 [Reading Center Powered by Machina Labs](https://www.notion.com/pt/templates/reading-center-powered-by-machina-labs)
+
+This template helps you:
+- Organize your books and highlights
+- Track reading progress
+- Capture insights and tasks from your reading
+
+![Preview of Notion Template](https://www.notion.com/_next/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fpublic.notion-static.com%2Ftemplate%2F42e933e3-954d-4a10-bc4d-c0039f52839d%2F1756346706460%2Fdesktop.jpg&w=3840&q=75)
+
+
 ## ⚙️Setup
 1. **Create a Notion integration:**
    - Go to [Notion's Integrations page](https://www.notion.so/my-integrations).
