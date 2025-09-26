@@ -25,18 +25,18 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 
 ## ⚡Quick Installation
 **Get it from the Chrome Web Store** for Chrome, Brave, Arc, Orion, and other Chromium-based browsers. 
-<a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR">
+  <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR">
     <img src="https://img.shields.io/badge/Chrome-Click_here-red?style=for-the-badge&logo=googlechrome&color=googlechrome" alt="Chrome Extension Badge">
   </a>
 
 **Get it from Edge Add-ons** for Edge LoL -> Who cares? Just use Chrome Web Store.
-<a href="https://microsoftedge.microsoft.com/addons/detail/enbikfmjfocokoeoieljbdpkfimnpjdb">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/enbikfmjfocokoeoieljbdpkfimnpjdb">
     <img src="https://img.shields.io/badge/Edge-Click_here-blue?style=for-the-badge" alt="Edge Extension Badge">
   </a>
 > By the way, I do use Edge :)
 
 **Get it from the Mozilla Add-ons**
-<a href="https://addons.mozilla.org/pt-BR/firefox/addon/kindle-to-notion/">
+  <a href="https://addons.mozilla.org/pt-BR/firefox/addon/kindle-to-notion/">
     <img src="https://img.shields.io/badge/Mozilla-Click_here-orange?style=for-the-badge&logo=mozilla&color=orange" alt="Mozilla Extension Badge">
   </a>
 
