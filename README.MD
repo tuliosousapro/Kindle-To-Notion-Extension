@@ -96,7 +96,7 @@ This template helps you:
 
 Watch how to set up and use the extension in under 2 minutes:
 
-[![Watch the demo on Loom](https://cdn.loom.com/sessions/thumbnails/142bf896d27947b3b66119317444a67c-with-preview.jpg)](https://www.loom.com/share/142bf896d27947b3b66119317444a67c?sid=1a8c65e0-9021-47bc-abdf-40d209636dcc)
+[![Watch the demo on Loom](https://cdn.loom.com/sessions/thumbnails/142bf896d27947b3b66119317444a67c-with-preview.jpg)](https://www.loom.com/share/142bf896d27947b3b66119317444a67c?sid=67c7dad9-d7b7-47b8-b598-8e62652835cf)
 
 **Covered in the video:**
 - 🔐 Connecting your Notion integration
