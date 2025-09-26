@@ -27,10 +27,9 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 
 <p><strong>Get it from the Chrome Web Store</strong> for Chrome, Brave, Arc, Orion, and other Chromium-based browsers.</p>
 <p>
-<a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR">
-  <img src="https://img.shields.io/badge/Chrome-Click_here-red?style=for-the-badge&logo=googlechrome&color=googlechrome" alt="Chrome Extension Badge">
-</a>
-<img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?style=for-the-badge&label=Version&color=red" alt="Chrome Extension Version Badge">
+  <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR">
+    <img src="https://img.shields.io/badge/Chrome-Click_here-red?style=for-the-badge&logo=googlechrome&color=googlechrome" alt="Chrome Extension Badge">
+  </a>
 </p>
 
 <p><strong>Get it from Edge Add-ons</strong> for Edge LoL → Who cares? Just use Chrome Web Store.</p>
