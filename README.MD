@@ -92,6 +92,19 @@ This template helps you:
 - 🇧🇷 **Brazil:** `ler.amazon.com.br/notebook`
 - 🇺🇸 **United States:** `read.amazon.com/notebook`
 
+## 🎥 Demo Video
+
+Watch this quick Loom walkthrough to see the Kindle-To-Notion Extension in action:
+
+👉 Watch the demo on Loom
+<div style="position: relative; padding-bottom: 59.72222222222222%; height: 0;"><iframe src="https://www.loom.com/embed/142bf896d27947b3b66119317444a67c?sid=1a8c65e0-9021-47bc-abdf-40d209636dcc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+Learn how to:
+- Connect your Notion database
+- Export Kindle highlights
+- Troubleshoot common issues
+
+
 ## 🧙‍♂️Features
 #### 📖 Kindle Integration
 - Extracts highlights and notes directly from the Kindle notebook page (`read.amazon.com/notebook` or `ler.amazon.com.br/notebook`).
