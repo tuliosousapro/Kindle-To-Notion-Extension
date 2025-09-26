@@ -29,10 +29,10 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
     <img src="https://img.shields.io/badge/Chrome-Click_here-red?style=for-the-badge&logo=googlechrome&color=googlechrome" alt="Chrome Extension Badge">
   </a>
 
-**Get it from Edge Add-ons** for Edge LoL -> <a href="https://microsoftedge.microsoft.com/addons/detail/enbikfmjfocokoeoieljbdpkfimnpjdb">
+**Get it from Edge Add-ons** for Edge LoL -> Who cares? Just use Chrome Web Store.
+<a href="https://microsoftedge.microsoft.com/addons/detail/enbikfmjfocokoeoieljbdpkfimnpjdb">
     <img src="https://img.shields.io/badge/Edge-Click_here-blue?style=for-the-badge" alt="Edge Extension Badge">
   </a>
-Who cares? Just use Chrome Web Store.
 > By the way, I do use Edge :)
 
 **Get it from the Mozilla Add-ons**
