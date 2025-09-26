@@ -96,7 +96,7 @@ This template helps you:
 
 Watch this quick demo showing how to set up and use the Kindle-To-Notion Extension:
 
-[![Watch the setup demo](https://cdn.loom.com/sessions/thumbnails/142bf896d27947b3b66119317444a67c-with-preview.jpg)](https://www.loom.com/share/142bf896d27947b3b66119317444a67c?sid=1a8c65e0-9021-47bc-abdf-40d209636dcc)
+[![Watch the setup demo](https://www.loom.com/share/142bf896d27947b3b66119317444a67c?sid=1a8c65e0-9021-47bc-abdf-40d209636dcc)
 
 This video covers:
 - Creating your Notion integration
