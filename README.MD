@@ -92,17 +92,14 @@ This template helps you:
 - 🇧🇷 **Brazil:** `ler.amazon.com.br/notebook`
 - 🇺🇸 **United States:** `read.amazon.com/notebook`
 
-## 📽️ Kindle To Notion – Highlights Exporter Demo
+## 📽️ Kindle To Notion – Highlights Exporter
 
-Watch how to set up and use the extension in under 2 minutes:
+[![Kindle To Notion – Watch Video](https://cdn.loom.com/sessions/thumbnails/142bf896d27947b3b66119317444a67c-02d768de16cc29a9-full-play.gif)](https://www.loom.com/share/142bf896d27947b3b66119317444a67c)
 
-[![Watch the demo on Loom](https://cdn.loom.com/sessions/thumbnails/142bf896d27947b3b66119317444a67c-with-preview.jpg)](https://www.loom.com/share/142bf896d27947b3b66119317444a67c?sid=67c7dad9-d7b7-47b8-b598-8e62652835cf)
-
-**Covered in the video:**
-- 🔐 Connecting your Notion integration
-- 🗂️ Setting up your database
-- 🧠 Entering your API token and database ID
-- 📤 Exporting your first Kindle highlights
+**Watch the video to learn:**
+- How to set up the extension
+- How to connect your Notion database
+- How to export your Kindle highlights
 
 ## 🧙‍♂️Features
 #### 📖 Kindle Integration
