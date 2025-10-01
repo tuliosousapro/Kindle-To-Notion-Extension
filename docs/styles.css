@@ -24,10 +24,10 @@
     color: #D1D5DB;
 }
 
-/* Problem Solution Section */
+/* Problem Solution Section - Balloon Bubble Effect */
 .problem-solution {
     padding: 6rem 0;
-    background: var(--card-background);
+    background: var(--gradient-background);
 }
 
 .problem-grid {
@@ -39,21 +39,69 @@
 }
 
 .problem-card {
-    background: var(--background-color);
-    padding: 2rem;
-    border-radius: 12px;
+    background: white;
+    color: var(--background-color);
+    padding: 2.5rem;
+    border-radius: 30px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 15px 30px rgba(139, 92, 246, 0.2),
+        0 10px 20px rgba(139, 92, 246, 0.1);
+    transform: scale(1);
+    border: 2px solid rgba(139, 92, 246, 0.1);
+}
+
+.problem-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center, 
+        rgba(139, 92, 246, 0.1) 0%, 
+        transparent 70%
+    );
+    transform: rotate(-45deg);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.problem-card:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 20px 40px rgba(139, 92, 246, 0.3),
+        0 15px 25px rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.2);
 }
 
 .problem-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.problem-card:hover .problem-icon {
+    transform: scale(1.1);
 }
 
 .problem-card h3 {
     margin-bottom: 1rem;
     color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.problem-card p {
+    color: #374151;
+    line-height: 1.6;
+    font-size: 1rem;
 }
 
 /* Testimonials Section */
@@ -136,4 +184,18 @@
     .final-cta h2 {
         font-size: 2rem;
     }
+
+    .problem-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .problem-card {
+        padding: 2rem;
+    }
+
+    .problem-icon {
+        font-size: 3rem;
+    }
 }
+
