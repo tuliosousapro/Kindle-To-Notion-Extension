@@ -1,109 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kindle to Notion - Export Your Highlights with Style</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Kindle To Notion Extension</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Add a Google Fonts import for a modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="hero">
-        <nav>
-            <div class="logo">📚 Kindle to Notion</div>
-            <div class="nav-links">
-                <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank">GitHub</a>
-            </div>
-        </nav>
-        
-        <main>
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>YOU SHALL TAKE NOTES!</h1>
-                    <p class="subtitle">Transform your Kindle highlights into magical Notion pages with retro fantasy flair.</p>
-                    
-                    <div class="cta-buttons">
-                        <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="primary-button">
-                            Install Extension →
-                        </a>
-                        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" class="secondary-button">
-                            View Source ⭐
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="hero-visual">
-                    <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/main/images/screenshot.png" alt="Kindle to Notion Extension Screenshot">
-                </div>
-            </div>
-        </main>
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <img src="assets/logo.png" alt="Kindle To Notion Logo" class="logo" />
+      <h1>Kindle To Notion Extension</h1>
+      <p class="subtitle">
+        Export your Kindle highlights to Notion with a single click.<br>
+        Organize your reading notes like a wizard!
+      </p>
+      <div class="cta-buttons">
+        <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR" class="btn primary" target="_blank">Install Extension</a>
+        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" class="btn secondary" target="_blank">View on GitHub</a>
+      </div>
+      <!-- Tutorial Video -->
+      <div class="video-wrapper" style="margin-top:2rem;">
+        <div style="position: relative; padding-bottom: 59.72%; height: 0;">
+          <iframe src="https://www.loom.com/embed/142bf896d27947b3b66119317444a67c?sid=6b365d0e-ad0c-4356-a68b-3a787bed4798"
+            frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+          </iframe>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <section class="tutorial-video">
-        <div class="container">
-            <h2>Watch the Magic in Action</h2>
-            <p class="section-subtitle">See how easy it is to export your Kindle highlights to Notion</p>
-            <div class="video-wrapper">
-                <div style="position: relative; padding-bottom: 59.72222222222222%; height: 0;">
-                    <iframe src="https://www.loom.com/embed/142bf896d27947b3b66119317444a67c?sid=6b365d0e-ad0c-4356-a68b-3a787bed4798" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Features Section -->
+  <section class="features container">
+    <h2>Features</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <img src="assets/kindle.svg" alt="Kindle" />
+        <h3>Kindle Integration</h3>
+        <p>Extracts highlights and notes directly from your Kindle notebook page.</p>
+      </div>
+      <div class="feature">
+        <img src="assets/notion.svg" alt="Notion" />
+        <h3>Notion Export</h3>
+        <p>Exports highlights as Notion quote blocks, with color mapping and summary counts.</p>
+      </div>
+      <div class="feature">
+        <img src="assets/secure.svg" alt="Security" />
+        <h3>Secure & Private</h3>
+        <p>Your Notion token is stored locally and securely. No tracking, no ads.</p>
+      </div>
+      <div class="feature">
+        <img src="assets/easy.svg" alt="Easy" />
+        <h3>Easy to Use</h3>
+        <p>Simple pop-up UI for configuration and export. No setup headaches.</p>
+      </div>
+    </div>
+  </section>
 
-    <section class="features">
-        <div class="container">
-            <h2>Sacred Scrolls of Power</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🧙‍♂️</div>
-                    <h3>One-Click Magic</h3>
-                    <p>Transfer your Kindle highlights to Notion with a single incantation.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
-                    <h3>Protected by Ancient Runes</h3>
-                    <p>Your highlights stay private. No data stored in dark towers.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3>Fantasy Themed UI</h3>
-                    <p>Experience the magic of reading with our retro fantasy design.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3>Cross-Realm Compatible</h3>
-                    <p>Works on all Chromium-based scrolls (browsers).</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Open Source Badge -->
+  <section class="open-source container">
+    <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank">
+      <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=social" alt="GitHub stars">
+      <span>Open Source on GitHub</span>
+    </a>
+  </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Cast Your Spell?</h2>
-            <p class="cta-description">Join thousands of wizards who have already transformed their reading experience.</p>
-            <div class="final-cta">
-                <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="primary-button large">
-                    Install Now - It's Free! →
-                </a>
-                <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" class="secondary-button large">
-                    Contribute on GitHub
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>Crafted with 🔮 by <a href="https://github.com/tuliosousapro">tuliosousapro</a></p>
-            <div class="footer-links">
-                <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension">GitHub</a>
-                <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo">Chrome Web Store</a>
-            </div>
-        </div>
-    </footer>
+  <!-- Footer -->
+  <footer class="footer container">
+    <p>
+      &copy; 2025 Kindle To Notion Extension &mdash; 
+      <a href="google-privacy-policy" target="_blank">Privacy Policy</a>
+    </p>
+  </footer>
 </body>
 </html>
