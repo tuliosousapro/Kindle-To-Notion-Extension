@@ -4,6 +4,8 @@
     --background-color: #1F2937;
     --text-color: #F9FAFB;
     --card-background: #374151;
+    --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #C084FC 100%);
+    --gradient-background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
 }
 
 * {
@@ -19,10 +21,17 @@ body {
     line-height: 1.6;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Hero Section */
 .hero {
     min-height: 100vh;
-    padding: 2rem;
-    background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+    padding: 2rem 0;
+    background: var(--gradient-background);
     position: relative;
     overflow: hidden;
 }
@@ -33,7 +42,7 @@ nav {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 0;
+    padding: 1rem 2rem;
 }
 
 .logo {
@@ -53,25 +62,26 @@ nav {
     color: var(--primary-color);
 }
 
-.video-container {
-    margin-top: 4rem;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
 }
 
-.main {
-    max-width: 800px;
-    margin: 4rem auto; /* Adjusted margin to accommodate the video */
-    text-align: center;
+.hero-text {
+    text-align: left;
 }
 
 h1 {
     font-size: 4rem;
     font-weight: 800;
     margin-bottom: 1.5rem;
-    line-height: 1.2;
-    background: linear-gradient(135deg, var(--primary-color) 0%, #C084FC 100%);
+    line-height: 1.1;
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
@@ -81,12 +91,12 @@ h1 {
     font-size: 1.25rem;
     color: #D1D5DB;
     margin-bottom: 3rem;
+    line-height: 1.6;
 }
 
 .cta-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
     margin-top: 2rem;
 }
 
@@ -96,30 +106,73 @@ h1 {
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .primary-button:hover, .secondary-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
 }
 
 .primary-button {
-    background: var(--primary-color);
+    background: var(--gradient-primary);
     color: white;
 }
 
 .secondary-button {
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
+    background: transparent;
 }
 
-.key-features { /* Renamed from .features */
-    max-width: 1200px;
-    margin: 4rem auto;
-    padding: 2rem;
+.hero-visual {
+    position: relative;
 }
 
-.key-features h2 { /* Renamed from .features h2 */
+.hero-visual img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Tutorial Video Section */
+.tutorial-video {
+    padding: 6rem 0;
+    background: var(--card-background);
+}
+
+.tutorial-video h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #D1D5DB;
+    margin-bottom: 3rem;
+}
+
+.video-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Features Section */
+.features {
+    padding: 6rem 0;
+    background: var(--background-color);
+}
+
+.features h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
@@ -128,7 +181,7 @@ h1 {
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
 }
 
@@ -137,13 +190,20 @@ h1 {
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     border: 1px solid rgba(139, 92, 246, 0.2);
+    text-align: center;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
     border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
 .feature-card h3 {
@@ -151,19 +211,86 @@ h1 {
     color: var(--primary-color);
 }
 
-footer {
+/* CTA Section */
+.cta-section {
+    padding: 6rem 0;
+    background: var(--gradient-background);
     text-align: center;
-    padding: 2rem;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.cta-description {
+    font-size: 1.1rem;
+    color: #D1D5DB;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.final-cta {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.primary-button.large, .secondary-button.large {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* Footer */
+footer {
+    padding: 3rem 0;
     background: var(--background-color);
     border-top: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
 }
 
 footer a {
     color: var(--primary-color);
     text-decoration: none;
+    transition: color 0.2s;
 }
 
+footer a:hover {
+    color: var(--text-color);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .hero-text {
+        text-align: center;
+    }
+    
     h1 {
         font-size: 3rem;
     }
@@ -174,9 +301,24 @@ footer a {
     
     .cta-buttons {
         flex-direction: column;
+        align-items: center;
     }
     
     .feature-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .final-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-links {
+        justify-content: center;
     }
 }
