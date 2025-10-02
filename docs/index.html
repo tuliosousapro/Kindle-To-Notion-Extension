@@ -1,200 +1,147 @@
 <!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns#">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kindle to Notion - Transform Your Reading Insights</title>
-    <meta name="description" content="Effortlessly export Kindle highlights to Notion. Save time, retain knowledge, and transform your reading experience with one-click magic.">
+    <title>Kindle to Notion | Transform Your Reading Insights</title>
+    <meta name="description" content="Effortlessly export Kindle highlights to Notion. Save time, retain knowledge, and supercharge your reading experience.">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tuliosousapro.github.io/Kindle-To-Notion-Extension/">
-    <meta property="og:title" content="Kindle to Notion - Transform Your Reading Insights">
-    <meta property="og:description" content="Effortlessly export Kindle highlights to Notion. Save time, retain knowledge, and transform your reading experience with one-click magic.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/main/images/screenshot.png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://tuliosousapro.github.io/Kindle-To-Notion-Extension/">
-    <meta name="twitter:title" content="Kindle to Notion - Transform Your Reading Insights">
-    <meta name="twitter:description" content="Effortlessly export Kindle highlights to Notion. Save time, retain knowledge, and transform your reading experience with one-click magic.">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/main/images/screenshot.png">
-
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+    
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png">
 </head>
-<body itemscope itemtype="http://schema.org/WebPage">
-    <header class="main-header" role="banner">
-        <div class="container">
-            <nav aria-label="Main Navigation">
-                <div class="logo" itemprop="publisher">
-                    <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png" alt="Kindle to Notion Logo">
-                    <span itemprop="name">Kindle to Notion</span>
-                </div>
-                <div class="nav-actions">
-                    <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" 
-                       class="primary-button cta-install" 
-                       aria-label="Install Kindle to Notion Extension">
-                        Install Now
-                    </a>
-            </div>
-        </nav>
-        </div>
-    </header>
-
-    <main role="main" itemprop="mainContentOfPage">
-        <section class="hero" aria-labelledby="hero-title">
+<body>
+    <div class="page-wrapper">
+        <header class="header">
             <div class="container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1 id="hero-title">Turn Kindle Highlights into Actionable Knowledge</h1>
-                        <p class="subtitle">Export your reading insights to Notion with zero effort. Save time, retain knowledge, and transform your reading experience.</p>
+                <nav class="nav">
+                    <a href="#" class="nav__logo">
+                        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png" alt="Kindle to Notion Logo">
+                        Kindle to Notion
+                    </a>
+                    <div class="nav__actions">
+                        <a href="https://machina-labs.gitbook.io/kindle-to-notion/" class="nav__link">Docs</a>
+                        <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="btn btn--primary">Install Now</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="hero">
+                <div class="container">
+                    <div class="hero__content">
+                        <h1 class="hero__title">Transform Kindle Highlights into Actionable Knowledge</h1>
+                        <p class="hero__subtitle">Export your reading insights to Notion with zero effort. Save time, retain knowledge, and become a reading wizard.</p>
                         
-                        <div class="social-proof" aria-label="User Satisfaction Metrics">
-                            <div class="proof-item">
-                                <span class="proof-number" aria-label="Total Users">+3,000</span>
-                                <span class="proof-label">Happy Readers</span>
-                            </div>
-                            <div class="proof-item">
-                                <span class="proof-number" aria-label="Chrome Store Rating">4.8/5</span>
-                                <span class="proof-label">Chrome Store Rating</span>
-                            </div>
+                        <div class="hero__cta">
+                            <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="btn btn--primary btn--large">
+                                Install Extension - Free Forever
+                            </a>
                         </div>
 
-                        <div class="hero-cta">
-                            <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" 
-                               class="primary-button large cta-install" 
-                               aria-label="Install Kindle to Notion Extension for Free">
-                                Install Extension - It's Free!
-                            </a>
+                        <div class="hero__social-proof">
+                            <div class="social-proof__item">
+                                <span class="social-proof__number">+3,000</span>
+                                <span class="social-proof__label">Happy Readers</span>
+                            </div>
+                            <div class="social-proof__item">
+                                <span class="social-proof__number">4.8/5</span>
+                                <span class="social-proof__label">Chrome Store Rating</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="hero-visual">
-                        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/main/images/screenshot.png" 
-                             alt="Kindle to Notion Extension Screenshot" 
-                             itemprop="image">
+                    <div class="hero__visual">
+                        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/main/images/screenshot.png" alt="Kindle to Notion Extension Screenshot" loading="lazy">
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="problem-solution">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Stop Wasting Time on Manual Note-Taking</h2>
-                    <p>We solve the most frustrating part of reading: organizing your insights</p>
-                </div>
-                <div class="problem-grid">
-                    <div class="problem-card problem-card-left">
-                        <div class="problem-icon">❌</div>
-                        <h3>The Problem</h3>
-                        <p>Manually copying Kindle highlights is time-consuming and breaks your reading flow.</p>
-                    </div>
-                    <div class="problem-card problem-card-right">
-                        <div class="problem-icon">✅</div>
-                        <h3>Our Solution</h3>
-                        <p>One-click export of all your highlights directly to a structured Notion database.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    <section class="features">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Magical Features That Save Your Time</h2>
-                    <p>Transform your reading experience with powerful, time-saving tools</p>
-                </div>
-        <div class="feature-grid">
-            <div class="feature-card">
-                        <div class="feature-icon">🚀</div>
-                        <h3>One-Click Export</h3>
-                        <p>Transfer highlights from Kindle to Notion in seconds, not hours.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>100% Private</h3>
-                        <p>Your data stays yours. No tracking, no sharing, complete privacy.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <h3>Color Preservation</h3>
-                        <p>Maintain your Kindle highlight colors in Notion for better organization.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📚</div>
-                        <h3>Multi-Platform</h3>
-                        <p>Works on all Chromium browsers. Your reading, your way.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="testimonials">
-            <div class="container">
-                <div class="section-header">
-                    <h2>What Readers Are Saying</h2>
-                    <p>Real experiences from knowledge workers and book lovers</p>
-                </div>
-                <div class="testimonial-grid">
-                    <div class="testimonial-card">
-                        <p>"This extension has completely transformed how I capture and retain knowledge from my reading."</p>
-                        <div class="testimonial-author">
-                            <img src="https://via.placeholder.com/50" alt="User Avatar">
-                            <span>Sarah K., Research Analyst</span>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">Why Kindle to Notion?</h2>
+                    <div class="features__grid">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">🚀</div>
+                            <h3 class="feature-card__title">One-Click Magic</h3>
+                            <p class="feature-card__description">Transfer highlights from Kindle to Notion in seconds, not hours.</p>
                         </div>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>"No more copy-pasting! Kindle to Notion saves me hours of manual work every week."</p>
-                        <div class="testimonial-author">
-                            <img src="https://via.placeholder.com/50" alt="User Avatar">
-                            <span>Michael T., Writer</span>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">🔒</div>
+                            <h3 class="feature-card__title">100% Private</h3>
+                            <p class="feature-card__description">Your data stays yours. No tracking, no sharing, complete privacy.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">🎨</div>
+                            <h3 class="feature-card__title">Color Preservation</h3>
+                            <p class="feature-card__description">Maintain your Kindle highlight colors in Notion.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card__icon">📚</div>
+                            <h3 class="feature-card__title">Multi-Platform</h3>
+                            <p class="feature-card__description">Works on all Chromium browsers. Your reading, your way.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="tutorial-video">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Watch the Magic in Action</h2>
-                    <p>See how easy it is to export your Kindle highlights to Notion</p>
+            <section class="problem-solution">
+                <div class="container">
+                    <h2 class="section-title">The Reading Revolution</h2>
+                    <div class="problem-solution__grid">
+                        <div class="problem-card problem-card--left">
+                            <div class="problem-card__icon">❌</div>
+                            <h3 class="problem-card__title">The Old Way</h3>
+                            <p class="problem-card__description">Manually copying Kindle highlights is time-consuming and breaks your reading flow.</p>
+                        </div>
+                        <div class="problem-card problem-card--right">
+                            <div class="problem-card__icon">✅</div>
+                            <h3 class="problem-card__title">The Kindle to Notion Way</h3>
+                            <p class="problem-card__description">One-click export of all highlights directly to a structured Notion database.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="video-wrapper">
-                    <div style="position: relative; padding-bottom: 59.72222222222222%; height: 0;">
-                        <iframe src="https://www.loom.com/embed/142bf896d27947b3b66119317444a67c?sid=6b365d0e-ad0c-4356-a68b-3a787bed4798" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+            </section>
+
+            <section class="cta-final">
+                <div class="container">
+                    <h2 class="section-title">Ready to Transform Your Reading?</h2>
+                    <p class="cta-final__subtitle">Join thousands of readers who are turning their highlights into knowledge.</p>
+                    <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="btn btn--primary btn--extra-large">
+                        Install Kindle to Notion - Free Forever
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__content">
+                    <p class="footer__copyright">Crafted with 🔮 by <a href="https://github.com/tuliosousapro">tuliosousapro</a></p>
+                    <div class="footer__links">
+                        <a href="https://machina-labs.gitbook.io/kindle-to-notion/">Docs</a>
+                        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension">GitHub</a>
+                        <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo">Chrome Web Store</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </footer>
+    </div>
 
-        <section class="final-cta">
-            <div class="container">
-                <h2>Ready to Supercharge Your Reading?</h2>
-                <p>Join thousands of readers who are transforming their knowledge management</p>
-                <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="primary-button extra-large cta-install">
-                    Install Kindle to Notion - Free Forever
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer role="contentinfo">
-        <div class="container">
-            <div class="footer-content">
-                <p>Crafted with 🔮 by <a href="https://github.com/tuliosousapro" rel="author">tuliosousapro</a></p>
-                <div class="footer-links">
-                    <a href="https://machina-labs.gitbook.io/kindle-to-notion/" rel="documentation">Docs</a>
-                    <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" rel="source">GitHub</a>
-                    <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" rel="external">Chrome Web Store</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script>
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
