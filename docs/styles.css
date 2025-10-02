@@ -3,16 +3,20 @@
     --secondary-color: #6D28D9;
     --background-color: #1F2937;
     --text-color: #F9FAFB;
+    --text-color-light: #E5E7EB;
     --card-background: #374151;
+    --card-background-hover: #3F4B5B;
     --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #C084FC 100%);
     --gradient-background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
     --border-color: rgba(139, 92, 246, 0.2);
+    --shadow-primary: rgba(139, 92, 246, 0.4);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -20,12 +24,15 @@ body {
     color: var(--text-color);
     background: var(--background-color);
     line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+    width: 100%;
 }
 
 /* Problem Solution Section */
@@ -44,10 +51,10 @@ body {
 
 .problem-card {
     background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 30px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     border: 1px solid var(--border-color);
     box-shadow: 
         12px 12px 24px rgba(0,0,0,0.2),
@@ -73,17 +80,18 @@ body {
 }
 
 .problem-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px);
     box-shadow: 
         15px 15px 30px rgba(0,0,0,0.3),
         -15px -15px 30px rgba(255,255,255,0.1);
 }
 
 .problem-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
     position: relative;
     z-index: 2;
+    opacity: 0.9;
 }
 
 .problem-card h3 {
@@ -91,28 +99,40 @@ body {
     color: var(--primary-color);
     position: relative;
     z-index: 2;
+    font-size: 1.5rem;
 }
 
 .problem-card p {
     position: relative;
     z-index: 2;
+    color: var(--text-color-light);
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .problem-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .problem-card {
+        padding: 2rem;
+    }
+
+    .problem-icon {
+        font-size: 3rem;
     }
 }
 
-/* Rest of the existing styles... */
+/* Rest of the existing styles with minor improvements */
 .main-header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(31, 41, 55, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(31, 41, 55, 0.9);
+    backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .main-header nav {
@@ -146,16 +166,18 @@ body {
 .primary-button {
     background: var(--gradient-primary);
     color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    padding: 0.875rem 1.75rem;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .primary-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px var(--shadow-primary);
 }
 
 /* Hero Section */
@@ -232,8 +254,19 @@ body {
     .feature-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .hero-text h1 {
         font-size: 2.5rem;
+    }
+} 
+
+/* Additional responsive tweaks */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 0.5rem;
     }
 } 
