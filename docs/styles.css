@@ -398,3 +398,34 @@ body {
         padding: 0.75rem 1.5rem;
     }
 } 
+
+/* Tutorial Video Section */
+.tutorial-video {
+    background: var(--color-background-medium);
+    padding: 6rem 0;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.video-wrapper:hover iframe {
+    transform: scale(1.02);
+} 
