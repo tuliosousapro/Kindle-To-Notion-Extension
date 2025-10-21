@@ -104,6 +104,8 @@ This template helps you:
 - How to connect your Notion database
 - How to export your Kindle highlights
 
+---
+
 ## 🧙‍♂️Features
 #### 📖 Kindle Integration
 - Extracts highlights and notes directly from the Kindle notebook page (`read.amazon.com/notebook` or `ler.amazon.com.br/notebook`).
@@ -130,7 +132,11 @@ This template helps you:
 - Tooltips for Notion API Token and Database ID fields.
 - Supports dark/light mode via matchMedia and WCAG 2.1-compliant UI.
 
+---
+
 # THE NERD ZONE AKA DEVELOPERS AND AFFICIONADOS
+
+---
 
 ## 🛠️Installation
 1. Clone or download this repository.
