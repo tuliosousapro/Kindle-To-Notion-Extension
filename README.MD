@@ -135,6 +135,9 @@ This template helps you:
 ---
 
 # THE NERD ZONE AKA DEVELOPERS AND AFFICIONADOS
+<p align="center">
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTFsZXh2b3Exc2Ezd2JuMDZ1ZG94MW1kZTd3MWNreGVmeDhsMHR4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uZIDWgDZCeHxuJOGl5/giphy.gif" alt="Come One Of Us" width="400"/>
+</p>
 
 ---
 
