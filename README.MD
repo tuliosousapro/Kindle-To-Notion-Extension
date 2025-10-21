@@ -23,6 +23,8 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 
 <h1 align="center">🧙‍♂️YOU... SHALL TAKE NOTES!!!⭐</h1>
 
+---
+
 ## ⚡Quick Installation
 
 <p><strong>Get it from the Chrome Web Store</strong> for Chrome, Brave, Arc, Orion, and other Chromium-based browsers.</p>
@@ -60,6 +62,8 @@ This template helps you:
 
 ![Preview of Notion Template](https://www.notion.com/_next/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fpublic.notion-static.com%2Ftemplate%2F42e933e3-954d-4a10-bc4d-c0039f52839d%2F1756346706460%2Fdesktop.jpg&w=3840&q=75)
 
+---
+
 ## ⚙️Setup
 1. **Create a Notion integration:**
    - Go to [Notion's Integrations page](https://www.notion.so/my-integrations).
@@ -91,7 +95,7 @@ This template helps you:
 - 🇧🇷 **Brazil:** `ler.amazon.com.br/notebook`
 - 🇺🇸 **United States:** `read.amazon.com/notebook`
 
-## 📽️ Kindle To Notion – Highlights Exporter
+## 📽️ Tutorial - How to setup and use Kindle to Notion Extension
 
 [![Kindle To Notion – Watch Video](https://cdn.loom.com/sessions/thumbnails/142bf896d27947b3b66119317444a67c-02d768de16cc29a9-full-play.gif)](https://www.loom.com/share/142bf896d27947b3b66119317444a67c)
 
@@ -132,7 +136,7 @@ This template helps you:
 1. Clone or download this repository.
 2. Open Chrome and navigate to `chrome://extensions/`.
 3. Enable "Developer mode" (top right).
-4. Click "Load unpacked" and select the folder containing the extension files.
+4. Click **"Load unpacked"** and select the folder containing the extension files.
 5. Voilà — The extension will appear in your Chrome toolbar.
 
 > **💡 Prefer a one-click install?** [**Get it from the Chrome Web Store**](https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR) for Chrome, Brave, Arc, Orion, and other Chromium-based browsers.
@@ -195,7 +199,7 @@ Found a bug or have a feature idea? Open an issue right here in this repo.
 ## 🎈FAQ
 💡 Curious how it works or have questions? 
 - Browse the [FAQ CALABRESO EDITION](FAQ.MD) for answers, tips, and more.
-- Visit our documentation page in GitBook [Documentation](https://machina-labs.gitbook.io/kindle-to-notion/)
+- Visit our documentation page [Documentation](https://machina-labs.gitbook.io/kindle-to-notion/)
 - **Wiki**: [Project Wiki](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/wiki)
 
 ---
