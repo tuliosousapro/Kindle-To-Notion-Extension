@@ -10,3 +10,5 @@ build/
 *.log
 *.tmp
 .DS_Store
+/source/chrome/.cursor
+source/chrome/.cursor/rules/kindle2notion-grok-rules.mdc
