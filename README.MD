@@ -82,18 +82,31 @@ This template helps you:
    - **Notion Database ID**: Found in the database URL (e.g., `f7979b5axerequinha2f8fa`).
    - **Title Property Name**: The exact name of your database's title property (e.g., `Título do Livro`).
    - **Author Property Name**: The exact name of your database's author property (e.g., `Autor`).
+   - **Kindle Region**: Select your Amazon region (e.g., US, UK, Canada, Germany, etc.).
 5. Click **"Save Settings."🎉**
 > **👉Need a step-by-step help?** [**Click here**](https://machina-labs.gitbook.io/kindle-to-notion/getting-started/getting-started)
 
 ## 🚀Getting Started
 1. Open the extension popup and click **"Go to Highlights"**
-- > Alternatively, navigate to [ler.amazon.com.br/notebook](https://ler.amazon.com.br/notebook) or [read.amazon.com/notebook](https://read.amazon.com/notebook) in your browser.
+- > Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
 2. Once in the highlights page, open the extension popup and click **"Export to Notion."**
 3. Check the status message in the pop-up for success or errors.
 4. Verify the new page in your Notion database.
 #### Supported Kindle Regions
-- 🇧🇷 **Brazil:** `ler.amazon.com.br/notebook`
 - 🇺🇸 **United States:** `read.amazon.com/notebook`
+- 🇧🇷 **Brazil:** `ler.amazon.com.br/notebook`
+- 🇨🇦 **Canada:** `read.amazon.ca/notebook`
+- 🇬🇧 **United Kingdom:** `read.amazon.co.uk/notebook`
+- 🇩🇪 **Germany:** `read.amazon.de/notebook`
+- 🇫🇷 **France:** `read.amazon.fr/notebook`
+- 🇪🇸 **Spain:** `read.amazon.es/notebook`
+- 🇮🇹 **Italy:** `read.amazon.it/notebook`
+- 🇯🇵 **Japan:** `read.amazon.co.jp/notebook`
+- 🇦🇺 **Australia:** `read.amazon.com.au/notebook`
+- 🇮🇳 **India:** `read.amazon.in/notebook`
+- 🇲🇽 **Mexico:** `read.amazon.com.mx/notebook`
+
+> **Note:** You can select your preferred region in the extension's Settings tab.
 
 ## 📽️ Tutorial - How to setup and use Kindle to Notion Extension
 

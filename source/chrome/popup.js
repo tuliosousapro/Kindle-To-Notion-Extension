@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const databaseIdInput = document.getElementById('databaseId');
   const titlePropertyInput = document.getElementById('titleProperty');
   const authorPropertyInput = document.getElementById('authorProperty');
+  const kindleRegionInput = document.getElementById('kindleRegion');
   const saveButton = document.getElementById('save');
   const exportButton = document.getElementById('export');
   const navigateButton = document.getElementById('navigateHighlights');
@@ -59,11 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const slashedEyeIcon = toggleTokenIcon.querySelector('.eye-icon.hidden');
   const versionInfo = document.getElementById('versionInfo');
 
-  chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty'], (result) => {
+  chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion'], (result) => {
     tokenInput.value = result.token || '';
     databaseIdInput.value = result.databaseId || '';
     titlePropertyInput.value = result.titleProperty || 'Título do Livro';
     authorPropertyInput.value = result.authorProperty || 'Autor';
+    kindleRegionInput.value = result.kindleRegion || 'https://read.amazon.com/notebook';
     if (result.token) {
       tokenInput.type = 'password';
       eyeIcon.classList.add('hidden');
@@ -95,14 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   navigateButton.addEventListener('click', () => {
-    chrome.tabs.update({ url: 'https://read.amazon.com/notebook' }, () => {
-      spinner.classList.remove('hidden');
-      spinnerIcon.classList.add('hidden');
-      spinnerText.textContent = 'Navigating to Kindle highlights...';
-      setTimeout(() => {
-        spinner.classList.add('hidden');
-        spinnerText.textContent = '';
-      }, 2000);
+    chrome.storage.local.get(['kindleRegion'], (result) => {
+      const region = result.kindleRegion || 'https://read.amazon.com/notebook';
+      chrome.tabs.update({ url: region }, () => {
+        spinner.classList.remove('hidden');
+        spinnerIcon.classList.add('hidden');
+        spinnerText.textContent = 'Navigating to Kindle highlights...';
+        setTimeout(() => {
+          spinner.classList.add('hidden');
+          spinnerText.textContent = '';
+        }, 2000);
+      });
     });
   });
 
@@ -111,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let databaseId = databaseIdInput.value.trim();
     const titleProperty = titlePropertyInput.value;
     const authorProperty = authorPropertyInput.value;
+    const kindleRegion = kindleRegionInput.value;
 
     const urlPattern = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
     if (databaseId.startsWith('https://www.notion.so/')) {
@@ -159,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    chrome.storage.local.set({ token, databaseId, titleProperty, authorProperty }, () => {
+    chrome.storage.local.set({ token, databaseId, titleProperty, authorProperty, kindleRegion }, () => {
       spinner.classList.remove('hidden');
       spinnerIcon.classList.add('hidden');
       spinnerText.textContent = 'Settings saved successfully!';
