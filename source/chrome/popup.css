@@ -69,16 +69,20 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.header > div {
+  flex: 1;
+  min-width: 0;
 }
 
 .version-info {
   font-size: 10px;
   color: var(--fg-secondary);
   opacity: 0.6;
-  text-align: right;
 }
 
 h3 {
