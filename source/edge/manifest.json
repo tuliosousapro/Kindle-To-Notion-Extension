@@ -68,7 +68,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["popup.css"],
+      "resources": ["popup.css", "welcome.html", "welcome.css", "welcome.js"],
       "matches": ["<all_urls>"]
     }
   ]
