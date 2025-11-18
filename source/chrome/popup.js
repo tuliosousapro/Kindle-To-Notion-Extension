@@ -16,18 +16,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabAction = document.getElementById('tab-action');
   const tabOptions = document.getElementById('tab-options');
 
+  function switchTab(activeBtn, inactiveBtn, activePanel, inactivePanel) {
+    // Update button states
+    activeBtn.classList.add('active');
+    inactiveBtn.classList.remove('active');
+    activeBtn.setAttribute('aria-selected', 'true');
+    inactiveBtn.setAttribute('aria-selected', 'false');
+    activeBtn.setAttribute('tabindex', '0');
+    inactiveBtn.setAttribute('tabindex', '-1');
+
+    // Update panel visibility
+    activePanel.classList.remove('hidden');
+    inactivePanel.classList.add('hidden');
+  }
+
   tabActionBtn.addEventListener('click', () => {
-    tabActionBtn.classList.add('active');
-    tabOptionsBtn.classList.remove('active');
-    tabAction.classList.remove('hidden');
-    tabOptions.classList.add('hidden');
+    switchTab(tabActionBtn, tabOptionsBtn, tabAction, tabOptions);
   });
 
   tabOptionsBtn.addEventListener('click', () => {
-    tabOptionsBtn.classList.add('active');
-    tabActionBtn.classList.remove('active');
-    tabOptions.classList.remove('hidden');
-    tabAction.classList.add('hidden');
+    switchTab(tabOptionsBtn, tabActionBtn, tabOptions, tabAction);
   });
 
   // Accessibility: allow tab switching with keyboard
@@ -36,9 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
         e.preventDefault();
         const next = idx === 0 ? tabOptionsBtn : tabActionBtn;
+        const current = idx === 0 ? tabActionBtn : tabOptionsBtn;
+        const nextPanel = idx === 0 ? tabOptions : tabAction;
+        const currentPanel = idx === 0 ? tabAction : tabOptions;
+        switchTab(next, current, nextPanel, currentPanel);
         next.focus();
       }
       if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
         btn.click();
       }
     });
@@ -83,16 +96,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   toggleTokenIcon.addEventListener('click', () => {
-    if (tokenInput.type === 'password') {
+    const isPassword = tokenInput.type === 'password';
+
+    if (isPassword) {
       tokenInput.type = 'text';
       eyeIcon.classList.remove('hidden');
       slashedEyeIcon.classList.add('hidden');
+      toggleTokenIcon.setAttribute('aria-pressed', 'true');
+      toggleTokenIcon.setAttribute('aria-label', 'Hide token');
       console.log('Toggled to visible: text, eye icon');
     } else {
       tokenInput.type = 'password';
       eyeIcon.classList.add('hidden');
       slashedEyeIcon.classList.remove('hidden');
+      toggleTokenIcon.setAttribute('aria-pressed', 'false');
+      toggleTokenIcon.setAttribute('aria-label', 'Show token');
       console.log('Toggled to hidden: password, slashed-eye icon');
+    }
+  });
+
+  // Allow toggling with Enter or Space on toggle button
+  toggleTokenIcon.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleTokenIcon.click();
     }
   });
 
