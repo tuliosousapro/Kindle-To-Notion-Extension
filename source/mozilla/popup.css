@@ -374,14 +374,6 @@ button:focus-visible {
   min-width: 0;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
 .logo {
   width: 36px;
   height: 36px;
