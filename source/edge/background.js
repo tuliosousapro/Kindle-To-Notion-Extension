@@ -8,6 +8,15 @@ const colorMap = {
   'orange': 'orange_background'
 };
 
+// Open welcome page on install
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') {
+    chrome.tabs.create({
+      url: chrome.runtime.getURL('welcome.html')
+    });
+  }
+});
+
 async function fetchHighResCover(amazonLink) {
   try {
     if (!amazonLink || !amazonLink.includes('amazon') || !amazonLink.includes('/dp/')) {
