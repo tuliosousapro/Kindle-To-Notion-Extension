@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                   'Unknown Author';
     
     // Extract Amazon store link for the current book (supporting all regions)
-    const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon"]');
+    const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
     const amazonLink = amazonLinkElement?.href || '';
     console.log('Extracted Amazon link:', amazonLink);
     
