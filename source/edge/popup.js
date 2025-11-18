@@ -246,7 +246,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Error: No active tab found');
         return;
       }
-      exportWithRetry(tab.id);
+
+      const supportedUrls = Array.from(document.querySelectorAll('#kindleRegion option')).map(opt => opt.value);
+      const onSupportedPage = supportedUrls.some(url => tab.url.startsWith(url));
+
+      if (onSupportedPage) {
+        exportWithRetry(tab.id);
+      } else {
+        showToast('Oops! Please navigate to a Kindle highlights page first.');
+      }
     } catch (error) {
       console.error('Error getting active tab:', error);
       showToast('Error: Failed to get active tab');
