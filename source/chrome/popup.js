@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
   chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion'], (result) => {
     tokenInput.value = result.token || '';
     databaseIdInput.value = result.databaseId || '';
-    titlePropertyInput.value = result.titleProperty || 'Título do Livro';
-    authorPropertyInput.value = result.authorProperty || 'Autor';
+    titlePropertyInput.value = result.titleProperty || 'Book Title';
+    authorPropertyInput.value = result.authorProperty || 'Author';
     kindleRegionInput.value = result.kindleRegion || 'https://read.amazon.com/notebook';
     if (result.token) {
       tokenInput.type = 'password';
