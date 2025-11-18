@@ -304,63 +304,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create overlay
     const overlay = document.createElement('div');
     overlay.id = 'guide-overlay';
-    overlay.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-      transition: opacity 0.3s ease;
-    `;
     document.body.appendChild(overlay);
 
     // Create tooltip
     const tooltip = document.createElement('div');
     tooltip.id = 'guide-tooltip';
-    tooltip.style.cssText = `
-      position: fixed;
-      z-index: 1001;
-      max-width: 280px;
-      background: var(--bg, #fff);
-      border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      border: 1px solid var(--input-border, #ccc);
-      color: var(--fg, #222);
-    `;
 
     tooltip.innerHTML = `
-      <div style="position: relative;">
-        <div class="tooltip-arrow" style="
-          position: absolute;
-          width: 0;
-          height: 0;
-          border: 8px solid transparent;
-        "></div>
-        <h4 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600;">${step.title}</h4>
-        <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.4; color: var(--fg-secondary, #666);">${step.description}</p>
-        <div style="display: flex; gap: 8px; justify-content: flex-end;">
-          <button class="guide-skip" style="
-            background: transparent;
-            color: var(--button-bg, #007bff);
-            border: 1px solid var(--input-border, #ccc);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-          ">Skip Tour</button>
-          <button class="guide-next" style="
-            background: var(--button-bg, #007bff);
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-          ">${currentGuideStep === guideSteps.length - 1 ? 'Finish' : 'Next'}</button>
+      <div class="tooltip-container">
+        <div class="tooltip-arrow"></div>
+        <h4 class="tooltip-title">${step.title}</h4>
+        <p class="tooltip-description">${step.description}</p>
+        <div class="tooltip-buttons">
+          <button class="guide-skip">Skip Tour</button>
+          <button class="guide-next">${currentGuideStep === guideSteps.length - 1 ? 'Finish' : 'Next'}</button>
         </div>
       </div>
     `;
@@ -371,10 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     positionTooltip(element, tooltip, step);
 
     // Highlight element
-    element.style.position = 'relative';
-    element.style.zIndex = '1002';
-    element.style.boxShadow = '0 0 0 4px rgba(37, 99, 235, 0.3)';
-    element.style.borderRadius = '4px';
+    element.classList.add('guide-highlighted');
 
     // Event listeners
     tooltip.querySelector('.guide-next').addEventListener('click', nextGuideStep);
@@ -386,33 +340,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const tooltipRect = tooltip.getBoundingClientRect();
 
     let top, left;
+    const arrow = tooltip.querySelector('.tooltip-arrow');
 
     switch (step.position) {
       case 'top':
         top = rect.top - tooltipRect.height - 10;
         left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-        document.querySelector('.tooltip-arrow').style.cssText = `
-          position: absolute;
-          bottom: -16px;
-          left: 50%;
-          transform: translateX(-50%);
-          border: 8px solid transparent;
-          border-top-color: var(--bg, #fff);
-          border-bottom: none;
-        `;
+        arrow.classList.add('arrow-top');
+        arrow.classList.remove('arrow-bottom');
         break;
       case 'bottom':
         top = rect.bottom + 10;
         left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-        document.querySelector('.tooltip-arrow').style.cssText = `
-          position: absolute;
-          top: -16px;
-          left: 50%;
-          transform: translateX(-50%);
-          border: 8px solid transparent;
-          border-bottom-color: var(--bg, #fff);
-          border-top: none;
-        `;
+        arrow.classList.add('arrow-bottom');
+        arrow.classList.remove('arrow-top');
         break;
     }
 
@@ -434,8 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Clear previous highlighting
     const prevElement = document.querySelector(guideSteps[currentGuideStep]?.element);
     if (prevElement) {
-      prevElement.style.boxShadow = '';
-      prevElement.style.zIndex = '';
+      prevElement.classList.remove('guide-highlighted');
     }
 
     // Remove previous overlay and tooltip
@@ -453,8 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     guideSteps.forEach(step => {
       const element = document.querySelector(step.element);
       if (element) {
-        element.style.boxShadow = '';
-        element.style.zIndex = '';
+        element.classList.remove('guide-highlighted');
       }
     });
 
