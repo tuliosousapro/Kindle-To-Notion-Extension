@@ -1,21 +1,51 @@
 {
   "manifest_version": 3,
   "name": "Kindle to Notion Extension – Export Kindle Highlights to Notion",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database",
   "permissions": ["storage", "tabs"],
   "host_permissions": [
     "https://ler.amazon.com.br/notebook*",
     "https://read.amazon.com/notebook*",
+    "https://read.amazon.ca/notebook*",
+    "https://read.amazon.co.uk/notebook*",
+    "https://read.amazon.de/notebook*",
+    "https://read.amazon.fr/notebook*",
+    "https://read.amazon.es/notebook*",
+    "https://read.amazon.it/notebook*",
+    "https://read.amazon.co.jp/notebook*",
+    "https://read.amazon.com.au/notebook*",
+    "https://read.amazon.in/notebook*",
+    "https://read.amazon.com.mx/notebook*",
     "https://api.notion.com/*",
     "https://www.amazon.com/*",
-    "https://www.amazon.com.br/*"
+    "https://www.amazon.com.br/*",
+    "https://www.amazon.ca/*",
+    "https://www.amazon.co.uk/*",
+    "https://www.amazon.de/*",
+    "https://www.amazon.fr/*",
+    "https://www.amazon.es/*",
+    "https://www.amazon.it/*",
+    "https://www.amazon.co.jp/*",
+    "https://www.amazon.com.au/*",
+    "https://www.amazon.in/*",
+    "https://www.amazon.com.mx/*"
   ],
   "content_scripts": [
     {
       "matches": [
         "https://ler.amazon.com.br/notebook*",
-        "https://read.amazon.com/notebook*"
+        "https://read.amazon.com/notebook*",
+        "https://read.amazon.ca/notebook*",
+        "https://read.amazon.co.uk/notebook*",
+        "https://read.amazon.de/notebook*",
+        "https://read.amazon.fr/notebook*",
+        "https://read.amazon.es/notebook*",
+        "https://read.amazon.it/notebook*",
+        "https://read.amazon.co.jp/notebook*",
+        "https://read.amazon.com.au/notebook*",
+        "https://read.amazon.in/notebook*",
+        "https://read.amazon.com.mx/notebook*"
       ],
       "js": ["contentScript.js"],
       "run_at": "document_end"

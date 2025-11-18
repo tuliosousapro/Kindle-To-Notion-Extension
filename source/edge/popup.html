@@ -5,47 +5,210 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kindle to Notion Extension</title>
   <link rel="stylesheet" href="popup.css">
+  <script src="onboarding-check.js"></script>
 </head>
 <body>
-  <div class="header">
-    <h3>Kindle to Notion Extension</h3>
-    <div id="versionInfo" class="version-info"></div>
-  </div>
-  <label title="Generate a Notion integration token at https://www.notion.so/my-integrations">
-    Notion API Token:
-    <div class="input-group">
-      <input type="text" id="token" placeholder="Enter Notion API Token">
-      <div id="toggleToken" class="toggle-icon">
-        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        <svg class="eye-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-          <line x1="1" y1="1" x2="23" y2="23"></line>
-        </svg>
+  <!-- Background gradient -->
+  <div class="background-gradient"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="glass-header">
+      <div class="brand">
+        <div class="logo-container">
+          <img src="icons/icon48.png" alt="Kindle to Notion" class="logo">
+          <div class="logo-glow"></div>
+        </div>
+        <div class="brand-info">
+          <h1>Kindle to Notion</h1>
+          <span class="version" id="versionInfo"></span>
+        </div>
       </div>
-    </div>
-  </label>
-  <label title="Copy the Database ID from the URL of your Notion database (e.g., xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)">
-    Notion Database ID:
-    <input type="text" id="databaseId" placeholder="Enter Notion Database ID">
-  </label>
-  <label>
-    Title Property Name:
-    <input type="text" id="titleProperty" placeholder="Título do Livro">
-  </label>
-  <label>
-    Author Property Name:
-    <input type="text" id="authorProperty" placeholder="Autor">
-  </label>
-  <button id="save">Save Settings</button>
-  <button id="export">Export to Notion</button>
-  <button id="navigateHighlights">Go to Highlights</button>
-  <div id="spinner" class="spinner-container hidden">
-    <div class="spinner"></div>
-    <span class="spinner-text"></span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Connection Status Card -->
+      <div class="glass-card status-card">
+        <div class="status-indicator">
+          <div class="status-item">
+            <div class="status-dot" id="amazonStatusDot"></div>
+            <span class="status-label">Amazon</span>
+          </div>
+          <div class="status-divider"></div>
+          <div class="status-item">
+            <div class="status-dot" id="notionStatusDot"></div>
+            <span class="status-label">Notion</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-navigation">
+        <button class="tab-btn active" id="tab-export-btn" data-tab="export">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Export</span>
+        </button>
+        <button class="tab-btn" id="tab-settings-btn" data-tab="settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6m6.364-15.364l-4.243 4.243m-4.242 4.242l-4.243 4.243m16.97-4.243l-4.242-4.242m-4.243-4.243l-4.242 4.243"></path>
+          </svg>
+          <span>Settings</span>
+        </button>
+      </div>
+
+      <!-- Export Tab -->
+      <div class="tab-panel active" id="export-panel">
+        <div class="glass-card action-card">
+          <button class="primary-button" id="export">
+            <span class="button-content">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export to Notion</span>
+            </span>
+            <div class="button-shine"></div>
+          </button>
+
+          <button class="secondary-button" id="navigateHighlights">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <span>Go to Highlights</span>
+          </button>
+
+          <!-- Spinner -->
+          <div id="spinner" class="spinner-overlay hidden">
+            <div class="spinner-content">
+              <div class="modern-spinner"></div>
+              <p class="spinner-text"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div class="tab-panel" id="settings-panel">
+        <div class="glass-card settings-card">
+
+          <div class="form-group">
+            <label for="token">
+              <span class="label-text">Notion API Token</span>
+              <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="password"
+                id="token"
+                placeholder="ntn_xxxxxxxxxxxxx"
+                autocomplete="off"
+                required
+              >
+              <button class="input-icon-btn" id="toggleToken" type="button" aria-label="Toggle visibility">
+                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </button>
+            </div>
+            <small class="help-text">
+              Generate at <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a>
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="databaseId">
+              <span class="label-text">Database ID</span>
+              <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="databaseId"
+              placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              autocomplete="off"
+              required
+            >
+            <small class="help-text">Copy from your Notion database URL</small>
+          </div>
+
+          <div class="form-group">
+            <label for="titleProperty">
+              <span class="label-text">Book Title Property</span>
+            </label>
+            <input
+              type="text"
+              id="titleProperty"
+              placeholder="Book Title"
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="authorProperty">
+              <span class="label-text">Author Property</span>
+            </label>
+            <input
+              type="text"
+              id="authorProperty"
+              placeholder="Author"
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="kindleRegion">
+              <span class="label-text">Kindle Region</span>
+            </label>
+            <select id="kindleRegion">
+              <option value="https://read.amazon.com/notebook">🇺🇸 United States</option>
+              <option value="https://ler.amazon.com.br/notebook">🇧🇷 Brazil</option>
+              <option value="https://read.amazon.ca/notebook">🇨🇦 Canada</option>
+              <option value="https://read.amazon.co.uk/notebook">🇬🇧 United Kingdom</option>
+              <option value="https://read.amazon.de/notebook">🇩🇪 Germany</option>
+              <option value="https://read.amazon.fr/notebook">🇫🇷 France</option>
+              <option value="https://read.amazon.es/notebook">🇪🇸 Spain</option>
+              <option value="https://read.amazon.it/notebook">🇮🇹 Italy</option>
+              <option value="https://read.amazon.co.jp/notebook">🇯🇵 Japan</option>
+              <option value="https://read.amazon.com.au/notebook">🇦🇺 Australia</option>
+              <option value="https://read.amazon.in/notebook">🇮🇳 India</option>
+              <option value="https://read.amazon.com.mx/notebook">🇲🇽 Mexico</option>
+            </select>
+          </div>
+
+          <button class="primary-button" id="save" type="button">
+            <span class="button-content">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              <span>Save Settings</span>
+            </span>
+            <div class="button-shine"></div>
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification" role="status"></div>
+
   </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
