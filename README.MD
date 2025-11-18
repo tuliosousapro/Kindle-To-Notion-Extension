@@ -2,7 +2,7 @@
   <img src="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/blob/480e8b64c0543e412d64665dc5ad3a11124101e1/assets/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg" alt="Kindle To Notion Extension Banner" width="100%" />
 </p>
 
-<h1 align="center">Kindle To Notion Extension v1.5.0</h1>
+<h1 align="center">Kindle To Notion Extension v1.6.0</h1>
 <p align="center"><em>Easily export your Kindle highlights into Notion databases</em></p>
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue">  <img src="https://img.shields.io/badge/Notion-API-blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=social">
@@ -138,12 +138,14 @@ This template helps you:
 - No data collection, ads, or tracking.
 
 #### 🧰 UI & UX Enhancements
-- Simple pop-up UI for configuration and export actions.
-- "Go to Highlights" button to easily navigate to Kindle notebook.
-- Dual-ring spinner for export feedback.
-- Centered text for notifications and error messages.
-- Tooltips for Notion API Token and Database ID fields.
-- Supports dark/light mode via matchMedia and WCAG 2.1-compliant UI.
+- **Modern Glassmorphic Design**: Stunning semi-transparent glass cards with backdrop-filter blur effects for a premium feel.
+- **Animated Gradient Background**: Smooth color-shifting animations that cycle through vibrant gradient schemes.
+- **Icon-Based Tab Navigation**: Intuitive tab switching between Export and Settings with clean, modern icons.
+- **Glowing Status Indicators**: Real-time connection status for Amazon and Notion with pulsing glow effects.
+- **Enhanced Visual Feedback**: Smooth transitions, hover effects with shine animations on buttons.
+- **Toast Notifications**: Elegant slide-in notification system for user feedback.
+- **Streamlined Layout**: Cleaner header with logo glow, improved spacing, and better visual hierarchy.
+- WCAG 2.1-compliant UI for accessibility.
 
 ---
 
