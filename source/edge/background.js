@@ -10,12 +10,19 @@ const colorMap = {
 
 async function fetchHighResCover(amazonLink) {
   try {
-    if (!amazonLink || !amazonLink.includes('amazon.com') || !amazonLink.includes('/dp/')) {
+    if (!amazonLink || !amazonLink.includes('amazon') || !amazonLink.includes('/dp/')) {
       console.warn('Invalid Amazon link:', amazonLink);
       return '';
     }
 
-    const response = await fetch(amazonLink, { method: 'GET', credentials: 'omit' });
+    // Normalize URL to use www subdomain to match host_permissions
+    let normalizedUrl = amazonLink;
+    if (amazonLink.includes('://amazon.')) {
+      normalizedUrl = amazonLink.replace('://amazon.', '://www.amazon.');
+    }
+    console.log('Fetching cover from:', normalizedUrl);
+
+    const response = await fetch(normalizedUrl, { method: 'GET', credentials: 'omit' });
     if (!response.ok) {
       console.warn('Failed to fetch Amazon page:', response.status, response.statusText);
       return '';
