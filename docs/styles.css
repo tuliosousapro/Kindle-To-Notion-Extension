@@ -812,4 +812,131 @@ body {
         flex-wrap: wrap;
         justify-content: center;
     }
+
+    .comparison-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .comparison-table {
+        font-size: 0.8rem;
+    }
+
+    .use-cases__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Comparison Table Section */
+.comparison {
+    padding: 5rem 0;
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+    border-radius: 16px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.comparison-table th {
+    font-weight: 600;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table td {
+    color: var(--text-secondary);
+}
+
+.comparison-table .highlight-column {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.comparison-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Use Cases Section */
+.use-cases {
+    padding: 5rem 0;
+}
+
+.use-cases__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.use-case-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.use-case-card:hover {
+    transform: translateY(-4px);
+    background: var(--glass-bg-hover);
+    box-shadow: var(--shadow-medium);
+}
+
+.use-case-card__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1.25rem;
+    background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.use-case-card__icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+}
+
+.use-case-card__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.use-case-card__description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Responsive for Use Cases */
+@media (max-width: 768px) {
+    .use-cases__grid {
+        grid-template-columns: 1fr;
+    }
 }
