@@ -1,0 +1,443 @@
+/* Welcome Page Specific Styles */
+
+/* Welcome Hero Section */
+.welcome-hero {
+    padding: 8rem 0 4rem;
+    text-align: center;
+}
+
+.welcome-hero__content {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-hero__badge {
+    display: inline-block;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+}
+
+.welcome-hero__icon {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.welcome-hero__icon img {
+    width: 96px;
+    height: 96px;
+    border-radius: 24px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+}
+
+.welcome-hero__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.3;
+    }
+}
+
+.welcome-hero__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-hero__subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.welcome-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--text-primary);
+    color: var(--gradient-1);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.welcome-hero__cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+}
+
+.welcome-hero__cta svg {
+    transition: transform 0.3s ease;
+}
+
+.welcome-hero__cta:hover svg {
+    transform: translate(3px, -3px);
+}
+
+/* Features Section */
+.welcome-features {
+    padding: 4rem 0;
+}
+
+/* Setup Guide Section */
+.setup-guide {
+    padding: 4rem 0;
+}
+
+.setup-steps {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.setup-step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.setup-step:hover {
+    background: var(--glass-bg-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.setup-step__number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.setup-step__content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.setup-step__content p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.setup-tip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+}
+
+.setup-tip svg {
+    flex-shrink: 0;
+    fill: var(--gradient-1);
+}
+
+.setup-tip strong {
+    color: var(--text-primary);
+}
+
+.setup-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.setup-checklist li {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.setup-checklist li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--gradient-1);
+    border-radius: 50%;
+}
+
+.setup-docs-cta {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+
+.setup-docs-cta p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* Help Resources Section */
+.help-resources {
+    padding: 4rem 0;
+}
+
+.help-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.help-card {
+    display: block;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.help-card:hover {
+    background: var(--glass-bg-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.help-card__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1.25rem;
+    background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.help-card__icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+}
+
+.help-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.help-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Share CTA Section */
+.share-cta {
+    padding: 4rem 0;
+}
+
+.share-cta__content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    text-align: center;
+}
+
+.share-cta__content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.share-cta__content p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Share button styles */
+.btn--share {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn--twitter {
+    background: #000;
+    color: #fff;
+}
+
+.btn--twitter:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+.btn--linkedin {
+    background: #0077b5;
+    color: #fff;
+}
+
+.btn--linkedin:hover {
+    background: #005885;
+    transform: translateY(-2px);
+}
+
+.btn--github {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+}
+
+.btn--github:hover {
+    background: var(--glass-bg-hover);
+    transform: translateY(-2px);
+}
+
+/* Button small variant */
+.btn--small {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn--small svg {
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .welcome-hero {
+        padding: 6rem 0 3rem;
+    }
+
+    .welcome-hero__title {
+        font-size: 2rem;
+    }
+
+    .welcome-hero__subtitle {
+        font-size: 1rem;
+    }
+
+    .welcome-hero__icon img {
+        width: 72px;
+        height: 72px;
+    }
+
+    .welcome-hero__glow {
+        width: 120px;
+        height: 120px;
+    }
+
+    .setup-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .setup-checklist {
+        grid-template-columns: 1fr;
+    }
+
+    .help-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .share-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .help-grid {
+        grid-template-columns: 1fr;
+    }
+}
