@@ -313,8 +313,19 @@ body {
 }
 
 .feature-card__icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.feature-card__icon svg {
+    stroke: white;
 }
 
 .feature-card__title {
