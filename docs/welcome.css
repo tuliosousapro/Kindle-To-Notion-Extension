@@ -63,7 +63,7 @@
     flex-shrink: 0;
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -71,10 +71,11 @@
     font-size: 1.25rem;
     font-weight: 700;
     color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .setup-step__content h3 {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
@@ -92,14 +93,15 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     color: var(--text-muted);
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.1);
     padding: 0.75rem 1rem;
     border-radius: 8px;
+    border: 1px solid var(--glass-border);
 }
 
 .setup-tip svg {
     flex-shrink: 0;
-    fill: var(--primary);
+    fill: var(--gradient-1);
 }
 
 .setup-tip strong {
@@ -130,7 +132,7 @@
     transform: translateY(-50%);
     width: 6px;
     height: 6px;
-    background: var(--primary);
+    background: var(--gradient-1);
     border-radius: 50%;
 }
 
@@ -182,7 +184,7 @@
 .help-card__icon {
     width: 48px;
     height: 48px;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1.25rem;
     background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
     border-radius: 12px;
     display: flex;
@@ -192,11 +194,13 @@
 }
 
 .help-card__icon svg {
+    width: 24px;
+    height: 24px;
     stroke: white;
 }
 
 .help-card h3 {
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
@@ -205,6 +209,7 @@
 .help-card p {
     font-size: 0.875rem;
     color: var(--text-secondary);
+    line-height: 1.5;
     margin: 0;
 }
 

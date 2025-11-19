@@ -313,9 +313,9 @@ body {
 }
 
 .feature-card__icon {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 1rem;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1.25rem;
     background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
     border-radius: 12px;
     display: flex;
@@ -325,17 +325,22 @@ body {
 }
 
 .feature-card__icon svg {
+    width: 24px;
+    height: 24px;
     stroke: white;
 }
 
 .feature-card__title {
     color: var(--text-primary);
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 600;
 }
 
 .feature-card__description {
     color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* Tutorial Video Section */
@@ -527,14 +532,15 @@ body {
     justify-content: center;
     font-size: 1.25rem;
     font-weight: 700;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1.25rem;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .step-card h3 {
     color: var(--text-primary);
     margin-bottom: 0.75rem;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
+    font-weight: 600;
 }
 
 .step-card p {
@@ -575,13 +581,24 @@ body {
 }
 
 .browser-icon {
-    margin-bottom: 1rem;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.browser-icon svg {
+    width: 48px;
+    height: 48px;
 }
 
 .browser-card h3 {
     color: var(--text-primary);
     margin-bottom: 0.5rem;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
+    font-weight: 600;
 }
 
 .browser-card p {
