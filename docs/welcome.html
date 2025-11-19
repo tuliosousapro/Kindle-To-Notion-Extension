@@ -1,305 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Getting Started | Kindle to Notion</title>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="welcome.css">
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started | Kindle to Notion</title>
+    <meta name="description" content="Get started with Kindle to Notion. Follow our step-by-step guide to export your Kindle highlights to Notion in minutes.">
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="welcome.css">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png">
 </head>
 <body>
-  <div class="page-wrapper">
-    <header class="header">
-      <div class="container">
-        <nav class="nav">
-          <a href="index.html" class="nav__logo">
-            <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png" alt="Kindle to Notion Logo">
-            Kindle to Notion
-          </a>
-          <div class="nav__actions">
-            <a href="index.html#how-it-works" class="nav__link">How It Works</a>
-            <a href="index.html#features" class="nav__link">Features</a>
-            <a href="https://machina-labs.gitbook.io/kindle-to-notion/" class="nav__link">Docs</a>
-            <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" class="nav__link">GitHub</a>
-            <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="btn btn--primary">Install Free</a>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="container">
+                <nav class="nav">
+                    <a href="index.html" class="nav__logo">
+                        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png" alt="Kindle to Notion Logo">
+                        Kindle to Notion
+                    </a>
+                    <div class="nav__actions">
+                        <a href="index.html#how-it-works" class="nav__link">How It Works</a>
+                        <a href="index.html#features" class="nav__link">Features</a>
+                        <a href="https://machina-labs.gitbook.io/kindle-to-notion/" class="nav__link">Docs</a>
+                        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" class="nav__link">GitHub</a>
+                        <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo" class="btn btn--primary">Install Free</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
 
-    <main class="main">
-      <!-- Background gradient -->
-      <div class="background-gradient"></div>
+        <main class="main">
+            <!-- Page Header -->
+            <section class="page-hero">
+                <div class="container">
+                    <div class="page-hero__content">
+                        <h1 class="page-hero__title">Getting Started</h1>
+                        <p class="page-hero__subtitle">Follow these simple steps to start exporting your Kindle highlights to Notion</p>
+                    </div>
+                </div>
+            </section>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">v1.6.0</div>
-      <div class="hero-icon">
-        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png" alt="Kindle to Notion">
-        <div class="hero-icon-glow"></div>
-      </div>
-      <h1 class="hero-title">Welcome to Kindle to Notion</h1>
-      <p class="hero-subtitle">Export your Kindle highlights to Notion in one click. Let's get you set up in just a few minutes!</p>
-      <a href="#setup" class="hero-cta">
-        <span>Start Setup</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M7 17L17 7M17 7H7M17 7V17"/>
-        </svg>
-      </a>
-    </div>
-  </section>
+            <!-- Setup Steps -->
+            <section id="setup" class="setup-guide">
+                <div class="container">
+                    <div class="setup-steps">
+                        <!-- Step 1 -->
+                        <div class="setup-step">
+                            <div class="setup-step__number">1</div>
+                            <div class="setup-step__content">
+                                <h3>Create a Notion Integration</h3>
+                                <p>Go to Notion's integrations page and create a new integration. Copy the "Internal Integration Token" - you'll need this!</p>
+                                <a href="https://www.notion.so/my-integrations" target="_blank" class="btn btn--secondary btn--small">
+                                    Open Notion Integrations
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
 
-  <!-- Setup Section -->
-  <section id="setup" class="setup-section">
-    <div class="section-header">
-      <h2>Quick Start Guide</h2>
-      <p>Follow these 4 simple steps to start exporting your highlights</p>
-    </div>
+                        <!-- Step 2 -->
+                        <div class="setup-step">
+                            <div class="setup-step__number">2</div>
+                            <div class="setup-step__content">
+                                <h3>Set Up Your Database</h3>
+                                <p>Create or select a Notion database with at least "Title" and "Author" properties. Share it with your integration via the database's Share menu.</p>
+                                <div class="setup-tip">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                    <span>Database ID is in the URL: notion.so/<strong>DATABASE_ID</strong>?v=...</span>
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="steps-container">
-      <!-- Step 1 -->
-      <div class="step-card glass-card">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <h3>Create a Notion Integration</h3>
-          <p>Go to Notion's integrations page and create a new integration. Copy the "Internal Integration Token" - you'll need this!</p>
-          <a href="https://www.notion.so/my-integrations" target="_blank" class="step-link">
-            Open Notion Integrations
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-            </svg>
-          </a>
-        </div>
-      </div>
+                        <!-- Step 3 -->
+                        <div class="setup-step">
+                            <div class="setup-step__number">3</div>
+                            <div class="setup-step__content">
+                                <h3>Configure the Extension</h3>
+                                <p>Click the extension icon in your browser toolbar, go to Settings, and enter:</p>
+                                <ul class="setup-checklist">
+                                    <li>Notion API Token</li>
+                                    <li>Database ID</li>
+                                    <li>Title Property Name</li>
+                                    <li>Author Property Name</li>
+                                    <li>Your Kindle Region</li>
+                                </ul>
+                            </div>
+                        </div>
 
-      <!-- Step 2 -->
-      <div class="step-card glass-card">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <h3>Set Up Your Database</h3>
-          <p>Create or select a Notion database with at least "Title" and "Author" properties. Share it with your integration via the database's Share menu.</p>
-          <div class="step-tip">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-            </svg>
-            <span>Database ID is in the URL: notion.so/<strong>DATABASE_ID</strong>?v=...</span>
-          </div>
-        </div>
-      </div>
+                        <!-- Step 4 -->
+                        <div class="setup-step">
+                            <div class="setup-step__number">4</div>
+                            <div class="setup-step__content">
+                                <h3>Export Your Highlights!</h3>
+                                <p>Navigate to your Kindle highlights page, click the extension icon, and hit "Export to Notion". That's it!</p>
+                                <a href="https://read.amazon.com/notebook" target="_blank" class="btn btn--secondary btn--small">
+                                    Go to Kindle Highlights
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-      <!-- Step 3 -->
-      <div class="step-card glass-card">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <h3>Configure the Extension</h3>
-          <p>Click the extension icon in your browser toolbar, go to Settings, and enter:</p>
-          <ul class="step-list">
-            <li>Notion API Token</li>
-            <li>Database ID</li>
-            <li>Title Property Name</li>
-            <li>Author Property Name</li>
-            <li>Your Kindle Region</li>
-          </ul>
-        </div>
-      </div>
+                    <div class="setup-docs-cta">
+                        <p>Need more detailed instructions?</p>
+                        <a href="https://machina-labs.gitbook.io/kindle-to-notion/getting-started/getting-started" target="_blank" class="btn btn--primary">
+                            View Full Documentation
+                        </a>
+                    </div>
+                </div>
+            </section>
 
-      <!-- Step 4 -->
-      <div class="step-card glass-card">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <h3>Export Your Highlights!</h3>
-          <p>Navigate to your Kindle highlights page, click the extension icon, and hit "Export to Notion". That's it!</p>
-          <a href="https://read.amazon.com/notebook" target="_blank" class="step-link">
-            Go to Kindle Highlights
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
+            <!-- Help Resources -->
+            <section class="help-resources">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Need Help?</h2>
+                        <p class="section-subtitle">We've got you covered with multiple support options</p>
+                    </div>
+                    <div class="help-grid">
+                        <a href="https://machina-labs.gitbook.io/kindle-to-notion/" target="_blank" class="help-card">
+                            <div class="help-card__icon">📚</div>
+                            <h3>Documentation</h3>
+                            <p>Comprehensive guides and tutorials</p>
+                        </a>
+                        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/wiki" target="_blank" class="help-card">
+                            <div class="help-card__icon">📖</div>
+                            <h3>Wiki</h3>
+                            <p>Community knowledge base</p>
+                        </a>
+                        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues" target="_blank" class="help-card">
+                            <div class="help-card__icon">🐛</div>
+                            <h3>Report Issues</h3>
+                            <p>Found a bug? Let us know</p>
+                        </a>
+                        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/discussions" target="_blank" class="help-card">
+                            <div class="help-card__icon">💬</div>
+                            <h3>Discussions</h3>
+                            <p>Ask questions & share ideas</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
 
-    <div class="setup-cta">
-      <p>Need a step-by-step walkthrough?</p>
-      <a href="https://machina-labs.gitbook.io/kindle-to-notion/getting-started/getting-started" target="_blank" class="btn-secondary">
-        View Full Documentation
-      </a>
-    </div>
-  </section>
+            <!-- Share CTA -->
+            <section class="share-cta">
+                <div class="container">
+                    <div class="share-cta__content">
+                        <h2>Enjoying Kindle to Notion?</h2>
+                        <p>Help others discover this tool by sharing with friends!</p>
+                        <div class="share-buttons">
+                            <a href="https://twitter.com/intent/tweet?text=Just%20discovered%20Kindle%20to%20Notion%20-%20export%20your%20Kindle%20highlights%20to%20Notion%20in%20one%20click!&url=https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank" class="btn btn--share btn--twitter">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                Share on X
+                            </a>
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank" class="btn btn--share btn--linkedin">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                                LinkedIn
+                            </a>
+                            <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank" class="btn btn--share btn--github">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                Star on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-  <!-- Features Section -->
-  <section id="features" class="features-section">
-    <div class="section-header">
-      <h2>What You Can Do</h2>
-      <p>Powerful features to organize your reading insights</p>
-    </div>
-
-    <div class="features-grid">
-      <div class="feature-card glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-          </svg>
-        </div>
-        <h3>One-Click Export</h3>
-        <p>Export all your highlights and notes from any book with a single click</p>
-      </div>
-
-      <div class="feature-card glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-          </svg>
-        </div>
-        <h3>Color-Coded Highlights</h3>
-        <p>Preserve your highlight colors (blue, yellow, pink, orange) in Notion</p>
-      </div>
-
-      <div class="feature-card glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-        </div>
-        <h3>Book Covers</h3>
-        <p>Automatically fetches high-resolution book cover images from Amazon</p>
-      </div>
-
-      <div class="feature-card glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-          </svg>
-        </div>
-        <h3>No Duplicates</h3>
-        <p>Smart detection prevents duplicate highlights when re-exporting</p>
-      </div>
-
-      <div class="feature-card glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <h3>12 Regions</h3>
-        <p>Supports US, UK, Canada, Germany, France, Spain, Italy, Japan, Australia, India, Mexico, and Brazil</p>
-      </div>
-
-      <div class="feature-card glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-        </div>
-        <h3>Notes Included</h3>
-        <p>Your personal notes are exported alongside highlights with special formatting</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Help Section -->
-  <section id="help" class="help-section">
-    <div class="section-header">
-      <h2>Need Help?</h2>
-      <p>We've got you covered with multiple support options</p>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__content">
+                    <p class="footer__copyright">
+                        Crafted with 🔮 by <a href="https://github.com/tuliosousapro">Túlio Sousa | Machina Labs</a>
+                    </p>
+                    <div class="footer__links">
+                        <a href="index.html">Home</a>
+                        <a href="https://machina-labs.gitbook.io/kindle-to-notion/">Docs</a>
+                        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension">GitHub</a>
+                        <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo">Chrome</a>
+                        <a href="https://microsoftedge.microsoft.com/addons/detail/enbikfmjfocokoeoieljbdpkfimnpjdb">Edge</a>
+                        <a href="https://addons.mozilla.org/pt-BR/firefox/addon/kindle-to-notion/">Firefox</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <div class="help-grid">
-      <a href="https://machina-labs.gitbook.io/kindle-to-notion/" target="_blank" class="help-card glass-card">
-        <div class="help-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-          </svg>
-        </div>
-        <h3>Documentation</h3>
-        <p>Comprehensive guides and tutorials</p>
-      </a>
-
-      <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/wiki" target="_blank" class="help-card glass-card">
-        <div class="help-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-          </svg>
-        </div>
-        <h3>Wiki</h3>
-        <p>Community knowledge base</p>
-      </a>
-
-      <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues" target="_blank" class="help-card glass-card">
-        <div class="help-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <h3>Report Issues</h3>
-        <p>Found a bug? Let us know</p>
-      </a>
-
-      <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/discussions" target="_blank" class="help-card glass-card">
-        <div class="help-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
-          </svg>
-        </div>
-        <h3>Discussions</h3>
-        <p>Ask questions & share ideas</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- Share Section -->
-  <section class="share-section">
-    <div class="share-content glass-card">
-      <h2>Enjoying Kindle to Notion?</h2>
-      <p>Help others discover this tool by sharing with friends!</p>
-      <div class="share-buttons">
-        <a href="https://twitter.com/intent/tweet?text=Just%20discovered%20Kindle%20to%20Notion%20-%20export%20your%20Kindle%20highlights%20to%20Notion%20in%20one%20click!%20%F0%9F%93%9A%E2%9C%A8&url=https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank" class="share-btn twitter">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          Share on X
-        </a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank" class="share-btn linkedin">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-          LinkedIn
-        </a>
-        <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension" target="_blank" class="share-btn github">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-          Star on GitHub
-        </a>
-      </div>
-    </div>
-  </section>
-
-    </main>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer__content">
-          <p class="footer__copyright">
-            Crafted with 🔮 by <a href="https://github.com/tuliosousapro">Túlio Sousa | Machina Labs</a>
-          </p>
-          <div class="footer__links">
-            <a href="index.html">Home</a>
-            <a href="https://machina-labs.gitbook.io/kindle-to-notion/">Docs</a>
-            <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension">GitHub</a>
-            <a href="https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo">Chrome</a>
-            <a href="https://microsoftedge.microsoft.com/addons/detail/enbikfmjfocokoeoieljbdpkfimnpjdb">Edge</a>
-            <a href="https://addons.mozilla.org/pt-BR/firefox/addon/kindle-to-notion/">Firefox</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <script src="welcome.js"></script>
+    <script>
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
