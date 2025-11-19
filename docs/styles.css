@@ -589,6 +589,7 @@ body {
     justify-content: center;
 }
 
+.browser-icon img,
 .browser-icon svg {
     width: 48px;
     height: 48px;
