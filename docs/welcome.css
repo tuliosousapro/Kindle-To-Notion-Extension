@@ -1,31 +1,114 @@
 /* Welcome Page Specific Styles */
 
-/* Page Hero - Sub-page header */
-.page-hero {
+/* Welcome Hero Section */
+.welcome-hero {
     padding: 8rem 0 4rem;
     text-align: center;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, transparent 100%);
 }
 
-.page-hero__content {
+.welcome-hero__content {
     max-width: 600px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.page-hero__title {
-    font-size: 3rem;
+.welcome-hero__badge {
+    display: inline-block;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+}
+
+.welcome-hero__icon {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.welcome-hero__icon img {
+    width: 96px;
+    height: 96px;
+    border-radius: 24px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+}
+
+.welcome-hero__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.3;
+    }
+}
+
+.welcome-hero__title {
+    font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.page-hero__subtitle {
-    font-size: 1.25rem;
+.welcome-hero__subtitle {
+    font-size: 1.125rem;
     color: var(--text-secondary);
     line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.welcome-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--text-primary);
+    color: var(--gradient-1);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.welcome-hero__cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+}
+
+.welcome-hero__cta svg {
+    transition: transform 0.3s ease;
+}
+
+.welcome-hero__cta:hover svg {
+    transform: translate(3px, -3px);
+}
+
+/* Features Section */
+.welcome-features {
+    padding: 4rem 0;
 }
 
 /* Setup Guide Section */
@@ -311,16 +394,26 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .page-hero {
+    .welcome-hero {
         padding: 6rem 0 3rem;
     }
 
-    .page-hero__title {
+    .welcome-hero__title {
         font-size: 2rem;
     }
 
-    .page-hero__subtitle {
+    .welcome-hero__subtitle {
         font-size: 1rem;
+    }
+
+    .welcome-hero__icon img {
+        width: 72px;
+        height: 72px;
+    }
+
+    .welcome-hero__glow {
+        width: 120px;
+        height: 120px;
     }
 
     .setup-step {
