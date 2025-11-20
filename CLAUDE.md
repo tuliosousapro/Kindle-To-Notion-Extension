@@ -247,7 +247,7 @@ Current: v1.6.0 (2025-11-18)
 2. `/source/chrome/popup.js` - Main UI logic
 3. `/source/chrome/contentScript.js` - Data extraction
 4. `/source/chrome/background.js` - Notion API calls
-5. `/README.MD` - User-facing documentation
+5. `README.MD` - User-facing documentation
 
 ## Common Gotchas
 
