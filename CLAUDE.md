@@ -121,10 +121,10 @@ Uses `chrome.storage.local` for:
 
 ```javascript
 // Content script → Background
-chrome.runtime.sendMessage({ action: 'exportToNotion', data: {...} });
+chrome.runtime.sendMessage({ action: 'sendToNotion', data: {...} });
 
 // Popup → Content script
-chrome.tabs.sendMessage(tabId, { action: 'getHighlights' });
+chrome.tabs.sendMessage(tabId, { action: 'export' });
 ```
 
 ## Development Workflow
