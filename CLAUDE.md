@@ -40,9 +40,9 @@ Kindle-To-Notion-Extension/
 ## Data Flow
 
 1. User opens Kindle notebook page
-2. `contentScript.js` extracts highlights, notes, colors, book metadata
-3. User clicks "Export to Notion" in popup
-4. `popup.js` sends message to content script
+2. User clicks "Export to Notion" in popup
+3. `popup.js` sends message to `contentScript.js`
+4. `contentScript.js` extracts highlights, notes, colors, book metadata
 5. Content script sends data to `background.js` (service worker)
 6. `background.js` calls Notion API to create/update pages
 7. Toast notification shows result
