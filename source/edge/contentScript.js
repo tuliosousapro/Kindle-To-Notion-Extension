@@ -123,9 +123,79 @@ function extractBookmarks() {
   return bookmarks;
 }
 
+// Debug function to inspect DOM structure
+function debugDOMStructure() {
+  console.log('=== DEBUG: Kindle Page DOM Structure ===');
+
+  // Find first highlight element
+  const highlightSelectors = ['.kp-notebook-highlight', '.highlight-item', 'div[data-testid="highlight"]'];
+  let firstHighlight = null;
+
+  highlightSelectors.some(selector => {
+    firstHighlight = document.querySelector(selector);
+    if (firstHighlight) {
+      console.log('Found highlight with selector:', selector);
+      return true;
+    }
+    return false;
+  });
+
+  if (firstHighlight) {
+    console.log('First highlight element:', firstHighlight);
+    console.log('First highlight HTML:', firstHighlight.outerHTML.substring(0, 500));
+
+    // Check parent elements
+    let parent = firstHighlight.parentElement;
+    let level = 1;
+    while (parent && level <= 5) {
+      console.log(`Parent level ${level}:`, parent.className, parent.id);
+      console.log(`Parent ${level} HTML:`, parent.outerHTML.substring(0, 300));
+      parent = parent.parentElement;
+      level++;
+    }
+
+    // Check for location/page info in siblings and children
+    console.log('All text in highlight container:', firstHighlight.parentElement?.textContent);
+    console.log('Next sibling:', firstHighlight.nextElementSibling);
+    console.log('Previous sibling:', firstHighlight.previousElementSibling);
+  }
+
+  // Look for any elements with "location", "page", "chapter" in class/id
+  const allElements = document.querySelectorAll('*');
+  const locationElements = [];
+  const chapterElements = [];
+  const bookmarkElements = [];
+
+  allElements.forEach(el => {
+    const className = el.className?.toString().toLowerCase() || '';
+    const id = el.id?.toLowerCase() || '';
+    const text = el.textContent?.trim() || '';
+
+    if (className.includes('location') || id.includes('location') || text.match(/location\s*\d+/i)) {
+      locationElements.push({ el, className, id, text: text.substring(0, 100) });
+    }
+    if (className.includes('chapter') || id.includes('chapter') || text.match(/chapter\s*\d+/i)) {
+      chapterElements.push({ el, className, id, text: text.substring(0, 100) });
+    }
+    if (className.includes('bookmark') || id.includes('bookmark')) {
+      bookmarkElements.push({ el, className, id, text: text.substring(0, 100) });
+    }
+  });
+
+  console.log('Found location-related elements:', locationElements);
+  console.log('Found chapter-related elements:', chapterElements);
+  console.log('Found bookmark-related elements:', bookmarkElements);
+
+  console.log('=== END DEBUG ===');
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'export') {
     console.log("Export message received");
+
+    // Run debug to help identify correct selectors
+    debugDOMStructure();
+
     // Enhanced metadata extraction with fallbacks
     const title = document.querySelector('h3.kp-notebook-metadata')?.textContent.trim() ||
                  document.querySelector('.kp-notebook-title')?.textContent.trim() ||
@@ -154,7 +224,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return highlightElements.length > 0;
     });
 
-    highlightElements.forEach(highlight => {
+    console.log(`Found ${highlightElements.length} highlight elements`);
+
+    highlightElements.forEach((highlight, index) => {
       const textElement = highlight.querySelector('#highlight') || highlight.querySelector('.highlight-text');
       const text = textElement?.textContent.trim() || '';
       if (!text) return; // Skip if no text is found
@@ -165,6 +237,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       // Extract location and chapter info
       const location = extractLocation(highlight);
       const chapter = extractChapter(highlight);
+
+      // Debug log for first 3 highlights
+      if (index < 3) {
+        console.log(`Highlight ${index + 1}:`, {
+          text: text.substring(0, 50) + '...',
+          location,
+          chapter,
+          parentHTML: highlight.parentElement?.outerHTML.substring(0, 300)
+        });
+      }
 
       let note = '';
       const nextSibling = highlight.nextElementSibling;
