@@ -205,9 +205,42 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                   'Unknown Author';
 
     // Extract Amazon store link for the current book (supporting all regions)
-    const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
-    const amazonLink = amazonLinkElement?.href || '';
-    console.log('Extracted Amazon link:', amazonLink);
+    // First, try to get ASIN from URL and construct proper regional link
+    let amazonLink = '';
+    const urlParams = new URLSearchParams(window.location.search);
+    const asin = urlParams.get('asin');
+
+    if (asin) {
+      // Detect regional domain from current page
+      const currentDomain = window.location.hostname; // e.g., "ler.amazon.com.br"
+      // Map reading domains to store domains
+      const domainMap = {
+        'read.amazon.com': 'www.amazon.com',
+        'ler.amazon.com.br': 'www.amazon.com.br',
+        'read.amazon.ca': 'www.amazon.ca',
+        'read.amazon.co.uk': 'www.amazon.co.uk',
+        'read.amazon.de': 'www.amazon.de',
+        'read.amazon.fr': 'www.amazon.fr',
+        'read.amazon.es': 'www.amazon.es',
+        'read.amazon.it': 'www.amazon.it',
+        'read.amazon.co.jp': 'www.amazon.co.jp',
+        'read.amazon.com.au': 'www.amazon.com.au',
+        'read.amazon.in': 'www.amazon.in',
+        'read.amazon.com.mx': 'www.amazon.com.mx'
+      };
+
+      const storeDomain = domainMap[currentDomain] || 'www.amazon.com';
+      amazonLink = `https://${storeDomain}/dp/${asin}`;
+      console.log('Constructed regional Amazon link:', amazonLink);
+    }
+
+    // Fallback: try to extract from page if ASIN construction failed
+    if (!amazonLink) {
+      const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
+      amazonLink = amazonLinkElement?.href || '';
+    }
+
+    console.log('Final Amazon link:', amazonLink);
 
     const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
     const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim().match(/\d+/)?.[0] || '0';

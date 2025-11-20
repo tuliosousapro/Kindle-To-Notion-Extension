@@ -181,11 +181,18 @@ async function fetchHighResCover(amazonLink) {
     }
 
     // Normalize URL to use www subdomain to match host_permissions
+    // Handle regional domains properly (amazon.com, amazon.com.br, amazon.co.uk, etc.)
     let normalizedUrl = amazonLink;
-    if (amazonLink.includes('://amazon.')) {
-      normalizedUrl = amazonLink.replace('://amazon.', '://www.amazon.');
+
+    // Replace "amazon." with "www.amazon." but preserve the full domain
+    // This handles: amazon.com → www.amazon.com, amazon.com.br → www.amazon.com.br, etc.
+    if (amazonLink.match(/https?:\/\/amazon\./)) {
+      normalizedUrl = amazonLink.replace(/https?:\/\/amazon\./, (match) => {
+        return match.replace('amazon.', 'www.amazon.');
+      });
     }
-    console.log('Fetching cover from:', normalizedUrl);
+
+    console.log('Fetching cover from:', normalizedUrl, '(original:', amazonLink, ')');
 
     const response = await fetch(normalizedUrl, { method: 'GET', credentials: 'omit' });
     if (!response.ok) {
