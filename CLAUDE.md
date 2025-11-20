@@ -272,8 +272,8 @@ Note: No package.json exists - these require global installs or manual setup.
 
 ## Documentation Resources
 
-- `/gitbook/` - Full technical documentation
-- `/docs/` - Marketing website
-- `/FAQ.MD` - Frequently asked questions
-- `/CONTRIBUTING.md` - Contribution guidelines
-- `/SECURITY.md` - Security policy
+- `gitbook/` - Full technical documentation
+- `docs/` - Marketing website
+- `FAQ.MD` - Frequently asked questions
+- `CONTRIBUTING.md` - Contribution guidelines
+- `SECURITY.md` - Security policy
