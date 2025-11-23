@@ -213,10 +213,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (asin) {
       // Detect regional domain from current page
       const currentDomain = window.location.hostname; // e.g., "ler.amazon.com.br"
-      // Map reading domains to store domains
+      // Map reading domains to store domains (Brazil uses "ler" instead of "read")
       const domainMap = {
         'read.amazon.com': 'www.amazon.com',
-        'ler.amazon.com.br': 'www.amazon.com.br',
+        'ler.amazon.com.br': 'www.amazon.com.br',     // Brazil
+        'read.amazon.com.br': 'www.amazon.com.br',    // Brazil fallback
         'read.amazon.ca': 'www.amazon.ca',
         'read.amazon.co.uk': 'www.amazon.co.uk',
         'read.amazon.de': 'www.amazon.de',
@@ -226,7 +227,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         'read.amazon.co.jp': 'www.amazon.co.jp',
         'read.amazon.com.au': 'www.amazon.com.au',
         'read.amazon.in': 'www.amazon.in',
-        'read.amazon.com.mx': 'www.amazon.com.mx'
+        'read.amazon.com.mx': 'www.amazon.com.mx',
+        'leer.amazon.com.mx': 'www.amazon.com.mx'     // Mexico uses "leer"
       };
 
       const storeDomain = domainMap[currentDomain] || 'www.amazon.com';
