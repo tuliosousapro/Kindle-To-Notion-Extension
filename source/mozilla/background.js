@@ -173,7 +173,9 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 });
 
-async function fetchHighResCover(amazonLink) {
+async function fetchHighResCover(amazonLink, retryCount = 0) {
+  const maxRetries = 2;
+
   try {
     if (!amazonLink || !amazonLink.includes('amazon') || !amazonLink.includes('/dp/')) {
       console.warn('Invalid Amazon link:', amazonLink);
@@ -192,11 +194,32 @@ async function fetchHighResCover(amazonLink) {
       });
     }
 
-    console.log('Fetching cover from:', normalizedUrl, '(original:', amazonLink, ')');
+    console.log(`[Cover Fetch Attempt ${retryCount + 1}/${maxRetries + 1}] From:`, normalizedUrl, '(original:', amazonLink, ')');
 
     const response = await fetch(normalizedUrl, { method: 'GET', credentials: 'omit' });
     if (!response.ok) {
       console.warn('Failed to fetch Amazon page:', response.status, response.statusText);
+
+      // Retry with different domain if first attempt failed
+      if (retryCount < maxRetries) {
+        console.log('Retrying with different approach...');
+
+        // Try extracting ASIN and using different regional domains
+        const asinMatch = amazonLink.match(/\/dp\/([A-Z0-9]{10})/);
+        if (asinMatch && retryCount === 0) {
+          // First retry: try .com.br if not already
+          const altUrl = `https://www.amazon.com.br/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        } else if (asinMatch && retryCount === 1) {
+          // Second retry: try .com
+          const altUrl = `https://www.amazon.com/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        }
+      }
       return '';
     }
 
@@ -212,15 +235,44 @@ async function fetchHighResCover(amazonLink) {
       const match = text.match(pattern);
       if (match && match[1]) {
         const coverUrl = match[1];
-        console.log('Fetched high-res cover:', coverUrl);
+        console.log('✅ Fetched high-res cover:', coverUrl);
         return coverUrl;
       }
     }
 
-    console.warn('High-res cover image not found for:', amazonLink);
+    console.warn(`❌ High-res cover image not found in page from: ${normalizedUrl}`);
+
+    // Retry with different domain
+    if (retryCount < maxRetries) {
+      const asinMatch = amazonLink.match(/\/dp\/([A-Z0-9]{10})/);
+      if (asinMatch) {
+        if (retryCount === 0) {
+          const altUrl = `https://www.amazon.com.br/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            console.log('Retrying with .com.br domain...');
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        } else if (retryCount === 1) {
+          const altUrl = `https://www.amazon.com/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            console.log('Retrying with .com domain...');
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        }
+      }
+    }
+
     return '';
   } catch (error) {
-    console.error('Error fetching high-res cover for:', amazonLink, error);
+    console.error('Error fetching high-res cover:', error);
+
+    // Retry on error
+    if (retryCount < maxRetries) {
+      console.log(`Retrying due to error (attempt ${retryCount + 2}/${maxRetries + 1})...`);
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1s before retry
+      return await fetchHighResCover(amazonLink, retryCount + 1);
+    }
+
     return '';
   }
 }

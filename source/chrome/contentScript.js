@@ -226,6 +226,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (asin) {
       // Detect regional domain from current page
       const currentDomain = window.location.hostname; // e.g., "ler.amazon.com.br"
+      console.log('🌎 Current Kindle domain:', currentDomain);
+
       // Map reading domains to store domains (Brazil uses "ler" instead of "read")
       const domainMap = {
         'read.amazon.com': 'www.amazon.com',
@@ -246,7 +248,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
       const storeDomain = domainMap[currentDomain] || 'www.amazon.com';
       amazonLink = `https://${storeDomain}/dp/${asin}`;
-      console.log('Constructed regional Amazon link:', amazonLink);
+      console.log('📚 ASIN:', asin);
+      console.log('🔗 Constructed Amazon link:', amazonLink);
+      console.log('✅ Domain mapping:', currentDomain, '→', storeDomain);
     }
 
     // Fallback: try to extract from page if ASIN construction failed
