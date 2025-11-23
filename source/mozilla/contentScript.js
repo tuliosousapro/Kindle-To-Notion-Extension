@@ -46,6 +46,16 @@ function extractLocation(highlightElement) {
 
 // Helper function to find chapter heading for a highlight
 function extractChapter(highlightElement) {
+  // Common Kindle page headings to exclude (not actual chapters)
+  const excludedHeadings = [
+    'Livros com notas em sua biblioteca',
+    'Books with notes in your library',
+    'Libros con notas en tu biblioteca',
+    'Livres avec des notes dans votre bibliothèque',
+    'Bücher mit Notizen in deiner Bibliothek',
+    'あなたのライブラリのメモ付き書籍'
+  ];
+
   // Look for chapter heading in parent annotation containers
   let current = highlightElement;
 
@@ -74,7 +84,10 @@ function extractChapter(highlightElement) {
           if (chapterElement) {
             const chapterText = chapterElement.textContent.trim();
             // Verify it looks like a chapter (not just any text)
-            if (chapterText && chapterText.length < 200) {
+            // and exclude common Kindle page headings
+            if (chapterText &&
+                chapterText.length < 200 &&
+                !excludedHeadings.includes(chapterText)) {
               return chapterText;
             }
           }
