@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Early Access - Kindle to Notion Premium</title>
+    <meta name="description" content="Be the first to access premium features of Kindle to Notion. Join the waitlist for automatic sync, advanced highlighting, and more.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Get Early Access - Kindle to Notion Premium">
+    <meta property="og:description" content="Join the waitlist for Kindle to Notion premium features. Automatic sync, AI-powered insights, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tuliosousapro.github.io/Kindle-To-Notion-Extension/early-access.html">
+
+    <!-- Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png">
+
+    <style>
+        :root {
+            --gradient-1: #667eea;
+            --gradient-2: #764ba2;
+            --gradient-3: #f093fb;
+            --gradient-4: #4facfe;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-bg-hover: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --accent-success: #10b981;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 50%, var(--gradient-3) 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: gradientShift 15s ease infinite;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 50%, var(--gradient-3) 100%);
+            }
+            33% {
+                background: linear-gradient(135deg, var(--gradient-2) 0%, var(--gradient-3) 50%, var(--gradient-4) 100%);
+            }
+            66% {
+                background: linear-gradient(135deg, var(--gradient-3) 0%, var(--gradient-4) 50%, var(--gradient-1) 100%);
+            }
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--glass-border);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .features-list .icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]::placeholder,
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        input[type="email"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--text-primary);
+            background: var(--glass-bg-hover);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--text-primary);
+            color: var(--gradient-1);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .social-proof {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .social-proof-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-proof-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .social-proof-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .success-message {
+            display: none;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            color: var(--text-primary);
+            margin-top: 1rem;
+            animation: slideIn 0.4s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer-link {
+            margin-top: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-link a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .social-proof {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png" alt="Kindle to Notion" class="logo">
+
+        <div class="badge">✨ Coming Soon</div>
+
+        <h1>Get Early Access</h1>
+
+        <p class="subtitle">Be among the first to experience the next generation of Kindle to Notion with powerful new features.</p>
+
+        <ul class="features-list">
+            <li>
+                <span class="icon">⚡</span>
+                <span>Automatic sync - no manual exports needed</span>
+            </li>
+            <li>
+                <span class="icon">🤖</span>
+                <span>AI-powered insights and summaries</span>
+            </li>
+            <li>
+                <span class="icon">🔄</span>
+                <span>Real-time highlight syncing</span>
+            </li>
+            <li>
+                <span class="icon">📊</span>
+                <span>Advanced reading analytics</span>
+            </li>
+            <li>
+                <span class="icon">🎨</span>
+                <span>Custom templates and formatting</span>
+            </li>
+        </ul>
+
+        <form id="earlyAccessForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <button type="submit" class="cta-button">
+                Get Early Access
+            </button>
+        </form>
+
+        <div id="successMessage" class="success-message">
+            <strong>🎉 You're on the list!</strong><br>
+            We'll notify you when early access opens.
+        </div>
+
+        <div class="social-proof">
+            <div class="social-proof-item">
+                <div class="social-proof-number">3,000+</div>
+                <div class="social-proof-label">Active Users</div>
+            </div>
+            <div class="social-proof-item">
+                <div class="social-proof-number">4.8★</div>
+                <div class="social-proof-label">Rating</div>
+            </div>
+            <div class="social-proof-item">
+                <div class="social-proof-number">12</div>
+                <div class="social-proof-label">Regions</div>
+            </div>
+        </div>
+
+        <div class="footer-link">
+            Already a user? <a href="index.html">Try the free extension</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const button = this.querySelector('.cta-button');
+            const successMessage = document.getElementById('successMessage');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            // Disable button and show loading state
+            button.disabled = true;
+            button.textContent = 'Joining...';
+
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                // Hide form
+                this.style.display = 'none';
+
+                // Show success message
+                successMessage.classList.add('show');
+
+                // Log to console (replace with actual API call)
+                console.log('Early access signup:', { name, email });
+
+                // Optional: Send to Google Forms, Mailchimp, or your backend
+                // fetch('YOUR_API_ENDPOINT', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ name, email })
+                // });
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
