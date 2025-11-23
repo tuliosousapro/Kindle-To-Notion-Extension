@@ -321,7 +321,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           } while (startCursor);
 
           const existingHighlights = [];
+          let countBlockId = null;
+
           for (let i = 0; i < allBlocks.length; i++) {
+            // Check if this is the count block (paragraph with highlight/note count)
+            if (allBlocks[i]?.type === 'paragraph' &&
+                allBlocks[i].paragraph?.rich_text?.[0]?.text?.content?.match(/\d+\s*Destaque/)) {
+              countBlockId = allBlocks[i].id;
+              console.log('Found count block at index:', i, 'with ID:', countBlockId);
+              continue;
+            }
+
             if (allBlocks[i]?.type === 'quote' && allBlocks[i].quote?.rich_text?.[0]?.text) {
               // Get the text content from the first rich_text element (the actual highlight text)
               let text = allBlocks[i].quote.rich_text[0].text.content;
@@ -354,6 +364,43 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
 
           chrome.runtime.sendMessage({ action: 'progress', status: `Appending ${newHighlights.length} new highlights...` });
+
+          // Update count block if it exists
+          if (countBlockId) {
+            const totalHighlights = existingHighlights.length + newHighlights.length;
+            const totalNotes = highlights.filter(h => h.note).length;
+            console.log('Updating count block:', countBlockId, 'with', totalHighlights, 'highlights and', totalNotes, 'notes');
+
+            try {
+              const updateResponse = await fetch(`https://api.notion.com/v1/blocks/${countBlockId}`, {
+                method: 'PATCH',
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                  'Notion-Version': '2022-06-28'
+                },
+                body: JSON.stringify({
+                  paragraph: {
+                    rich_text: [
+                      {
+                        text: { content: `${totalHighlights} Destaque(s) | ${totalNotes} Nota(s)` },
+                        annotations: { bold: true }
+                      }
+                    ]
+                  }
+                }),
+                timeout: 10000
+              });
+              if (!updateResponse.ok) {
+                console.warn('Failed to update count block:', await updateResponse.text());
+              } else {
+                console.log('Count block updated successfully');
+              }
+            } catch (updateError) {
+              console.warn('Error updating count block:', updateError);
+              // Don't fail the whole operation if count update fails
+            }
+          }
 
           // Use chapter grouping for new highlights
           const newBlocksToAppend = generateBlocksWithChapterGrouping(newHighlights, bookmarks || []);
