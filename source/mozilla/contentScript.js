@@ -10,9 +10,26 @@ function extractLocation(highlightElement) {
 
   if (!container) return '';
 
-  // PRIORITY 1: Try to find page number (Página)
+  // PRIORITY 1: Try to find page number from annotationHighlightHeader
+  // Format: "Azul destaque | Página: 35" or "Blue highlight | Page: 35"
   try {
-    // Look for page number in various possible locations
+    const headerElement = container.querySelector('#annotationHighlightHeader');
+    if (headerElement) {
+      const headerText = headerElement.textContent.trim();
+      console.log('Found annotation header:', headerText);
+
+      // Extract page number from format "... | Página: 35" or "... | Page: 35"
+      const pageMatch = headerText.match(/\|\s*(página|page):\s*(\d+)/i);
+      if (pageMatch) {
+        return `Página ${pageMatch[2]}`;
+      }
+    }
+  } catch (error) {
+    console.warn('Error extracting from annotationHighlightHeader:', error);
+  }
+
+  // PRIORITY 2: Try other page number selectors
+  try {
     const pageSelectors = [
       '.kp-notebook-page-number',
       '.page-number',
@@ -24,7 +41,6 @@ function extractLocation(highlightElement) {
       const pageElement = container.querySelector(selector);
       if (pageElement) {
         const pageText = pageElement.textContent.trim();
-        // Match "Página X", "Page X", "p. X", etc.
         const pageMatch = pageText.match(/(página|page|p\.)\s*(\d+)/i);
         if (pageMatch) {
           return `Página ${pageMatch[2]}`;
@@ -42,7 +58,7 @@ function extractLocation(highlightElement) {
     console.warn('Error extracting page number, falling back to position:', error);
   }
 
-  // PRIORITY 2: Fall back to position from hidden input
+  // PRIORITY 3: Fall back to position from hidden input
   try {
     const locationInput = container.querySelector('#kp-annotation-location');
     if (locationInput && locationInput.value) {
@@ -53,7 +69,7 @@ function extractLocation(highlightElement) {
     console.warn('Error extracting position from hidden input:', error);
   }
 
-  // PRIORITY 3: Fall back to other location patterns
+  // PRIORITY 4: Fall back to other location patterns
   try {
     const locationSelectors = [
       '.kp-notebook-location',
@@ -67,7 +83,6 @@ function extractLocation(highlightElement) {
       const element = container.querySelector(selector);
       if (element) {
         const text = element.textContent.trim();
-        // Match patterns like "Location 123", "Posição 123"
         if (text.match(/(location|página|posição|position|loc\.|p\.)\s*\d+/i)) {
           locationText = text;
           return true;
