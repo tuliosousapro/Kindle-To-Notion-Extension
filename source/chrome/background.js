@@ -277,105 +277,6 @@ async function fetchHighResCover(amazonLink, retryCount = 0) {
   }
 }
 
-// Helper function to parse chapter and bookmark data from HTML
-async function parseChapterDataFromHTML(html) {
-  console.log('🔬 Parsing HTML for chapter and bookmark data...');
-
-  // Create a temporary DOM parser
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-
-  const chapterMap = {}; // Maps highlight text to chapter name
-  const bookmarks = [];
-
-  // Extract chapters and their associated highlights
-  // New UI structure: .notebook-chapter with .notebook-chapter--title
-  const chapterElements = doc.querySelectorAll('.notebook-chapter');
-
-  console.log(`📚 Found ${chapterElements.length} chapter elements`);
-
-  chapterElements.forEach((chapterEl, index) => {
-    try {
-      // Get chapter title
-      const chapterTitleEl = chapterEl.querySelector('.notebook-chapter--title');
-      if (!chapterTitleEl) return;
-
-      const chapterName = chapterTitleEl.textContent.trim();
-
-      // Skip non-chapter headings
-      const excludedHeadings = [
-        'Livros com notas em sua biblioteca',
-        'Books with notes in your library',
-        'Libros con notas en tu biblioteca',
-        'Livres avec des notes dans votre bibliothèque',
-        'Bücher mit Notizen in deiner Bibliothek',
-        'あなたのライブラリのメモ付き書籍'
-      ];
-
-      if (excludedHeadings.includes(chapterName)) {
-        console.log(`⏭️  Skipping excluded heading: ${chapterName}`);
-        return;
-      }
-
-      console.log(`📖 Chapter ${index + 1}: ${chapterName}`);
-
-      // Find all highlights within this chapter
-      // Look for sibling elements after the chapter heading
-      let currentElement = chapterEl.nextElementSibling;
-      let highlightCount = 0;
-
-      while (currentElement && !currentElement.classList.contains('notebook-chapter')) {
-        // Check if this is a highlight item
-        if (currentElement.classList.contains('notebook-editable-item')) {
-          // Check if it's a bookmark
-          const titleElement = currentElement.querySelector('.grouped-annotation_title');
-          if (titleElement) {
-            const titleText = titleElement.textContent.trim();
-
-            // Check if it's a bookmark
-            if (titleText.match(/^(bookmarks|favoritos)/i)) {
-              const pageMatch = titleText.match(/(page|página)\s*(\d+)/i);
-              const location = pageMatch ? `Página ${pageMatch[2]}` : '';
-              const textElement = currentElement.querySelector('.notebook-editable-item-black');
-              const text = textElement ? textElement.textContent.trim().substring(0, 100) : '';
-
-              bookmarks.push({
-                type: 'bookmark',
-                location,
-                chapter: chapterName,
-                text
-              });
-
-              console.log(`  📌 Found bookmark in ${chapterName} at ${location}`);
-            }
-          } else {
-            // This is a regular highlight
-            const highlightTextEl = currentElement.querySelector('#highlight, .kp-notebook-highlight, .notebook-editable-item-black');
-            if (highlightTextEl) {
-              const highlightText = highlightTextEl.textContent.trim();
-              if (highlightText) {
-                chapterMap[highlightText] = chapterName;
-                highlightCount++;
-              }
-            }
-          }
-        }
-
-        currentElement = currentElement.nextElementSibling;
-      }
-
-      console.log(`  ✅ Mapped ${highlightCount} highlights to chapter "${chapterName}"`);
-    } catch (error) {
-      console.warn('Error processing chapter element:', error);
-    }
-  });
-
-  console.log(`✅ Parsing complete. Mapped ${Object.keys(chapterMap).length} highlights to chapters`);
-  console.log(`✅ Found ${bookmarks.length} bookmarks`);
-
-  return { chapterMap, bookmarks };
-}
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('Background received message:', message);
 
@@ -403,13 +304,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const html = await response.text();
         console.log('✅ Fetched HTML, length:', html.length);
 
-        // Parse the HTML to extract chapter and bookmark data
-        const { chapterMap, bookmarks } = await parseChapterDataFromHTML(html);
-
+        // Send HTML back to content script for parsing
+        // (DOMParser is not available in service workers)
         sendResponse({
           success: true,
-          chapterMap,
-          bookmarks
+          html: html
         });
       } catch (error) {
         console.error('❌ Error fetching chapter data:', error);
