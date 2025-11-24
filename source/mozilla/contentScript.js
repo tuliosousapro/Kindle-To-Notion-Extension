@@ -365,8 +365,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Extract Amazon store link for the current book (supporting all regions)
     // First, try to get ASIN from URL and construct proper regional link
     let amazonLink = '';
+    let asin = null;
+
+    // Try to get ASIN from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
-    const asin = urlParams.get('asin');
+    asin = urlParams.get('asin');
+
+    // If no ASIN in URL, try to extract from page link
+    if (!asin) {
+      const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
+      if (amazonLinkElement && amazonLinkElement.href) {
+        const asinMatch = amazonLinkElement.href.match(/\/dp\/([A-Z0-9]{10})/);
+        if (asinMatch) {
+          asin = asinMatch[1];
+          console.log('📚 ASIN extracted from page link:', asin);
+        }
+      }
+    }
+
+    console.log('🔍 ASIN:', asin);
 
     if (asin) {
       // Detect regional domain from current page
@@ -393,15 +410,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
       const storeDomain = domainMap[currentDomain] || 'www.amazon.com';
       amazonLink = `https://${storeDomain}/dp/${asin}`;
-      console.log('📚 ASIN:', asin);
       console.log('🔗 Constructed Amazon link:', amazonLink);
       console.log('✅ Domain mapping:', currentDomain, '→', storeDomain);
-    }
-
-    // Fallback: try to extract from page if ASIN construction failed
-    if (!amazonLink) {
+    } else {
+      // Last resort: use page link as-is
       const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
       amazonLink = amazonLinkElement?.href || '';
+      console.log('⚠️ No ASIN found, using page link:', amazonLink);
     }
 
     console.log('📖 Final Amazon link:', amazonLink);
@@ -473,6 +488,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     // If we're on old UI and no chapter data was found, fetch from new UI headlessly
     const hasChapterData = highlights.some(h => h.chapter) || bookmarks.length > 0;
+    console.log(`📊 Chapter data check: hasChapterData=${hasChapterData}, highlightsWithChapters=${highlights.filter(h => h.chapter).length}, bookmarks=${bookmarks.length}`);
+    console.log(`🔑 Headless fetch conditions: isNewUI=${isNewUI}, hasChapterData=${hasChapterData}, asin=${!!asin}`);
 
     if (!isNewUI && !hasChapterData && asin) {
       console.log('🔍 Old UI detected with no chapter data. Fetching from new UI page headlessly...');
