@@ -3,20 +3,19 @@ console.log("Content script loaded");
 // Helper function to find location/page info for a highlight
 function extractLocation(highlightElement) {
   // Look for location in the annotation container (parent elements)
-  // Priority: Page number > Position/Location
+  // Priority: annotationHighlightHeader > Scrubber bar > Position
   const container = highlightElement.closest('.kp-notebook-row-separator') ||
                    highlightElement.closest('.a-row.a-spacing-base') ||
                    highlightElement.parentElement?.parentElement;
 
   if (!container) return '';
 
-  // PRIORITY 1: Try to find page number from annotationHighlightHeader
+  // PRIORITY 1: Try to find page number from annotationHighlightHeader (most accurate per highlight)
   // Format: "Azul destaque | Página: 35" or "Blue highlight | Page: 35"
   try {
     const headerElement = container.querySelector('#annotationHighlightHeader');
     if (headerElement) {
       const headerText = headerElement.textContent.trim();
-      console.log('Found annotation header:', headerText);
 
       // Extract page number from format "... | Página: 35" or "... | Page: 35"
       const pageMatch = headerText.match(/\|\s*(página|page):\s*(\d+)/i);
@@ -28,7 +27,24 @@ function extractLocation(highlightElement) {
     console.warn('Error extracting from annotationHighlightHeader:', error);
   }
 
-  // PRIORITY 2: Try other page number selectors
+  // PRIORITY 2: Try scrubber bar aria-label as fallback
+  // Format: aria-label="Page 97" or aria-label="Página 97"
+  try {
+    const scrubberBar = document.querySelector('#kr-scrubber-bar');
+    if (scrubberBar) {
+      const ariaLabel = scrubberBar.getAttribute('aria-label');
+      if (ariaLabel) {
+        const pageMatch = ariaLabel.match(/(página|page)\s*(\d+)/i);
+        if (pageMatch) {
+          return `Página ${pageMatch[2]}`;
+        }
+      }
+    }
+  } catch (error) {
+    console.warn('Error extracting from scrubber bar:', error);
+  }
+
+  // PRIORITY 3: Try other page number selectors
   try {
     const pageSelectors = [
       '.kp-notebook-page-number',
@@ -58,7 +74,7 @@ function extractLocation(highlightElement) {
     console.warn('Error extracting page number, falling back to position:', error);
   }
 
-  // PRIORITY 3: Fall back to position from hidden input
+  // PRIORITY 4: Fall back to position from hidden input
   try {
     const locationInput = container.querySelector('#kp-annotation-location');
     if (locationInput && locationInput.value) {
@@ -69,7 +85,7 @@ function extractLocation(highlightElement) {
     console.warn('Error extracting position from hidden input:', error);
   }
 
-  // PRIORITY 4: Fall back to other location patterns
+  // PRIORITY 5: Fall back to other location patterns
   try {
     const locationSelectors = [
       '.kp-notebook-location',
