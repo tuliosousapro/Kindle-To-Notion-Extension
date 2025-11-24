@@ -133,10 +133,40 @@ function extractChapter(highlightElement) {
     'あなたのライブラリのメモ付き書籍'
   ];
 
-  // Look for chapter heading in parent annotation containers
-  let current = highlightElement;
+  // PRIORITY 1: Look for .notebook-chapter--title (new Kindle UI)
+  try {
+    let current = highlightElement;
+    while (current && current !== document.body) {
+      // Look for notebook-chapter div before this element
+      let sibling = current.previousElementSibling;
+      while (sibling) {
+        const chapterTitle = sibling.querySelector('.notebook-chapter--title');
+        if (chapterTitle) {
+          const chapterText = chapterTitle.textContent.trim();
+          if (chapterText && !excludedHeadings.includes(chapterText)) {
+            return chapterText;
+          }
+        }
+        // Check if sibling itself is a chapter container
+        if (sibling.classList && sibling.classList.contains('notebook-chapter')) {
+          const chapterTitle = sibling.querySelector('.notebook-chapter--title');
+          if (chapterTitle) {
+            const chapterText = chapterTitle.textContent.trim();
+            if (chapterText && !excludedHeadings.includes(chapterText)) {
+              return chapterText;
+            }
+          }
+        }
+        sibling = sibling.previousElementSibling;
+      }
+      current = current.parentElement;
+    }
+  } catch (error) {
+    console.warn('Error extracting from .notebook-chapter--title:', error);
+  }
 
-  // Chapter heading selectors
+  // PRIORITY 2: Fallback to old selectors
+  let current = highlightElement;
   const chapterSelectors = [
     '.kp-notebook-chapter-title',
     '.chapter-title',
@@ -146,22 +176,18 @@ function extractChapter(highlightElement) {
     '.a-text-bold'
   ];
 
-  // Walk up the DOM to find the chapter container
   while (current && current !== document.body) {
     const container = current.closest('.kp-notebook-annotation-container') ||
                      current.closest('.a-spacing-base') ||
                      current.parentElement;
 
     if (container) {
-      // Look for chapter heading before this highlight
       let sibling = container.previousElementSibling;
       while (sibling) {
         for (const selector of chapterSelectors) {
           const chapterElement = sibling.matches(selector) ? sibling : sibling.querySelector(selector);
           if (chapterElement) {
             const chapterText = chapterElement.textContent.trim();
-            // Verify it looks like a chapter (not just any text)
-            // and exclude common Kindle page headings
             if (chapterText &&
                 chapterText.length < 200 &&
                 !excludedHeadings.includes(chapterText)) {
@@ -182,32 +208,74 @@ function extractChapter(highlightElement) {
 function extractBookmarks() {
   const bookmarks = [];
 
-  // Bookmark selectors
-  const bookmarkSelectors = [
-    '.kp-notebook-bookmark',
-    '.bookmark-item',
-    '[data-testid="bookmark"]',
-    '.a-row.bookmark'
-  ];
+  // Look for bookmark elements in new Kindle UI
+  // Bookmarks have <p class="grouped-annotation_title">Bookmarks • Page 99</p>
+  const allItems = document.querySelectorAll('.notebook-editable-item');
 
-  let bookmarkElements = [];
-  bookmarkSelectors.some(selector => {
-    bookmarkElements = Array.from(document.querySelectorAll(selector));
-    return bookmarkElements.length > 0;
-  });
+  allItems.forEach(item => {
+    try {
+      // Check if this item is a bookmark
+      const titleElement = item.querySelector('.grouped-annotation_title');
+      if (titleElement) {
+        const titleText = titleElement.textContent.trim();
 
-  bookmarkElements.forEach(bookmark => {
-    const location = extractLocation(bookmark);
-    const chapter = extractChapter(bookmark);
+        // Check if it starts with "Bookmarks" or "Favoritos"
+        if (titleText.match(/^(bookmarks|favoritos)/i)) {
+          // Extract page number from title: "Bookmarks • Page 99"
+          const pageMatch = titleText.match(/(page|página)\s*(\d+)/i);
+          let location = '';
+          if (pageMatch) {
+            location = `Página ${pageMatch[2]}`;
+          }
 
-    if (location) {
-      bookmarks.push({
-        type: 'bookmark',
-        location,
-        chapter
-      });
+          // Extract text content
+          const textElement = item.querySelector('.notebook-editable-item-black');
+          const text = textElement ? textElement.textContent.trim().substring(0, 100) : '';
+
+          // Get chapter
+          const chapter = extractChapter(item);
+
+          bookmarks.push({
+            type: 'bookmark',
+            location,
+            chapter,
+            text
+          });
+        }
+      }
+    } catch (error) {
+      console.warn('Error processing bookmark item:', error);
     }
   });
+
+  // Fallback: old bookmark selectors
+  if (bookmarks.length === 0) {
+    const bookmarkSelectors = [
+      '.kp-notebook-bookmark',
+      '.bookmark-item',
+      '[data-testid="bookmark"]',
+      '.a-row.bookmark'
+    ];
+
+    let bookmarkElements = [];
+    bookmarkSelectors.some(selector => {
+      bookmarkElements = Array.from(document.querySelectorAll(selector));
+      return bookmarkElements.length > 0;
+    });
+
+    bookmarkElements.forEach(bookmark => {
+      const location = extractLocation(bookmark);
+      const chapter = extractChapter(bookmark);
+
+      if (location) {
+        bookmarks.push({
+          type: 'bookmark',
+          location,
+          chapter
+        });
+      }
+    });
+  }
 
   console.log('Extracted bookmarks:', bookmarks);
   return bookmarks;
