@@ -3,54 +3,91 @@ console.log("Content script loaded");
 // Helper function to find location/page info for a highlight
 function extractLocation(highlightElement) {
   // Look for location in the annotation container (parent elements)
-  // Location is stored in a hidden input: <input id="kp-annotation-location" value="467">
+  // Priority: Page number > Position/Location
   const container = highlightElement.closest('.kp-notebook-row-separator') ||
                    highlightElement.closest('.a-row.a-spacing-base') ||
                    highlightElement.parentElement?.parentElement;
 
   if (!container) return '';
 
-  // First, try to get location from hidden input (most reliable)
-  const locationInput = container.querySelector('#kp-annotation-location');
-  if (locationInput && locationInput.value) {
-    const locationNum = locationInput.value.trim();
-    // Format: "Posição 467" (Brazilian Portuguese) or "Location 467" based on page language
-    // For simplicity, using generic "Location" for now
-    return `Posição ${locationNum}`;
-  }
+  // PRIORITY 1: Try to find page number (Página)
+  try {
+    // Look for page number in various possible locations
+    const pageSelectors = [
+      '.kp-notebook-page-number',
+      '.page-number',
+      '[id*="page"]',
+      '[class*="page"]'
+    ];
 
-  // Fallback: try other selector patterns
-  const locationSelectors = [
-    '.kp-notebook-location',
-    '.a-size-base-plus.a-color-secondary',
-    '[id*="location"]',
-    '.kp-notebook-metadata span'
-  ];
-
-  let locationText = '';
-  locationSelectors.some(selector => {
-    const element = container.querySelector(selector);
-    if (element) {
-      const text = element.textContent.trim();
-      // Match patterns like "Location 123", "Page 45", "Página 45", "Posição 123"
-      if (text.match(/(location|page|página|posição|position|loc\.|p\.)\s*\d+/i)) {
-        locationText = text;
-        return true;
+    for (const selector of pageSelectors) {
+      const pageElement = container.querySelector(selector);
+      if (pageElement) {
+        const pageText = pageElement.textContent.trim();
+        // Match "Página X", "Page X", "p. X", etc.
+        const pageMatch = pageText.match(/(página|page|p\.)\s*(\d+)/i);
+        if (pageMatch) {
+          return `Página ${pageMatch[2]}`;
+        }
       }
     }
-    return false;
-  });
 
-  // Final fallback: search all text in container for location pattern
-  if (!locationText) {
+    // Check all text content for page number patterns
     const allText = container.textContent;
-    const locationMatch = allText.match(/(location|page|página|posição|position)\s*\d+/i);
-    if (locationMatch) {
-      locationText = locationMatch[0];
+    const pageMatch = allText.match(/(página|page|p\.)\s*(\d+)/i);
+    if (pageMatch) {
+      return `Página ${pageMatch[2]}`;
     }
+  } catch (error) {
+    console.warn('Error extracting page number, falling back to position:', error);
   }
 
-  return locationText;
+  // PRIORITY 2: Fall back to position from hidden input
+  try {
+    const locationInput = container.querySelector('#kp-annotation-location');
+    if (locationInput && locationInput.value) {
+      const locationNum = locationInput.value.trim();
+      return `Posição ${locationNum}`;
+    }
+  } catch (error) {
+    console.warn('Error extracting position from hidden input:', error);
+  }
+
+  // PRIORITY 3: Fall back to other location patterns
+  try {
+    const locationSelectors = [
+      '.kp-notebook-location',
+      '.a-size-base-plus.a-color-secondary',
+      '[id*="location"]',
+      '.kp-notebook-metadata span'
+    ];
+
+    let locationText = '';
+    locationSelectors.some(selector => {
+      const element = container.querySelector(selector);
+      if (element) {
+        const text = element.textContent.trim();
+        // Match patterns like "Location 123", "Posição 123"
+        if (text.match(/(location|página|posição|position|loc\.|p\.)\s*\d+/i)) {
+          locationText = text;
+          return true;
+        }
+      }
+      return false;
+    });
+
+    if (locationText) return locationText;
+
+    // Final fallback: search all text in container for location pattern
+    const locationMatch = allText.match(/(location|posição|position)\s*\d+/i);
+    if (locationMatch) {
+      return locationMatch[0];
+    }
+  } catch (error) {
+    console.warn('Error in final location fallback:', error);
+  }
+
+  return '';
 }
 
 // Helper function to find chapter heading for a highlight
