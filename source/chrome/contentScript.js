@@ -593,8 +593,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (!isNewUI && !hasChapterData && asin) {
       console.log('🔍 Old UI detected with no chapter data. Fetching from new UI page headlessly...');
 
-      // Construct new UI URL
-      const newUIUrl = window.location.href + '&ref_=kwl_kr_iv_rec_1';
+      // Construct new UI URL (uses root path, not /notebook path)
+      const currentDomain = window.location.hostname;
+      const protocol = window.location.protocol;
+      const newUIUrl = `${protocol}//${currentDomain}/?asin=${asin}&ref_=kwl_kr_iv_rec_1`;
       console.log('🌐 New UI URL:', newUIUrl);
 
       // Request background script to fetch the new UI page HTML
