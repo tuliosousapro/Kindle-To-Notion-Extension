@@ -349,7 +349,7 @@ function debugDOMStructure() {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'export') {
-    console.log("Export message received");
+    console.log("🚀 Export message received");
 
     // Run debug to help identify correct selectors
     debugDOMStructure();
@@ -404,7 +404,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       amazonLink = amazonLinkElement?.href || '';
     }
 
-    console.log('Final Amazon link:', amazonLink);
+    console.log('📖 Final Amazon link:', amazonLink);
 
     const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
     const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
@@ -464,28 +464,86 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       highlights.push({ text, color, note, location, chapter, type: 'highlight' });
     });
 
-    // Extract bookmarks
-    const bookmarks = extractBookmarks();
+    // Extract bookmarks from current page
+    let bookmarks = extractBookmarks();
 
-    const data = {
-      title,
-      author,
-      amazonLink,
-      highlights,
-      bookmarks,
-      highlightCount,
-      noteCount
-    };
-    console.log('Sending data to background:', data);
-    chrome.runtime.sendMessage({ action: 'sendToNotion', data }, (response) => {
-      if (chrome.runtime.lastError) {
-        console.error('Error sending to background:', chrome.runtime.lastError);
-        sendResponse({ status: 'Error: Failed to send data to background' });
-      } else {
-        console.log('Response from background:', response);
-        sendResponse(response);
-      }
-    });
+    // Detect if we're on old UI (no ref_=kwl_kr_iv_rec_1 parameter)
+    const isNewUI = window.location.href.includes('ref_=kwl_kr_iv_rec_1');
+    console.log(`📱 UI Detection: ${isNewUI ? 'New UI' : 'Old UI'}`);
+
+    // If we're on old UI and no chapter data was found, fetch from new UI headlessly
+    const hasChapterData = highlights.some(h => h.chapter) || bookmarks.length > 0;
+
+    if (!isNewUI && !hasChapterData && asin) {
+      console.log('🔍 Old UI detected with no chapter data. Fetching from new UI page headlessly...');
+
+      // Construct new UI URL
+      const newUIUrl = window.location.href + '&ref_=kwl_kr_iv_rec_1';
+      console.log('🌐 New UI URL:', newUIUrl);
+
+      // Request background script to fetch and parse the new UI page
+      chrome.runtime.sendMessage({
+        action: 'fetchChapterData',
+        url: newUIUrl
+      }, (chapterDataResponse) => {
+        if (chrome.runtime.lastError) {
+          console.warn('⚠️ Could not fetch chapter data:', chrome.runtime.lastError);
+          // Continue without chapter data
+          sendExportData();
+        } else if (chapterDataResponse && chapterDataResponse.success) {
+          console.log('✅ Received chapter data from new UI:', chapterDataResponse);
+
+          // Merge chapter data with highlights
+          const chapterMap = chapterDataResponse.chapterMap || {};
+          const fetchedBookmarks = chapterDataResponse.bookmarks || [];
+
+          // Map chapters to highlights based on text matching
+          highlights.forEach(highlight => {
+            if (!highlight.chapter && chapterMap[highlight.text]) {
+              highlight.chapter = chapterMap[highlight.text];
+              console.log('📌 Mapped chapter to highlight:', highlight.text.substring(0, 50), '→', highlight.chapter);
+            }
+          });
+
+          // Add fetched bookmarks
+          if (fetchedBookmarks.length > 0) {
+            bookmarks = [...bookmarks, ...fetchedBookmarks];
+            console.log('📌 Added', fetchedBookmarks.length, 'bookmarks from new UI');
+          }
+
+          sendExportData();
+        } else {
+          console.warn('⚠️ Failed to fetch chapter data, continuing without it');
+          sendExportData();
+        }
+      });
+    } else {
+      // We have chapter data or we're on new UI, proceed directly
+      sendExportData();
+    }
+
+    function sendExportData() {
+      const data = {
+        title,
+        author,
+        amazonLink,
+        highlights,
+        bookmarks,
+        highlightCount,
+        noteCount
+      };
+      console.log('📤 Sending data to background:', data);
+      chrome.runtime.sendMessage({ action: 'sendToNotion', data }, (response) => {
+        if (chrome.runtime.lastError) {
+          console.error('❌ Error sending to background:', chrome.runtime.lastError);
+          sendResponse({ status: 'Error: Failed to send data to background' });
+        } else {
+          console.log('✅ Response from background:', response);
+          sendResponse(response);
+        }
+      });
+    }
+
     return true;
   }
 });
