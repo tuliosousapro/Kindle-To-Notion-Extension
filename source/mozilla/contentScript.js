@@ -3,15 +3,24 @@ console.log("Content script loaded");
 // Helper function to find location/page info for a highlight
 function extractLocation(highlightElement) {
   // Look for location in the annotation container (parent elements)
+  // Location is stored in a hidden input: <input id="kp-annotation-location" value="467">
   const container = highlightElement.closest('.kp-notebook-row-separator') ||
-                   highlightElement.closest('.a-row') ||
+                   highlightElement.closest('.a-row.a-spacing-base') ||
                    highlightElement.parentElement?.parentElement;
 
   if (!container) return '';
 
-  // Multiple selector patterns for location
+  // First, try to get location from hidden input (most reliable)
+  const locationInput = container.querySelector('#kp-annotation-location');
+  if (locationInput && locationInput.value) {
+    const locationNum = locationInput.value.trim();
+    // Format: "Posição 467" (Brazilian Portuguese) or "Location 467" based on page language
+    // For simplicity, using generic "Location" for now
+    return `Posição ${locationNum}`;
+  }
+
+  // Fallback: try other selector patterns
   const locationSelectors = [
-    '#kp-annotation-location',
     '.kp-notebook-location',
     '.a-size-base-plus.a-color-secondary',
     '[id*="location"]',
@@ -32,7 +41,7 @@ function extractLocation(highlightElement) {
     return false;
   });
 
-  // Fallback: search all text in container for location pattern
+  // Final fallback: search all text in container for location pattern
   if (!locationText) {
     const allText = container.textContent;
     const locationMatch = allText.match(/(location|page|página|posição|position)\s*\d+/i);
