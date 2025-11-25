@@ -539,12 +539,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const allChildren = generateBlocksWithChapterGrouping(highlights, bookmarks || []);
         console.log(`Generated ${allChildren.length} blocks for ${highlights.length} highlights`);
 
+        // Count block with language-neutral format
+        // If matching this block in the future, use regex: /\d+\s*(?:Highlight|Destaque|Subrayado|Surlignage|Evidenziazione|ハイライト)/i
         const countBlock = {
           type: 'paragraph',
           paragraph: {
             rich_text: [
               {
-                text: { content: `${highlightCount} Destaque(s) | ${noteCount} Nota(s)` },
+                text: { content: `${highlightCount} Highlight(s) | ${noteCount} Note(s)` },
                 annotations: { bold: true }
               }
             ]
@@ -615,7 +617,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
         }
         console.log('All appends completed successfully');
-        sendResponse({ status: `Export successful! ${highlightCount} Destaque(s) | ${noteCount} Nota(s)` });
+        sendResponse({ status: `Export successful! ${highlightCount} Highlight(s) | ${noteCount} Note(s)` });
       } catch (error) {
         console.error('Overall error:', error);
         sendResponse({ status: 'Error: ' + error.message });
