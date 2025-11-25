@@ -610,109 +610,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
 
     // Extract bookmarks from current page
-    let bookmarks = extractBookmarks();
+    const bookmarks = extractBookmarks();
 
-    // Detect if we're on old UI (no ref_=kwl_kr_iv_rec_1 parameter)
-    const isNewUI = window.location.href.includes('ref_=kwl_kr_iv_rec_1');
-    console.log(`📱 UI Detection: ${isNewUI ? 'New UI' : 'Old UI'}`);
-
-    // If we're on old UI and no chapter data was found, fetch from new UI headlessly
-    const hasChapterData = highlights.some(h => h.chapter) || bookmarks.length > 0;
-    console.log(`📊 Chapter data check: hasChapterData=${hasChapterData}, highlightsWithChapters=${highlights.filter(h => h.chapter).length}, bookmarks=${bookmarks.length}`);
-    console.log(`🔑 Headless fetch conditions: isNewUI=${isNewUI}, hasChapterData=${hasChapterData}, asin=${!!asin}`);
-
-    if (!isNewUI && !hasChapterData && asin) {
-      console.log('🔍 Old UI detected with no chapter data. Fetching from new UI page headlessly...');
-
-      // Construct new UI URL - use /notebook path with new UI parameter
-      const currentDomain = window.location.hostname;
-      const protocol = window.location.protocol;
-
-      // Try notebook page with new UI ref parameter and language
-      const newUIUrl = `${protocol}//${currentDomain}/notebook?asin=${asin}&ref_=kwl_kr_iv_rec_1&language=pt-BR`;
-      console.log('🌐 New UI URL:', newUIUrl);
-
-      // Request background script to fetch the new UI page HTML
-      chrome.runtime.sendMessage({
-        action: 'fetchChapterData',
-        url: newUIUrl
-      }, (response) => {
-        if (chrome.runtime.lastError) {
-          console.warn('⚠️ Could not fetch chapter data:', chrome.runtime.lastError);
-          // Continue without chapter data
-          sendExportData();
-        } else if (response && response.success && response.html) {
-          console.log('✅ Received HTML from new UI, length:', response.html.length);
-
-          // DEBUG: Analyze HTML structure
-          console.log('🔬 HTML Structure Analysis:');
-          console.log('  - Contains "notebook-chapter"?', response.html.includes('notebook-chapter'));
-          console.log('  - Contains "notebook-editable-item"?', response.html.includes('notebook-editable-item'));
-          console.log('  - Contains "kp-notebook"?', response.html.includes('kp-notebook'));
-          console.log('  - Contains "grouped-annotation"?', response.html.includes('grouped-annotation'));
-          console.log('📄 HTML first 1000 chars:', response.html.substring(0, 1000));
-
-          try {
-            // Parse the HTML to extract chapter and bookmark data
-            const { chapterMap, bookmarks: fetchedBookmarks } = parseChapterDataFromHTML(response.html);
-
-            // Map chapters to highlights based on text matching
-            let mappedCount = 0;
-            highlights.forEach(highlight => {
-              if (!highlight.chapter && chapterMap[highlight.text]) {
-                highlight.chapter = chapterMap[highlight.text];
-                mappedCount++;
-                if (mappedCount <= 3) {
-                  console.log('📌 Mapped chapter to highlight:', highlight.text.substring(0, 50), '→', highlight.chapter);
-                }
-              }
-            });
-
-            console.log(`✅ Mapped ${mappedCount} highlights to chapters`);
-
-            // Add fetched bookmarks
-            if (fetchedBookmarks.length > 0) {
-              bookmarks = [...bookmarks, ...fetchedBookmarks];
-              console.log('📌 Added', fetchedBookmarks.length, 'bookmarks from new UI');
-            }
-
-            sendExportData();
-          } catch (parseError) {
-            console.error('❌ Error parsing HTML:', parseError);
-            // Continue without chapter data
-            sendExportData();
-          }
-        } else {
-          console.warn('⚠️ Failed to fetch chapter data, continuing without it');
-          sendExportData();
-        }
-      });
-    } else {
-      // We have chapter data or we're on new UI, proceed directly
-      sendExportData();
-    }
-
-    function sendExportData() {
-      const data = {
-        title,
-        author,
-        amazonLink,
-        highlights,
-        bookmarks,
-        highlightCount,
-        noteCount
-      };
-      console.log('📤 Sending data to background:', data);
-      chrome.runtime.sendMessage({ action: 'sendToNotion', data }, (response) => {
-        if (chrome.runtime.lastError) {
-          console.error('❌ Error sending to background:', chrome.runtime.lastError);
-          sendResponse({ status: 'Error: Failed to send data to background' });
-        } else {
-          console.log('✅ Response from background:', response);
-          sendResponse(response);
-        }
-      });
-    }
+    // Send data to Notion
+    const data = {
+      title,
+      author,
+      amazonLink,
+      highlights,
+      bookmarks,
+      highlightCount,
+      noteCount
+    };
+    console.log('📤 Sending data to background:', data);
+    chrome.runtime.sendMessage({ action: 'sendToNotion', data }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error('❌ Error sending to background:', chrome.runtime.lastError);
+        sendResponse({ status: 'Error: Failed to send data to background' });
+      } else {
+        console.log('✅ Response from background:', response);
+        sendResponse(response);
+      }
+    });
 
     return true;
   }
