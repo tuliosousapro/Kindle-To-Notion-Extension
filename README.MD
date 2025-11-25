@@ -2,8 +2,8 @@
   <img src="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/blob/480e8b64c0543e412d64665dc5ad3a11124101e1/assets/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg" alt="Kindle To Notion Extension Banner" width="100%" />
 </p>
 
-<h1 align="center">Kindle To Notion Extension v1.6.0</h1>
-<p align="center"><em>Easily export your Kindle highlights into Notion databases</em></p>
+<h1 align="center">Kindle To Notion Extension v1.7.0</h1>
+<p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, bookmarks, and page references</em></p>
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue">  <img src="https://img.shields.io/badge/Notion-API-blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=social">
 
@@ -120,17 +120,47 @@ This template helps you:
 ---
 
 ## 🧙‍♂️Features
-#### 📖 Kindle Integration
+
+### ✨ v1.7.0 - Major New Features
+
+#### 📚 Automatic Chapter Grouping
+- **Organizes highlights by chapter** automatically in Notion
+- Adds chapter headings (Heading 2 blocks) to group related highlights
+- Falls back gracefully when chapter information isn't available
+- Creates "Other Highlights" section for ungrouped content
+
+#### 📌 Bookmark Support
+- **Extracts Kindle bookmarks** and exports them to Notion
+- Displays bookmarks as callout blocks with 📌 emoji
+- Includes page/location information for each bookmark
+- Groups bookmarks under their respective chapters
+
+#### 📍 Page & Location References
+- **Every highlight includes its page number or position**
+- 5-tier priority system for location detection:
+  1. Page from highlight header (`Página: 35`)
+  2. Scrubber bar aria-label
+  3. Generic page selectors
+  4. Position from hidden input fields
+  5. Pattern matching fallback
+- Shows "Página X" when available, "Posição X" as fallback
+- Supports multiple languages (English "Page", Portuguese "Página", etc.)
+
+### 📖 Kindle Integration
 - Extracts highlights and notes directly from the Kindle notebook page (`read.amazon.com/notebook` or `ler.amazon.com.br/notebook`).
 - Supports highlights with color coding (blue, yellow, orange, pink, etc.) and associated notes.
 - Extracts book title, author, highlight count, note count, and high-resolution cover images from Kindle notebook pages.
+- Enhanced ASIN extraction for accurate Amazon store links
+- Support for all 12 Kindle regional domains
 
-#### 🧠 Notion Export
+### 🧠 Notion Export
 - Exports highlights as Notion quote blocks with color mapping.
 - Adds a summary count at the top of the Notion page (e.g., `265 Destaque(s) | 10 Nota(s)`).
 - Supports custom property names for book title and author.
 - Prevents duplicate highlights by checking existing Notion database entries.
-- Smart batching to respect Notion’s 100-block API limit.
+- Smart batching to respect Notion's 100-block API limit.
+- Chapter-organized output with heading blocks
+- Bookmark callouts integrated with highlights
 
 #### 🛡️ Security & Privacy
 - Notion API Token is masked with a blink-eye icon for visibility toggle.
