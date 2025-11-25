@@ -1,8 +1,497 @@
 console.log("Content script loaded");
 
+// Helper function to find location/page info for a highlight
+function extractLocation(highlightElement) {
+  // Look for location in the annotation container (parent elements)
+  // Priority: annotationHighlightHeader > Scrubber bar > Position
+  const container = highlightElement.closest('.kp-notebook-row-separator') ||
+                   highlightElement.closest('.a-row.a-spacing-base') ||
+                   highlightElement.parentElement?.parentElement;
+
+  if (!container) return '';
+
+  // PRIORITY 1: Try to find page number from annotationHighlightHeader (most accurate per highlight)
+  // Format: "Azul destaque | Página: 35" or "Blue highlight | Page: 35"
+  try {
+    const headerElement = container.querySelector('#annotationHighlightHeader');
+    if (headerElement) {
+      const headerText = headerElement.textContent.trim();
+
+      // Extract page number from format "... | Página: 35" or "... | Page: 35"
+      const pageMatch = headerText.match(/\|\s*(página|page):\s*(\d+)/i);
+      if (pageMatch) {
+        const pageWord = pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+        return `${pageWord} ${pageMatch[2]}`;
+      }
+    }
+  } catch (error) {
+    console.warn('Error extracting from annotationHighlightHeader:', error);
+  }
+
+  // PRIORITY 2: Try scrubber bar aria-label as fallback
+  // Format: aria-label="Page 97" or aria-label="Página 97"
+  try {
+    const scrubberBar = document.querySelector('#kr-scrubber-bar');
+    if (scrubberBar) {
+      const ariaLabel = scrubberBar.getAttribute('aria-label');
+      if (ariaLabel) {
+        const pageMatch = ariaLabel.match(/(página|page)\s*(\d+)/i);
+        if (pageMatch) {
+          const pageWord = pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+          return `${pageWord} ${pageMatch[2]}`;
+        }
+      }
+    }
+  } catch (error) {
+    console.warn('Error extracting from scrubber bar:', error);
+  }
+
+  // PRIORITY 3: Try other page number selectors
+  try {
+    const pageSelectors = [
+      '.kp-notebook-page-number',
+      '.page-number',
+      '[id*="page"]',
+      '[class*="page"]'
+    ];
+
+    for (const selector of pageSelectors) {
+      const pageElement = container.querySelector(selector);
+      if (pageElement) {
+        const pageText = pageElement.textContent.trim();
+        const pageMatch = pageText.match(/(página|page|p\.)\s*(\d+)/i);
+        if (pageMatch) {
+          const pageWord = pageMatch[1].toLowerCase() === 'p.' ? 'P.' :
+                          pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+          return `${pageWord} ${pageMatch[2]}`;
+        }
+      }
+    }
+
+    // Check all text content for page number patterns
+    const allText = container.textContent;
+    const pageMatch = allText.match(/(página|page|p\.)\s*(\d+)/i);
+    if (pageMatch) {
+      const pageWord = pageMatch[1].toLowerCase() === 'p.' ? 'P.' :
+                      pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+      return `${pageWord} ${pageMatch[2]}`;
+    }
+  } catch (error) {
+    console.warn('Error extracting page number, falling back to position:', error);
+  }
+
+  // PRIORITY 4: Fall back to position from hidden input
+  try {
+    const locationInput = container.querySelector('#kp-annotation-location');
+    if (locationInput && locationInput.value) {
+      const locationNum = locationInput.value.trim();
+      return `Posição ${locationNum}`;
+    }
+  } catch (error) {
+    console.warn('Error extracting position from hidden input:', error);
+  }
+
+  // PRIORITY 5: Fall back to other location patterns
+  try {
+    const locationSelectors = [
+      '.kp-notebook-location',
+      '.a-size-base-plus.a-color-secondary',
+      '[id*="location"]',
+      '.kp-notebook-metadata span'
+    ];
+
+    let locationText = '';
+    locationSelectors.some(selector => {
+      const element = container.querySelector(selector);
+      if (element) {
+        const text = element.textContent.trim();
+        if (text.match(/(location|página|posição|position|loc\.|p\.)\s*\d+/i)) {
+          locationText = text;
+          return true;
+        }
+      }
+      return false;
+    });
+
+    if (locationText) return locationText;
+
+    // Final fallback: search all text in container for location pattern
+    const locationMatch = allText.match(/(location|posição|position)\s*\d+/i);
+    if (locationMatch) {
+      return locationMatch[0];
+    }
+  } catch (error) {
+    console.warn('Error in final location fallback:', error);
+  }
+
+  return '';
+}
+
+// Helper function to find chapter heading for a highlight
+function extractChapter(highlightElement) {
+  // Common Kindle page headings to exclude (not actual chapters)
+  const excludedHeadings = [
+    'Livros com notas em sua biblioteca',
+    'Books with notes in your library',
+    'Libros con notas en tu biblioteca',
+    'Livres avec des notes dans votre bibliothèque',
+    'Bücher mit Notizen in deiner Bibliothek',
+    'あなたのライブラリのメモ付き書籍'
+  ];
+
+  // PRIORITY 1: Look for .notebook-chapter--title (new Kindle UI)
+  try {
+    let current = highlightElement;
+    while (current && current !== document.body) {
+      // Look for notebook-chapter div before this element
+      let sibling = current.previousElementSibling;
+      while (sibling) {
+        const chapterTitle = sibling.querySelector('.notebook-chapter--title');
+        if (chapterTitle) {
+          const chapterText = chapterTitle.textContent.trim();
+          if (chapterText && !excludedHeadings.includes(chapterText)) {
+            return chapterText;
+          }
+        }
+        // Check if sibling itself is a chapter container
+        if (sibling.classList && sibling.classList.contains('notebook-chapter')) {
+          const chapterTitle = sibling.querySelector('.notebook-chapter--title');
+          if (chapterTitle) {
+            const chapterText = chapterTitle.textContent.trim();
+            if (chapterText && !excludedHeadings.includes(chapterText)) {
+              return chapterText;
+            }
+          }
+        }
+        sibling = sibling.previousElementSibling;
+      }
+      current = current.parentElement;
+    }
+  } catch (error) {
+    console.warn('Error extracting from .notebook-chapter--title:', error);
+  }
+
+  // PRIORITY 2: Fallback to old selectors
+  let current = highlightElement;
+  const chapterSelectors = [
+    '.kp-notebook-chapter-title',
+    '.chapter-title',
+    'h2.kp-notebook-selectable',
+    '.kp-notebook-annotation-section-header',
+    '[class*="chapter"]',
+    '.a-text-bold'
+  ];
+
+  while (current && current !== document.body) {
+    const container = current.closest('.kp-notebook-annotation-container') ||
+                     current.closest('.a-spacing-base') ||
+                     current.parentElement;
+
+    if (container) {
+      let sibling = container.previousElementSibling;
+      while (sibling) {
+        for (const selector of chapterSelectors) {
+          const chapterElement = sibling.matches(selector) ? sibling : sibling.querySelector(selector);
+          if (chapterElement) {
+            const chapterText = chapterElement.textContent.trim();
+            if (chapterText &&
+                chapterText.length < 200 &&
+                !excludedHeadings.includes(chapterText)) {
+              return chapterText;
+            }
+          }
+        }
+        sibling = sibling.previousElementSibling;
+      }
+    }
+    current = current.parentElement;
+  }
+
+  return '';
+}
+
+// Helper function to parse chapter and bookmark data from HTML string
+function parseChapterDataFromHTML(html) {
+  console.log('🔬 Parsing HTML for chapter and bookmark data...');
+  console.log('📊 HTML length:', html.length);
+
+  // Create a temporary DOM parser
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  // Debug: Log overall structure
+  console.log('📋 Document structure:');
+  console.log('  - Title:', doc.title);
+  console.log('  - Body classes:', doc.body?.className || 'no body');
+  console.log('  - Total elements:', doc.querySelectorAll('*').length);
+
+  const chapterMap = {}; // Maps highlight text to chapter name
+  const bookmarks = [];
+
+  // Extract chapters and their associated highlights
+  // New UI structure: .notebook-chapter with .notebook-chapter--title
+  const chapterElements = doc.querySelectorAll('.notebook-chapter');
+
+  console.log(`📚 Found ${chapterElements.length} chapter elements in fetched HTML`);
+
+  // Try alternative selectors if primary selector finds nothing
+  if (chapterElements.length === 0) {
+    console.log('⚠️ No .notebook-chapter elements found, trying fallback selectors...');
+
+    const fallbackSelectors = [
+      '[class*="notebook-chapter"]',
+      '.kp-notebook-chapter-title',
+      'h2.kp-notebook-selectable',
+      '.chapter-title',
+      '[class*="chapter"]'
+    ];
+
+    fallbackSelectors.forEach(selector => {
+      const elements = doc.querySelectorAll(selector);
+      console.log(`  Testing ${selector}: ${elements.length} elements`);
+      if (elements.length > 0 && elements.length < 10) {
+        console.log(`    Sample:`, elements[0]?.outerHTML?.substring(0, 150));
+      }
+    });
+
+    console.warn('❌ No chapter structure detected in HTML');
+    return { chapterMap, bookmarks };
+  }
+
+  chapterElements.forEach((chapterEl, index) => {
+    try {
+      // Get chapter title
+      const chapterTitleEl = chapterEl.querySelector('.notebook-chapter--title');
+      if (!chapterTitleEl) return;
+
+      const chapterName = chapterTitleEl.textContent.trim();
+
+      // Skip non-chapter headings
+      const excludedHeadings = [
+        'Livros com notas em sua biblioteca',
+        'Books with notes in your library',
+        'Libros con notas en tu biblioteca',
+        'Livres avec des notes dans votre bibliothèque',
+        'Bücher mit Notizen in deiner Bibliothek',
+        'あなたのライブラリのメモ付き書籍'
+      ];
+
+      if (excludedHeadings.includes(chapterName)) {
+        console.log(`⏭️  Skipping excluded heading: ${chapterName}`);
+        return;
+      }
+
+      console.log(`📖 Chapter ${index + 1}: ${chapterName}`);
+
+      // Find all highlights within this chapter
+      // Look for sibling elements after the chapter heading
+      let currentElement = chapterEl.nextElementSibling;
+      let highlightCount = 0;
+
+      while (currentElement && !currentElement.classList.contains('notebook-chapter')) {
+        // Check if this is a highlight item
+        if (currentElement.classList.contains('notebook-editable-item')) {
+          // Check if it's a bookmark
+          const titleElement = currentElement.querySelector('.grouped-annotation_title');
+          if (titleElement) {
+            const titleText = titleElement.textContent.trim();
+
+            // Check if it's a bookmark
+            if (titleText.match(/^(bookmarks|favoritos)/i)) {
+              const pageMatch = titleText.match(/(page|página)\s*(\d+)/i);
+              const location = pageMatch ?
+                `${pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1)} ${pageMatch[2]}` : '';
+              const textElement = currentElement.querySelector('.notebook-editable-item-black');
+              const text = textElement ? textElement.textContent.trim().substring(0, 100) : '';
+
+              bookmarks.push({
+                type: 'bookmark',
+                location,
+                chapter: chapterName,
+                text
+              });
+
+              console.log(`  📌 Found bookmark in ${chapterName} at ${location}`);
+            }
+          } else {
+            // This is a regular highlight
+            const highlightTextEl = currentElement.querySelector('#highlight, .kp-notebook-highlight, .notebook-editable-item-black');
+            if (highlightTextEl) {
+              const highlightText = highlightTextEl.textContent.trim();
+              if (highlightText) {
+                chapterMap[highlightText] = chapterName;
+                highlightCount++;
+              }
+            }
+          }
+        }
+
+        currentElement = currentElement.nextElementSibling;
+      }
+
+      console.log(`  ✅ Mapped ${highlightCount} highlights to chapter "${chapterName}"`);
+    } catch (error) {
+      console.warn('Error processing chapter element:', error);
+    }
+  });
+
+  console.log(`✅ Parsing complete. Mapped ${Object.keys(chapterMap).length} highlights to chapters`);
+  console.log(`✅ Found ${bookmarks.length} bookmarks`);
+
+  return { chapterMap, bookmarks };
+}
+
+// Helper function to extract bookmarks
+function extractBookmarks() {
+  const bookmarks = [];
+
+  // Look for bookmark elements in new Kindle UI
+  // Bookmarks have <p class="grouped-annotation_title">Bookmarks • Page 99</p>
+  const allItems = document.querySelectorAll('.notebook-editable-item');
+
+  allItems.forEach(item => {
+    try {
+      // Check if this item is a bookmark
+      const titleElement = item.querySelector('.grouped-annotation_title');
+      if (titleElement) {
+        const titleText = titleElement.textContent.trim();
+
+        // Check if it starts with "Bookmarks" or "Favoritos"
+        if (titleText.match(/^(bookmarks|favoritos)/i)) {
+          // Extract page number from title: "Bookmarks • Page 99"
+          const pageMatch = titleText.match(/(page|página)\s*(\d+)/i);
+          let location = '';
+          if (pageMatch) {
+            const pageWord = pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+            location = `${pageWord} ${pageMatch[2]}`;
+          }
+
+          // Extract text content
+          const textElement = item.querySelector('.notebook-editable-item-black');
+          const text = textElement ? textElement.textContent.trim().substring(0, 100) : '';
+
+          // Get chapter
+          const chapter = extractChapter(item);
+
+          bookmarks.push({
+            type: 'bookmark',
+            location,
+            chapter,
+            text
+          });
+        }
+      }
+    } catch (error) {
+      console.warn('Error processing bookmark item:', error);
+    }
+  });
+
+  // Fallback: old bookmark selectors
+  if (bookmarks.length === 0) {
+    const bookmarkSelectors = [
+      '.kp-notebook-bookmark',
+      '.bookmark-item',
+      '[data-testid="bookmark"]',
+      '.a-row.bookmark'
+    ];
+
+    let bookmarkElements = [];
+    bookmarkSelectors.some(selector => {
+      bookmarkElements = Array.from(document.querySelectorAll(selector));
+      return bookmarkElements.length > 0;
+    });
+
+    bookmarkElements.forEach(bookmark => {
+      const location = extractLocation(bookmark);
+      const chapter = extractChapter(bookmark);
+
+      if (location) {
+        bookmarks.push({
+          type: 'bookmark',
+          location,
+          chapter
+        });
+      }
+    });
+  }
+
+  console.log('Extracted bookmarks:', bookmarks);
+  return bookmarks;
+}
+
+// Debug function to inspect DOM structure
+function debugDOMStructure() {
+  console.log('=== DEBUG: Kindle Page DOM Structure ===');
+
+  // Find first highlight element
+  const highlightSelectors = ['.kp-notebook-highlight', '.highlight-item', 'div[data-testid="highlight"]'];
+  let firstHighlight = null;
+
+  highlightSelectors.some(selector => {
+    firstHighlight = document.querySelector(selector);
+    if (firstHighlight) {
+      console.log('Found highlight with selector:', selector);
+      return true;
+    }
+    return false;
+  });
+
+  if (firstHighlight) {
+    console.log('First highlight element:', firstHighlight);
+    console.log('First highlight HTML:', firstHighlight.outerHTML.substring(0, 500));
+
+    // Check parent elements
+    let parent = firstHighlight.parentElement;
+    let level = 1;
+    while (parent && level <= 5) {
+      console.log(`Parent level ${level}:`, parent.className, parent.id);
+      console.log(`Parent ${level} HTML:`, parent.outerHTML.substring(0, 300));
+      parent = parent.parentElement;
+      level++;
+    }
+
+    // Check for location/page info in siblings and children
+    console.log('All text in highlight container:', firstHighlight.parentElement?.textContent);
+    console.log('Next sibling:', firstHighlight.nextElementSibling);
+    console.log('Previous sibling:', firstHighlight.previousElementSibling);
+  }
+
+  // Look for any elements with "location", "page", "chapter" in class/id
+  const allElements = document.querySelectorAll('*');
+  const locationElements = [];
+  const chapterElements = [];
+  const bookmarkElements = [];
+
+  allElements.forEach(el => {
+    const className = el.className?.toString().toLowerCase() || '';
+    const id = el.id?.toLowerCase() || '';
+    const text = el.textContent?.trim() || '';
+
+    if (className.includes('location') || id.includes('location') || text.match(/location\s*\d+/i)) {
+      locationElements.push({ el, className, id, text: text.substring(0, 100) });
+    }
+    if (className.includes('chapter') || id.includes('chapter') || text.match(/chapter\s*\d+/i)) {
+      chapterElements.push({ el, className, id, text: text.substring(0, 100) });
+    }
+    if (className.includes('bookmark') || id.includes('bookmark')) {
+      bookmarkElements.push({ el, className, id, text: text.substring(0, 100) });
+    }
+  });
+
+  console.log('Found location-related elements:', locationElements);
+  console.log('Found chapter-related elements:', chapterElements);
+  console.log('Found bookmark-related elements:', bookmarkElements);
+
+  console.log('=== END DEBUG ===');
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'export') {
-    console.log("Export message received");
+    console.log("🚀 Export message received");
+
+    // Run debug to help identify correct selectors
+    debugDOMStructure();
+
     // Enhanced metadata extraction with fallbacks
     const title = document.querySelector('h3.kp-notebook-metadata')?.textContent.trim() ||
                  document.querySelector('.kp-notebook-title')?.textContent.trim() ||
@@ -10,12 +499,66 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const author = document.querySelector('p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata')?.textContent.trim() ||
                   document.querySelector('.kp-notebook-author')?.textContent.trim() ||
                   'Unknown Author';
-    
+
     // Extract Amazon store link for the current book (supporting all regions)
-    const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
-    const amazonLink = amazonLinkElement?.href || '';
-    console.log('Extracted Amazon link:', amazonLink);
-    
+    // First, try to get ASIN from URL and construct proper regional link
+    let amazonLink = '';
+    let asin = null;
+
+    // Try to get ASIN from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    asin = urlParams.get('asin');
+
+    // If no ASIN in URL, try to extract from page link
+    if (!asin) {
+      const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
+      if (amazonLinkElement && amazonLinkElement.href) {
+        const asinMatch = amazonLinkElement.href.match(/\/dp\/([A-Z0-9]{10})/);
+        if (asinMatch) {
+          asin = asinMatch[1];
+          console.log('📚 ASIN extracted from page link:', asin);
+        }
+      }
+    }
+
+    console.log('🔍 ASIN:', asin);
+
+    if (asin) {
+      // Detect regional domain from current page
+      const currentDomain = window.location.hostname; // e.g., "ler.amazon.com.br"
+      console.log('🌎 Current Kindle domain:', currentDomain);
+
+      // Map reading domains to store domains (Brazil uses "ler" instead of "read")
+      const domainMap = {
+        'read.amazon.com': 'www.amazon.com',
+        'ler.amazon.com.br': 'www.amazon.com.br',     // Brazil
+        'read.amazon.com.br': 'www.amazon.com.br',    // Brazil fallback
+        'read.amazon.ca': 'www.amazon.ca',
+        'read.amazon.co.uk': 'www.amazon.co.uk',
+        'read.amazon.de': 'www.amazon.de',
+        'read.amazon.fr': 'www.amazon.fr',
+        'read.amazon.es': 'www.amazon.es',
+        'read.amazon.it': 'www.amazon.it',
+        'read.amazon.co.jp': 'www.amazon.co.jp',
+        'read.amazon.com.au': 'www.amazon.com.au',
+        'read.amazon.in': 'www.amazon.in',
+        'read.amazon.com.mx': 'www.amazon.com.mx',
+        'leer.amazon.com.mx': 'www.amazon.com.mx'     // Mexico uses "leer"
+      };
+
+      const storeDomain = domainMap[currentDomain] || 'www.amazon.com';
+      amazonLink = `https://${storeDomain}/dp/${asin}`;
+      console.log('🔗 Constructed Amazon link:', amazonLink);
+      console.log('✅ Domain mapping:', currentDomain, '→', storeDomain);
+    } else {
+      // Last resort: use page link as-is
+      const amazonLinkElement = document.querySelector('a.a-link-normal.kp-notebook-printable[href*="amazon."]');
+      amazonLink = amazonLinkElement?.href || '';
+      console.log('⚠️ No ASIN found, using page link:', amazonLink);
+    }
+
+    console.log('📖 Final Amazon link:', amazonLink);
+
     const highlightCount = document.querySelector('#kp-notebook-highlights-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
     const noteCount = document.querySelector('#kp-notebook-notes-count')?.textContent.trim().match(/\d+/)?.[0] || '0';
 
@@ -31,13 +574,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return highlightElements.length > 0;
     });
 
-    highlightElements.forEach(highlight => {
+    console.log(`Found ${highlightElements.length} highlight elements`);
+
+    highlightElements.forEach((highlight, index) => {
       const textElement = highlight.querySelector('#highlight') || highlight.querySelector('.highlight-text');
       const text = textElement?.textContent.trim() || '';
       if (!text) return; // Skip if no text is found
       const colorClass = Array.from(highlight.classList).find(cls => cls.startsWith('kp-notebook-highlight-')) ||
                         Array.from(highlight.classList).find(cls => cls.includes('highlight-color-'));
       const color = colorClass ? colorClass.split('-').pop() : 'default';
+
+      // Extract location and chapter info
+      const location = extractLocation(highlight);
+      const chapter = extractChapter(highlight);
+
+      // Debug log for first 3 highlights
+      if (index < 3) {
+        console.log(`Highlight ${index + 1}:`, {
+          text: text.substring(0, 50) + '...',
+          location,
+          chapter,
+          parentHTML: highlight.parentElement?.outerHTML.substring(0, 300)
+        });
+      }
+
       let note = '';
       const nextSibling = highlight.nextElementSibling;
       const noteSelectors = ['.kp-notebook-note', '.note-item', 'div[data-testid="note"]'];
@@ -54,20 +614,33 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               noteElement.querySelector('.note-text')?.textContent.trim() ||
               '';
       }
-      highlights.push({ text, color, note });
+      highlights.push({ text, color, note, location, chapter, type: 'highlight' });
     });
 
-    const data = { title, author, amazonLink, highlights, highlightCount, noteCount };
-    console.log('Sending data to background:', data);
+    // Extract bookmarks from current page
+    const bookmarks = extractBookmarks();
+
+    // Send data to Notion
+    const data = {
+      title,
+      author,
+      amazonLink,
+      highlights,
+      bookmarks,
+      highlightCount,
+      noteCount
+    };
+    console.log('📤 Sending data to background:', data);
     chrome.runtime.sendMessage({ action: 'sendToNotion', data }, (response) => {
       if (chrome.runtime.lastError) {
-        console.error('Error sending to background:', chrome.runtime.lastError);
+        console.error('❌ Error sending to background:', chrome.runtime.lastError);
         sendResponse({ status: 'Error: Failed to send data to background' });
       } else {
-        console.log('Response from background:', response);
+        console.log('✅ Response from background:', response);
         sendResponse(response);
       }
     });
+
     return true;
   }
 });

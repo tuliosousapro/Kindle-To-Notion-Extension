@@ -8,6 +8,162 @@ const colorMap = {
   'orange': 'orange_background'
 };
 
+// Helper function to group highlights by chapter
+function groupHighlightsByChapter(highlights) {
+  const groups = new Map();
+  const noChapter = [];
+
+  highlights.forEach(highlight => {
+    if (highlight.chapter) {
+      if (!groups.has(highlight.chapter)) {
+        groups.set(highlight.chapter, []);
+      }
+      groups.get(highlight.chapter).push(highlight);
+    } else {
+      noChapter.push(highlight);
+    }
+  });
+
+  return { groups, noChapter };
+}
+
+// Helper function to create a highlight block with location
+function createHighlightBlock(highlight) {
+  const { text, color, note, location } = highlight;
+  const notionColor = colorMap[color?.toLowerCase()] || 'gray_background';
+
+  const blocks = [];
+
+  // Create quote block with location info
+  const richText = [{ text: { content: text } }];
+
+  // Add location info to the quote if available
+  if (location) {
+    richText.push(
+      { text: { content: '\n' } },
+      {
+        text: { content: '📍 ' + location },
+        annotations: { color: 'gray', italic: true }
+      }
+    );
+  }
+
+  blocks.push({
+    type: 'quote',
+    quote: {
+      rich_text: richText,
+      color: notionColor
+    }
+  });
+
+  // Add note callout if exists
+  if (note) {
+    blocks.push({
+      type: 'callout',
+      callout: {
+        rich_text: [
+          {
+            text: { content: 'Note:' },
+            annotations: { bold: true, color: 'red' }
+          },
+          { text: { content: ' ' } },
+          {
+            text: { content: note },
+            annotations: { italic: true }
+          }
+        ],
+        icon: {
+          type: 'emoji',
+          emoji: '🔖'
+        }
+      }
+    });
+  }
+
+  return blocks;
+}
+
+// Helper function to create bookmark block
+function createBookmarkBlock(bookmark) {
+  const { location, chapter } = bookmark;
+
+  let content = 'Bookmark';
+  if (location) {
+    content += ' • ' + location;
+  }
+
+  return {
+    type: 'callout',
+    callout: {
+      rich_text: [
+        {
+          text: { content: content },
+          annotations: { bold: true }
+        }
+      ],
+      icon: {
+        type: 'emoji',
+        emoji: '📌'
+      },
+      color: 'gray_background'
+    }
+  };
+}
+
+// Helper function to create chapter heading block
+function createChapterHeading(chapterName) {
+  return {
+    type: 'heading_2',
+    heading_2: {
+      rich_text: [{
+        text: { content: chapterName }
+      }],
+      color: 'default'
+    }
+  };
+}
+
+// Helper function to generate all blocks with chapter grouping
+function generateBlocksWithChapterGrouping(highlights, bookmarks = []) {
+  const allBlocks = [];
+  const { groups, noChapter } = groupHighlightsByChapter(highlights);
+
+  // Add highlights grouped by chapter
+  groups.forEach((chapterHighlights, chapterName) => {
+    // Add chapter heading
+    allBlocks.push(createChapterHeading(chapterName));
+
+    // Add highlights for this chapter
+    chapterHighlights.forEach(highlight => {
+      allBlocks.push(...createHighlightBlock(highlight));
+    });
+
+    // Add bookmarks for this chapter
+    bookmarks.filter(b => b.chapter === chapterName).forEach(bookmark => {
+      allBlocks.push(createBookmarkBlock(bookmark));
+    });
+  });
+
+  // Add highlights without chapter
+  if (noChapter.length > 0) {
+    if (groups.size > 0) {
+      // Add separator heading for ungrouped highlights
+      allBlocks.push(createChapterHeading('Other Highlights'));
+    }
+
+    noChapter.forEach(highlight => {
+      allBlocks.push(...createHighlightBlock(highlight));
+    });
+
+    // Add bookmarks without chapter
+    bookmarks.filter(b => !b.chapter).forEach(bookmark => {
+      allBlocks.push(createBookmarkBlock(bookmark));
+    });
+  }
+
+  return allBlocks;
+}
+
 // Open welcome page on install
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === 'install') {
@@ -17,7 +173,9 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 });
 
-async function fetchHighResCover(amazonLink) {
+async function fetchHighResCover(amazonLink, retryCount = 0) {
+  const maxRetries = 2;
+
   try {
     if (!amazonLink || !amazonLink.includes('amazon') || !amazonLink.includes('/dp/')) {
       console.warn('Invalid Amazon link:', amazonLink);
@@ -25,15 +183,43 @@ async function fetchHighResCover(amazonLink) {
     }
 
     // Normalize URL to use www subdomain to match host_permissions
+    // Handle regional domains properly (amazon.com, amazon.com.br, amazon.co.uk, etc.)
     let normalizedUrl = amazonLink;
-    if (amazonLink.includes('://amazon.')) {
-      normalizedUrl = amazonLink.replace('://amazon.', '://www.amazon.');
+
+    // Replace "amazon." with "www.amazon." but preserve the full domain
+    // This handles: amazon.com → www.amazon.com, amazon.com.br → www.amazon.com.br, etc.
+    if (amazonLink.match(/https?:\/\/amazon\./)) {
+      normalizedUrl = amazonLink.replace(/https?:\/\/amazon\./, (match) => {
+        return match.replace('amazon.', 'www.amazon.');
+      });
     }
-    console.log('Fetching cover from:', normalizedUrl);
+
+    console.log(`[Cover Fetch Attempt ${retryCount + 1}/${maxRetries + 1}] From:`, normalizedUrl, '(original:', amazonLink, ')');
 
     const response = await fetch(normalizedUrl, { method: 'GET', credentials: 'omit' });
     if (!response.ok) {
       console.warn('Failed to fetch Amazon page:', response.status, response.statusText);
+
+      // Retry with different domain if first attempt failed
+      if (retryCount < maxRetries) {
+        console.log('Retrying with different approach...');
+
+        // Try extracting ASIN and using different regional domains
+        const asinMatch = amazonLink.match(/\/dp\/([A-Z0-9]{10})/);
+        if (asinMatch && retryCount === 0) {
+          // First retry: try .com.br if not already
+          const altUrl = `https://www.amazon.com.br/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        } else if (asinMatch && retryCount === 1) {
+          // Second retry: try .com
+          const altUrl = `https://www.amazon.com/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        }
+      }
       return '';
     }
 
@@ -49,21 +235,98 @@ async function fetchHighResCover(amazonLink) {
       const match = text.match(pattern);
       if (match && match[1]) {
         const coverUrl = match[1];
-        console.log('Fetched high-res cover:', coverUrl);
+        console.log('✅ Fetched high-res cover:', coverUrl);
         return coverUrl;
       }
     }
 
-    console.warn('High-res cover image not found for:', amazonLink);
+    console.warn(`❌ High-res cover image not found in page from: ${normalizedUrl}`);
+
+    // Retry with different domain
+    if (retryCount < maxRetries) {
+      const asinMatch = amazonLink.match(/\/dp\/([A-Z0-9]{10})/);
+      if (asinMatch) {
+        if (retryCount === 0) {
+          const altUrl = `https://www.amazon.com.br/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            console.log('Retrying with .com.br domain...');
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        } else if (retryCount === 1) {
+          const altUrl = `https://www.amazon.com/dp/${asinMatch[1]}`;
+          if (altUrl !== normalizedUrl) {
+            console.log('Retrying with .com domain...');
+            return await fetchHighResCover(altUrl, retryCount + 1);
+          }
+        }
+      }
+    }
+
     return '';
   } catch (error) {
-    console.error('Error fetching high-res cover for:', amazonLink, error);
+    console.error('Error fetching high-res cover:', error);
+
+    // Retry on error
+    if (retryCount < maxRetries) {
+      console.log(`Retrying due to error (attempt ${retryCount + 2}/${maxRetries + 1})...`);
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1s before retry
+      return await fetchHighResCover(amazonLink, retryCount + 1);
+    }
+
     return '';
   }
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('Background received message:', message);
+
+  // Handle fetching chapter data from new UI page
+  if (message.action === 'fetchChapterData') {
+    (async () => {
+      try {
+        const url = message.url;
+        console.log('🌐 Fetching new UI page:', url);
+
+        const response = await fetch(url, {
+          method: 'GET',
+          credentials: 'include', // Include cookies for authentication
+          headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+          }
+        });
+
+        // Debug: Check if URL was redirected
+        console.log('📍 Requested URL:', url);
+        console.log('📍 Final URL after fetch:', response.url);
+        console.log('📍 Response status:', response.status);
+
+        if (response.url !== url) {
+          console.warn('⚠️ URL was redirected!', response.url);
+        }
+
+        if (!response.ok) {
+          console.error('❌ Failed to fetch new UI page:', response.status, response.statusText);
+          sendResponse({ success: false, error: 'Failed to fetch page' });
+          return;
+        }
+
+        const html = await response.text();
+        console.log('✅ Fetched HTML, length:', html.length);
+
+        // Send HTML back to content script for parsing
+        // (DOMParser is not available in service workers)
+        sendResponse({
+          success: true,
+          html: html
+        });
+      } catch (error) {
+        console.error('❌ Error fetching chapter data:', error);
+        sendResponse({ success: false, error: error.message });
+      }
+    })();
+    return true; // Keep message channel open for async response
+  }
+
   if (message.action === 'sendToNotion') {
     (async () => {
       try {
@@ -80,8 +343,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           return;
         }
 
-        let { title, author, amazonLink, highlights, highlightCount, noteCount } = message.data;
-        console.log('Extracted data:', { title, highlightCount, noteCount, highlightsLength: highlights?.length, amazonLink });
+        let { title, author, amazonLink, highlights, bookmarks, highlightCount, noteCount } = message.data;
+        console.log('Extracted data:', { title, highlightCount, noteCount, highlightsLength: highlights?.length, bookmarksLength: bookmarks?.length, amazonLink });
 
         if (!highlights || highlights.length === 0) {
           console.warn('No highlights data received');
@@ -158,9 +421,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           } while (startCursor);
 
           const existingHighlights = [];
+          let countBlockId = null;
+
           for (let i = 0; i < allBlocks.length; i++) {
+            // Check if this is the count block (paragraph with highlight/note count)
+            if (allBlocks[i]?.type === 'paragraph' &&
+                allBlocks[i].paragraph?.rich_text?.[0]?.text?.content?.match(/\d+\s*Destaque/)) {
+              countBlockId = allBlocks[i].id;
+              console.log('Found count block at index:', i, 'with ID:', countBlockId);
+              continue;
+            }
+
             if (allBlocks[i]?.type === 'quote' && allBlocks[i].quote?.rich_text?.[0]?.text) {
-              const text = allBlocks[i].quote.rich_text[0].text.content;
+              // Get the text content from the first rich_text element (the actual highlight text)
+              let text = allBlocks[i].quote.rich_text[0].text.content;
+              // Handle case where location info is embedded - strip it out for comparison
+              // Location is added as additional rich_text elements, so we only use the first
               let note = '';
               if (allBlocks[i + 1]?.type === 'callout' && allBlocks[i + 1].callout?.rich_text?.length >= 3) {
                 // Extract the actual note content from the third rich_text element
@@ -168,6 +444,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               }
               existingHighlights.push({ text: text.trim(), note: note || '' });
               i += note ? 1 : 0;
+            } else if (allBlocks[i]?.type === 'heading_2') {
+              // Skip chapter headings
+              console.log('Skipping chapter heading at index:', i);
+            } else if (allBlocks[i]?.type === 'callout' && allBlocks[i].callout?.icon?.emoji === '📌') {
+              // Skip bookmark blocks
+              console.log('Skipping bookmark at index:', i);
             } else {
               console.log('Skipping non-quote block or malformed data at index:', i, allBlocks[i]);
             }
@@ -182,40 +464,47 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
 
           chrome.runtime.sendMessage({ action: 'progress', status: `Appending ${newHighlights.length} new highlights...` });
-          const newBlocksToAppend = newHighlights.map(({ text, color, note }, index) => {
-            const notionColor = colorMap[color.toLowerCase()] || 'gray_background';
-            const blocks = [{
-              type: 'quote',
-              quote: {
-                rich_text: [{ text: { content: text } }],
-                color: notionColor
-              }
-            }];
-            if (note) {
-              console.log(`Adding note as callout block for highlight ${index + 1}:`, note);
-              blocks.push({
-                type: 'callout',
-                callout: {
-                  rich_text: [
-                    {
-                      text: { content: 'Note:' },
-                      annotations: { bold: true, color: 'red' }
-                    },
-                    { text: { content: ' ' } },
-                    {
-                      text: { content: note },
-                      annotations: { italic: true }
-                    }
-                  ],
-                  icon: {
-                    type: 'emoji',
-                    emoji: '🔖'
+
+          // Update count block if it exists
+          if (countBlockId) {
+            const totalHighlights = existingHighlights.length + newHighlights.length;
+            const totalNotes = highlights.filter(h => h.note).length;
+            console.log('Updating count block:', countBlockId, 'with', totalHighlights, 'highlights and', totalNotes, 'notes');
+
+            try {
+              const updateResponse = await fetch(`https://api.notion.com/v1/blocks/${countBlockId}`, {
+                method: 'PATCH',
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                  'Notion-Version': '2022-06-28'
+                },
+                body: JSON.stringify({
+                  paragraph: {
+                    rich_text: [
+                      {
+                        text: { content: `${totalHighlights} Destaque(s) | ${totalNotes} Nota(s)` },
+                        annotations: { bold: true }
+                      }
+                    ]
                   }
-                }
+                }),
+                timeout: 10000
               });
+              if (!updateResponse.ok) {
+                console.warn('Failed to update count block:', await updateResponse.text());
+              } else {
+                console.log('Count block updated successfully');
+              }
+            } catch (updateError) {
+              console.warn('Error updating count block:', updateError);
+              // Don't fail the whole operation if count update fails
             }
-            return blocks;
-          }).flat();
+          }
+
+          // Use chapter grouping for new highlights
+          const newBlocksToAppend = generateBlocksWithChapterGrouping(newHighlights, bookmarks || []);
+          console.log(`Generated ${newBlocksToAppend.length} blocks for ${newHighlights.length} highlights`);
 
           for (let i = 0; i < newBlocksToAppend.length; i += 100) {
             const batch = newBlocksToAppend.slice(i, i + 100);
@@ -245,40 +534,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
 
         chrome.runtime.sendMessage({ action: 'progress', status: 'Exporting...' });
-        const allChildren = highlights.map(({ text, color, note }, index) => {
-          const notionColor = colorMap[color.toLowerCase()] || 'gray_background';
-          const blocks = [{
-            type: 'quote',
-            quote: {
-              rich_text: [{ text: { content: text } }],
-              color: notionColor
-            }
-          }];
-          if (note) {
-            console.log(`Adding note as callout block for highlight ${index + 1}:`, note);
-            blocks.push({
-              type: 'callout',
-              callout: {
-                rich_text: [
-                  {
-                    text: { content: 'Note:' },
-                    annotations: { bold: true, color: 'red' }
-                  },
-                  { text: { content: ' ' } },
-                  {
-                    text: { content: note },
-                    annotations: { italic: true }
-                  }
-                ],
-                icon: {
-                  type: 'emoji',
-                  emoji: '🔖'
-                }
-              }
-            });
-          }
-          return blocks;
-        }).flat();
+
+        // Generate all blocks with chapter grouping
+        const allChildren = generateBlocksWithChapterGrouping(highlights, bookmarks || []);
+        console.log(`Generated ${allChildren.length} blocks for ${highlights.length} highlights`);
 
         const countBlock = {
           type: 'paragraph',
