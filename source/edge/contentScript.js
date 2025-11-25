@@ -207,10 +207,17 @@ function extractChapter(highlightElement) {
 // Helper function to parse chapter and bookmark data from HTML string
 function parseChapterDataFromHTML(html) {
   console.log('🔬 Parsing HTML for chapter and bookmark data...');
+  console.log('📊 HTML length:', html.length);
 
   // Create a temporary DOM parser
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
+
+  // Debug: Log overall structure
+  console.log('📋 Document structure:');
+  console.log('  - Title:', doc.title);
+  console.log('  - Body classes:', doc.body?.className || 'no body');
+  console.log('  - Total elements:', doc.querySelectorAll('*').length);
 
   const chapterMap = {}; // Maps highlight text to chapter name
   const bookmarks = [];
@@ -220,6 +227,30 @@ function parseChapterDataFromHTML(html) {
   const chapterElements = doc.querySelectorAll('.notebook-chapter');
 
   console.log(`📚 Found ${chapterElements.length} chapter elements in fetched HTML`);
+
+  // Try alternative selectors if primary selector finds nothing
+  if (chapterElements.length === 0) {
+    console.log('⚠️ No .notebook-chapter elements found, trying fallback selectors...');
+
+    const fallbackSelectors = [
+      '[class*="notebook-chapter"]',
+      '.kp-notebook-chapter-title',
+      'h2.kp-notebook-selectable',
+      '.chapter-title',
+      '[class*="chapter"]'
+    ];
+
+    fallbackSelectors.forEach(selector => {
+      const elements = doc.querySelectorAll(selector);
+      console.log(`  Testing ${selector}: ${elements.length} elements`);
+      if (elements.length > 0 && elements.length < 10) {
+        console.log(`    Sample:`, elements[0]?.outerHTML?.substring(0, 150));
+      }
+    });
+
+    console.warn('❌ No chapter structure detected in HTML');
+    return { chapterMap, bookmarks };
+  }
 
   chapterElements.forEach((chapterEl, index) => {
     try {
@@ -610,6 +641,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           sendExportData();
         } else if (response && response.success && response.html) {
           console.log('✅ Received HTML from new UI, length:', response.html.length);
+
+          // DEBUG: Analyze HTML structure
+          console.log('🔬 HTML Structure Analysis:');
+          console.log('  - Contains "notebook-chapter"?', response.html.includes('notebook-chapter'));
+          console.log('  - Contains "notebook-editable-item"?', response.html.includes('notebook-editable-item'));
+          console.log('  - Contains "kp-notebook"?', response.html.includes('kp-notebook'));
+          console.log('  - Contains "grouped-annotation"?', response.html.includes('grouped-annotation'));
+          console.log('📄 HTML first 1000 chars:', response.html.substring(0, 1000));
 
           try {
             // Parse the HTML to extract chapter and bookmark data

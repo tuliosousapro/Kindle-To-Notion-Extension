@@ -295,6 +295,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
         });
 
+        // Debug: Check if URL was redirected
+        console.log('📍 Requested URL:', url);
+        console.log('📍 Final URL after fetch:', response.url);
+        console.log('📍 Response status:', response.status);
+
+        if (response.url !== url) {
+          console.warn('⚠️ URL was redirected!', response.url);
+        }
+
         if (!response.ok) {
           console.error('❌ Failed to fetch new UI page:', response.status, response.statusText);
           sendResponse({ success: false, error: 'Failed to fetch page' });
