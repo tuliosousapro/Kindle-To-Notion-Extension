@@ -20,7 +20,8 @@ function extractLocation(highlightElement) {
       // Extract page number from format "... | Página: 35" or "... | Page: 35"
       const pageMatch = headerText.match(/\|\s*(página|page):\s*(\d+)/i);
       if (pageMatch) {
-        return `Página ${pageMatch[2]}`;
+        const pageWord = pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+        return `${pageWord} ${pageMatch[2]}`;
       }
     }
   } catch (error) {
@@ -36,7 +37,8 @@ function extractLocation(highlightElement) {
       if (ariaLabel) {
         const pageMatch = ariaLabel.match(/(página|page)\s*(\d+)/i);
         if (pageMatch) {
-          return `Página ${pageMatch[2]}`;
+          const pageWord = pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+          return `${pageWord} ${pageMatch[2]}`;
         }
       }
     }
@@ -59,7 +61,9 @@ function extractLocation(highlightElement) {
         const pageText = pageElement.textContent.trim();
         const pageMatch = pageText.match(/(página|page|p\.)\s*(\d+)/i);
         if (pageMatch) {
-          return `Página ${pageMatch[2]}`;
+          const pageWord = pageMatch[1].toLowerCase() === 'p.' ? 'P.' :
+                          pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+          return `${pageWord} ${pageMatch[2]}`;
         }
       }
     }
@@ -68,7 +72,9 @@ function extractLocation(highlightElement) {
     const allText = container.textContent;
     const pageMatch = allText.match(/(página|page|p\.)\s*(\d+)/i);
     if (pageMatch) {
-      return `Página ${pageMatch[2]}`;
+      const pageWord = pageMatch[1].toLowerCase() === 'p.' ? 'P.' :
+                      pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+      return `${pageWord} ${pageMatch[2]}`;
     }
   } catch (error) {
     console.warn('Error extracting page number, falling back to position:', error);
@@ -293,7 +299,8 @@ function parseChapterDataFromHTML(html) {
             // Check if it's a bookmark
             if (titleText.match(/^(bookmarks|favoritos)/i)) {
               const pageMatch = titleText.match(/(page|página)\s*(\d+)/i);
-              const location = pageMatch ? `Página ${pageMatch[2]}` : '';
+              const location = pageMatch ?
+                `${pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1)} ${pageMatch[2]}` : '';
               const textElement = currentElement.querySelector('.notebook-editable-item-black');
               const text = textElement ? textElement.textContent.trim().substring(0, 100) : '';
 
@@ -355,7 +362,8 @@ function extractBookmarks() {
           const pageMatch = titleText.match(/(page|página)\s*(\d+)/i);
           let location = '';
           if (pageMatch) {
-            location = `Página ${pageMatch[2]}`;
+            const pageWord = pageMatch[1].charAt(0).toUpperCase() + pageMatch[1].slice(1);
+            location = `${pageWord} ${pageMatch[2]}`;
           }
 
           // Extract text content
