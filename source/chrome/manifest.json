@@ -3,7 +3,7 @@
   "name": "Kindle to Notion Extension – Export Kindle Highlights to Notion",
   "version": "1.7.0",
   "description": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database",
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "identity"],
   "host_permissions": [
     "https://ler.amazon.com.br/notebook*",
     "https://read.amazon.com/notebook*",

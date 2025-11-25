@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const databaseIdInput = document.getElementById('onboarding-database-id');
     const titlePropertyInput = document.getElementById('onboarding-title-prop');
     const authorPropertyInput = document.getElementById('onboarding-author-prop');
+    const connectOAuthBtn = document.getElementById('connect-oauth');
+    const oauthStatus = document.getElementById('oauth-status');
+    const workspaceName = document.getElementById('workspace-name');
 
     // State
     let currentStep = 1;
@@ -115,7 +118,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     backToKindleBtn.addEventListener('click', () => prevStep());
-    
+
+    // OAuth Connection
+    connectOAuthBtn.addEventListener('click', () => {
+      connectOAuthBtn.textContent = 'Connecting...';
+      connectOAuthBtn.disabled = true;
+
+      // Send message to background to start OAuth flow
+      chrome.runtime.sendMessage({ action: 'startOAuth' }, (response) => {
+        if (response && response.success) {
+          // OAuth successful
+          oauthStatus.style.display = 'block';
+          workspaceName.textContent = response.workspace_name || 'Notion Workspace';
+          connectOAuthBtn.style.display = 'none';
+          showToast('Successfully connected to Notion!', 'success');
+
+          // After successful OAuth, user can proceed to next step
+          // Auto-proceed after 2 seconds
+          setTimeout(() => {
+            nextStep();
+          }, 2000);
+        } else {
+          // OAuth failed
+          connectOAuthBtn.textContent = 'Connect with Notion';
+          connectOAuthBtn.disabled = false;
+          const errorMsg = response && response.error ? response.error : 'OAuth connection failed';
+          showToast(errorMsg, 'error');
+        }
+      });
+    });
+
     // Complete onboarding
     function completeOnboarding() {
       guideCompleted = true;

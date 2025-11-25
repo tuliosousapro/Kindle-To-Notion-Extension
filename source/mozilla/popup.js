@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const toast = document.getElementById('toast');
 
   // Load saved settings
-  chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion'], (result) => {
+  chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion', 'oauth_authenticated', 'workspace_name'], (result) => {
     tokenInput.value = result.token || '';
     databaseIdInput.value = result.databaseId || '';
     titlePropertyInput.value = result.titleProperty || 'Book Title';
@@ -39,6 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update status indicators
     if (result.token && result.databaseId) {
       notionStatusDot.classList.add('connected');
+    }
+
+    // Show OAuth status if authenticated via OAuth
+    if (result.oauth_authenticated && result.workspace_name) {
+      showOAuthStatus(result.workspace_name);
     }
   });
 
@@ -206,4 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
       spinnerText.textContent = msg.status;
     }
   });
+
+  // Show OAuth status
+  function showOAuthStatus(workspaceName) {
+    // You can add UI elements to show OAuth connection status
+    console.log('Connected via OAuth to:', workspaceName);
+    // Optional: Add a visual indicator in the UI showing OAuth connection
+  }
 });

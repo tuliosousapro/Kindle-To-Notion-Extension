@@ -105,30 +105,54 @@
         </div>
         <h2>Configure Your Settings</h2>
         <p class="step-description">
-          Now let's set up your Notion integration. Fill in the details below.
+          Choose how you want to connect to Notion: OAuth (recommended) or manual token entry.
         </p>
-        <div class="settings-preview">
-          <label>
-            Notion API Token:
-            <input type="password" id="onboarding-token" placeholder="Enter your Notion API token">
-          </label>
-          <label>
-            Database ID:
-            <input type="text" id="onboarding-database-id" placeholder="Enter your database ID or URL">
-          </label>
-          <label>
-            Title Property:
-            <input type="text" id="onboarding-title-prop" value="Título do Livro">
-          </label>
-          <label>
-            Author Property:
-            <input type="text" id="onboarding-author-prop" value="Autor">
-          </label>
+
+        <!-- OAuth Section -->
+        <div class="oauth-section">
+          <h3>🔐 OAuth Connection (Recommended)</h3>
+          <p>Connect securely with one click using OAuth authentication.</p>
+          <button class="btn-primary" id="connect-oauth" style="margin-bottom: 20px;">
+            <span class="oauth-icon">🔗</span> Connect with Notion
+          </button>
+          <div id="oauth-status" class="oauth-status" style="display: none;">
+            <span class="status-icon">✅</span>
+            <span class="status-text">Connected to: <strong id="workspace-name"></strong></span>
+          </div>
         </div>
-        <div class="onboarding-notice">
-          <p>💡 <strong>Tip:</strong> You can change these settings later in the Settings tab</p>
+
+        <div class="divider-with-text">
+          <span>OR</span>
         </div>
-        <button class="btn-primary" id="test-connection">Test Connection</button>
+
+        <!-- Manual Token Entry Section -->
+        <div class="manual-token-section">
+          <h3>🔑 Manual Token Entry</h3>
+          <p>Enter your Notion API token and database details manually.</p>
+          <div class="settings-preview">
+            <label>
+              Notion API Token:
+              <input type="password" id="onboarding-token" placeholder="Enter your Notion API token">
+            </label>
+            <label>
+              Database ID:
+              <input type="text" id="onboarding-database-id" placeholder="Enter your database ID or URL">
+            </label>
+            <label>
+              Title Property:
+              <input type="text" id="onboarding-title-prop" value="Título do Livro">
+            </label>
+            <label>
+              Author Property:
+              <input type="text" id="onboarding-author-prop" value="Autor">
+            </label>
+          </div>
+          <div class="onboarding-notice">
+            <p>💡 <strong>Tip:</strong> You can change these settings later in the Settings tab</p>
+          </div>
+          <button class="btn-primary" id="test-connection">Test Connection</button>
+        </div>
+
         <button class="btn-secondary" id="back-to-notion">Back</button>
       </div>
     </div>

@@ -1,3 +1,109 @@
+// ========================================
+// OAuth Configuration and Handlers
+// ========================================
+
+// OAuth Configuration - loaded from oauth-config.js
+const OAUTH_CONFIG = {
+  authorizationUrl: 'https://api.notion.com/v1/oauth/authorize',
+  clientId: '', // Set in storage or config
+  proxyServerUrl: '', // Set in storage or config
+  responseType: 'code',
+  ownerType: 'user'
+};
+
+// Load OAuth configuration from storage
+async function loadOAuthConfig() {
+  const result = await chrome.storage.local.get(['oauthClientId', 'oauthProxyUrl']);
+  if (result.oauthClientId) OAUTH_CONFIG.clientId = result.oauthClientId;
+  if (result.oauthProxyUrl) OAUTH_CONFIG.proxyServerUrl = result.oauthProxyUrl;
+}
+
+// Initialize OAuth config on startup
+loadOAuthConfig();
+
+// Get the redirect URI dynamically
+function getOAuthRedirectUri() {
+  const extensionId = chrome.runtime.id;
+  return `https://${extensionId}.chromiumapp.org/oauth`;
+}
+
+// Generate random state for CSRF protection
+function generateRandomState() {
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+// Build authorization URL
+function buildAuthorizationUrl() {
+  const redirectUri = getOAuthRedirectUri();
+  const state = generateRandomState();
+
+  const params = new URLSearchParams({
+    client_id: OAUTH_CONFIG.clientId,
+    response_type: OAUTH_CONFIG.responseType,
+    owner: OAUTH_CONFIG.ownerType,
+    redirect_uri: redirectUri,
+    state: state
+  });
+
+  return {
+    url: `${OAUTH_CONFIG.authorizationUrl}?${params.toString()}`,
+    state: state
+  };
+}
+
+// Handle OAuth token exchange via proxy server
+async function exchangeCodeForToken(code, state, savedState) {
+  // Verify state matches (CSRF protection)
+  if (state !== savedState) {
+    throw new Error('OAuth state mismatch - possible CSRF attack');
+  }
+
+  const redirectUri = getOAuthRedirectUri();
+
+  try {
+    // Call proxy server to exchange code for token
+    const response = await fetch(`${OAUTH_CONFIG.proxyServerUrl}/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        code: code,
+        redirect_uri: redirectUri
+      }),
+      timeout: 10000
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Token exchange failed: ${errorText}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.access_token) {
+      throw new Error('No access token received from proxy server');
+    }
+
+    return {
+      access_token: data.access_token,
+      workspace_id: data.workspace_id,
+      workspace_name: data.workspace_name,
+      bot_id: data.bot_id,
+      owner: data.owner
+    };
+  } catch (error) {
+    console.error('Token exchange error:', error);
+    throw error;
+  }
+}
+
+// ========================================
+// Notion API Helpers
+// ========================================
+
 const colorMap = {
   'blue': 'blue_background',
   'yellow': 'yellow_background',
@@ -279,6 +385,92 @@ async function fetchHighResCover(amazonLink, retryCount = 0) {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('Background received message:', message);
+
+  // Handle OAuth initiation
+  if (message.action === 'startOAuth') {
+    (async () => {
+      try {
+        // Validate OAuth configuration
+        if (!OAUTH_CONFIG.clientId || !OAUTH_CONFIG.proxyServerUrl) {
+          sendResponse({
+            success: false,
+            error: 'OAuth not configured. Please set Client ID and Proxy Server URL in settings.'
+          });
+          return;
+        }
+
+        // Build authorization URL
+        const { url, state } = buildAuthorizationUrl();
+
+        // Save state for verification
+        await chrome.storage.local.set({ oauth_state: state });
+
+        // Launch OAuth flow
+        chrome.identity.launchWebAuthFlow(
+          {
+            url: url,
+            interactive: true
+          },
+          async (redirectUrl) => {
+            if (chrome.runtime.lastError) {
+              console.error('OAuth error:', chrome.runtime.lastError);
+              sendResponse({
+                success: false,
+                error: chrome.runtime.lastError.message
+              });
+              return;
+            }
+
+            try {
+              // Parse the redirect URL to extract code and state
+              const urlParams = new URL(redirectUrl);
+              const code = urlParams.searchParams.get('code');
+              const returnedState = urlParams.searchParams.get('state');
+
+              if (!code) {
+                throw new Error('No authorization code received');
+              }
+
+              // Get saved state
+              const { oauth_state } = await chrome.storage.local.get(['oauth_state']);
+
+              // Exchange code for token
+              const tokenData = await exchangeCodeForToken(code, returnedState, oauth_state);
+
+              // Save token and workspace info
+              await chrome.storage.local.set({
+                token: tokenData.access_token,
+                workspace_id: tokenData.workspace_id,
+                workspace_name: tokenData.workspace_name,
+                oauth_authenticated: true
+              });
+
+              // Clean up state
+              await chrome.storage.local.remove(['oauth_state']);
+
+              sendResponse({
+                success: true,
+                workspace_name: tokenData.workspace_name
+              });
+            } catch (error) {
+              console.error('Token exchange failed:', error);
+              sendResponse({
+                success: false,
+                error: error.message
+              });
+            }
+          }
+        );
+      } catch (error) {
+        console.error('OAuth initialization failed:', error);
+        sendResponse({
+          success: false,
+          error: error.message
+        });
+      }
+    })();
+    return true; // Keep message channel open for async response
+  }
 
   // Handle fetching chapter data from new UI page
   if (message.action === 'fetchChapterData') {
