@@ -133,11 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
           connectOAuthBtn.style.display = 'none';
           showToast('Successfully connected to Notion!', 'success');
 
-          // After successful OAuth, user can proceed to next step
-          // Auto-proceed after 2 seconds
-          setTimeout(() => {
-            nextStep();
-          }, 2000);
+          // Fetch databases after successful OAuth
+          showToast('Fetching your databases...', 'info');
+          fetchAndDisplayDatabases();
         } else {
           // OAuth failed
           connectOAuthBtn.textContent = 'Connect with Notion';
@@ -147,6 +145,125 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+
+    // Fetch and display databases
+    function fetchAndDisplayDatabases() {
+      chrome.runtime.sendMessage({ action: 'fetchDatabases' }, (response) => {
+        if (response && response.success) {
+          const databases = response.databases;
+          if (databases && databases.length > 0) {
+            displayDatabaseSelection(databases);
+            showToast(`Found ${databases.length} database(s)`, 'success');
+          } else {
+            showToast('No databases found. Please create a database in Notion first.', 'info');
+            // Show manual entry option
+            document.getElementById('database-manual-entry').style.display = 'block';
+          }
+        } else {
+          const errorMsg = response && response.error ? response.error : 'Failed to fetch databases';
+          showToast(errorMsg, 'error');
+          // Fall back to manual entry
+          document.getElementById('database-manual-entry').style.display = 'block';
+        }
+      });
+    }
+
+    // Display database selection dropdown
+    function displayDatabaseSelection(databases) {
+      const databaseSelection = document.getElementById('database-selection');
+      const databaseDropdown = document.getElementById('database-dropdown');
+
+      // Clear existing options
+      databaseDropdown.innerHTML = '<option value="">-- Select a database --</option>';
+
+      // Add database options
+      databases.forEach(db => {
+        const option = document.createElement('option');
+        option.value = db.id;
+
+        // Get database title
+        let title = 'Untitled Database';
+        if (db.title && db.title.length > 0 && db.title[0].plain_text) {
+          title = db.title[0].plain_text;
+        }
+
+        option.textContent = title;
+        databaseDropdown.appendChild(option);
+      });
+
+      // Show database selection UI
+      databaseSelection.style.display = 'block';
+    }
+
+    // Handle database selection confirmation
+    const confirmDatabaseBtn = document.getElementById('confirm-database');
+    if (confirmDatabaseBtn) {
+      confirmDatabaseBtn.addEventListener('click', () => {
+        const databaseDropdown = document.getElementById('database-dropdown');
+        const selectedDatabaseId = databaseDropdown.value;
+
+        if (!selectedDatabaseId) {
+          showToast('Please select a database', 'error');
+          return;
+        }
+
+        // Remove hyphens from database ID (Notion returns UUID format with hyphens)
+        // Extension expects format without hyphens
+        const databaseId = selectedDatabaseId.replace(/-/g, '');
+
+        // Save database ID to storage
+        chrome.storage.local.set({ databaseId }, () => {
+          showToast('Database selected!', 'success');
+
+          // Proceed to next step
+          setTimeout(() => {
+            nextStep();
+          }, 1000);
+        });
+      });
+    }
+
+    // Handle manual database entry confirmation
+    const confirmManualDatabaseBtn = document.getElementById('confirm-manual-database');
+    if (confirmManualDatabaseBtn) {
+      confirmManualDatabaseBtn.addEventListener('click', () => {
+        const manualDatabaseInput = document.getElementById('manual-database-input');
+        let databaseId = manualDatabaseInput.value.trim();
+
+        if (!databaseId) {
+          showToast('Please enter a database ID', 'error');
+          return;
+        }
+
+        // Database ID URL pattern extraction
+        const urlPattern = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
+        if (databaseId.startsWith('https://www.notion.so/')) {
+          const match = databaseId.match(urlPattern);
+          if (match) {
+            databaseId = match[1].replace(/-/g, '');
+          } else {
+            showToast('Please enter a valid Notion database URL or ID', 'error');
+            return;
+          }
+        }
+
+        // Validate database ID format
+        if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
+          showToast('Please enter a valid 32-character Database ID', 'error');
+          return;
+        }
+
+        // Save database ID to storage
+        chrome.storage.local.set({ databaseId }, () => {
+          showToast('Database ID saved!', 'success');
+
+          // Proceed to next step
+          setTimeout(() => {
+            nextStep();
+          }, 1000);
+        });
+      });
+    }
 
     // Complete onboarding
     function completeOnboarding() {

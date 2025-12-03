@@ -634,3 +634,78 @@ body {
 .oauth-icon {
   margin-right: var(--space-xs);
 }
+
+/* Database Selection Styles */
+.database-selection {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  animation: fadeIn 0.3s ease;
+}
+
+.database-selection h4 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.database-selection select {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.database-selection select:hover {
+  border-color: var(--text-secondary);
+  background: var(--glass-bg-hover);
+}
+
+.database-selection select:focus {
+  outline: none;
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.database-selection option {
+  background: #1a1a2e;
+  color: var(--text-primary);
+  padding: var(--space-sm);
+}
+
+#database-manual-entry {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  animation: fadeIn 0.3s ease;
+}
+
+#manual-database-input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+#manual-database-input:focus {
+  outline: none;
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+#manual-database-input::placeholder {
+  color: var(--text-muted);
+}

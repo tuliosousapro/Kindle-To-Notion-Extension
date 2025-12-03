@@ -119,9 +119,35 @@
             <span class="status-icon">✅</span>
             <span class="status-text">Connected to: <strong id="workspace-name"></strong></span>
           </div>
+
+          <!-- Database Selection (shown after OAuth success) -->
+          <div id="database-selection" class="database-selection" style="display: none; margin-top: 20px;">
+            <h4 style="margin-bottom: 12px;">📚 Select Your Database</h4>
+            <p style="margin-bottom: 12px; color: var(--text-secondary); font-size: 14px;">
+              Choose the Notion database where you want to store your Kindle highlights.
+            </p>
+            <select id="database-dropdown" class="form-input" style="margin-bottom: 12px;">
+              <option value="">Loading databases...</option>
+            </select>
+            <button class="btn-primary" id="confirm-database">
+              Continue with Selected Database
+            </button>
+          </div>
+
+          <!-- Manual Entry Fallback (shown if database fetch fails) -->
+          <div id="database-manual-entry" style="display: none; margin-top: 20px;">
+            <p style="color: var(--text-secondary); font-size: 14px;">
+              Or enter your database ID manually:
+            </p>
+            <input type="text" id="manual-database-input" class="form-input"
+                   placeholder="Enter database ID" style="margin-bottom: 12px;">
+            <button class="btn-secondary" id="confirm-manual-database">
+              Continue with Manual Entry
+            </button>
+          </div>
         </div>
 
-        <div class="divider-with-text">
+        <div class="divider-with-text" id="or-divider">
           <span>OR</span>
         </div>
 

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run typecheck:*)",
+      "WebFetch(domain:kindle2notion-drab.vercel.app)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

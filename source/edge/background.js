@@ -2,16 +2,10 @@
 // OAuth Configuration and Handlers
 // ========================================
 
-// OAuth Configuration - loaded from oauth-config.js
-const OAUTH_CONFIG = {
-  authorizationUrl: 'https://api.notion.com/v1/oauth/authorize',
-  clientId: '', // Set in storage or config
-  proxyServerUrl: '', // Set in storage or config
-  responseType: 'code',
-  ownerType: 'user'
-};
+// Import OAuth configuration and utilities
+import { OAUTH_CONFIG, getOAuthRedirectUri, generateRandomState, buildAuthorizationUrl } from './oauth-config.js';
 
-// Load OAuth configuration from storage
+// Load OAuth configuration from storage (allows overriding defaults)
 async function loadOAuthConfig() {
   const result = await chrome.storage.local.get(['oauthClientId', 'oauthProxyUrl']);
   if (result.oauthClientId) OAUTH_CONFIG.clientId = result.oauthClientId;
@@ -20,38 +14,6 @@ async function loadOAuthConfig() {
 
 // Initialize OAuth config on startup
 loadOAuthConfig();
-
-// Get the redirect URI dynamically
-function getOAuthRedirectUri() {
-  const extensionId = chrome.runtime.id;
-  return `https://${extensionId}.chromiumapp.org/oauth`;
-}
-
-// Generate random state for CSRF protection
-function generateRandomState() {
-  const array = new Uint8Array(32);
-  crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
-}
-
-// Build authorization URL
-function buildAuthorizationUrl() {
-  const redirectUri = getOAuthRedirectUri();
-  const state = generateRandomState();
-
-  const params = new URLSearchParams({
-    client_id: OAUTH_CONFIG.clientId,
-    response_type: OAUTH_CONFIG.responseType,
-    owner: OAUTH_CONFIG.ownerType,
-    redirect_uri: redirectUri,
-    state: state
-  });
-
-  return {
-    url: `${OAUTH_CONFIG.authorizationUrl}?${params.toString()}`,
-    state: state
-  };
-}
 
 // Handle OAuth token exchange via proxy server
 async function exchangeCodeForToken(code, state, savedState) {
@@ -64,7 +26,7 @@ async function exchangeCodeForToken(code, state, savedState) {
 
   try {
     // Call proxy server to exchange code for token
-    const response = await fetch(`${OAUTH_CONFIG.proxyServerUrl}/token`, {
+    const response = await fetch(`${OAUTH_CONFIG.proxyServerUrl}/oauth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -72,8 +34,7 @@ async function exchangeCodeForToken(code, state, savedState) {
       body: JSON.stringify({
         code: code,
         redirect_uri: redirectUri
-      }),
-      timeout: 10000
+      })
     });
 
     if (!response.ok) {
@@ -96,6 +57,40 @@ async function exchangeCodeForToken(code, state, savedState) {
     };
   } catch (error) {
     console.error('Token exchange error:', error);
+    throw error;
+  }
+}
+
+// Search for databases in Notion workspace
+async function searchNotionDatabases(token) {
+  try {
+    const response = await fetch('https://api.notion.com/v1/search', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Notion-Version': '2022-06-28'
+      },
+      body: JSON.stringify({
+        filter: {
+          value: 'database',
+          property: 'object'
+        },
+        sort: {
+          direction: 'descending',
+          timestamp: 'last_edited_time'
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to search databases: ${errorText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Database search error:', error);
     throw error;
   }
 }
@@ -472,6 +467,38 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true; // Keep message channel open for async response
   }
 
+  // Handle fetching databases from Notion
+  if (message.action === 'fetchDatabases') {
+    (async () => {
+      try {
+        const { token } = await chrome.storage.local.get(['token']);
+        if (!token) {
+          sendResponse({
+            success: false,
+            error: 'No authentication token found. Please connect to Notion first.'
+          });
+          return;
+        }
+
+        console.log('Fetching databases from Notion...');
+        const databasesData = await searchNotionDatabases(token);
+
+        console.log(`Found ${databasesData.results.length} databases`);
+        sendResponse({
+          success: true,
+          databases: databasesData.results
+        });
+      } catch (error) {
+        console.error('Failed to fetch databases:', error);
+        sendResponse({
+          success: false,
+          error: error.message
+        });
+      }
+    })();
+    return true; // Keep message channel open for async response
+  }
+
   // Handle fetching chapter data from new UI page
   if (message.action === 'fetchChapterData') {
     (async () => {
@@ -568,8 +595,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 property: titleProperty,
                 title: { equals: title }
               }
-            }),
-            timeout: 10000
+            })
           });
           if (!searchResponse.ok) throw new Error('Search failed: ' + await searchResponse.text());
         } catch (fetchError) {
@@ -594,8 +620,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                   'Notion-Version': '2022-06-28'
-                },
-                timeout: 10000
+                }
               });
               if (!blocksResponse.ok) throw new Error('Blocks fetch failed: ' + await blocksResponse.text());
             } catch (fetchError) {
@@ -680,8 +705,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                       }
                     ]
                   }
-                }),
-                timeout: 10000
+                })
               });
               if (!updateResponse.ok) {
                 console.warn('Failed to update count block:', await updateResponse.text());
@@ -710,8 +734,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                   'Content-Type': 'application/json',
                   'Notion-Version': '2022-06-28'
                 },
-                body: JSON.stringify({ children: batch }),
-                timeout: 10000
+                body: JSON.stringify({ children: batch })
               });
               if (!appendResponse.ok) throw new Error('Append failed: ' + await appendResponse.text());
             } catch (appendError) {
@@ -771,8 +794,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               'Content-Type': 'application/json',
               'Notion-Version': '2022-06-28'
             },
-            body: JSON.stringify(createPayload),
-            timeout: 10000
+            body: JSON.stringify(createPayload)
           });
           if (!createResponse.ok) throw new Error('Create failed: ' + await createResponse.text());
         } catch (createError) {
@@ -798,8 +820,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 'Content-Type': 'application/json',
                 'Notion-Version': '2022-06-28'
               },
-              body: JSON.stringify({ children: batches[i] }),
-              timeout: 10000
+              body: JSON.stringify({ children: batches[i] })
             });
             if (!appendResponse.ok) throw new Error('Append failed: ' + await appendResponse.text());
           } catch (appendError) {
