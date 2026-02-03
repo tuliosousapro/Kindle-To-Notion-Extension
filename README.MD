@@ -5,13 +5,14 @@
 <h1 align="center">Kindle To Notion Extension v1.7.0</h1>
 <p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, bookmarks, and page references</em></p>
 <p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store?style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
 
-> Don't just clone it! Gives a star if it helped you...
+> Don't just clone it! Gives a star if it helped you... <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension??style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
 
 <p align="center">
 <a href="https://www.producthunt.com/products/kindle2notion-extension?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-kindle2notion&#0045;extension" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1004546&theme=dark&t=1755527287444" alt="Kindle2notion&#0032;extension - An&#0032;extension&#0032;easy&#0032;save&#0032;your&#0032;kindle&#0032;highlights&#0032;into&#0032;Notion | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </p>
+<p align="center"><em>Follow and Upvote us on Product Hunt</em></p>
 
 Have you ever used a Kindle to read your books?
 Have you ever tried to work on your notes?
@@ -51,9 +52,9 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
   </a>
 </p>
 
-## 🧠 Recommended Notion Template
+## 🧠 Clone our Free Notion Template
 
-To make the most of your Kindle highlights, use this free Notion template built by Machina Labs:
+To make the most of your Kindle highlights, use this free Notion template built by Us:
 
 👉 [Reading Center Powered by Machina Labs](https://www.notion.com/pt/templates/reading-center-powered-by-machina-labs)
 
@@ -65,8 +66,16 @@ This template helps you:
 ![Preview of Notion Template](https://www.notion.com/_next/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fpublic.notion-static.com%2Ftemplate%2F42e933e3-954d-4a10-bc4d-c0039f52839d%2F1756346706460%2Fdesktop.jpg&w=3840&q=75)
 
 ---
+## 🛠️Installation
+1. Clone or download this repository.
+2. Open Chrome and navigate to `chrome://extensions/`.
+3. Enable "Developer mode" (top right).
+4. Click **"Load unpacked"** and select the folder containing the extension files.
+5. Voilà — The extension will appear in your Chrome toolbar.
 
-## ⚙️Setup
+> **💡 Prefer a one-click install?** [**Get it from the Chrome Web Store**](https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR) for Chrome, Brave, Arc, Orion, and other Chromium-based browsers.
+
+## ⚙️Manual Setup
 1. **Create a Notion integration:**
    - Go to [Notion's Integrations page](https://www.notion.so/my-integrations).
    - Create a new integration and copy the "Internal Integration Token."
@@ -88,28 +97,6 @@ This template helps you:
 5. Click **"Save Settings."🎉**
 > **👉Need a step-by-step help?** [**Click here**](https://machina-labs.gitbook.io/kindle-to-notion/getting-started/getting-started)
 
-## 🚀Getting Started
-1. Open the extension popup and click **"Go to Highlights"**
-- > Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
-2. Once in the highlights page, open the extension popup and click **"Export to Notion."**
-3. Check the status message in the pop-up for success or errors.
-4. Verify the new page in your Notion database.
-#### Supported Kindle Regions
-- 🇺🇸 **United States:** `read.amazon.com/notebook`
-- 🇧🇷 **Brazil:** `ler.amazon.com.br/notebook`
-- 🇨🇦 **Canada:** `read.amazon.ca/notebook`
-- 🇬🇧 **United Kingdom:** `read.amazon.co.uk/notebook`
-- 🇩🇪 **Germany:** `read.amazon.de/notebook`
-- 🇫🇷 **France:** `read.amazon.fr/notebook`
-- 🇪🇸 **Spain:** `read.amazon.es/notebook`
-- 🇮🇹 **Italy:** `read.amazon.it/notebook`
-- 🇯🇵 **Japan:** `read.amazon.co.jp/notebook`
-- 🇦🇺 **Australia:** `read.amazon.com.au/notebook`
-- 🇮🇳 **India:** `read.amazon.in/notebook`
-- 🇲🇽 **Mexico:** `read.amazon.com.mx/notebook`
-
-> **Note:** You can select your preferred region in the extension's Settings tab.
-
 ## 📽️ Tutorial - How to setup and use Kindle to Notion Extension
 
 [![Kindle To Notion – Watch Video](https://cdn.loom.com/sessions/thumbnails/142bf896d27947b3b66119317444a67c-02d768de16cc29a9-full-play.gif)](https://www.loom.com/share/142bf896d27947b3b66119317444a67c)
@@ -118,6 +105,32 @@ This template helps you:
 - How to set up the extension
 - How to connect your Notion database
 - How to export your Kindle highlights
+
+## 🚀Getting Started
+1. Open the extension popup and click **"Go to Highlights"**
+- > Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
+2. Once in the highlights page, open the extension popup and click **"Export to Notion."**
+3. Check the status message in the pop-up for success or errors.
+4. Verify the new page in your Notion database.
+
+#### Supported Kindle Regions
+| Country               | URL                              |
+|------------------------|----------------------------------|
+| 🇦🇺 Australia          | `read.amazon.com.au/notebook`    |
+| 🇧🇷 Brazil             | `ler.amazon.com.br/notebook`     |
+| 🇨🇦 Canada             | `read.amazon.ca/notebook`        |
+| 🇫🇷 France             | `read.amazon.fr/notebook`        |
+| 🇩🇪 Germany            | `read.amazon.de/notebook`        |
+| 🇮🇳 India              | `read.amazon.in/notebook`        |
+| 🇮🇹 Italy              | `read.amazon.it/notebook`        |
+| 🇯🇵 Japan              | `read.amazon.co.jp/notebook`     |
+| 🇲🇽 Mexico             | `read.amazon.com.mx/notebook`    |
+| 🇪🇸 Spain              | `read.amazon.es/notebook`        |
+| 🇬🇧 United Kingdom     | `read.amazon.co.uk/notebook`     |
+| 🇺🇸 United States      | `read.amazon.com/notebook`       |
+
+
+> **Note:** You can select your preferred region in the extension's Settings tab.
 
 ---
 
@@ -140,16 +153,16 @@ This template helps you:
 #### 📍 Page & Location References
 - **Every highlight includes its page number or position**
 - 5-tier priority system for location detection:
-  1. Page from highlight header (`Página: 35`)
+  1. Page from highlight header
   2. Scrubber bar aria-label
   3. Generic page selectors
   4. Position from hidden input fields
   5. Pattern matching fallback
-- Shows "Página X" when available, "Posição X" as fallback
-- Supports multiple languages (English "Page", Portuguese "Página", etc.)
+- Shows "Page X" when available, "Position X" as fallback
+- Supports multiple languages
 
 ### 📖 Kindle Integration
-- Extracts highlights and notes directly from the Kindle notebook page (`read.amazon.com/notebook` or `ler.amazon.com.br/notebook`).
+- Extracts highlights and notes directly from the Kindle notebook page.
 - Supports highlights with color coding (blue, yellow, orange, pink, etc.) and associated notes.
 - Extracts book title, author, highlight count, note count, and high-resolution cover images from Kindle notebook pages.
 - Enhanced ASIN extraction for accurate Amazon store links
@@ -157,7 +170,7 @@ This template helps you:
 
 ### 🧠 Notion Export
 - Exports highlights as Notion quote blocks with color mapping.
-- Adds a summary count at the top of the Notion page (e.g., `265 Destaque(s) | 10 Nota(s)`).
+- Adds a summary count at the top of the Notion page.
 - Supports custom property names for book title and author.
 - Prevents duplicate highlights by checking existing Notion database entries.
 - Smart batching to respect Notion's 100-block API limit.
@@ -165,18 +178,14 @@ This template helps you:
 - Bookmark callouts integrated with highlights
 
 #### 🛡️ Security & Privacy
-- Notion API Token is masked with a blink-eye icon for visibility toggle.
+- Notion API Token is masked with a blink-eye icon.
 - Securely stores token using `chrome.storage.local`.
 - No data collection, ads, or tracking.
 
 #### 🧰 UI & UX Enhancements
-- **Modern Glassmorphic Design**: Stunning semi-transparent glass cards with backdrop-filter blur effects for a premium feel.
-- **Animated Gradient Background**: Smooth color-shifting animations that cycle through vibrant gradient schemes.
-- **Icon-Based Tab Navigation**: Intuitive tab switching between Export and Settings with clean, modern icons.
-- **Glowing Status Indicators**: Real-time connection status for Amazon and Notion with pulsing glow effects.
-- **Enhanced Visual Feedback**: Smooth transitions, hover effects with shine animations on buttons.
-- **Toast Notifications**: Elegant slide-in notification system for user feedback.
-- **Streamlined Layout**: Cleaner header with logo glow, improved spacing, and better visual hierarchy.
+- **Enhanced Visual Feedback**: Smooth transitions.
+- **Toast Notifications**: Slide-in notification system for user feedback.
+- **Streamlined Layout**: Cleaner header with logo, improved spacing, and better visual hierarchy.
 - WCAG 2.1-compliant UI for accessibility.
 
 ---
@@ -188,26 +197,19 @@ This template helps you:
 
 ---
 
-## 🛠️Installation
-1. Clone or download this repository.
-2. Open Chrome and navigate to `chrome://extensions/`.
-3. Enable "Developer mode" (top right).
-4. Click **"Load unpacked"** and select the folder containing the extension files.
-5. Voilà — The extension will appear in your Chrome toolbar.
-
-> **💡 Prefer a one-click install?** [**Get it from the Chrome Web Store**](https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo?authuser=0&hl=pt-BR) for Chrome, Brave, Arc, Orion, and other Chromium-based browsers.
-
 ## 🧪Development
 - **File Structure**:
 ```
-kindle2notion-extension/
-├── manifest.json          # Extension configuration
-├── popup.html             # User interface
-├── popup.js               # UI logic and validation
-├── popup.css              # Modern styling
-├── contentScript.js       # Extracts data from Kindle's notebook page.
-├── background.js          # Handles Notion API requests.
-└── icons/                 # Extension icons
+Kindle-To-Notion-Extension/
+├── source/                    # Main extension source code
+│   ├── chrome/               # Chrome extension (primary)
+│   ├── edge/                 # Edge extension
+│   └── mozilla/              # Firefox extension
+├── docs/                     # Static marketing website
+├── gitbook/                  # Technical documentation
+├── assets/                   # Marketing images
+├── release notes/            # Version history
+└── .github/                  # GitHub templates & config
 ```
 - **Dependencies**: None (no external libraries, `No build process required - it's vanilla JavaScript!`)
 - **Debugging**:
@@ -271,4 +273,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 ## 🧙Kindle wizardry deserves a star
-Smash that star button <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=social"> — it costs you nothing and means the world to this humble repo. Oh, and don’t be shy: If this extension casts a productivity spell on your Kindle chaos, hit that ⭐ and summon a tweet, post, or shout from the nearest rooftop.
+Smash that star button <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension??style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green"> — it costs you nothing and means the world to this humble repo. Hit that ⭐ and summon a tweet, post, and shout for your friends.
