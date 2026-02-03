@@ -5,9 +5,9 @@
 <h1 align="center">Kindle To Notion Extension v1.7.0</h1>
 <p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, bookmarks, and page references</em></p>
 <p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green"> [![GitHub Monthly Commits](https://img.shields.io/github/commit-activity/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/commits)
 
-> Don't just clone it! Gives a star if it helped you... <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green">
+> Don't just clone it! Gives a star if it helped you... 
 
 <p align="center">
 <a href="https://www.producthunt.com/products/kindle2notion-extension?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-kindle2notion&#0045;extension" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1004546&theme=dark&t=1755527287444" alt="Kindle2notion&#0032;extension - An&#0032;extension&#0032;easy&#0032;save&#0032;your&#0032;kindle&#0032;highlights&#0032;into&#0032;Notion | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
@@ -95,7 +95,7 @@ This template helps you:
    - **Author Property Name**: The exact name of your database's author property (e.g., `Autor`).
    - **Kindle Region**: Select your Amazon region (e.g., US, UK, Canada, Germany, etc.).
 5. Click **"Save Settings."🎉**
-> **👉Need a step-by-step help?** [**Click here**](https://machina-labs.gitbook.io/kindle-to-notion/getting-started/getting-started)
+> **👉Need a step-by-step help?** [**FULL DOCUMENTATION**](https://machina-labs.gitbook.io/kindle-to-notion/getting-started/getting-started)
 
 ## 📽️ Tutorial - How to setup and use Kindle to Notion Extension
 
@@ -138,22 +138,22 @@ This template helps you:
 
 ### ✨ v1.7.0 - Major New Features
 
-### 🧠 Intelligent Organization: 
+**🧠 Intelligent Organization:**
 - Automatically groups highlights by Chapter and extracts Bookmarks (📌) with precise page/location references.
 
-### 📖 Deep Kindle Integration: 
+**📖 Deep Kindle Integration:**
 - Full support for all 12 regional domains. Extracts highlights (with color mapping), notes, ASIN links, and high-resolution book covers.
 
-### ⚡ Notion Sync:
+**⚡ Notion Sync:**
 - 1-click export using quote blocks. Includes summary counts, custom property mapping, and smart de-duplication to prevent clutter.
 
-### 📍 Precision Tracking:
+**📍 Precision Tracking:**
 - A 5-tier location detection system ensures every highlight includes its exact page or position, supporting multiple languages.
 
-### 🛡️ Security & Privacy:
+**🛡️ Security & Privacy:**
 - Zero data collection. Your Notion API token is stored securely via `chrome.storage.local` and never leaves your device.
 
-###🎨 UI/UX:
+**🎨 UI/UX:**
 - accessible (WCAG 2.1) compliant UI for accessibility. Smooth transitions, toast notifications, and a streamlined workflow.
 
 ---
@@ -245,5 +245,7 @@ Smash that star button <img src="https://img.shields.io/github/stars/tuliosousap
 
 ## 🔐License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 **Since 2025** | [Túlio Sousa](https://github.com/tuliosousapro)
-Follow me on X <a href="https://x.com/tuliosousapro"><img src="https://img.shields.io/badge/X-000000.svg?style=for-the-badge&logo=X&logoColor=white"></a>
+
+Follow me on X/Twitter <a href="https://x.com/tuliosousapro"><img src="https://img.shields.io/badge/Follow_ME-000000.svg?style=for-the-badge&logo=X&logoColor=white"></a>
