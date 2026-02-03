@@ -8,7 +8,7 @@
 <<<<<<< HEAD
 =======
 <p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue">  <img src="https://img.shields.io/badge/Notion-API-blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=social">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green">  <img src="https://img.shields.io/github/commit-activity/m/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
 
 > Don't just clone it! Gives a star if it helped you...
 >>>>>>> ced21dd (Refactor contributing section in README)
@@ -265,6 +265,7 @@ Please ensure your code follows:
 - Clear commit messages and documentation.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### Contributors
 
 <<<<<<< HEAD
@@ -289,6 +290,14 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## 👾 Issues
 =======
+=======
+### Contributors
+
+<a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=tuliosousapro/Kindle-To-Notion-Extension&max=48&columns=12" />
+</a>
+
+>>>>>>> 6becf8d (Revise README for clarity and new features)
 ## 👾Issues
 >>>>>>> 27f3a2b (Enhance README badges and contributor section)
 
