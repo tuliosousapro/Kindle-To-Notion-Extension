@@ -31,6 +31,7 @@
 
 <p align="center">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
   <a href="https://www.producthunt.com/products/kindle2notion-extension?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-kindle2notion&#0045;extension" target="_blank">
@@ -57,6 +58,8 @@
 
 <p align="center">
 >>>>>>> c9e4469 (Revise README for clarity and updated content)
+=======
+>>>>>>> 37a3fd4 (Refactor README for better readability)
   <a href="https://www.producthunt.com/products/kindle2notion-extension?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-kindle2notion&#0045;extension" target="_blank">
     <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1004546&theme=dark&t=1755527287444" alt="Kindle2notion extension - An extension easy save your kindle highlights into Notion | Product Hunt" width="250" height="54" />
   </a>
@@ -93,10 +96,14 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 > By the way, I do use Edge :)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### Get it from the Mozilla Add-ons
 =======
 **Get it from the Mozilla Add-ons**
 >>>>>>> c9e4469 (Revise README for clarity and updated content)
+=======
+### Get it from the Mozilla Add-ons
+>>>>>>> 37a3fd4 (Refactor README for better readability)
 
 [![Mozilla Extension Badge](https://img.shields.io/badge/Mozilla-Click_here-orange?style=for-the-badge&logo=mozilla&color=orange)](https://addons.mozilla.org/pt-BR/firefox/addon/kindle-to-notion/)
 
@@ -164,10 +171,14 @@ This template helps you:
 
 1. Open the extension popup and click **"Go to Highlights"**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 37a3fd4 (Refactor README for better readability)
 2. Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
 3. Once in the highlights page, open the extension popup and click **"Export to Notion."**
 4. Check the status message in the pop-up for success or errors.
 5. Verify the new page in your Notion database.
+<<<<<<< HEAD
 =======
 >
 - > Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
@@ -176,6 +187,8 @@ This template helps you:
 2. Check the status message in the pop-up for success or errors.
 3. Verify the new page in your Notion database.
 >>>>>>> aaee036 (Update README with contributing and license sections)
+=======
+>>>>>>> 37a3fd4 (Refactor README for better readability)
 
 ### Supported Kindle Regions
 
@@ -415,3 +428,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 **Since 2025** | [Túlio Sousa](https://github.com/tuliosousapro)
 
 Follow me on X [![Follow ME](https://img.shields.io/badge/X-000000.svg?style=for-the-badge&logo=X&logoColor=white)](https://x.com/tuliosousapro)
+
