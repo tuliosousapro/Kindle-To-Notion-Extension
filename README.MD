@@ -6,12 +6,15 @@
 
 <p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, Notion OAuth integration, and page references</em></p>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green">  <img src="https://img.shields.io/github/commit-activity/m/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
 
 > Don't just clone it! Gives a star if it helped you...
 >>>>>>> ced21dd (Refactor contributing section in README)
+=======
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white" alt="License MIT">
@@ -27,6 +30,33 @@
 > Don't just clone it! Give a star if it helped you... ![GitHub stars](https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green)
 
 <p align="center">
+<<<<<<< HEAD
+=======
+
+  <a href="https://www.producthunt.com/products/kindle2notion-extension?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-kindle2notion&#0045;extension" target="_blank">
+# Kindle To Notion Extension v1.8.0
+
+![Kindle To Notion Extension Banner](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/blob/480e8b64c0543e412d64665dc5ad3a11124101e1/assets/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg?raw=true)
+
+<h1 align="center">Kindle To Notion Extension v1.8.0</h1>
+
+<p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, Notion OAuth integration, and page references</em></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white" alt="License MIT">
+  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue" alt="Made with JavaScript">
+  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue" alt="Notion API">
+  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green" alt="Platform Chromium Extension">
+  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue" alt="Chrome Web Store">
+  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08" alt="GitHub issues">
+  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green" alt="GitHub stars">
+  <img src="https://img.shields.io/github/commit-activity/m/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green" alt="GitHub commits">
+</p>
+
+> Don't just clone it! Give a star if it helped you... ![GitHub stars](https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green)
+
+<p align="center">
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
   <a href="https://www.producthunt.com/products/kindle2notion-extension?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-kindle2notion&#0045;extension" target="_blank">
     <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1004546&theme=dark&t=1755527287444" alt="Kindle2notion extension - An extension easy save your kindle highlights into Notion | Product Hunt" width="250" height="54" />
   </a>
@@ -62,7 +92,11 @@ It's your ultimate tool for organizing reading insights. It exports highlights a
 
 > By the way, I do use Edge :)
 
+<<<<<<< HEAD
 ### Get it from the Mozilla Add-ons
+=======
+**Get it from the Mozilla Add-ons**
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
 
 [![Mozilla Extension Badge](https://img.shields.io/badge/Mozilla-Click_here-orange?style=for-the-badge&logo=mozilla&color=orange)](https://addons.mozilla.org/pt-BR/firefox/addon/kindle-to-notion/)
 
@@ -182,11 +216,16 @@ This template helps you:
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 </details>
 >>>>>>> aaee036 (Update README with contributing and license sections)
 
 ### ✨ v1.7.0 - Major New Features
 
+=======
+### ✨ v1.7.0 - Major New Features
+
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
 #### 🧠 Intelligent Organization
 
 - Automatically groups highlights by Chapter and extracts Bookmarks (📌) with precise page/location references.
@@ -210,16 +249,25 @@ This template helps you:
 #### 🎨 UI/UX
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Accessible (WCAG 2.1) compliant UI for accessibility. Smooth transitions, toast notifications, and a streamlined workflow.
 =======
 - accessible (WCAG 2.1) compliant UI for accessibility. Smooth transitions, toast notifications, and a streamlined workflow.
 
 </details>
 >>>>>>> aaee036 (Update README with contributing and license sections)
+=======
+- Accessible (WCAG 2.1) compliant UI for accessibility. Smooth transitions, toast notifications, and a streamlined workflow.
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
 
 ---
 
 ## THE NERD ZONE AKA DEVELOPERS AND AFFICIONADOS
+<<<<<<< HEAD
+=======
+
+![Come One Of Us](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTFsZXh2b3Exc2Ezd2JuMDZ1ZG94MW1kZTd3MWNreGVmeDhsMHR4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uZIDWgDZCeHxuJOGl5/giphy.gif)
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
 
 ---
 
@@ -293,13 +341,15 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 =======
 ### Contributors
 
-<a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=tuliosousapro/Kindle-To-Notion-Extension&max=48&columns=12" />
-</a>
+[![Contributors](https://contrib.rocks/image?repo=tuliosousapro/Kindle-To-Notion-Extension&max=48&columns=12)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/graphs/contributors)
 
+<<<<<<< HEAD
 >>>>>>> 6becf8d (Revise README for clarity and new features)
 ## 👾Issues
 >>>>>>> 27f3a2b (Enhance README badges and contributor section)
+=======
+## 👾 Issues
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
 
 Found a bug or have a feature idea? Open an issue right here in this repo.
 
@@ -333,12 +383,16 @@ Found a bug or have a feature idea? Open an issue right here in this repo.
 - ✅ **No tracking** - Zero analytics or data collection
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## 🎈 FAQ
 =======
 =======
 >>>>>>> ced21dd (Refactor contributing section in README)
 ## 🎈FAQ
 >>>>>>> aaee036 (Update README with contributing and license sections)
+=======
+## 🎈 FAQ
+>>>>>>> c9e4469 (Revise README for clarity and updated content)
 
 💡 Curious how it works or have questions?
 
