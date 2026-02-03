@@ -5,6 +5,13 @@
 <h1 align="center">Kindle To Notion Extension v1.8.0</h1>
 
 <p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, Notion OAuth integration, and page references</em></p>
+<<<<<<< HEAD
+=======
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green">  <img src="https://img.shields.io/github/commit-activity/m/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
+
+> Don't just clone it! Gives a star if it helped you...
+>>>>>>> ced21dd (Refactor contributing section in README)
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white" alt="License MIT">
@@ -239,7 +246,9 @@ Kindle-To-Notion-Extension/
   - Open Chrome's developer tools (F12) on the Kindle page for content script logs.
   - Inspect the background page (Right-click extension icon > "Manage Extensions" > "Inspect views: background page") for API logs.
 
-## 🤝Contributing <img src="https://img.shields.io/github/contributors/tuliosousapro/Kindle-To-Notion-Extension">
+## 🤝Contributing
+
+[![Roadmap](https://img.shields.io/badge/Open_Roadmap-View-0366d6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/wiki/Roadmap)
 
 We welcome contributions to improve this extension! To contribute:
 
@@ -255,8 +264,9 @@ Please ensure your code follows:
 - Chrome's Content Security Policy (no inline scripts).
 - Clear commit messages and documentation.
 
-## 🔐License
+### Contributors
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [![Contributors](https://contrib.rocks/image?repo=tuliosousapro/Kindle-To-Notion-Extension&max=48&columns=12)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/graphs/contributors)
 =======
@@ -270,12 +280,21 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - ✅ **HTTPS only** - Secure communication
 - ✅ **No tracking** - Zero analytics or data collection
 >>>>>>> aaee036 (Update README with contributing and license sections)
+=======
+<a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=tuliosousapro/Kindle-To-Notion-Extension&max=48&columns=12" />
+</a>
+>>>>>>> ced21dd (Refactor contributing section in README)
 
 ## 👾 Issues
 
 Found a bug or have a feature idea? Open an issue right here in this repo.
 
-- [GitHub Issues](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08)
+[![Open an Issue](https://img.shields.io/badge/Open_Issue-AI_Will_Help-ff8c00?style=for-the-badge&logo=fireship&logoColor=fff&labelColor=8b0000)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues/new?template=bug_report.md)
+[![Request Feature](https://img.shields.io/badge/Request_Feature-Roadmap_Idea-orange?style=for-the-badge&logo=lightbulb&logoColor=white)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues/new?template=feature_request.md)
+[![Good First Issues](https://img.shields.io/badge/Good_First_Issues-Start-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues?q=state%3Aopen%20label%3A%22good%20first%20issue%22)
+
 - **Discussions**: [GitHub Discussions](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/discussions)
 
 ### Common Issues
@@ -289,6 +308,9 @@ Found a bug or have a feature idea? Open an issue right here in this repo.
 | "Connection failed" | Use the "Test" button to diagnose issues |
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ced21dd (Refactor contributing section in README)
 ## 🔒 Privacy & Security
 
 - ✅ **Local processing** - No data sent to third parties
@@ -297,8 +319,11 @@ Found a bug or have a feature idea? Open an issue right here in this repo.
 - ✅ **HTTPS only** - Secure communication
 - ✅ **No tracking** - Zero analytics or data collection
 
+<<<<<<< HEAD
 ## 🎈 FAQ
 =======
+=======
+>>>>>>> ced21dd (Refactor contributing section in README)
 ## 🎈FAQ
 >>>>>>> aaee036 (Update README with contributing and license sections)
 
