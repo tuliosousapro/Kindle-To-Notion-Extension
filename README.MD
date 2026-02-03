@@ -215,12 +215,8 @@ kindle2notion-extension/
   - Inspect the background page (Right-click extension icon > "Manage Extensions" > "Inspect views: background page") for API logs. 
 
 ## 🤝Contributing
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08)
-[![Open an Issue](https://img.shields.io/badge/Open_Issue-AI_Will_Help-ff8c00?style=for-the-badge&logo=fireship&logoColor=fff&labelColor=8b0000)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues/new?template=bug_report.md)
-[![Request Feature](https://img.shields.io/badge/Request_Feature-Roadmap_Idea-orange?style=for-the-badge&logo=lightbulb&logoColor=white)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues/new?template=feature_request.md)
-[![Good First Issues](https://img.shields.io/badge/Good_First_Issues-Start-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues?q=state%3Aopen%20label%3A%22good%20first%20issue%22)
-[![Customization](https://img.shields.io/badge/Fork_&_Customize-Your_Own-purple?style=for-the-badge&logo=git&logoColor=white)](docs/customizations.md)
 [![Roadmap](https://img.shields.io/badge/Open_Roadmap-View-0366d6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/wiki/Roadmap)
+
 We welcome contributions to improve this extension! To contribute:
 1. Fork this repository.
 2. Create a new branch (`git checkout -b feature/your-feature`).
@@ -235,6 +231,7 @@ Please ensure your code follows:
 
 ## 👾Issues
 Found a bug or have a feature idea? Open an issue right here in this repo.
+
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08)
 [![Open an Issue](https://img.shields.io/badge/Open_Issue-AI_Will_Help-ff8c00?style=for-the-badge&logo=fireship&logoColor=fff&labelColor=8b0000)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues/new?template=bug_report.md)
 [![Request Feature](https://img.shields.io/badge/Request_Feature-Roadmap_Idea-orange?style=for-the-badge&logo=lightbulb&logoColor=white)](https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues/new?template=feature_request.md)
