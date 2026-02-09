@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Early Access - Kindle to Notion Premium</title>
-    <meta name="description" content="Be the first to access premium features of Kindle to Notion. Join the waitlist for automatic sync, advanced highlighting, and more.">
+    <meta name="description"
+        content="Be the first to access premium features of Kindle to Notion. Join the waitlist for automatic sync, advanced highlighting, and more.">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Get Early Access - Kindle to Notion Premium">
-    <meta property="og:description" content="Join the waitlist for Kindle to Notion premium features. Automatic sync, AI-powered insights, and more.">
+    <meta property="og:description"
+        content="Join the waitlist for Kindle to Notion premium features. Automatic sync, AI-powered insights, and more.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tuliosousapro.github.io/Kindle-To-Notion-Extension/early-access.html">
 
     <!-- Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+        as="style">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
 
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png">
+    <link rel="icon" type="image/png"
+        href="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png">
 
     <style>
         :root {
-            --gradient-1: #667eea;
-            --gradient-2: #764ba2;
-            --gradient-3: #f093fb;
-            --gradient-4: #4facfe;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-bg-hover: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.8);
-            --accent-success: #10b981;
+            /* Design System: Colors */
+            --canvas-white: #FFFFFF;
+            --jet-black: #1A1A1A;
+            --muted-slate: #6B7280;
+            --success-text: #166534;
+            --success-bg: #DCFCE7;
+
+            /* Brand Gradients */
+            --brand-gradient-start: #6366F1;
+            --brand-gradient-end: #F59E0B;
+            --brand-gradient: linear-gradient(135deg, var(--brand-gradient-start), var(--brand-gradient-end));
+
+            /* Ambient Blobs */
+            --blob-peach: rgba(255, 228, 214, 0.6);
+            --blob-periwinkle: rgba(199, 210, 254, 0.4);
+
+            /* UI Tokens */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-bg-hover: rgba(255, 255, 255, 0.95);
+            --glass-blur: 8px;
+            --border-light: rgba(229, 231, 235, 0.6);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+            /* Typography */
             --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
@@ -41,28 +60,56 @@
 
         body {
             font-family: var(--font-primary);
-            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 50%, var(--gradient-3) 100%);
-            background-attachment: fixed;
-            color: var(--text-primary);
+            background-color: var(--canvas-white);
+            color: var(--jet-black);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            animation: gradientShift 15s ease infinite;
             -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        @keyframes gradientShift {
-            0%, 100% {
-                background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 50%, var(--gradient-3) 100%);
+        /* Ambient Background Bubbles */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        body::before {
+            width: 600px;
+            height: 600px;
+            background: var(--blob-peach);
+            top: -10%;
+            right: -10%;
+        }
+
+        body::after {
+            width: 500px;
+            height: 500px;
+            background: var(--blob-periwinkle);
+            bottom: -10%;
+            left: -10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
             }
-            33% {
-                background: linear-gradient(135deg, var(--gradient-2) 0%, var(--gradient-3) 50%, var(--gradient-4) 100%);
-            }
-            66% {
-                background: linear-gradient(135deg, var(--gradient-3) 0%, var(--gradient-4) 50%, var(--gradient-1) 100%);
+
+            50% {
+                transform: translate(30px, 50px);
             }
         }
 
@@ -73,7 +120,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border-light);
             padding: 3rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             text-align: center;
@@ -85,6 +132,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -96,14 +144,17 @@
             height: 80px;
             margin: 0 auto 2rem;
             border-radius: 16px;
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-10px);
             }
@@ -118,7 +169,8 @@
             font-size: 0.875rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border-light);
+            color: var(--brand-gradient-start);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -128,12 +180,12 @@
             font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.2;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-shadow: none;
         }
 
         .subtitle {
             font-size: 1.125rem;
-            color: var(--text-secondary);
+            color: var(--muted-slate);
             margin-bottom: 2rem;
             line-height: 1.6;
         }
@@ -150,13 +202,13 @@
             gap: 0.75rem;
             margin-bottom: 1rem;
             font-size: 1rem;
-            color: var(--text-secondary);
+            color: var(--muted-slate);
         }
 
         .features-list .icon {
             width: 24px;
             height: 24px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            background: var(--brand-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -175,18 +227,18 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
             font-size: 0.875rem;
-            color: var(--text-primary);
+            color: var(--jet-black);
         }
 
         input[type="email"],
         input[type="text"] {
             width: 100%;
             padding: 0.875rem 1rem;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
-            color: var(--text-primary);
+            color: var(--jet-black);
             font-size: 1rem;
             font-family: var(--font-primary);
             transition: all 0.3s ease;
@@ -194,7 +246,7 @@
 
         input[type="email"]::placeholder,
         input[type="text"]::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(107, 114, 128, 0.6);
         }
 
         input[type="email"]:focus,
@@ -208,8 +260,8 @@
         .cta-button {
             width: 100%;
             padding: 1rem 2rem;
-            background: var(--text-primary);
-            color: var(--gradient-1);
+            background: var(--jet-black);
+            color: var(--canvas-white);
             border: none;
             border-radius: 12px;
             font-size: 1rem;
@@ -259,7 +311,7 @@
             gap: 2rem;
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid var(--border-light);
         }
 
         .social-proof-item {
@@ -271,12 +323,12 @@
         .social-proof-number {
             font-size: 1.75rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--jet-black);
         }
 
         .social-proof-label {
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            color: var(--muted-slate);
         }
 
         .success-message {
@@ -285,7 +337,7 @@
             background: rgba(16, 185, 129, 0.2);
             border: 1px solid rgba(16, 185, 129, 0.4);
             border-radius: 12px;
-            color: var(--text-primary);
+            color: var(--success-text);
             margin-top: 1rem;
             animation: slideIn 0.4s ease;
         }
@@ -299,6 +351,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -308,18 +361,18 @@
         .footer-link {
             margin-top: 2rem;
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--muted-slate);
         }
 
         .footer-link a {
-            color: var(--text-primary);
+            color: var(--jet-black);
             text-decoration: none;
             font-weight: 600;
             transition: opacity 0.3s ease;
         }
 
         .footer-link a:hover {
-            opacity: 0.8;
+            color: var(--brand-gradient-start);
         }
 
         @media (max-width: 640px) {
@@ -341,15 +394,18 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png" alt="Kindle to Notion" class="logo">
+        <img src="https://raw.githubusercontent.com/tuliosousapro/Kindle-To-Notion-Extension/2914064235840843a71b3ef5795244cf8fd20ae5/assets/kindle2notion-extension-icon-128x128.png"
+            alt="Kindle to Notion" class="logo">
 
         <div class="badge">✨ Coming Soon</div>
 
         <h1>Get Early Access</h1>
 
-        <p class="subtitle">Be among the first to experience the next generation of Kindle to Notion with powerful new features.</p>
+        <p class="subtitle">Be among the first to experience the next generation of Kindle to Notion with powerful new
+            features.</p>
 
         <ul class="features-list">
             <li>
@@ -416,7 +472,7 @@
     </div>
 
     <script>
-        document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
+        document.getElementById('earlyAccessForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const button = this.querySelector('.cta-button');
@@ -449,4 +505,5 @@
         });
     </script>
 </body>
+
 </html>

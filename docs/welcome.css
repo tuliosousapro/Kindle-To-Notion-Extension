@@ -23,8 +23,8 @@
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    border: 1px solid var(--glass-border);
-    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+    color: var(--jet-black);
 }
 
 .welcome-hero__icon {
@@ -54,10 +54,13 @@
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 0.6;
     }
+
     50% {
         transform: translate(-50%, -50%) scale(1.2);
         opacity: 0.3;
@@ -68,13 +71,13 @@
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: var(--jet-black);
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .welcome-hero__subtitle {
     font-size: 1.125rem;
-    color: var(--text-secondary);
+    color: var(--muted-slate);
     line-height: 1.6;
     margin-bottom: 2rem;
 }
@@ -83,8 +86,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--text-primary);
-    color: var(--gradient-1);
+    background: var(--jet-black);
+    color: var(--canvas-white);
     padding: 1rem 2rem;
     border-radius: 12px;
     font-weight: 600;
@@ -131,13 +134,13 @@
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--border-light);
     border-radius: 16px;
     transition: all 0.3s ease;
 }
 
 .setup-step:hover {
-    background: var(--glass-bg-hover);
+    background: rgba(255, 255, 255, 0.95);
     transform: translateY(-2px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
@@ -146,7 +149,7 @@
     flex-shrink: 0;
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    background: var(--brand-gradient);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -154,18 +157,18 @@
     font-size: 1.25rem;
     font-weight: 700;
     color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
 }
 
 .setup-step__content h3 {
     font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: var(--jet-black);
 }
 
 .setup-step__content p {
-    color: var(--text-secondary);
+    color: var(--muted-slate);
     margin-bottom: 1rem;
     line-height: 1.6;
 }
@@ -175,20 +178,20 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--muted-slate);
+    background: rgba(255, 255, 255, 0.5);
     padding: 0.75rem 1rem;
     border-radius: 8px;
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--border-light);
 }
 
 .setup-tip svg {
     flex-shrink: 0;
-    fill: var(--gradient-1);
+    fill: var(--brand-gradient-start);
 }
 
 .setup-tip strong {
-    color: var(--text-primary);
+    color: var(--jet-black);
 }
 
 .setup-checklist {
@@ -215,7 +218,7 @@
     transform: translateY(-50%);
     width: 6px;
     height: 6px;
-    background: var(--gradient-1);
+    background: var(--brand-gradient-start);
     border-radius: 50%;
 }
 
@@ -228,12 +231,12 @@
     margin-right: auto;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--border-light);
     border-radius: 16px;
 }
 
 .setup-docs-cta p {
-    color: var(--text-secondary);
+    color: var(--muted-slate);
     margin-bottom: 1rem;
 }
 
@@ -254,7 +257,7 @@
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--border-light);
     border-radius: 16px;
     text-decoration: none;
     text-align: center;
@@ -262,7 +265,7 @@
 }
 
 .help-card:hover {
-    background: var(--glass-bg-hover);
+    background: rgba(255, 255, 255, 0.95);
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
@@ -271,12 +274,12 @@
     width: 48px;
     height: 48px;
     margin: 0 auto 1.25rem;
-    background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+    background: var(--brand-gradient);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
 }
 
 .help-card__icon svg {
@@ -288,13 +291,13 @@
 .help-card h3 {
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--jet-black);
     margin-bottom: 0.5rem;
 }
 
 .help-card p {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--muted-slate);
     line-height: 1.5;
     margin: 0;
 }
@@ -311,7 +314,7 @@
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--border-light);
     border-radius: 16px;
     text-align: center;
 }
@@ -320,11 +323,11 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: var(--jet-black);
 }
 
 .share-cta__content p {
-    color: var(--text-secondary);
+    color: var(--muted-slate);
     margin-bottom: 1.5rem;
 }
 
@@ -369,13 +372,13 @@
 }
 
 .btn--github {
-    background: var(--glass-bg);
-    color: var(--text-primary);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--jet-black);
+    border: 1px solid var(--border-light);
 }
 
 .btn--github:hover {
-    background: var(--glass-bg-hover);
+    background: rgba(255, 255, 255, 0.95);
     transform: translateY(-2px);
 }
 

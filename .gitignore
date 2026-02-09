@@ -10,3 +10,6 @@ build/
 *.log
 *.tmp
 .DS_Store
+.agent/
+.shared/
+
