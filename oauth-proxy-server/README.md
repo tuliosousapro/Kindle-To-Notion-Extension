@@ -11,12 +11,12 @@ Browser extensions are public code that anyone can inspect. If we included the N
 ### 1. Prerequisites
 
 - Node.js 14 or higher
-- A Notion integration (create at https://www.notion.so/my-integrations)
+- A Notion integration (create at <https://www.notion.so/my-integrations>)
 - A hosting service (Vercel, Heroku, AWS, etc.) or your own server
 
 ### 2. Configure Notion Integration
 
-1. Go to https://www.notion.so/my-integrations
+1. Go to <https://www.notion.so/my-integrations>
 2. Click "New integration"
 3. Fill in the integration details:
    - **Name**: Kindle to Notion Extension
@@ -72,10 +72,12 @@ The server will start on `http://localhost:3000`
 
 1. Create a Heroku app: `heroku create`
 2. Set environment variables:
+
    ```bash
    heroku config:set NOTION_CLIENT_ID=your_client_id
    heroku config:set NOTION_CLIENT_SECRET=your_client_secret
    ```
+
 3. Deploy: `git push heroku main`
 
 #### Option C: Your Own Server
@@ -96,9 +98,11 @@ After deploying, update the extension's OAuth configuration:
 ## API Endpoints
 
 ### `GET /health`
+
 Health check endpoint
 
 **Response:**
+
 ```json
 {
   "status": "ok",
@@ -108,9 +112,11 @@ Health check endpoint
 ```
 
 ### `POST /oauth/token`
+
 Exchange authorization code for access token
 
 **Request:**
+
 ```json
 {
   "code": "authorization_code_from_notion",
@@ -119,6 +125,7 @@ Exchange authorization code for access token
 ```
 
 **Response:**
+
 ```json
 {
   "access_token": "secret_...",
@@ -161,15 +168,18 @@ curl -X POST http://localhost:3000/oauth/token \
 ## Troubleshooting
 
 ### Error: "NOTION_CLIENT_ID and NOTION_CLIENT_SECRET must be set"
+
 - Make sure your `.env` file exists and contains valid values
 - Check that you're running the server from the correct directory
 
 ### Error: "Not allowed by CORS"
+
 - This is expected for non-extension origins
 - Extensions are automatically allowed
 - For testing from localhost, add it to `ALLOWED_ORIGINS`
 
 ### Error: "token_exchange_failed"
+
 - Check that your Client ID and Secret are correct
 - Verify the redirect_uri matches what's configured in Notion
 - Ensure the authorization code hasn't expired (they're single-use and short-lived)
@@ -177,6 +187,7 @@ curl -X POST http://localhost:3000/oauth/token \
 ## Support
 
 For issues or questions:
+
 - Check the main extension README
 - Open an issue on GitHub
-- Review Notion's OAuth documentation: https://developers.notion.com/docs/authorization
+- Review Notion's OAuth documentation: <https://developers.notion.com/docs/authorization>

@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const notionStatusDot = document.getElementById('notionStatusDot');
   const toast = document.getElementById('toast');
 
+  const connectButton = document.getElementById('connectNotion');
+  const connectedBadge = document.getElementById('connectedBadge');
+  const connectedWorkspaceName = document.getElementById('connectedWorkspaceName');
+  const disconnectButton = document.getElementById('disconnectNotion');
+  const manualTokenGroup = document.querySelector('.manual-token-group');
+
   // Load saved settings
   chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion', 'oauth_authenticated', 'workspace_name'], (result) => {
     tokenInput.value = result.token || '';
@@ -43,9 +49,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show OAuth status if authenticated via OAuth
     if (result.oauth_authenticated && result.workspace_name) {
-      showOAuthStatus(result.workspace_name);
+      updateOAuthUI(true, result.workspace_name);
+    } else {
+      updateOAuthUI(false);
     }
   });
+
+  // ... (version loading code) ...
+
+  // Connect with Notion
+  connectButton.addEventListener('click', () => {
+    connectButton.disabled = true;
+    connectButton.querySelector('span:last-child').textContent = 'Connecting...';
+
+    chrome.runtime.sendMessage({ action: 'startOAuth' }, (response) => {
+      connectButton.disabled = false;
+      connectButton.querySelector('span:last-child').textContent = 'Connect with Notion';
+
+      if (chrome.runtime.lastError) {
+        showToast('Error: ' + chrome.runtime.lastError.message);
+        return;
+      }
+
+      if (response && response.success) {
+        showToast('Successfully connected to Notion!');
+        updateOAuthUI(true, response.workspace_name);
+        notionStatusDot.classList.add('connected');
+      } else {
+        showToast('Connection failed: ' + (response?.error || 'Unknown error'));
+      }
+    });
+  });
+
+  // Disconnect from Notion
+  disconnectButton.addEventListener('click', () => {
+    chrome.storage.local.remove(['oauth_authenticated', 'token', 'workspace_name', 'workspace_id', 'bot_id', 'owner'], () => {
+      updateOAuthUI(false);
+      notionStatusDot.classList.remove('connected');
+      showToast('Disconnected from Notion');
+      tokenInput.value = '';
+    });
+  });
+
+  function updateOAuthUI(isAuthenticated, workspaceName = '') {
+    if (isAuthenticated) {
+      connectButton.classList.add('hidden');
+      connectedBadge.classList.remove('hidden');
+      connectedWorkspaceName.textContent = `Connected to ${workspaceName}`;
+      manualTokenGroup.classList.add('hidden');
+      document.querySelector('.divider-text').classList.add('hidden');
+    } else {
+      connectButton.classList.remove('hidden');
+      connectedBadge.classList.add('hidden');
+      manualTokenGroup.classList.remove('hidden');
+      document.querySelector('.divider-text').classList.remove('hidden');
+    }
+  }
+
+  // ... (rest of the existing code) ...
 
   // Load version
   fetch(chrome.runtime.getURL('manifest.json'))
@@ -212,10 +273,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Show OAuth status
-  function showOAuthStatus(workspaceName) {
-    // You can add UI elements to show OAuth connection status
-    console.log('Connected via OAuth to:', workspaceName);
-    // Optional: Add a visual indicator in the UI showing OAuth connection
-  }
 });

@@ -32,7 +32,7 @@ if (!NOTION_CLIENT_ID || !NOTION_CLIENT_SECRET) {
 
 // CORS configuration - only allow requests from your extension
 app.use(cors({
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     // Allow Chrome extension origins
     if (!origin || origin.startsWith('chrome-extension://') || origin.startsWith('moz-extension://')) {
       callback(null, true);
@@ -93,7 +93,8 @@ app.post('/oauth/token', async (req, res) => {
       method: 'POST',
       headers: {
         'Authorization': `Basic ${Buffer.from(`${NOTION_CLIENT_ID}:${NOTION_CLIENT_SECRET}`).toString('base64')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Notion-Version': '2025-09-03'
       },
       body: JSON.stringify({
         grant_type: 'authorization_code',

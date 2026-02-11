@@ -69,11 +69,11 @@ async function searchNotionDatabases(token) {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28'
+        'Notion-Version': '2025-09-03'
       },
       body: JSON.stringify({
         filter: {
-          value: 'database',
+          value: 'data_source',
           property: 'object'
         },
         sort: {
@@ -583,12 +583,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         let searchResponse;
         try {
-          searchResponse = await fetch('https://api.notion.com/v1/databases/' + databaseId + '/query', {
+          // Notion API 2025-09-03: Use /v1/data_sources for querying
+          searchResponse = await fetch('https://api.notion.com/v1/data_sources/' + databaseId + '/query', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
-              'Notion-Version': '2022-06-28'
+              'Notion-Version': '2025-09-03'
             },
             body: JSON.stringify({
               filter: {
@@ -619,7 +620,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               blocksResponse = await fetch('https://api.notion.com/v1/blocks/' + pageId + '/children?page_size=100' + (startCursor ? '&start_cursor=' + startCursor : ''), {
                 headers: {
                   'Authorization': `Bearer ${token}`,
-                  'Notion-Version': '2022-06-28'
+                  'Notion-Version': '2025-09-03'
                 }
               });
               if (!blocksResponse.ok) throw new Error('Blocks fetch failed: ' + await blocksResponse.text());
@@ -643,7 +644,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           for (let i = 0; i < allBlocks.length; i++) {
             // Check if this is the count block (paragraph with highlight/note count)
             if (allBlocks[i]?.type === 'paragraph' &&
-                allBlocks[i].paragraph?.rich_text?.[0]?.text?.content?.match(/\d+\s*Destaque/)) {
+              allBlocks[i].paragraph?.rich_text?.[0]?.text?.content?.match(/\d+\s*Destaque/)) {
               countBlockId = allBlocks[i].id;
               console.log('Found count block at index:', i, 'with ID:', countBlockId);
               continue;
@@ -694,7 +695,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                   'Content-Type': 'application/json',
-                  'Notion-Version': '2022-06-28'
+                  'Notion-Version': '2025-09-03'
                 },
                 body: JSON.stringify({
                   paragraph: {
@@ -724,7 +725,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
           for (let i = 0; i < newBlocksToAppend.length; i += 100) {
             const batch = newBlocksToAppend.slice(i, i + 100);
-            console.log(`Appending batch ${Math.floor(i/100) + 1} of ${Math.ceil(newBlocksToAppend.length/100)} with ${batch.length} blocks`);
+            console.log(`Appending batch ${Math.floor(i / 100) + 1} of ${Math.ceil(newBlocksToAppend.length / 100)} with ${batch.length} blocks`);
             let appendResponse;
             try {
               appendResponse = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
@@ -732,7 +733,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                   'Content-Type': 'application/json',
-                  'Notion-Version': '2022-06-28'
+                  'Notion-Version': '2025-09-03'
                 },
                 body: JSON.stringify({ children: batch })
               });
@@ -776,7 +777,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
 
         const createPayload = {
-          parent: { database_id: databaseId },
+          // Notion API 2025-09-03: Use data_source_id for parent
+          parent: { type: 'data_source_id', data_source_id: databaseId },
           properties: {
             [titleProperty]: { title: [{ text: { content: title } }] },
             [authorProperty]: { rich_text: [{ text: { content: author } }] }
@@ -792,7 +794,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
-              'Notion-Version': '2022-06-28'
+              'Notion-Version': '2025-09-03'
             },
             body: JSON.stringify(createPayload)
           });

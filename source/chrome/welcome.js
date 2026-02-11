@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
-    if (currentScroll > 100) {
-      nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+    if (currentScroll > 50) {
+      nav.classList.add('scrolled');
     } else {
-      nav.style.boxShadow = 'none';
+      nav.classList.remove('scrolled');
     }
 
     lastScroll = currentScroll;
