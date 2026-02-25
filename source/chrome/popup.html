@@ -56,6 +56,13 @@
           </svg>
           <span>Export</span>
         </button>
+        <button class="tab-btn" id="tab-review-btn" data-tab="review">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <span>Review</span>
+        </button>
         <button class="tab-btn" id="tab-settings-btn" data-tab="settings">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="3"></circle>
@@ -96,6 +103,84 @@
               <div class="modern-spinner"></div>
               <p class="spinner-text"></p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Tab -->
+      <div class="tab-panel" id="review-panel">
+        <!-- Stats Bar -->
+        <div class="glass-card review-stats-card">
+          <div class="review-stats">
+            <div class="stat-item">
+              <span class="stat-value" id="streakCount">0</span>
+              <span class="stat-label">Streak</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value" id="vaultCount">0</span>
+              <span class="stat-label">In Vault</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value" id="starredCount">0</span>
+              <span class="stat-label">Starred</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Card Stack -->
+        <div class="review-card-container" id="reviewCardContainer">
+          <!-- Empty state -->
+          <div class="review-empty" id="reviewEmpty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted-slate)" stroke-width="1.5" opacity="0.5">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <p class="empty-title">No highlights yet</p>
+            <p class="empty-subtitle">Export a book to start your daily review</p>
+          </div>
+
+          <!-- Active review card (populated by JS) -->
+          <div class="review-card glass-card hidden" id="reviewCard">
+            <div class="review-card-header">
+              <span class="review-progress" id="reviewProgress">1 / 5</span>
+              <span class="review-color-dot" id="reviewColorDot"></span>
+            </div>
+            <blockquote class="review-quote" id="reviewQuote"></blockquote>
+            <div class="review-meta">
+              <span class="review-book" id="reviewBook"></span>
+              <span class="review-chapter" id="reviewChapter"></span>
+            </div>
+            <div class="review-note hidden" id="reviewNote"></div>
+            <div class="review-actions">
+              <button class="review-action-btn forgot-btn" id="reviewForgot" title="Reset — show more often">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="1 4 1 10 7 10"></polyline>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+              </button>
+              <button class="review-action-btn dismiss-btn" id="reviewDismiss" title="Dismiss — seen it">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+              <button class="review-action-btn star-btn" id="reviewStar" title="Star — keep forever">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- All done state -->
+          <div class="review-done hidden" id="reviewDone">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--success-text)" stroke-width="1.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <p class="done-title">All done for today!</p>
+            <p class="done-subtitle">Come back tomorrow for more</p>
           </div>
         </div>
       </div>

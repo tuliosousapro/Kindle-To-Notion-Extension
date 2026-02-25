@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const notionStatusDot = document.getElementById('notionStatusDot');
   const toast = document.getElementById('toast');
 
+  const connectButton = document.getElementById('connectNotion');
+  const connectedBadge = document.getElementById('connectedBadge');
+  const connectedWorkspaceName = document.getElementById('connectedWorkspaceName');
+  const disconnectButton = document.getElementById('disconnectNotion');
+  const manualTokenGroup = document.querySelector('.manual-token-group');
+
   // Load saved settings
   chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion', 'oauth_authenticated', 'workspace_name'], (result) => {
     tokenInput.value = result.token || '';
@@ -43,9 +49,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show OAuth status if authenticated via OAuth
     if (result.oauth_authenticated && result.workspace_name) {
-      showOAuthStatus(result.workspace_name);
+      updateOAuthUI(true, result.workspace_name);
+    } else {
+      updateOAuthUI(false);
     }
   });
+
+  // ... (version loading code) ...
+
+  // Connect with Notion
+  connectButton.addEventListener('click', () => {
+    connectButton.disabled = true;
+    connectButton.querySelector('span:last-child').textContent = 'Connecting...';
+
+    chrome.runtime.sendMessage({ action: 'startOAuth' }, (response) => {
+      connectButton.disabled = false;
+      connectButton.querySelector('span:last-child').textContent = 'Connect with Notion';
+
+      if (chrome.runtime.lastError) {
+        showToast('Error: ' + chrome.runtime.lastError.message);
+        return;
+      }
+
+      if (response && response.success) {
+        showToast('Successfully connected to Notion!');
+        updateOAuthUI(true, response.workspace_name);
+        notionStatusDot.classList.add('connected');
+      } else {
+        showToast('Connection failed: ' + (response?.error || 'Unknown error'));
+      }
+    });
+  });
+
+  // Disconnect from Notion
+  disconnectButton.addEventListener('click', () => {
+    chrome.storage.local.remove(['oauth_authenticated', 'token', 'workspace_name', 'workspace_id', 'bot_id', 'owner'], () => {
+      updateOAuthUI(false);
+      notionStatusDot.classList.remove('connected');
+      showToast('Disconnected from Notion');
+      tokenInput.value = '';
+    });
+  });
+
+  function updateOAuthUI(isAuthenticated, workspaceName = '') {
+    if (isAuthenticated) {
+      connectButton.classList.add('hidden');
+      connectedBadge.classList.remove('hidden');
+      connectedWorkspaceName.textContent = `Connected to ${workspaceName}`;
+      manualTokenGroup.classList.add('hidden');
+      document.querySelector('.divider-text').classList.add('hidden');
+    } else {
+      connectButton.classList.remove('hidden');
+      connectedBadge.classList.add('hidden');
+      manualTokenGroup.classList.remove('hidden');
+      document.querySelector('.divider-text').classList.remove('hidden');
+    }
+  }
+
+  // ... (rest of the existing code) ...
 
   // Load version
   fetch(chrome.runtime.getURL('manifest.json'))
@@ -56,25 +117,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Tab switching
   function switchTab(targetTab) {
-    // Update buttons
-    const allTabs = [tabExportBtn, tabSettingsBtn];
-    allTabs.forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`tab-${targetTab}-btn`).classList.add('active');
+    document.getElementById(`${targetTab}-panel`).classList.add('active');
 
-    // Update panels
-    const allPanels = [exportPanel, settingsPanel];
-    allPanels.forEach(panel => panel.classList.remove('active'));
-
-    if (targetTab === 'export') {
-      tabExportBtn.classList.add('active');
-      exportPanel.classList.add('active');
-    } else {
-      tabSettingsBtn.classList.add('active');
-      settingsPanel.classList.add('active');
+    if (targetTab === 'review') {
+      loadReviewTab();
     }
   }
 
   tabExportBtn.addEventListener('click', () => switchTab('export'));
   tabSettingsBtn.addEventListener('click', () => switchTab('settings'));
+  document.getElementById('tab-review-btn').addEventListener('click', () => switchTab('review'));
 
   // Toggle token visibility
   toggleTokenIcon.addEventListener('click', () => {
@@ -212,10 +267,129 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Show OAuth status
-  function showOAuthStatus(workspaceName) {
-    // You can add UI elements to show OAuth connection status
-    console.log('Connected via OAuth to:', workspaceName);
-    // Optional: Add a visual indicator in the UI showing OAuth connection
+  // ========================================
+  // SRS Review Tab Logic
+  // ========================================
+
+  let reviewQueue = [];
+  let reviewIndex = 0;
+  let totalReviewCount = 0;
+
+  async function loadReviewTab() {
+    // Load stats
+    chrome.runtime.sendMessage({ action: 'srs_getStats' }, (stats) => {
+      if (!stats || stats.error) return;
+      document.getElementById('streakCount').textContent = stats.currentStreak || 0;
+      document.getElementById('vaultCount').textContent = stats.totalHighlights || 0;
+      document.getElementById('starredCount').textContent = stats.starredCount || 0;
+    });
+
+    // Load daily review queue
+    chrome.runtime.sendMessage({ action: 'srs_getDailyReview' }, (queue) => {
+      if (!queue || queue.error) {
+        showReviewState('empty');
+        return;
+      }
+
+      reviewQueue = Array.isArray(queue) ? queue : [];
+      totalReviewCount = reviewQueue.length;
+      reviewIndex = 0;
+
+      if (reviewQueue.length === 0) {
+        // Check if vault is empty vs all reviewed today
+        chrome.runtime.sendMessage({ action: 'srs_getStats' }, (stats) => {
+          if (stats && stats.totalHighlights > 0) {
+            showReviewState('done');
+          } else {
+            showReviewState('empty');
+          }
+        });
+      } else {
+        showReviewState('card');
+        renderCurrentCard();
+      }
+    });
   }
+
+  function showReviewState(state) {
+    const card = document.getElementById('reviewCard');
+    const empty = document.getElementById('reviewEmpty');
+    const done = document.getElementById('reviewDone');
+
+    card.classList.add('hidden');
+    empty.classList.add('hidden');
+    done.classList.add('hidden');
+
+    if (state === 'card') card.classList.remove('hidden');
+    if (state === 'empty') empty.classList.remove('hidden');
+    if (state === 'done') done.classList.remove('hidden');
+  }
+
+  function renderCurrentCard() {
+    if (reviewIndex >= reviewQueue.length) {
+      showReviewState('done');
+      return;
+    }
+
+    const h = reviewQueue[reviewIndex];
+    const card = document.getElementById('reviewCard');
+
+    // Remove exit animation class
+    card.classList.remove('card-exit');
+
+    document.getElementById('reviewProgress').textContent = `${reviewIndex + 1} / ${totalReviewCount}`;
+    document.getElementById('reviewColorDot').setAttribute('data-color', h.color || 'default');
+    document.getElementById('reviewQuote').textContent = h.text;
+    document.getElementById('reviewBook').textContent = h.bookTitle;
+
+    const chapterEl = document.getElementById('reviewChapter');
+    if (h.chapter) {
+      chapterEl.textContent = h.chapter;
+      chapterEl.classList.remove('hidden');
+    } else {
+      chapterEl.classList.add('hidden');
+    }
+
+    const noteEl = document.getElementById('reviewNote');
+    if (h.note) {
+      noteEl.textContent = h.note;
+      noteEl.classList.remove('hidden');
+    } else {
+      noteEl.classList.add('hidden');
+    }
+  }
+
+  function handleReviewAction(action) {
+    const h = reviewQueue[reviewIndex];
+    if (!h) return;
+
+    const card = document.getElementById('reviewCard');
+    card.classList.add('card-exit');
+
+    // Mark reviewed in background
+    chrome.runtime.sendMessage({
+      action: 'srs_markReviewed',
+      highlightId: h.id,
+      reviewAction: action
+    }, () => {
+      // Refresh stats
+      chrome.runtime.sendMessage({ action: 'srs_getStats' }, (stats) => {
+        if (stats && !stats.error) {
+          document.getElementById('streakCount').textContent = stats.currentStreak || 0;
+          document.getElementById('starredCount').textContent = stats.starredCount || 0;
+        }
+      });
+    });
+
+    // Advance to next card after animation
+    setTimeout(() => {
+      reviewIndex++;
+      renderCurrentCard();
+    }, 350);
+  }
+
+  document.getElementById('reviewDismiss').addEventListener('click', () => handleReviewAction('dismiss'));
+  document.getElementById('reviewStar').addEventListener('click', () => handleReviewAction('star'));
+  document.getElementById('reviewForgot').addEventListener('click', () => handleReviewAction('forgot'));
+
 });

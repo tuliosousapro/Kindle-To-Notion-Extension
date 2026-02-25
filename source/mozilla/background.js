@@ -4,6 +4,7 @@
 
 // Import OAuth configuration and utilities
 import { OAUTH_CONFIG, getOAuthRedirectUri, generateRandomState, buildAuthorizationUrl } from './oauth-config.js';
+import { initSRS, cacheHighlights, handleReviewAlarm, getDailyReview, markReviewed, getStats, getStarred, updateSettings, clearVault, SRS_ALARM } from './backend/srs.js';
 
 // Load OAuth configuration from storage (allows overriding defaults)
 async function loadOAuthConfig() {
@@ -14,6 +15,9 @@ async function loadOAuthConfig() {
 
 // Initialize OAuth config on startup
 loadOAuthConfig();
+
+// Initialize SRS daily review alarm
+initSRS();
 
 // Handle OAuth token exchange via proxy server
 async function exchangeCodeForToken(code, state, savedState) {
@@ -269,7 +273,7 @@ function generateBlocksWithChapterGrouping(highlights, bookmarks = []) {
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === 'install') {
     chrome.tabs.create({
-      url: chrome.runtime.getURL('welcome.html')
+      url: 'https://tuliosousapro.github.io/Kindle-To-Notion-Extension/welcome.html'
     });
   }
 });
@@ -643,7 +647,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           for (let i = 0; i < allBlocks.length; i++) {
             // Check if this is the count block (paragraph with highlight/note count)
             if (allBlocks[i]?.type === 'paragraph' &&
-                allBlocks[i].paragraph?.rich_text?.[0]?.text?.content?.match(/\d+\s*Destaque/)) {
+              allBlocks[i].paragraph?.rich_text?.[0]?.text?.content?.match(/\d+\s*Destaque/)) {
               countBlockId = allBlocks[i].id;
               console.log('Found count block at index:', i, 'with ID:', countBlockId);
               continue;
@@ -724,7 +728,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
           for (let i = 0; i < newBlocksToAppend.length; i += 100) {
             const batch = newBlocksToAppend.slice(i, i + 100);
-            console.log(`Appending batch ${Math.floor(i/100) + 1} of ${Math.ceil(newBlocksToAppend.length/100)} with ${batch.length} blocks`);
+            console.log(`Appending batch ${Math.floor(i / 100) + 1} of ${Math.ceil(newBlocksToAppend.length / 100)} with ${batch.length} blocks`);
             let appendResponse;
             try {
               appendResponse = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
@@ -831,11 +835,65 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
         console.log('All appends completed successfully');
         sendResponse({ status: `Export successful! ${highlightCount} Highlight(s) | ${noteCount} Note(s)` });
+
+        // Cache highlights in SRS vault for daily review
+        cacheHighlights({ title, author, highlights, notionPageId: pageId || createData?.id })
+          .catch(err => console.warn('[SRS] Failed to cache highlights:', err));
+
       } catch (error) {
         console.error('Overall error:', error);
         sendResponse({ status: 'Error: ' + error.message });
       }
     })();
     return true;
+  }
+
+  // ========================================
+  // SRS Message Handlers
+  // ========================================
+
+  if (message.action === 'srs_getDailyReview') {
+    getDailyReview(message.count).then(sendResponse).catch(err => sendResponse({ error: err.message }));
+    return true;
+  }
+
+  if (message.action === 'srs_markReviewed') {
+    markReviewed(message.highlightId, message.reviewAction).then(sendResponse).catch(err => sendResponse({ error: err.message }));
+    return true;
+  }
+
+  if (message.action === 'srs_getStats') {
+    getStats().then(sendResponse).catch(err => sendResponse({ error: err.message }));
+    return true;
+  }
+
+  if (message.action === 'srs_getStarred') {
+    getStarred().then(sendResponse).catch(err => sendResponse({ error: err.message }));
+    return true;
+  }
+
+  if (message.action === 'srs_updateSettings') {
+    updateSettings(message.settings).then(() => sendResponse({ success: true })).catch(err => sendResponse({ error: err.message }));
+    return true;
+  }
+
+  if (message.action === 'srs_clearVault') {
+    clearVault().then(() => sendResponse({ success: true })).catch(err => sendResponse({ error: err.message }));
+    return true;
+  }
+});
+
+// ========================================
+// SRS Alarm & Notification Listeners
+// ========================================
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  handleReviewAlarm(alarm.name);
+});
+
+chrome.notifications.onClicked.addListener((notificationId) => {
+  if (notificationId === 'k2n-daily-review') {
+    chrome.action.openPopup?.() || chrome.tabs.create({ url: chrome.runtime.getURL('popup.html') });
+    chrome.notifications.clear(notificationId);
   }
 });
