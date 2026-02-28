@@ -1,0 +1,462 @@
+{
+    "extensionName": {
+        "message": "Kindle to Notion – Exporta subrayados de Kindle a Notion"
+    },
+    "extensionDescription": {
+        "message": "Exporta subrayados de Kindle a Notion con 1 clic. Organiza por libro y sincroniza notas de Kindle con tu base de datos de Notion"
+    },
+    "appTitle": {
+        "message": "Kindle to Notion"
+    },
+    "tabExport": {
+        "message": "Exportar"
+    },
+    "tabReview": {
+        "message": "Revisar"
+    },
+    "tabSettings": {
+        "message": "Ajustes"
+    },
+    "exportToNotion": {
+        "message": "Exportar a Notion"
+    },
+    "goToHighlights": {
+        "message": "Ir a Subrayados"
+    },
+    "statusAmazon": {
+        "message": "Amazon"
+    },
+    "statusNotion": {
+        "message": "Notion"
+    },
+    "statStreak": {
+        "message": "Racha"
+    },
+    "statInVault": {
+        "message": "En bóveda"
+    },
+    "statStarred": {
+        "message": "Favoritos"
+    },
+    "noHighlightsTitle": {
+        "message": "Sin subrayados aún"
+    },
+    "noHighlightsSubtitle": {
+        "message": "Exporta un libro para iniciar tu revisión diaria"
+    },
+    "reviewDoneTitle": {
+        "message": "¡Todo listo por hoy!"
+    },
+    "reviewDoneSubtitle": {
+        "message": "Vuelve mañana para más"
+    },
+    "btnResetShowMore": {
+        "message": "Reiniciar — mostrar más seguido"
+    },
+    "btnDismissSeen": {
+        "message": "Descartar — ya visto"
+    },
+    "btnStarKeep": {
+        "message": "Favorito — guardar siempre"
+    },
+    "connectWithNotion": {
+        "message": "Conectar con Notion"
+    },
+    "connectedToWorkspace": {
+        "message": "Conectado al Workspace"
+    },
+    "dividerOr": {
+        "message": "O"
+    },
+    "labelNotionApiToken": {
+        "message": "Token API de Notion"
+    },
+    "labelDatabaseId": {
+        "message": "ID de la base de datos"
+    },
+    "labelBookTitleProperty": {
+        "message": "Propiedad del título del libro"
+    },
+    "labelAuthorProperty": {
+        "message": "Propiedad del autor"
+    },
+    "labelKindleRegion": {
+        "message": "Región Kindle"
+    },
+    "placeholderToken": {
+        "message": "ntn_xxxxxxxxxxxxx"
+    },
+    "placeholderDatabaseId": {
+        "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "placeholderBookTitle": {
+        "message": "Título del libro"
+    },
+    "placeholderAuthor": {
+        "message": "Autor"
+    },
+    "helpGenerateToken": {
+        "message": "Generar en"
+    },
+    "helpDatabaseId": {
+        "message": "Copiar de la URL de tu base de datos de Notion"
+    },
+    "saveSettings": {
+        "message": "Guardar ajustes"
+    },
+    "toggleVisibility": {
+        "message": "Alternar visibilidad"
+    },
+    "regionUS": {
+        "message": "🇺🇸 Estados Unidos"
+    },
+    "regionBR": {
+        "message": "🇧🇷 Brasil"
+    },
+    "regionCA": {
+        "message": "🇨🇦 Canadá"
+    },
+    "regionUK": {
+        "message": "🇬🇧 Reino Unido"
+    },
+    "regionDE": {
+        "message": "🇩🇪 Alemania"
+    },
+    "regionFR": {
+        "message": "🇫🇷 Francia"
+    },
+    "regionES": {
+        "message": "🇪🇸 España"
+    },
+    "regionIT": {
+        "message": "🇮🇹 Italia"
+    },
+    "regionJP": {
+        "message": "🇯🇵 Japón"
+    },
+    "regionAU": {
+        "message": "🇦🇺 Australia"
+    },
+    "regionIN": {
+        "message": "🇮🇳 India"
+    },
+    "regionMX": {
+        "message": "🇲🇽 México"
+    },
+    "toastConnecting": {
+        "message": "Conectando..."
+    },
+    "toastConnectedNotion": {
+        "message": "¡Conectado a Notion exitosamente!"
+    },
+    "toastDisconnected": {
+        "message": "Desconectado de Notion"
+    },
+    "toastNavigating": {
+        "message": "Navegando a los subrayados de Kindle..."
+    },
+    "toastEnterToken": {
+        "message": "Por favor, ingresa tu token API de Notion"
+    },
+    "toastEnterDatabaseId": {
+        "message": "Por favor, ingresa tu ID de base de datos"
+    },
+    "toastInvalidDatabaseId": {
+        "message": "Formato de ID de base de datos inválido"
+    },
+    "toastSettingsSaved": {
+        "message": "¡Ajustes guardados exitosamente!"
+    },
+    "toastNoActiveTab": {
+        "message": "Error: No se encontró pestaña activa"
+    },
+    "toastNavigateFirst": {
+        "message": "Primero navega a la página de subrayados de Kindle"
+    },
+    "toastFailedGetTab": {
+        "message": "Error: No se pudo obtener la pestaña activa"
+    },
+    "toastExportFailed": {
+        "message": "Exportación fallida. Verifica tus ajustes."
+    },
+    "toastConnectionFailed": {
+        "message": "Conexión fallida"
+    },
+    "onboardingWelcomeTitle": {
+        "message": "¡Bienvenido a Kindle to Notion!"
+    },
+    "onboardingWelcomeDesc": {
+        "message": "Sincroniza tus subrayados y notas de Kindle con Notion en un solo clic."
+    },
+    "onboardingFeature1": {
+        "message": "Exporta todos tus subrayados de Kindle"
+    },
+    "onboardingFeature2": {
+        "message": "Sincronización con un clic a Notion"
+    },
+    "onboardingFeature3": {
+        "message": "Organiza por libro y autor"
+    },
+    "onboardingGetStarted": {
+        "message": "Comenzar"
+    },
+    "onboardingSkipSetup": {
+        "message": "Saltar configuración"
+    },
+    "onboardingConnectTitle": {
+        "message": "Conectar a Notion"
+    },
+    "onboardingConnectDesc": {
+        "message": "Conecta tu cuenta de Notion. Necesitarás un token API y un ID de base de datos."
+    },
+    "onboardingStep1Title": {
+        "message": "Ve a las integraciones de Notion"
+    },
+    "onboardingStep1Desc": {
+        "message": "y crea una nueva integración"
+    },
+    "onboardingStep2Title": {
+        "message": "Copia tu token API"
+    },
+    "onboardingStep2Desc": {
+        "message": "Copia el \"Token de integración interna\" de tu nueva integración"
+    },
+    "onboardingStep3Title": {
+        "message": "Crea una base de datos"
+    },
+    "onboardingStep3Desc": {
+        "message": "Crea una nueva base de datos en Notion y copia su URL o ID"
+    },
+    "onboardingContinueSettings": {
+        "message": "Continuar a ajustes"
+    },
+    "onboardingBack": {
+        "message": "Atrás"
+    },
+    "onboardingConfigureTitle": {
+        "message": "Configura tus ajustes"
+    },
+    "onboardingConfigureDesc": {
+        "message": "Elige cómo conectar a Notion: OAuth (recomendado) o entrada manual."
+    },
+    "onboardingOAuthTitle": {
+        "message": "Conexión OAuth (Recomendado)"
+    },
+    "onboardingOAuthDesc": {
+        "message": "Conéctate de forma segura con un clic usando OAuth."
+    },
+    "onboardingSelectDatabase": {
+        "message": "Selecciona tu base de datos"
+    },
+    "onboardingSelectDatabaseDesc": {
+        "message": "Elige la base de datos de Notion para tus subrayados de Kindle."
+    },
+    "onboardingLoadingDatabases": {
+        "message": "Cargando bases de datos..."
+    },
+    "onboardingContinueDatabase": {
+        "message": "Continuar con la base seleccionada"
+    },
+    "onboardingManualEntryFallback": {
+        "message": "O ingresa el ID manualmente:"
+    },
+    "onboardingContinueManual": {
+        "message": "Continuar con entrada manual"
+    },
+    "onboardingManualTokenTitle": {
+        "message": "Entrada manual de token"
+    },
+    "onboardingManualTokenDesc": {
+        "message": "Ingresa tu token API de Notion y los detalles de la base de datos manualmente."
+    },
+    "onboardingLabelToken": {
+        "message": "Token API de Notion:"
+    },
+    "onboardingLabelDatabaseId": {
+        "message": "ID de la base de datos:"
+    },
+    "onboardingLabelTitleProp": {
+        "message": "Propiedad del título:"
+    },
+    "onboardingLabelAuthorProp": {
+        "message": "Propiedad del autor:"
+    },
+    "onboardingTip": {
+        "message": "Puedes cambiar estos ajustes después en la pestaña Ajustes"
+    },
+    "onboardingTestConnection": {
+        "message": "Probar conexión"
+    },
+    "onboardingPlaceholderToken": {
+        "message": "Ingresa tu token API de Notion"
+    },
+    "onboardingPlaceholderDatabaseId": {
+        "message": "Ingresa el ID o URL de la base de datos"
+    },
+    "onboardingKindleTitle": {
+        "message": "Accede a tus subrayados de Kindle"
+    },
+    "onboardingKindleDesc": {
+        "message": "Navega a tu página de subrayados de Kindle para comenzar la sincronización."
+    },
+    "onboardingKindleStep1Title": {
+        "message": "Ve a los subrayados de Kindle"
+    },
+    "onboardingKindleStep1Desc": {
+        "message": "Navega a tu página regional de subrayados"
+    },
+    "onboardingKindleStep2Title": {
+        "message": "Asegúrate de estar conectado"
+    },
+    "onboardingKindleStep2Desc": {
+        "message": "Verifica que estés conectado a tu cuenta de Amazon"
+    },
+    "onboardingKindleStep3Title": {
+        "message": "Haz clic en el icono de la extensión"
+    },
+    "onboardingKindleStep3Desc": {
+        "message": "Haz clic en \"Exportar a Notion\" para sincronizar tus subrayados"
+    },
+    "onboardingGoToHighlights": {
+        "message": "Ir a la página de subrayados"
+    },
+    "onboardingReadyTitle": {
+        "message": "¡Listo para sincronizar!"
+    },
+    "onboardingReadyDesc": {
+        "message": "¡Todo configurado! Exporta tus subrayados de Kindle a Notion."
+    },
+    "onboardingSyncItem1": {
+        "message": "Extraer subrayados de tus libros Kindle"
+    },
+    "onboardingSyncItem2": {
+        "message": "Formatearlos como bloques de Notion"
+    },
+    "onboardingSyncItem3": {
+        "message": "Guardar en tu base de datos de Notion"
+    },
+    "onboardingAllSet": {
+        "message": "¡Todo listo! Haz clic en \"Exportar a Notion\" para tu primera sincronización"
+    },
+    "onboardingFinish": {
+        "message": "Comenzar a usar la extensión"
+    },
+    "tooltipNext": {
+        "message": "Siguiente"
+    },
+    "tooltipSkipTour": {
+        "message": "Saltar tour"
+    },
+    "onboardingToastFetchingDatabases": {
+        "message": "Obteniendo tus bases de datos..."
+    },
+    "onboardingToastFoundDatabases": {
+        "message": "$COUNT$ base(s) de datos encontrada(s)",
+        "placeholders": {
+            "COUNT": {
+                "content": "$1"
+            }
+        }
+    },
+    "onboardingToastNoDatabases": {
+        "message": "No se encontraron bases de datos. Crea una en Notion primero."
+    },
+    "onboardingToastSelectDatabase": {
+        "message": "Selecciona una base de datos"
+    },
+    "onboardingToastDatabaseSelected": {
+        "message": "¡Base de datos seleccionada!"
+    },
+    "onboardingToastEnterDatabaseId": {
+        "message": "Ingresa un ID de base de datos"
+    },
+    "onboardingToastInvalidDatabaseUrl": {
+        "message": "Ingresa una URL o ID de Notion válido"
+    },
+    "onboardingToastInvalidDatabaseId": {
+        "message": "Ingresa un ID válido de 32 caracteres"
+    },
+    "onboardingToastDatabaseSaved": {
+        "message": "¡ID de base de datos guardado!"
+    },
+    "onboardingToastFillProperties": {
+        "message": "Completa los nombres de propiedad de título y autor"
+    },
+    "onboardingToastSettingsSaved": {
+        "message": "¡Ajustes guardados! Iniciando tour guiado..."
+    },
+    "bgErrorOAuthNotConfigured": {
+        "message": "OAuth no configurado. Configura el ID de cliente y la URL del servidor proxy."
+    },
+    "bgErrorNoAuthToken": {
+        "message": "No se encontró token. Conéctate a Notion primero."
+    },
+    "bgErrorMissingTokenOrDb": {
+        "message": "Error: Falta el token de Notion o el ID de base de datos"
+    },
+    "bgErrorMissingProperties": {
+        "message": "Error: Faltan los nombres de propiedad de título o autor"
+    },
+    "bgErrorNoHighlightsData": {
+        "message": "Error: No hay datos de subrayados para procesar"
+    },
+    "bgProgressFetchingCover": {
+        "message": "Obteniendo portada del libro..."
+    },
+    "bgProgressCheckingDuplicates": {
+        "message": "Verificando duplicados..."
+    },
+    "bgProgressFetchingHighlights": {
+        "message": "Obteniendo subrayados existentes..."
+    },
+    "bgInfoNoNewHighlights": {
+        "message": "Info: No hay nuevos subrayados para agregar"
+    },
+    "bgProgressAppendingHighlights": {
+        "message": "Agregando $COUNT$ nuevos subrayados...",
+        "placeholders": {
+            "COUNT": {
+                "content": "$1"
+            }
+        }
+    },
+    "bgProgressExporting": {
+        "message": "Exportando..."
+    },
+    "bgStatusUpdatedBook": {
+        "message": "Libro actualizado con $HIGHLIGHTS$ nuevos subrayados (incluyendo $NOTES$ con notas)",
+        "placeholders": {
+            "HIGHLIGHTS": {
+                "content": "$1"
+            },
+            "NOTES": {
+                "content": "$2"
+            }
+        }
+    },
+    "bgStatusExportSuccess": {
+        "message": "¡Exportación exitosa! $HIGHLIGHTS$ Subrayado(s) | $NOTES$ Nota(s)",
+        "placeholders": {
+            "HIGHLIGHTS": {
+                "content": "$1"
+            },
+            "NOTES": {
+                "content": "$2"
+            }
+        }
+    },
+    "bgOtherHighlights": {
+        "message": "Otros subrayados"
+    },
+    "bgCountBlock": {
+        "message": "$HIGHLIGHTS$ Subrayado(s) | $NOTES$ Nota(s)",
+        "placeholders": {
+            "HIGHLIGHTS": {
+                "content": "$1"
+            },
+            "NOTES": {
+                "content": "$2"
+            }
+        }
+    }
+}

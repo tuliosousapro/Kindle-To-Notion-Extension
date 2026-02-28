@@ -72,11 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (response && response.success) {
-        showToast('Successfully connected to Notion!');
+        showToast(chrome.i18n.getMessage("toastConnectedNotion"));
         updateOAuthUI(true, response.workspace_name);
         notionStatusDot.classList.add('connected');
       } else {
-        showToast('Connection failed: ' + (response?.error || 'Unknown error'));
+        showToast(chrome.i18n.getMessage("toastConnectionFailed") + ': ' + (response?.error || 'Unknown error'));
       }
     });
   });
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.remove(['oauth_authenticated', 'token', 'workspace_name', 'workspace_id', 'bot_id', 'owner'], () => {
       updateOAuthUI(false);
       notionStatusDot.classList.remove('connected');
-      showToast('Disconnected from Notion');
+      showToast(chrome.i18n.getMessage("toastDisconnected"));
       tokenInput.value = '';
     });
   });
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.get(['kindleRegion'], (result) => {
       const region = result.kindleRegion || 'https://read.amazon.com/notebook';
       chrome.tabs.update({ url: region }, () => {
-        showToast('Navigating to Kindle highlights...');
+        showToast(chrome.i18n.getMessage("toastNavigating"));
       });
     });
   });
@@ -177,24 +177,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Validation
     if (!token) {
-      showToast('Please enter your Notion API Token');
+      showToast(chrome.i18n.getMessage("toastEnterToken"));
       return;
     }
 
     if (!databaseId) {
-      showToast('Please enter your Database ID');
+      showToast(chrome.i18n.getMessage("toastEnterDatabaseId"));
       return;
     }
 
     if (!databaseId.match(/^[0-9a-f]{32}$/i)) {
-      showToast('Invalid Database ID format');
+      showToast(chrome.i18n.getMessage("toastInvalidDatabaseId"));
       return;
     }
 
     // Save settings
     chrome.storage.local.set({ token, databaseId, titleProperty, authorProperty, kindleRegion }, () => {
       notionStatusDot.classList.add('connected');
-      showToast('Settings saved successfully!');
+      showToast(chrome.i18n.getMessage("toastSettingsSaved"));
       tokenInput.type = 'password';
       document.querySelector('.eye-open').classList.remove('hidden');
       document.querySelector('.eye-closed').classList.add('hidden');
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (!tab) {
-        showToast('Error: No active tab found');
+        showToast(chrome.i18n.getMessage("toastNoActiveTab"));
         return;
       }
 
@@ -216,11 +216,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (onSupportedPage) {
         exportWithRetry(tab.id);
       } else {
-        showToast('Please navigate to a Kindle highlights page first');
+        showToast(chrome.i18n.getMessage("toastNavigateFirst"));
       }
     } catch (error) {
       console.error('Error getting active tab:', error);
-      showToast('Error: Failed to get active tab');
+      showToast(chrome.i18n.getMessage("toastFailedGetTab"));
     }
   });
 
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => exportWithRetry(tabId, attempt + 1, maxAttempts).then(resolve), delay);
           } else {
             spinner.classList.add('hidden');
-            showToast('Export failed. Please check your settings.');
+            showToast(chrome.i18n.getMessage("toastExportFailed"));
             resolve();
           }
         } else {

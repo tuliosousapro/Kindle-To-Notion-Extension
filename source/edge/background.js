@@ -73,11 +73,11 @@ async function searchNotionDatabases(token) {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28'
+        'Notion-Version': '2025-09-03'
       },
       body: JSON.stringify({
         filter: {
-          value: 'database',
+          value: 'data_source',
           property: 'object'
         },
         sort: {
@@ -253,7 +253,7 @@ function generateBlocksWithChapterGrouping(highlights, bookmarks = []) {
   if (noChapter.length > 0) {
     if (groups.size > 0) {
       // Add separator heading for ungrouped highlights
-      allBlocks.push(createChapterHeading('Other Highlights'));
+      allBlocks.push(createChapterHeading(chrome.i18n.getMessage('bgOtherHighlights')));
     }
 
     noChapter.forEach(highlight => {
@@ -393,7 +393,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (!OAUTH_CONFIG.clientId || !OAUTH_CONFIG.proxyServerUrl) {
           sendResponse({
             success: false,
-            error: 'OAuth not configured. Please set Client ID and Proxy Server URL in settings.'
+            error: chrome.i18n.getMessage('bgErrorOAuthNotConfigured')
           });
           return;
         }
@@ -479,7 +479,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (!token) {
           sendResponse({
             success: false,
-            error: 'No authentication token found. Please connect to Notion first.'
+            error: chrome.i18n.getMessage('bgErrorNoAuthToken')
           });
           return;
         }
@@ -557,12 +557,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const { token, databaseId, titleProperty, authorProperty } = await chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty']);
         if (!token || !databaseId) {
           console.error('Missing token or databaseId:', { token, databaseId });
-          sendResponse({ status: 'Error: Missing Notion token or database ID' });
+          sendResponse({ status: chrome.i18n.getMessage('bgErrorMissingTokenOrDb') });
           return;
         }
         if (!titleProperty || !authorProperty) {
           console.error('Missing title or author property names:', { titleProperty, authorProperty });
-          sendResponse({ status: 'Error: Missing title or author property names' });
+          sendResponse({ status: chrome.i18n.getMessage('bgErrorMissingProperties') });
           return;
         }
 
@@ -571,28 +571,29 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         if (!highlights || highlights.length === 0) {
           console.warn('No highlights data received');
-          sendResponse({ status: 'Error: No highlights data to process' });
+          sendResponse({ status: chrome.i18n.getMessage('bgErrorNoHighlightsData') });
           return;
         }
 
         // Fetch high-res cover if amazonLink is provided
         let coverUrl = '';
         if (amazonLink) {
-          chrome.runtime.sendMessage({ action: 'progress', status: 'Fetching book cover...' });
+          chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressFetchingCover') });
           coverUrl = await fetchHighResCover(amazonLink);
         }
 
-        chrome.runtime.sendMessage({ action: 'progress', status: 'Checking duplicates...' });
+        chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressCheckingDuplicates') });
         console.log('Sent initial response, proceeding with duplicate check');
 
         let searchResponse;
         try {
-          searchResponse = await fetch('https://api.notion.com/v1/databases/' + databaseId + '/query', {
+          // Notion API 2025-09-03: Use /v1/data_sources for querying
+          searchResponse = await fetch('https://api.notion.com/v1/data_sources/' + databaseId + '/query', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
-              'Notion-Version': '2022-06-28'
+              'Notion-Version': '2025-09-03'
             },
             body: JSON.stringify({
               filter: {
@@ -613,7 +614,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (searchData.results.length > 0) {
           const existingPage = searchData.results[0];
           const pageId = existingPage.id;
-          chrome.runtime.sendMessage({ action: 'progress', status: 'Fetching existing highlights...' });
+          chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressFetchingHighlights') });
           let allBlocks = [];
           let startCursor = null;
 
@@ -623,7 +624,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               blocksResponse = await fetch('https://api.notion.com/v1/blocks/' + pageId + '/children?page_size=100' + (startCursor ? '&start_cursor=' + startCursor : ''), {
                 headers: {
                   'Authorization': `Bearer ${token}`,
-                  'Notion-Version': '2022-06-28'
+                  'Notion-Version': '2025-09-03'
                 }
               });
               if (!blocksResponse.ok) throw new Error('Blocks fetch failed: ' + await blocksResponse.text());
@@ -680,11 +681,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           const newHighlights = highlights.filter(h => !existingHighlights.some(eh => eh.text === h.text.trim() && eh.note === (h.note?.trim() || '')));
           if (newHighlights.length === 0) {
             console.log('No new highlights to add');
-            sendResponse({ status: 'Info: No new highlights to add' });
+            sendResponse({ status: chrome.i18n.getMessage('bgInfoNoNewHighlights') });
             return;
           }
 
-          chrome.runtime.sendMessage({ action: 'progress', status: `Appending ${newHighlights.length} new highlights...` });
+          chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressAppendingHighlights', [newHighlights.length.toString()]) });
 
           // Update count block if it exists
           if (countBlockId) {
@@ -698,13 +699,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                   'Content-Type': 'application/json',
-                  'Notion-Version': '2022-06-28'
+                  'Notion-Version': '2025-09-03'
                 },
                 body: JSON.stringify({
                   paragraph: {
                     rich_text: [
                       {
-                        text: { content: `${totalHighlights} Destaque(s) | ${totalNotes} Nota(s)` },
+                        text: { content: chrome.i18n.getMessage('bgCountBlock', [totalHighlights.toString(), totalNotes.toString()]) },
                         annotations: { bold: true }
                       }
                     ]
@@ -736,7 +737,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                   'Content-Type': 'application/json',
-                  'Notion-Version': '2022-06-28'
+                  'Notion-Version': '2025-09-03'
                 },
                 body: JSON.stringify({ children: batch })
               });
@@ -748,11 +749,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
           }
           console.log('All append batches completed successfully');
-          sendResponse({ status: `Updated existing book with ${newHighlights.length} new highlights (including ${newHighlights.filter(h => h.note).length} with notes)` });
+          sendResponse({ status: chrome.i18n.getMessage('bgStatusUpdatedBook', [newHighlights.length.toString(), newHighlights.filter(h => h.note).length.toString()]) });
           return;
         }
 
-        chrome.runtime.sendMessage({ action: 'progress', status: 'Exporting...' });
+        chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressExporting') });
 
         // Generate all blocks with chapter grouping
         const allChildren = generateBlocksWithChapterGrouping(highlights, bookmarks || []);
@@ -765,7 +766,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           paragraph: {
             rich_text: [
               {
-                text: { content: `${highlightCount} Highlight(s) | ${noteCount} Note(s)` },
+                text: { content: chrome.i18n.getMessage('bgCountBlock', [highlightCount.toString(), noteCount.toString()]) },
                 annotations: { bold: true }
               }
             ]
@@ -780,7 +781,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
 
         const createPayload = {
-          parent: { database_id: databaseId },
+          // Notion API 2025-09-03: Use data_source_id for parent
+          parent: { type: 'data_source_id', data_source_id: databaseId },
           properties: {
             [titleProperty]: { title: [{ text: { content: title } }] },
             [authorProperty]: { rich_text: [{ text: { content: author } }] }
@@ -796,7 +798,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
-              'Notion-Version': '2022-06-28'
+              'Notion-Version': '2025-09-03'
             },
             body: JSON.stringify(createPayload)
           });
@@ -834,7 +836,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
         }
         console.log('All appends completed successfully');
-        sendResponse({ status: `Export successful! ${highlightCount} Highlight(s) | ${noteCount} Note(s)` });
+        sendResponse({ status: chrome.i18n.getMessage('bgStatusExportSuccess', [highlightCount.toString(), noteCount.toString()]) });
 
         // Cache highlights in SRS vault for daily review
         cacheHighlights({ title, author, highlights, notionPageId: pageId || createData?.id })
@@ -893,6 +895,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 chrome.notifications.onClicked.addListener((notificationId) => {
   if (notificationId === 'k2n-daily-review') {
+    // Open the extension popup (best effort — opens a new tab with popup as fallback)
     chrome.action.openPopup?.() || chrome.tabs.create({ url: chrome.runtime.getURL('popup.html') });
     chrome.notifications.clear(notificationId);
   }

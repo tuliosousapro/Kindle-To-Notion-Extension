@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Kindle to Notion – Highlight Sync Made Simple",
+  "name": "__MSG_extensionName__",
   "version": "1.7.0",
-  "description": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
   "permissions": [
     "storage",
     "tabs",

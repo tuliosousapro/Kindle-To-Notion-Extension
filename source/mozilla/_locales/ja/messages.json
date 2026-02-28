@@ -1,0 +1,462 @@
+{
+    "extensionName": {
+        "message": "Kindle to Notion – Kindleのハイライトをnotionにエクスポート"
+    },
+    "extensionDescription": {
+        "message": "ワンクリックでKindleのハイライトをNotionにエクスポート。書籍別に整理し、KindleのメモをNotionデータベースに同期"
+    },
+    "appTitle": {
+        "message": "Kindle to Notion"
+    },
+    "tabExport": {
+        "message": "エクスポート"
+    },
+    "tabReview": {
+        "message": "レビュー"
+    },
+    "tabSettings": {
+        "message": "設定"
+    },
+    "exportToNotion": {
+        "message": "Notionにエクスポート"
+    },
+    "goToHighlights": {
+        "message": "ハイライトへ移動"
+    },
+    "statusAmazon": {
+        "message": "Amazon"
+    },
+    "statusNotion": {
+        "message": "Notion"
+    },
+    "statStreak": {
+        "message": "連続"
+    },
+    "statInVault": {
+        "message": "保管庫"
+    },
+    "statStarred": {
+        "message": "お気に入り"
+    },
+    "noHighlightsTitle": {
+        "message": "ハイライトがありません"
+    },
+    "noHighlightsSubtitle": {
+        "message": "書籍をエクスポートして毎日のレビューを始めましょう"
+    },
+    "reviewDoneTitle": {
+        "message": "今日は全て完了！"
+    },
+    "reviewDoneSubtitle": {
+        "message": "明日またお越しください"
+    },
+    "btnResetShowMore": {
+        "message": "リセット — もっと頻繁に表示"
+    },
+    "btnDismissSeen": {
+        "message": "却下 — 既読"
+    },
+    "btnStarKeep": {
+        "message": "お気に入り — 永久保存"
+    },
+    "connectWithNotion": {
+        "message": "Notionに接続"
+    },
+    "connectedToWorkspace": {
+        "message": "ワークスペースに接続済み"
+    },
+    "dividerOr": {
+        "message": "または"
+    },
+    "labelNotionApiToken": {
+        "message": "Notion APIトークン"
+    },
+    "labelDatabaseId": {
+        "message": "データベースID"
+    },
+    "labelBookTitleProperty": {
+        "message": "書籍タイトルプロパティ"
+    },
+    "labelAuthorProperty": {
+        "message": "著者プロパティ"
+    },
+    "labelKindleRegion": {
+        "message": "Kindleリージョン"
+    },
+    "placeholderToken": {
+        "message": "ntn_xxxxxxxxxxxxx"
+    },
+    "placeholderDatabaseId": {
+        "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "placeholderBookTitle": {
+        "message": "書籍タイトル"
+    },
+    "placeholderAuthor": {
+        "message": "著者"
+    },
+    "helpGenerateToken": {
+        "message": "生成先"
+    },
+    "helpDatabaseId": {
+        "message": "NotionデータベースのURLからコピー"
+    },
+    "saveSettings": {
+        "message": "設定を保存"
+    },
+    "toggleVisibility": {
+        "message": "表示切替"
+    },
+    "regionUS": {
+        "message": "🇺🇸 アメリカ"
+    },
+    "regionBR": {
+        "message": "🇧🇷 ブラジル"
+    },
+    "regionCA": {
+        "message": "🇨🇦 カナダ"
+    },
+    "regionUK": {
+        "message": "🇬🇧 イギリス"
+    },
+    "regionDE": {
+        "message": "🇩🇪 ドイツ"
+    },
+    "regionFR": {
+        "message": "🇫🇷 フランス"
+    },
+    "regionES": {
+        "message": "🇪🇸 スペイン"
+    },
+    "regionIT": {
+        "message": "🇮🇹 イタリア"
+    },
+    "regionJP": {
+        "message": "🇯🇵 日本"
+    },
+    "regionAU": {
+        "message": "🇦🇺 オーストラリア"
+    },
+    "regionIN": {
+        "message": "🇮🇳 インド"
+    },
+    "regionMX": {
+        "message": "🇲🇽 メキシコ"
+    },
+    "toastConnecting": {
+        "message": "接続中..."
+    },
+    "toastConnectedNotion": {
+        "message": "Notionに正常に接続しました！"
+    },
+    "toastDisconnected": {
+        "message": "Notionから切断されました"
+    },
+    "toastNavigating": {
+        "message": "Kindleハイライトに移動中..."
+    },
+    "toastEnterToken": {
+        "message": "Notion APIトークンを入力してください"
+    },
+    "toastEnterDatabaseId": {
+        "message": "データベースIDを入力してください"
+    },
+    "toastInvalidDatabaseId": {
+        "message": "データベースIDの形式が無効です"
+    },
+    "toastSettingsSaved": {
+        "message": "設定が正常に保存されました！"
+    },
+    "toastNoActiveTab": {
+        "message": "エラー: アクティブなタブが見つかりません"
+    },
+    "toastNavigateFirst": {
+        "message": "まずKindleハイライトページに移動してください"
+    },
+    "toastFailedGetTab": {
+        "message": "エラー: アクティブなタブを取得できません"
+    },
+    "toastExportFailed": {
+        "message": "エクスポートに失敗しました。設定を確認してください。"
+    },
+    "toastConnectionFailed": {
+        "message": "接続に失敗しました"
+    },
+    "onboardingWelcomeTitle": {
+        "message": "Kindle to Notionへようこそ！"
+    },
+    "onboardingWelcomeDesc": {
+        "message": "ワンクリックでKindleのハイライトとメモをNotionに同期しましょう。"
+    },
+    "onboardingFeature1": {
+        "message": "Kindleの全ハイライトをエクスポート"
+    },
+    "onboardingFeature2": {
+        "message": "ワンクリックでNotionに同期"
+    },
+    "onboardingFeature3": {
+        "message": "書籍と著者で整理"
+    },
+    "onboardingGetStarted": {
+        "message": "始める"
+    },
+    "onboardingSkipSetup": {
+        "message": "セットアップをスキップ"
+    },
+    "onboardingConnectTitle": {
+        "message": "Notionに接続"
+    },
+    "onboardingConnectDesc": {
+        "message": "Notionアカウントを接続します。APIトークンとデータベースIDが必要です。"
+    },
+    "onboardingStep1Title": {
+        "message": "Notionインテグレーションにアクセス"
+    },
+    "onboardingStep1Desc": {
+        "message": "新しいインテグレーションを作成"
+    },
+    "onboardingStep2Title": {
+        "message": "APIトークンをコピー"
+    },
+    "onboardingStep2Desc": {
+        "message": "新しいインテグレーションの「内部インテグレーショントークン」をコピー"
+    },
+    "onboardingStep3Title": {
+        "message": "データベースを作成"
+    },
+    "onboardingStep3Desc": {
+        "message": "Notionで新しいデータベースを作成し、URLまたはIDをコピー"
+    },
+    "onboardingContinueSettings": {
+        "message": "設定に進む"
+    },
+    "onboardingBack": {
+        "message": "戻る"
+    },
+    "onboardingConfigureTitle": {
+        "message": "設定をカスタマイズ"
+    },
+    "onboardingConfigureDesc": {
+        "message": "Notionへの接続方法を選択：OAuth（推奨）または手動入力。"
+    },
+    "onboardingOAuthTitle": {
+        "message": "OAuth接続（推奨）"
+    },
+    "onboardingOAuthDesc": {
+        "message": "OAuthでワンクリックで安全に接続。"
+    },
+    "onboardingSelectDatabase": {
+        "message": "データベースを選択"
+    },
+    "onboardingSelectDatabaseDesc": {
+        "message": "Kindleハイライトを保存するNotionデータベースを選択。"
+    },
+    "onboardingLoadingDatabases": {
+        "message": "データベースを読み込み中..."
+    },
+    "onboardingContinueDatabase": {
+        "message": "選択したデータベースで続行"
+    },
+    "onboardingManualEntryFallback": {
+        "message": "またはIDを手動入力："
+    },
+    "onboardingContinueManual": {
+        "message": "手動入力で続行"
+    },
+    "onboardingManualTokenTitle": {
+        "message": "手動トークン入力"
+    },
+    "onboardingManualTokenDesc": {
+        "message": "Notion APIトークンとデータベースの詳細を手動で入力。"
+    },
+    "onboardingLabelToken": {
+        "message": "Notion APIトークン："
+    },
+    "onboardingLabelDatabaseId": {
+        "message": "データベースID："
+    },
+    "onboardingLabelTitleProp": {
+        "message": "タイトルプロパティ："
+    },
+    "onboardingLabelAuthorProp": {
+        "message": "著者プロパティ："
+    },
+    "onboardingTip": {
+        "message": "これらの設定は後で設定タブで変更できます"
+    },
+    "onboardingTestConnection": {
+        "message": "接続テスト"
+    },
+    "onboardingPlaceholderToken": {
+        "message": "Notion APIトークンを入力"
+    },
+    "onboardingPlaceholderDatabaseId": {
+        "message": "データベースIDまたはURLを入力"
+    },
+    "onboardingKindleTitle": {
+        "message": "Kindleハイライトにアクセス"
+    },
+    "onboardingKindleDesc": {
+        "message": "Kindleハイライトページに移動して同期を開始しましょう。"
+    },
+    "onboardingKindleStep1Title": {
+        "message": "Kindleハイライトへ移動"
+    },
+    "onboardingKindleStep1Desc": {
+        "message": "お住まいの地域のKindleハイライトページに移動"
+    },
+    "onboardingKindleStep2Title": {
+        "message": "ログインを確認"
+    },
+    "onboardingKindleStep2Desc": {
+        "message": "Amazonアカウントにログインしていることを確認"
+    },
+    "onboardingKindleStep3Title": {
+        "message": "拡張機能のアイコンをクリック"
+    },
+    "onboardingKindleStep3Desc": {
+        "message": "「Notionにエクスポート」をクリックしてハイライトを同期"
+    },
+    "onboardingGoToHighlights": {
+        "message": "ハイライトページへ移動"
+    },
+    "onboardingReadyTitle": {
+        "message": "同期準備完了！"
+    },
+    "onboardingReadyDesc": {
+        "message": "設定完了！KindleハイライトをNotionにエクスポートしましょう。"
+    },
+    "onboardingSyncItem1": {
+        "message": "Kindle書籍からハイライトを抽出"
+    },
+    "onboardingSyncItem2": {
+        "message": "Notionブロックとしてフォーマット"
+    },
+    "onboardingSyncItem3": {
+        "message": "Notionデータベースに保存"
+    },
+    "onboardingAllSet": {
+        "message": "準備完了！「Notionにエクスポート」をクリックして最初の同期を開始"
+    },
+    "onboardingFinish": {
+        "message": "拡張機能を使い始める"
+    },
+    "tooltipNext": {
+        "message": "次へ"
+    },
+    "tooltipSkipTour": {
+        "message": "ツアーをスキップ"
+    },
+    "onboardingToastFetchingDatabases": {
+        "message": "データベースを取得中..."
+    },
+    "onboardingToastFoundDatabases": {
+        "message": "$COUNT$件のデータベースが見つかりました",
+        "placeholders": {
+            "COUNT": {
+                "content": "$1"
+            }
+        }
+    },
+    "onboardingToastNoDatabases": {
+        "message": "データベースが見つかりません。Notionでデータベースを作成してください。"
+    },
+    "onboardingToastSelectDatabase": {
+        "message": "データベースを選択してください"
+    },
+    "onboardingToastDatabaseSelected": {
+        "message": "データベースが選択されました！"
+    },
+    "onboardingToastEnterDatabaseId": {
+        "message": "データベースIDを入力してください"
+    },
+    "onboardingToastInvalidDatabaseUrl": {
+        "message": "有効なNotionデータベースURLまたはIDを入力してください"
+    },
+    "onboardingToastInvalidDatabaseId": {
+        "message": "有効な32文字のデータベースIDを入力してください"
+    },
+    "onboardingToastDatabaseSaved": {
+        "message": "データベースIDが保存されました！"
+    },
+    "onboardingToastFillProperties": {
+        "message": "タイトルと著者のプロパティ名を入力してください"
+    },
+    "onboardingToastSettingsSaved": {
+        "message": "設定が保存されました！ガイドツアーを開始中..."
+    },
+    "bgErrorOAuthNotConfigured": {
+        "message": "OAuthが設定されていません。クライアントIDとプロキシサーバーURLを設定してください。"
+    },
+    "bgErrorNoAuthToken": {
+        "message": "認証トークンが見つかりません。Notionに接続してください。"
+    },
+    "bgErrorMissingTokenOrDb": {
+        "message": "エラー: NotionトークンまたはデータベースIDが不足"
+    },
+    "bgErrorMissingProperties": {
+        "message": "エラー: タイトルまたは著者のプロパティ名が不足"
+    },
+    "bgErrorNoHighlightsData": {
+        "message": "エラー: 処理するハイライトデータがありません"
+    },
+    "bgProgressFetchingCover": {
+        "message": "書籍カバーを取得中..."
+    },
+    "bgProgressCheckingDuplicates": {
+        "message": "重複を確認中..."
+    },
+    "bgProgressFetchingHighlights": {
+        "message": "既存のハイライトを取得中..."
+    },
+    "bgInfoNoNewHighlights": {
+        "message": "情報: 追加する新しいハイライトはありません"
+    },
+    "bgProgressAppendingHighlights": {
+        "message": "$COUNT$件の新しいハイライトを追加中...",
+        "placeholders": {
+            "COUNT": {
+                "content": "$1"
+            }
+        }
+    },
+    "bgProgressExporting": {
+        "message": "エクスポート中..."
+    },
+    "bgStatusUpdatedBook": {
+        "message": "書籍を$HIGHLIGHTS$件の新しいハイライトで更新（$NOTES$件のメモ付き）",
+        "placeholders": {
+            "HIGHLIGHTS": {
+                "content": "$1"
+            },
+            "NOTES": {
+                "content": "$2"
+            }
+        }
+    },
+    "bgStatusExportSuccess": {
+        "message": "エクスポート成功！$HIGHLIGHTS$件のハイライト | $NOTES$件のメモ",
+        "placeholders": {
+            "HIGHLIGHTS": {
+                "content": "$1"
+            },
+            "NOTES": {
+                "content": "$2"
+            }
+        }
+    },
+    "bgOtherHighlights": {
+        "message": "その他のハイライト"
+    },
+    "bgCountBlock": {
+        "message": "$HIGHLIGHTS$件のハイライト | $NOTES$件のメモ",
+        "placeholders": {
+            "HIGHLIGHTS": {
+                "content": "$1"
+            },
+            "NOTES": {
+                "content": "$2"
+            }
+        }
+    }
+}

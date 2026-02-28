@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // OAuth Connection
   connectOAuthBtn.addEventListener('click', () => {
-    connectOAuthBtn.textContent = 'Connecting...';
+    connectOAuthBtn.textContent = chrome.i18n.getMessage("toastConnecting");
     connectOAuthBtn.disabled = true;
 
     // Send message to background to start OAuth flow
@@ -131,16 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
         oauthStatus.style.display = 'block';
         workspaceName.textContent = response.workspace_name || 'Notion Workspace';
         connectOAuthBtn.style.display = 'none';
-        showToast('Successfully connected to Notion!', 'success');
+        showToast(chrome.i18n.getMessage("toastConnectedNotion"), 'success');
 
         // Fetch databases after successful OAuth
-        showToast('Fetching your databases...', 'info');
+        showToast(chrome.i18n.getMessage("onboardingToastFetchingDatabases"), 'info');
         fetchAndDisplayDatabases();
       } else {
         // OAuth failed
-        connectOAuthBtn.textContent = 'Connect with Notion';
+        connectOAuthBtn.textContent = chrome.i18n.getMessage("connectWithNotion");
         connectOAuthBtn.disabled = false;
-        const errorMsg = response && response.error ? response.error : 'OAuth connection failed';
+        const errorMsg = response && response.error ? response.error : chrome.i18n.getMessage("toastConnectionFailed");
         showToast(errorMsg, 'error');
       }
     });
@@ -153,9 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const databases = response.databases;
         if (databases && databases.length > 0) {
           displayDatabaseSelection(databases);
-          showToast(`Found ${databases.length} database(s)`, 'success');
+          showToast(chrome.i18n.getMessage("onboardingToastFoundDatabases", [databases.length]), 'success');
         } else {
-          showToast('No databases found. Please create a database in Notion first.', 'info');
+          showToast(chrome.i18n.getMessage("onboardingToastNoDatabases"), 'info');
           // Show manual entry option
           document.getElementById('database-manual-entry').style.display = 'block';
         }
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedDatabaseId = databaseDropdown.value;
 
       if (!selectedDatabaseId) {
-        showToast('Please select a database', 'error');
+        showToast(chrome.i18n.getMessage("onboardingToastSelectDatabase"), 'error');
         return;
       }
 
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Save database ID to storage
       chrome.storage.local.set({ databaseId }, () => {
-        showToast('Database selected!', 'success');
+        showToast(chrome.i18n.getMessage("onboardingToastDatabaseSelected"), 'success');
 
         // Proceed to next step
         setTimeout(() => {
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let databaseId = manualDatabaseInput.value.trim();
 
       if (!databaseId) {
-        showToast('Please enter a database ID', 'error');
+        showToast(chrome.i18n.getMessage("onboardingToastEnterDatabaseId"), 'error');
         return;
       }
 
@@ -242,20 +242,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (match) {
           databaseId = match[1].replace(/-/g, '');
         } else {
-          showToast('Please enter a valid Notion database URL or ID', 'error');
+          showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseUrl"), 'error');
           return;
         }
       }
 
       // Validate database ID format
       if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
-        showToast('Please enter a valid 32-character Database ID', 'error');
+        showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseId"), 'error');
         return;
       }
 
       // Save database ID to storage
       chrome.storage.local.set({ databaseId }, () => {
-        showToast('Database ID saved!', 'success');
+        showToast(chrome.i18n.getMessage("onboardingToastDatabaseSaved"), 'success');
 
         // Proceed to next step
         setTimeout(() => {
@@ -291,20 +291,20 @@ document.addEventListener('DOMContentLoaded', () => {
         databaseId = match[1].replace(/-/g, '');
         databaseIdInput.value = databaseId;
       } else {
-        showToast('Please enter a valid Notion database URL or ID', 'error');
+        showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseUrl"), 'error');
         return;
       }
     }
 
     // Validate database ID format
     if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
-      showToast('Please enter a valid 32-character Database ID', 'error');
+      showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseId"), 'error');
       return;
     }
 
     // Validate required fields
     if (!titleProperty || !authorProperty) {
-      showToast('Please fill in both Title and Author property names', 'error');
+      showToast(chrome.i18n.getMessage("onboardingToastFillProperties"), 'error');
       return;
     }
 
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
           testConnectionBtn.textContent = 'Setup Complete!';
           testConnectionBtn.style.background = '#10b981';
 
-          showToast('Settings saved successfully! Starting guided tour...', 'success');
+          showToast(chrome.i18n.getMessage("onboardingToastSettingsSaved"), 'success');
 
           setTimeout(() => {
             // Redirect to main popup - it will detect first-time user and show guided tour
