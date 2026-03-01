@@ -1,8 +1,54 @@
 // ========================================
 // OAuth Configuration and Handlers
 // ========================================
+// Custom I18n Storage helper
+let customMessages = null;
 
-// Import OAuth configuration and utilities
+async function loadCustomI18n() {
+  const result = await chrome.storage.local.get(['ui_language']);
+  const lang = result.ui_language;
+  if (lang && lang !== 'browser_default') {
+    try {
+      const url = chrome.runtime.getURL(`_locales/${lang}/messages.json`);
+      const response = await fetch(url);
+      if (response.ok) {
+        customMessages = await response.json();
+      } else {
+        customMessages = null;
+      }
+    } catch (e) {
+      customMessages = null;
+    }
+  } else {
+    customMessages = null;
+  }
+}
+
+// Background custom I18n helper
+function getBgMessage(key, substitutions) {
+  if (customMessages && customMessages[key]) {
+    let msg = customMessages[key].message;
+    if (substitutions) {
+      if (!Array.isArray(substitutions)) substitutions = [substitutions];
+      substitutions.forEach((sub, i) => {
+        msg = msg.replace(new RegExp(`\\$${i + 1}\\$`, 'g'), sub);
+      });
+    }
+    return msg;
+  }
+  return chrome.i18n.getMessage(key, substitutions);
+}
+
+// Ensure it loads early
+loadCustomI18n();
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === 'local' && changes.ui_language) {
+    loadCustomI18n();
+  }
+});
+
+// ========================================
 import { OAUTH_CONFIG, getOAuthRedirectUri, generateRandomState, buildAuthorizationUrl } from './oauth-config.js';
 import { initSRS, cacheHighlights, handleReviewAlarm, getDailyReview, markReviewed, getStats, getStarred, updateSettings, clearVault, SRS_ALARM } from './backend/srs.js';
 
@@ -253,7 +299,7 @@ function generateBlocksWithChapterGrouping(highlights, bookmarks = []) {
   if (noChapter.length > 0) {
     if (groups.size > 0) {
       // Add separator heading for ungrouped highlights
-      allBlocks.push(createChapterHeading(chrome.i18n.getMessage('bgOtherHighlights')));
+      allBlocks.push(createChapterHeading(getBgMessage('bgOtherHighlights')));
     }
 
     noChapter.forEach(highlight => {
@@ -393,7 +439,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (!OAUTH_CONFIG.clientId || !OAUTH_CONFIG.proxyServerUrl) {
           sendResponse({
             success: false,
-            error: chrome.i18n.getMessage('bgErrorOAuthNotConfigured')
+            error: getBgMessage('bgErrorOAuthNotConfigured')
           });
           return;
         }
@@ -479,7 +525,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (!token) {
           sendResponse({
             success: false,
-            error: chrome.i18n.getMessage('bgErrorNoAuthToken')
+            error: getBgMessage('bgErrorNoAuthToken')
           });
           return;
         }
@@ -557,12 +603,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const { token, databaseId, titleProperty, authorProperty } = await chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty']);
         if (!token || !databaseId) {
           console.error('Missing token or databaseId:', { token, databaseId });
-          sendResponse({ status: chrome.i18n.getMessage('bgErrorMissingTokenOrDb') });
+          sendResponse({ status: getBgMessage('bgErrorMissingTokenOrDb') });
           return;
         }
         if (!titleProperty || !authorProperty) {
           console.error('Missing title or author property names:', { titleProperty, authorProperty });
-          sendResponse({ status: chrome.i18n.getMessage('bgErrorMissingProperties') });
+          sendResponse({ status: getBgMessage('bgErrorMissingProperties') });
           return;
         }
 
@@ -571,18 +617,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         if (!highlights || highlights.length === 0) {
           console.warn('No highlights data received');
-          sendResponse({ status: chrome.i18n.getMessage('bgErrorNoHighlightsData') });
+          sendResponse({ status: getBgMessage('bgErrorNoHighlightsData') });
           return;
         }
 
         // Fetch high-res cover if amazonLink is provided
         let coverUrl = '';
         if (amazonLink) {
-          chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressFetchingCover') });
+          chrome.runtime.sendMessage({ action: 'progress', status: getBgMessage('bgProgressFetchingCover') });
           coverUrl = await fetchHighResCover(amazonLink);
         }
 
-        chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressCheckingDuplicates') });
+        chrome.runtime.sendMessage({ action: 'progress', status: getBgMessage('bgProgressCheckingDuplicates') });
         console.log('Sent initial response, proceeding with duplicate check');
 
         let searchResponse;
@@ -614,7 +660,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (searchData.results.length > 0) {
           const existingPage = searchData.results[0];
           const pageId = existingPage.id;
-          chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressFetchingHighlights') });
+          chrome.runtime.sendMessage({ action: 'progress', status: getBgMessage('bgProgressFetchingHighlights') });
           let allBlocks = [];
           let startCursor = null;
 
@@ -681,11 +727,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           const newHighlights = highlights.filter(h => !existingHighlights.some(eh => eh.text === h.text.trim() && eh.note === (h.note?.trim() || '')));
           if (newHighlights.length === 0) {
             console.log('No new highlights to add');
-            sendResponse({ status: chrome.i18n.getMessage('bgInfoNoNewHighlights') });
+            sendResponse({ status: getBgMessage('bgInfoNoNewHighlights') });
             return;
           }
 
-          chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressAppendingHighlights', [newHighlights.length.toString()]) });
+          chrome.runtime.sendMessage({ action: 'progress', status: getBgMessage('bgProgressAppendingHighlights', [newHighlights.length.toString()]) });
 
           // Update count block if it exists
           if (countBlockId) {
@@ -705,7 +751,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                   paragraph: {
                     rich_text: [
                       {
-                        text: { content: chrome.i18n.getMessage('bgCountBlock', [totalHighlights.toString(), totalNotes.toString()]) },
+                        text: { content: getBgMessage('bgCountBlock', [totalHighlights.toString(), totalNotes.toString()]) },
                         annotations: { bold: true }
                       }
                     ]
@@ -749,11 +795,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
           }
           console.log('All append batches completed successfully');
-          sendResponse({ status: chrome.i18n.getMessage('bgStatusUpdatedBook', [newHighlights.length.toString(), newHighlights.filter(h => h.note).length.toString()]) });
+          sendResponse({ status: getBgMessage('bgStatusUpdatedBook', [newHighlights.length.toString(), newHighlights.filter(h => h.note).length.toString()]) });
           return;
         }
 
-        chrome.runtime.sendMessage({ action: 'progress', status: chrome.i18n.getMessage('bgProgressExporting') });
+        chrome.runtime.sendMessage({ action: 'progress', status: getBgMessage('bgProgressExporting') });
 
         // Generate all blocks with chapter grouping
         const allChildren = generateBlocksWithChapterGrouping(highlights, bookmarks || []);
@@ -766,7 +812,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           paragraph: {
             rich_text: [
               {
-                text: { content: chrome.i18n.getMessage('bgCountBlock', [highlightCount.toString(), noteCount.toString()]) },
+                text: { content: getBgMessage('bgCountBlock', [highlightCount.toString(), noteCount.toString()]) },
                 annotations: { bold: true }
               }
             ]
@@ -836,7 +882,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
         }
         console.log('All appends completed successfully');
-        sendResponse({ status: chrome.i18n.getMessage('bgStatusExportSuccess', [highlightCount.toString(), noteCount.toString()]) });
+        sendResponse({ status: getBgMessage('bgStatusExportSuccess', [highlightCount.toString(), noteCount.toString()]) });
 
         // Cache highlights in SRS vault for daily review
         cacheHighlights({ title, author, highlights, notionPageId: pageId || createData?.id })

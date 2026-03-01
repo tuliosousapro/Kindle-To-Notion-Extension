@@ -1,462 +1,468 @@
 {
-    "extensionName": {
-        "message": "Kindle to Notion – Kindle-Markierungen nach Notion exportieren"
-    },
-    "extensionDescription": {
-        "message": "1-Klick-Export von Kindle-Markierungen nach Notion. Nach Buch und Tag organisieren und Kindle-Notizen mit der Notion-Datenbank synchronisieren"
-    },
-    "appTitle": {
-        "message": "Kindle to Notion"
-    },
-    "tabExport": {
-        "message": "Exportieren"
-    },
-    "tabReview": {
-        "message": "Überprüfen"
-    },
-    "tabSettings": {
-        "message": "Einstellungen"
-    },
-    "exportToNotion": {
-        "message": "Nach Notion exportieren"
-    },
-    "goToHighlights": {
-        "message": "Zu Markierungen gehen"
-    },
-    "statusAmazon": {
-        "message": "Amazon"
-    },
-    "statusNotion": {
-        "message": "Notion"
-    },
-    "statStreak": {
-        "message": "Serie"
-    },
-    "statInVault": {
-        "message": "Im Tresor"
-    },
-    "statStarred": {
-        "message": "Favoriten"
-    },
-    "noHighlightsTitle": {
-        "message": "Noch keine Markierungen"
-    },
-    "noHighlightsSubtitle": {
-        "message": "Exportiere ein Buch, um deine tägliche Überprüfung zu starten"
-    },
-    "reviewDoneTitle": {
-        "message": "Alles erledigt für heute!"
-    },
-    "reviewDoneSubtitle": {
-        "message": "Komm morgen für mehr zurück"
-    },
-    "btnResetShowMore": {
-        "message": "Zurücksetzen — häufiger anzeigen"
-    },
-    "btnDismissSeen": {
-        "message": "Verwerfen — schon gesehen"
-    },
-    "btnStarKeep": {
-        "message": "Favorit — für immer behalten"
-    },
-    "connectWithNotion": {
-        "message": "Mit Notion verbinden"
-    },
-    "connectedToWorkspace": {
-        "message": "Verbunden mit Workspace"
-    },
-    "dividerOr": {
-        "message": "ODER"
-    },
-    "labelNotionApiToken": {
-        "message": "Notion API-Token"
-    },
-    "labelDatabaseId": {
-        "message": "Datenbank-ID"
-    },
-    "labelBookTitleProperty": {
-        "message": "Buchtitel-Eigenschaft"
-    },
-    "labelAuthorProperty": {
-        "message": "Autor-Eigenschaft"
-    },
-    "labelKindleRegion": {
-        "message": "Kindle-Region"
-    },
-    "placeholderToken": {
-        "message": "ntn_xxxxxxxxxxxxx"
-    },
-    "placeholderDatabaseId": {
-        "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    },
-    "placeholderBookTitle": {
-        "message": "Buchtitel"
-    },
-    "placeholderAuthor": {
-        "message": "Autor"
-    },
-    "helpGenerateToken": {
-        "message": "Erstellen unter"
-    },
-    "helpDatabaseId": {
-        "message": "Aus der URL deiner Notion-Datenbank kopieren"
-    },
-    "saveSettings": {
-        "message": "Einstellungen speichern"
-    },
-    "toggleVisibility": {
-        "message": "Sichtbarkeit umschalten"
-    },
-    "regionUS": {
-        "message": "🇺🇸 Vereinigte Staaten"
-    },
-    "regionBR": {
-        "message": "🇧🇷 Brasilien"
-    },
-    "regionCA": {
-        "message": "🇨🇦 Kanada"
-    },
-    "regionUK": {
-        "message": "🇬🇧 Vereinigtes Königreich"
-    },
-    "regionDE": {
-        "message": "🇩🇪 Deutschland"
-    },
-    "regionFR": {
-        "message": "🇫🇷 Frankreich"
-    },
-    "regionES": {
-        "message": "🇪🇸 Spanien"
-    },
-    "regionIT": {
-        "message": "🇮🇹 Italien"
-    },
-    "regionJP": {
-        "message": "🇯🇵 Japan"
-    },
-    "regionAU": {
-        "message": "🇦🇺 Australien"
-    },
-    "regionIN": {
-        "message": "🇮🇳 Indien"
-    },
-    "regionMX": {
-        "message": "🇲🇽 Mexiko"
-    },
-    "toastConnecting": {
-        "message": "Verbinde..."
-    },
-    "toastConnectedNotion": {
-        "message": "Erfolgreich mit Notion verbunden!"
-    },
-    "toastDisconnected": {
-        "message": "Von Notion getrennt"
-    },
-    "toastNavigating": {
-        "message": "Navigiere zu Kindle-Markierungen..."
-    },
-    "toastEnterToken": {
-        "message": "Bitte gib deinen Notion API-Token ein"
-    },
-    "toastEnterDatabaseId": {
-        "message": "Bitte gib deine Datenbank-ID ein"
-    },
-    "toastInvalidDatabaseId": {
-        "message": "Ungültiges Datenbank-ID-Format"
-    },
-    "toastSettingsSaved": {
-        "message": "Einstellungen erfolgreich gespeichert!"
-    },
-    "toastNoActiveTab": {
-        "message": "Fehler: Kein aktiver Tab gefunden"
-    },
-    "toastNavigateFirst": {
-        "message": "Bitte navigiere zuerst zur Kindle-Markierungsseite"
-    },
-    "toastFailedGetTab": {
-        "message": "Fehler: Aktiver Tab konnte nicht abgerufen werden"
-    },
-    "toastExportFailed": {
-        "message": "Export fehlgeschlagen. Überprüfe deine Einstellungen."
-    },
-    "toastConnectionFailed": {
-        "message": "Verbindung fehlgeschlagen"
-    },
-    "onboardingWelcomeTitle": {
-        "message": "Willkommen bei Kindle to Notion!"
-    },
-    "onboardingWelcomeDesc": {
-        "message": "Synchronisiere deine Kindle-Markierungen und Notizen mit nur einem Klick nach Notion. Lass uns in wenigen Schritten einrichten."
-    },
-    "onboardingFeature1": {
-        "message": "Alle Kindle-Markierungen exportieren"
-    },
-    "onboardingFeature2": {
-        "message": "Ein-Klick-Sync nach Notion"
-    },
-    "onboardingFeature3": {
-        "message": "Nach Buch und Autor organisieren"
-    },
-    "onboardingGetStarted": {
-        "message": "Los geht's"
-    },
-    "onboardingSkipSetup": {
-        "message": "Einrichtung überspringen"
-    },
-    "onboardingConnectTitle": {
-        "message": "Mit Notion verbinden"
-    },
-    "onboardingConnectDesc": {
-        "message": "Zuerst müssen wir dein Notion-Konto verbinden. Du benötigst ein Notion API-Token und eine Datenbank-ID."
-    },
-    "onboardingStep1Title": {
-        "message": "Gehe zu Notion Integrationen"
-    },
-    "onboardingStep1Desc": {
-        "message": "und erstelle eine neue Integration"
-    },
-    "onboardingStep2Title": {
-        "message": "Kopiere dein API-Token"
-    },
-    "onboardingStep2Desc": {
-        "message": "Kopiere das \"Interne Integrations-Token\" deiner neuen Integration"
-    },
-    "onboardingStep3Title": {
-        "message": "Erstelle eine Datenbank"
-    },
-    "onboardingStep3Desc": {
-        "message": "Erstelle eine neue Datenbank in Notion und kopiere die URL oder ID"
-    },
-    "onboardingContinueSettings": {
-        "message": "Weiter zu Einstellungen"
-    },
-    "onboardingBack": {
-        "message": "Zurück"
-    },
-    "onboardingConfigureTitle": {
-        "message": "Einstellungen konfigurieren"
-    },
-    "onboardingConfigureDesc": {
-        "message": "Wähle, wie du dich mit Notion verbinden möchtest: OAuth (empfohlen) oder manueller Token-Eintrag."
-    },
-    "onboardingOAuthTitle": {
-        "message": "OAuth-Verbindung (Empfohlen)"
-    },
-    "onboardingOAuthDesc": {
-        "message": "Verbinde dich sicher mit einem Klick über OAuth-Authentifizierung."
-    },
-    "onboardingSelectDatabase": {
-        "message": "Wähle deine Datenbank"
-    },
-    "onboardingSelectDatabaseDesc": {
-        "message": "Wähle die Notion-Datenbank, in der du deine Kindle-Markierungen speichern möchtest."
-    },
-    "onboardingLoadingDatabases": {
-        "message": "Datenbanken werden geladen..."
-    },
-    "onboardingContinueDatabase": {
-        "message": "Mit ausgewählter Datenbank fortfahren"
-    },
-    "onboardingManualEntryFallback": {
-        "message": "Oder gib die Datenbank-ID manuell ein:"
-    },
-    "onboardingContinueManual": {
-        "message": "Mit manueller Eingabe fortfahren"
-    },
-    "onboardingManualTokenTitle": {
-        "message": "Manueller Token-Eintrag"
-    },
-    "onboardingManualTokenDesc": {
-        "message": "Gib dein Notion API-Token und Datenbankdetails manuell ein."
-    },
-    "onboardingLabelToken": {
-        "message": "Notion API-Token:"
-    },
-    "onboardingLabelDatabaseId": {
-        "message": "Datenbank-ID:"
-    },
-    "onboardingLabelTitleProp": {
-        "message": "Titel-Eigenschaft:"
-    },
-    "onboardingLabelAuthorProp": {
-        "message": "Autor-Eigenschaft:"
-    },
-    "onboardingTip": {
-        "message": "Du kannst diese Einstellungen später im Einstellungen-Tab ändern"
-    },
-    "onboardingTestConnection": {
-        "message": "Verbindung testen"
-    },
-    "onboardingPlaceholderToken": {
-        "message": "Gib dein Notion API-Token ein"
-    },
-    "onboardingPlaceholderDatabaseId": {
-        "message": "Gib deine Datenbank-ID oder URL ein"
-    },
-    "onboardingKindleTitle": {
-        "message": "Greife auf deine Kindle-Markierungen zu"
-    },
-    "onboardingKindleDesc": {
-        "message": "Navigiere jetzt zu deiner Kindle-Markierungsseite, um mit der Synchronisierung zu beginnen."
-    },
-    "onboardingKindleStep1Title": {
-        "message": "Gehe zu Kindle-Markierungen"
-    },
-    "onboardingKindleStep1Desc": {
-        "message": "Navigiere zu deiner regionalen Kindle-Markierungsseite"
-    },
-    "onboardingKindleStep2Title": {
-        "message": "Stelle sicher, dass du angemeldet bist"
-    },
-    "onboardingKindleStep2Desc": {
-        "message": "Stelle sicher, dass du in deinem Amazon-Konto angemeldet bist"
-    },
-    "onboardingKindleStep3Title": {
-        "message": "Klicke auf das Erweiterungs-Symbol"
-    },
-    "onboardingKindleStep3Desc": {
-        "message": "Komm hierher zurück und klicke auf \"Nach Notion exportieren\", um deine Markierungen zu synchronisieren"
-    },
-    "onboardingGoToHighlights": {
-        "message": "Zur Markierungsseite gehen"
-    },
-    "onboardingReadyTitle": {
-        "message": "Bereit zum Synchronisieren!"
-    },
-    "onboardingReadyDesc": {
-        "message": "Alles eingerichtet! Du kannst jetzt deine Kindle-Markierungen nach Notion exportieren."
-    },
-    "onboardingSyncItem1": {
-        "message": "Markierungen aus deinen Kindle-Büchern extrahieren"
-    },
-    "onboardingSyncItem2": {
-        "message": "Als Notion-Blöcke formatieren"
-    },
-    "onboardingSyncItem3": {
-        "message": "In deiner Notion-Datenbank speichern"
-    },
-    "onboardingAllSet": {
-        "message": "Alles bereit! Deine erste Synchronisierung erfolgt automatisch, wenn du auf \"Nach Notion exportieren\" klickst"
-    },
-    "onboardingFinish": {
-        "message": "Erweiterung verwenden"
-    },
-    "tooltipNext": {
-        "message": "Weiter"
-    },
-    "tooltipSkipTour": {
-        "message": "Tour überspringen"
-    },
-    "onboardingToastFetchingDatabases": {
-        "message": "Datenbanken werden abgerufen..."
-    },
-    "onboardingToastFoundDatabases": {
-        "message": "$COUNT$ Datenbank(en) gefunden",
-        "placeholders": {
-            "COUNT": {
-                "content": "$1"
-            }
-        }
-    },
-    "onboardingToastNoDatabases": {
-        "message": "Keine Datenbanken gefunden. Erstelle zuerst eine Datenbank in Notion."
-    },
-    "onboardingToastSelectDatabase": {
-        "message": "Bitte wähle eine Datenbank"
-    },
-    "onboardingToastDatabaseSelected": {
-        "message": "Datenbank ausgewählt!"
-    },
-    "onboardingToastEnterDatabaseId": {
-        "message": "Bitte gib eine Datenbank-ID ein"
-    },
-    "onboardingToastInvalidDatabaseUrl": {
-        "message": "Bitte gib eine gültige Notion-Datenbank-URL oder -ID ein"
-    },
-    "onboardingToastInvalidDatabaseId": {
-        "message": "Bitte gib eine gültige 32-stellige Datenbank-ID ein"
-    },
-    "onboardingToastDatabaseSaved": {
-        "message": "Datenbank-ID gespeichert!"
-    },
-    "onboardingToastFillProperties": {
-        "message": "Bitte fülle die Eigenschaftsnamen für Titel und Autor aus"
-    },
-    "onboardingToastSettingsSaved": {
-        "message": "Einstellungen gespeichert! Führung wird gestartet..."
-    },
-    "bgErrorOAuthNotConfigured": {
-        "message": "OAuth nicht konfiguriert. Bitte Client-ID und Proxy-Server-URL in den Einstellungen festlegen."
-    },
-    "bgErrorNoAuthToken": {
-        "message": "Kein Authentifizierungs-Token gefunden. Bitte zuerst mit Notion verbinden."
-    },
-    "bgErrorMissingTokenOrDb": {
-        "message": "Fehler: Notion-Token oder Datenbank-ID fehlt"
-    },
-    "bgErrorMissingProperties": {
-        "message": "Fehler: Titel- oder Autor-Eigenschaftsnamen fehlen"
-    },
-    "bgErrorNoHighlightsData": {
-        "message": "Fehler: Keine Markierungsdaten zum Verarbeiten"
-    },
-    "bgProgressFetchingCover": {
-        "message": "Buchcover wird abgerufen..."
-    },
-    "bgProgressCheckingDuplicates": {
-        "message": "Duplikate werden überprüft..."
-    },
-    "bgProgressFetchingHighlights": {
-        "message": "Vorhandene Markierungen werden abgerufen..."
-    },
-    "bgInfoNoNewHighlights": {
-        "message": "Info: Keine neuen Markierungen hinzuzufügen"
-    },
-    "bgProgressAppendingHighlights": {
-        "message": "$COUNT$ neue Markierungen werden hinzugefügt...",
-        "placeholders": {
-            "COUNT": {
-                "content": "$1"
-            }
-        }
-    },
-    "bgProgressExporting": {
-        "message": "Wird exportiert..."
-    },
-    "bgStatusUpdatedBook": {
-        "message": "Vorhandenes Buch mit $HIGHLIGHTS$ neuen Markierungen aktualisiert (einschließlich $NOTES$ mit Notizen)",
-        "placeholders": {
-            "HIGHLIGHTS": {
-                "content": "$1"
-            },
-            "NOTES": {
-                "content": "$2"
-            }
-        }
-    },
-    "bgStatusExportSuccess": {
-        "message": "Export erfolgreich! $HIGHLIGHTS$ Markierung(en) | $NOTES$ Notiz(en)",
-        "placeholders": {
-            "HIGHLIGHTS": {
-                "content": "$1"
-            },
-            "NOTES": {
-                "content": "$2"
-            }
-        }
-    },
-    "bgOtherHighlights": {
-        "message": "Andere Markierungen"
-    },
-    "bgCountBlock": {
-        "message": "$HIGHLIGHTS$ Markierung(en) | $NOTES$ Notiz(en)",
-        "placeholders": {
-            "HIGHLIGHTS": {
-                "content": "$1"
-            },
-            "NOTES": {
-                "content": "$2"
-            }
-        }
+  "extensionName": {
+    "message": "Kindle to Notion – Kindle-Markierungen nach Notion exportieren"
+  },
+  "extensionDescription": {
+    "message": "1-Klick-Export von Kindle-Markierungen nach Notion. Nach Buch und Tag organisieren und Kindle-Notizen mit der Notion-Datenbank synchronisieren"
+  },
+  "appTitle": {
+    "message": "Kindle to Notion"
+  },
+  "tabExport": {
+    "message": "Exportieren"
+  },
+  "tabReview": {
+    "message": "Überprüfen"
+  },
+  "tabSettings": {
+    "message": "Einstellungen"
+  },
+  "exportToNotion": {
+    "message": "Nach Notion exportieren"
+  },
+  "goToHighlights": {
+    "message": "Zu Markierungen gehen"
+  },
+  "statusAmazon": {
+    "message": "Amazon"
+  },
+  "statusNotion": {
+    "message": "Notion"
+  },
+  "statStreak": {
+    "message": "Serie"
+  },
+  "statInVault": {
+    "message": "Im Tresor"
+  },
+  "statStarred": {
+    "message": "Favoriten"
+  },
+  "noHighlightsTitle": {
+    "message": "Noch keine Markierungen"
+  },
+  "noHighlightsSubtitle": {
+    "message": "Exportiere ein Buch, um deine tägliche Überprüfung zu starten"
+  },
+  "reviewDoneTitle": {
+    "message": "Alles erledigt für heute!"
+  },
+  "reviewDoneSubtitle": {
+    "message": "Komm morgen für mehr zurück"
+  },
+  "btnResetShowMore": {
+    "message": "Zurücksetzen — häufiger anzeigen"
+  },
+  "btnDismissSeen": {
+    "message": "Verwerfen — schon gesehen"
+  },
+  "btnStarKeep": {
+    "message": "Favorit — für immer behalten"
+  },
+  "connectWithNotion": {
+    "message": "Mit Notion verbinden"
+  },
+  "connectedToWorkspace": {
+    "message": "Verbunden mit Workspace"
+  },
+  "dividerOr": {
+    "message": "ODER"
+  },
+  "labelNotionApiToken": {
+    "message": "Notion API-Token"
+  },
+  "labelDatabaseId": {
+    "message": "Datenbank-ID"
+  },
+  "labelBookTitleProperty": {
+    "message": "Buchtitel-Eigenschaft"
+  },
+  "labelAuthorProperty": {
+    "message": "Autor-Eigenschaft"
+  },
+  "labelKindleRegion": {
+    "message": "Kindle-Region"
+  },
+  "placeholderToken": {
+    "message": "ntn_xxxxxxxxxxxxx"
+  },
+  "placeholderDatabaseId": {
+    "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  "placeholderBookTitle": {
+    "message": "Buchtitel"
+  },
+  "placeholderAuthor": {
+    "message": "Autor"
+  },
+  "helpGenerateToken": {
+    "message": "Erstellen unter"
+  },
+  "helpDatabaseId": {
+    "message": "Aus der URL deiner Notion-Datenbank kopieren"
+  },
+  "saveSettings": {
+    "message": "Einstellungen speichern"
+  },
+  "toggleVisibility": {
+    "message": "Sichtbarkeit umschalten"
+  },
+  "regionUS": {
+    "message": "🇺🇸 Vereinigte Staaten"
+  },
+  "regionBR": {
+    "message": "🇧🇷 Brasilien"
+  },
+  "regionCA": {
+    "message": "🇨🇦 Kanada"
+  },
+  "regionUK": {
+    "message": "🇬🇧 Vereinigtes Königreich"
+  },
+  "regionDE": {
+    "message": "🇩🇪 Deutschland"
+  },
+  "regionFR": {
+    "message": "🇫🇷 Frankreich"
+  },
+  "regionES": {
+    "message": "🇪🇸 Spanien"
+  },
+  "regionIT": {
+    "message": "🇮🇹 Italien"
+  },
+  "regionJP": {
+    "message": "🇯🇵 Japan"
+  },
+  "regionAU": {
+    "message": "🇦🇺 Australien"
+  },
+  "regionIN": {
+    "message": "🇮🇳 Indien"
+  },
+  "regionMX": {
+    "message": "🇲🇽 Mexiko"
+  },
+  "toastConnecting": {
+    "message": "Verbinde..."
+  },
+  "toastConnectedNotion": {
+    "message": "Erfolgreich mit Notion verbunden!"
+  },
+  "toastDisconnected": {
+    "message": "Von Notion getrennt"
+  },
+  "toastNavigating": {
+    "message": "Navigiere zu Kindle-Markierungen..."
+  },
+  "toastEnterToken": {
+    "message": "Bitte gib deinen Notion API-Token ein"
+  },
+  "toastEnterDatabaseId": {
+    "message": "Bitte gib deine Datenbank-ID ein"
+  },
+  "toastInvalidDatabaseId": {
+    "message": "Ungültiges Datenbank-ID-Format"
+  },
+  "toastSettingsSaved": {
+    "message": "Einstellungen erfolgreich gespeichert!"
+  },
+  "toastNoActiveTab": {
+    "message": "Fehler: Kein aktiver Tab gefunden"
+  },
+  "toastNavigateFirst": {
+    "message": "Bitte navigiere zuerst zur Kindle-Markierungsseite"
+  },
+  "toastFailedGetTab": {
+    "message": "Fehler: Aktiver Tab konnte nicht abgerufen werden"
+  },
+  "toastExportFailed": {
+    "message": "Export fehlgeschlagen. Überprüfe deine Einstellungen."
+  },
+  "toastConnectionFailed": {
+    "message": "Verbindung fehlgeschlagen"
+  },
+  "onboardingWelcomeTitle": {
+    "message": "Willkommen bei Kindle to Notion!"
+  },
+  "onboardingWelcomeDesc": {
+    "message": "Synchronisiere deine Kindle-Markierungen und Notizen mit nur einem Klick nach Notion. Lass uns in wenigen Schritten einrichten."
+  },
+  "onboardingFeature1": {
+    "message": "Alle Kindle-Markierungen exportieren"
+  },
+  "onboardingFeature2": {
+    "message": "Ein-Klick-Sync nach Notion"
+  },
+  "onboardingFeature3": {
+    "message": "Nach Buch und Autor organisieren"
+  },
+  "onboardingGetStarted": {
+    "message": "Los geht's"
+  },
+  "onboardingSkipSetup": {
+    "message": "Einrichtung überspringen"
+  },
+  "onboardingConnectTitle": {
+    "message": "Mit Notion verbinden"
+  },
+  "onboardingConnectDesc": {
+    "message": "Zuerst müssen wir dein Notion-Konto verbinden. Du benötigst ein Notion API-Token und eine Datenbank-ID."
+  },
+  "onboardingStep1Title": {
+    "message": "Gehe zu Notion Integrationen"
+  },
+  "onboardingStep1Desc": {
+    "message": "und erstelle eine neue Integration"
+  },
+  "onboardingStep2Title": {
+    "message": "Kopiere dein API-Token"
+  },
+  "onboardingStep2Desc": {
+    "message": "Kopiere das \"Interne Integrations-Token\" deiner neuen Integration"
+  },
+  "onboardingStep3Title": {
+    "message": "Erstelle eine Datenbank"
+  },
+  "onboardingStep3Desc": {
+    "message": "Erstelle eine neue Datenbank in Notion und kopiere die URL oder ID"
+  },
+  "onboardingContinueSettings": {
+    "message": "Weiter zu Einstellungen"
+  },
+  "onboardingBack": {
+    "message": "Zurück"
+  },
+  "onboardingConfigureTitle": {
+    "message": "Einstellungen konfigurieren"
+  },
+  "onboardingConfigureDesc": {
+    "message": "Wähle, wie du dich mit Notion verbinden möchtest: OAuth (empfohlen) oder manueller Token-Eintrag."
+  },
+  "onboardingOAuthTitle": {
+    "message": "OAuth-Verbindung (Empfohlen)"
+  },
+  "onboardingOAuthDesc": {
+    "message": "Verbinde dich sicher mit einem Klick über OAuth-Authentifizierung."
+  },
+  "onboardingSelectDatabase": {
+    "message": "Wähle deine Datenbank"
+  },
+  "onboardingSelectDatabaseDesc": {
+    "message": "Wähle die Notion-Datenbank, in der du deine Kindle-Markierungen speichern möchtest."
+  },
+  "onboardingLoadingDatabases": {
+    "message": "Datenbanken werden geladen..."
+  },
+  "onboardingContinueDatabase": {
+    "message": "Mit ausgewählter Datenbank fortfahren"
+  },
+  "onboardingManualEntryFallback": {
+    "message": "Oder gib die Datenbank-ID manuell ein:"
+  },
+  "onboardingContinueManual": {
+    "message": "Mit manueller Eingabe fortfahren"
+  },
+  "onboardingManualTokenTitle": {
+    "message": "Manueller Token-Eintrag"
+  },
+  "onboardingManualTokenDesc": {
+    "message": "Gib dein Notion API-Token und Datenbankdetails manuell ein."
+  },
+  "onboardingLabelToken": {
+    "message": "Notion API-Token:"
+  },
+  "onboardingLabelDatabaseId": {
+    "message": "Datenbank-ID:"
+  },
+  "onboardingLabelTitleProp": {
+    "message": "Titel-Eigenschaft:"
+  },
+  "onboardingLabelAuthorProp": {
+    "message": "Autor-Eigenschaft:"
+  },
+  "onboardingTip": {
+    "message": "Du kannst diese Einstellungen später im Einstellungen-Tab ändern"
+  },
+  "onboardingTestConnection": {
+    "message": "Verbindung testen"
+  },
+  "onboardingPlaceholderToken": {
+    "message": "Gib dein Notion API-Token ein"
+  },
+  "onboardingPlaceholderDatabaseId": {
+    "message": "Gib deine Datenbank-ID oder URL ein"
+  },
+  "onboardingKindleTitle": {
+    "message": "Greife auf deine Kindle-Markierungen zu"
+  },
+  "onboardingKindleDesc": {
+    "message": "Navigiere jetzt zu deiner Kindle-Markierungsseite, um mit der Synchronisierung zu beginnen."
+  },
+  "onboardingKindleStep1Title": {
+    "message": "Gehe zu Kindle-Markierungen"
+  },
+  "onboardingKindleStep1Desc": {
+    "message": "Navigiere zu deiner regionalen Kindle-Markierungsseite"
+  },
+  "onboardingKindleStep2Title": {
+    "message": "Stelle sicher, dass du angemeldet bist"
+  },
+  "onboardingKindleStep2Desc": {
+    "message": "Stelle sicher, dass du in deinem Amazon-Konto angemeldet bist"
+  },
+  "onboardingKindleStep3Title": {
+    "message": "Klicke auf das Erweiterungs-Symbol"
+  },
+  "onboardingKindleStep3Desc": {
+    "message": "Komm hierher zurück und klicke auf \"Nach Notion exportieren\", um deine Markierungen zu synchronisieren"
+  },
+  "onboardingGoToHighlights": {
+    "message": "Zur Markierungsseite gehen"
+  },
+  "onboardingReadyTitle": {
+    "message": "Bereit zum Synchronisieren!"
+  },
+  "onboardingReadyDesc": {
+    "message": "Alles eingerichtet! Du kannst jetzt deine Kindle-Markierungen nach Notion exportieren."
+  },
+  "onboardingSyncItem1": {
+    "message": "Markierungen aus deinen Kindle-Büchern extrahieren"
+  },
+  "onboardingSyncItem2": {
+    "message": "Als Notion-Blöcke formatieren"
+  },
+  "onboardingSyncItem3": {
+    "message": "In deiner Notion-Datenbank speichern"
+  },
+  "onboardingAllSet": {
+    "message": "Alles bereit! Deine erste Synchronisierung erfolgt automatisch, wenn du auf \"Nach Notion exportieren\" klickst"
+  },
+  "onboardingFinish": {
+    "message": "Erweiterung verwenden"
+  },
+  "tooltipNext": {
+    "message": "Weiter"
+  },
+  "tooltipSkipTour": {
+    "message": "Tour überspringen"
+  },
+  "onboardingToastFetchingDatabases": {
+    "message": "Datenbanken werden abgerufen..."
+  },
+  "onboardingToastFoundDatabases": {
+    "message": "$COUNT$ Datenbank(en) gefunden",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1"
+      }
     }
+  },
+  "onboardingToastNoDatabases": {
+    "message": "Keine Datenbanken gefunden. Erstelle zuerst eine Datenbank in Notion."
+  },
+  "onboardingToastSelectDatabase": {
+    "message": "Bitte wähle eine Datenbank"
+  },
+  "onboardingToastDatabaseSelected": {
+    "message": "Datenbank ausgewählt!"
+  },
+  "onboardingToastEnterDatabaseId": {
+    "message": "Bitte gib eine Datenbank-ID ein"
+  },
+  "onboardingToastInvalidDatabaseUrl": {
+    "message": "Bitte gib eine gültige Notion-Datenbank-URL oder -ID ein"
+  },
+  "onboardingToastInvalidDatabaseId": {
+    "message": "Bitte gib eine gültige 32-stellige Datenbank-ID ein"
+  },
+  "onboardingToastDatabaseSaved": {
+    "message": "Datenbank-ID gespeichert!"
+  },
+  "onboardingToastFillProperties": {
+    "message": "Bitte fülle die Eigenschaftsnamen für Titel und Autor aus"
+  },
+  "onboardingToastSettingsSaved": {
+    "message": "Einstellungen gespeichert! Führung wird gestartet..."
+  },
+  "bgErrorOAuthNotConfigured": {
+    "message": "OAuth nicht konfiguriert. Bitte Client-ID und Proxy-Server-URL in den Einstellungen festlegen."
+  },
+  "bgErrorNoAuthToken": {
+    "message": "Kein Authentifizierungs-Token gefunden. Bitte zuerst mit Notion verbinden."
+  },
+  "bgErrorMissingTokenOrDb": {
+    "message": "Fehler: Notion-Token oder Datenbank-ID fehlt"
+  },
+  "bgErrorMissingProperties": {
+    "message": "Fehler: Titel- oder Autor-Eigenschaftsnamen fehlen"
+  },
+  "bgErrorNoHighlightsData": {
+    "message": "Fehler: Keine Markierungsdaten zum Verarbeiten"
+  },
+  "bgProgressFetchingCover": {
+    "message": "Buchcover wird abgerufen..."
+  },
+  "bgProgressCheckingDuplicates": {
+    "message": "Duplikate werden überprüft..."
+  },
+  "bgProgressFetchingHighlights": {
+    "message": "Vorhandene Markierungen werden abgerufen..."
+  },
+  "bgInfoNoNewHighlights": {
+    "message": "Info: Keine neuen Markierungen hinzuzufügen"
+  },
+  "bgProgressAppendingHighlights": {
+    "message": "$COUNT$ neue Markierungen werden hinzugefügt...",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1"
+      }
+    }
+  },
+  "bgProgressExporting": {
+    "message": "Wird exportiert..."
+  },
+  "bgStatusUpdatedBook": {
+    "message": "Vorhandenes Buch mit $HIGHLIGHTS$ neuen Markierungen aktualisiert (einschließlich $NOTES$ mit Notizen)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "bgStatusExportSuccess": {
+    "message": "Export erfolgreich! $HIGHLIGHTS$ Markierung(en) | $NOTES$ Notiz(en)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "bgOtherHighlights": {
+    "message": "Andere Markierungen"
+  },
+  "bgCountBlock": {
+    "message": "$HIGHLIGHTS$ Markierung(en) | $NOTES$ Notiz(en)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "labelInterfaceLanguage": {
+    "message": "Schnittstellensprache"
+  },
+  "langBrowserDefault": {
+    "message": "Browser-Standard"
+  }
 }

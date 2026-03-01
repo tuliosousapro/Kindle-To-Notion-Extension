@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await window.I18n.init();
+  window.I18n.applyToDOM();
+
   // DOM Elements
   const onboardingContainer = document.getElementById('onboarding-container');
   const progressFill = document.getElementById('progress-fill');
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // OAuth Connection
   connectOAuthBtn.addEventListener('click', () => {
-    connectOAuthBtn.textContent = chrome.i18n.getMessage("toastConnecting");
+    connectOAuthBtn.textContent = window.I18n.getMessage("toastConnecting");
     connectOAuthBtn.disabled = true;
 
     // Send message to background to start OAuth flow
@@ -131,16 +134,16 @@ document.addEventListener('DOMContentLoaded', () => {
         oauthStatus.style.display = 'block';
         workspaceName.textContent = response.workspace_name || 'Notion Workspace';
         connectOAuthBtn.style.display = 'none';
-        showToast(chrome.i18n.getMessage("toastConnectedNotion"), 'success');
+        showToast(window.I18n.getMessage("toastConnectedNotion"), 'success');
 
         // Fetch databases after successful OAuth
-        showToast(chrome.i18n.getMessage("onboardingToastFetchingDatabases"), 'info');
+        showToast(window.I18n.getMessage("onboardingToastFetchingDatabases"), 'info');
         fetchAndDisplayDatabases();
       } else {
         // OAuth failed
-        connectOAuthBtn.textContent = chrome.i18n.getMessage("connectWithNotion");
+        connectOAuthBtn.textContent = window.I18n.getMessage("connectWithNotion");
         connectOAuthBtn.disabled = false;
-        const errorMsg = response && response.error ? response.error : chrome.i18n.getMessage("toastConnectionFailed");
+        const errorMsg = response && response.error ? response.error : window.I18n.getMessage("toastConnectionFailed");
         showToast(errorMsg, 'error');
       }
     });
@@ -153,9 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const databases = response.databases;
         if (databases && databases.length > 0) {
           displayDatabaseSelection(databases);
-          showToast(chrome.i18n.getMessage("onboardingToastFoundDatabases", [databases.length]), 'success');
+          showToast(window.I18n.getMessage("onboardingToastFoundDatabases", [databases.length]), 'success');
         } else {
-          showToast(chrome.i18n.getMessage("onboardingToastNoDatabases"), 'info');
+          showToast(window.I18n.getMessage("onboardingToastNoDatabases"), 'info');
           // Show manual entry option
           document.getElementById('database-manual-entry').style.display = 'block';
         }
@@ -203,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedDatabaseId = databaseDropdown.value;
 
       if (!selectedDatabaseId) {
-        showToast(chrome.i18n.getMessage("onboardingToastSelectDatabase"), 'error');
+        showToast(window.I18n.getMessage("onboardingToastSelectDatabase"), 'error');
         return;
       }
 
@@ -213,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Save database ID to storage
       chrome.storage.local.set({ databaseId }, () => {
-        showToast(chrome.i18n.getMessage("onboardingToastDatabaseSelected"), 'success');
+        showToast(window.I18n.getMessage("onboardingToastDatabaseSelected"), 'success');
 
         // Proceed to next step
         setTimeout(() => {
@@ -231,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let databaseId = manualDatabaseInput.value.trim();
 
       if (!databaseId) {
-        showToast(chrome.i18n.getMessage("onboardingToastEnterDatabaseId"), 'error');
+        showToast(window.I18n.getMessage("onboardingToastEnterDatabaseId"), 'error');
         return;
       }
 
@@ -242,20 +245,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (match) {
           databaseId = match[1].replace(/-/g, '');
         } else {
-          showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseUrl"), 'error');
+          showToast(window.I18n.getMessage("onboardingToastInvalidDatabaseUrl"), 'error');
           return;
         }
       }
 
       // Validate database ID format
       if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
-        showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseId"), 'error');
+        showToast(window.I18n.getMessage("onboardingToastInvalidDatabaseId"), 'error');
         return;
       }
 
       // Save database ID to storage
       chrome.storage.local.set({ databaseId }, () => {
-        showToast(chrome.i18n.getMessage("onboardingToastDatabaseSaved"), 'success');
+        showToast(window.I18n.getMessage("onboardingToastDatabaseSaved"), 'success');
 
         // Proceed to next step
         setTimeout(() => {
@@ -291,20 +294,20 @@ document.addEventListener('DOMContentLoaded', () => {
         databaseId = match[1].replace(/-/g, '');
         databaseIdInput.value = databaseId;
       } else {
-        showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseUrl"), 'error');
+        showToast(window.I18n.getMessage("onboardingToastInvalidDatabaseUrl"), 'error');
         return;
       }
     }
 
     // Validate database ID format
     if (!databaseId.match(/^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i)) {
-      showToast(chrome.i18n.getMessage("onboardingToastInvalidDatabaseId"), 'error');
+      showToast(window.I18n.getMessage("onboardingToastInvalidDatabaseId"), 'error');
       return;
     }
 
     // Validate required fields
     if (!titleProperty || !authorProperty) {
-      showToast(chrome.i18n.getMessage("onboardingToastFillProperties"), 'error');
+      showToast(window.I18n.getMessage("onboardingToastFillProperties"), 'error');
       return;
     }
 
@@ -327,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
           testConnectionBtn.textContent = 'Setup Complete!';
           testConnectionBtn.style.background = '#10b981';
 
-          showToast(chrome.i18n.getMessage("onboardingToastSettingsSaved"), 'success');
+          showToast(window.I18n.getMessage("onboardingToastSettingsSaved"), 'success');
 
           setTimeout(() => {
             // Redirect to main popup - it will detect first-time user and show guided tour

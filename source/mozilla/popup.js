@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await window.I18n.init();
+  window.I18n.applyToDOM();
+
   // Check if this is the user's first time opening the main popup
   chrome.storage.local.get(['firstTimeMainPopup', 'onboardingCompleted'], (result) => {
     if (result.onboardingCompleted && !result.firstTimeMainPopup) {
@@ -17,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const titlePropertyInput = document.getElementById('titleProperty');
   const authorPropertyInput = document.getElementById('authorProperty');
   const kindleRegionInput = document.getElementById('kindleRegion');
+  const uiLanguageInput = document.getElementById('uiLanguage');
   const saveButton = document.getElementById('save');
   const exportButton = document.getElementById('export');
   const navigateButton = document.getElementById('navigateHighlights');
@@ -35,12 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const manualTokenGroup = document.querySelector('.manual-token-group');
 
   // Load saved settings
-  chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion', 'oauth_authenticated', 'workspace_name'], (result) => {
+  chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion', 'ui_language', 'oauth_authenticated', 'workspace_name'], (result) => {
     tokenInput.value = result.token || '';
     databaseIdInput.value = result.databaseId || '';
     titlePropertyInput.value = result.titleProperty || 'Book Title';
     authorPropertyInput.value = result.authorProperty || 'Author';
     kindleRegionInput.value = result.kindleRegion || 'https://read.amazon.com/notebook';
+    if (uiLanguageInput) uiLanguageInput.value = result.ui_language || 'browser_default';
 
     // Update status indicators
     if (result.token && result.databaseId) {
@@ -72,11 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (response && response.success) {
-        showToast(chrome.i18n.getMessage("toastConnectedNotion"));
+        showToast(window.I18n.getMessage("toastConnectedNotion"));
         updateOAuthUI(true, response.workspace_name);
         notionStatusDot.classList.add('connected');
       } else {
-        showToast(chrome.i18n.getMessage("toastConnectionFailed") + ': ' + (response?.error || 'Unknown error'));
+        showToast(window.I18n.getMessage("toastConnectionFailed") + ': ' + (response?.error || 'Unknown error'));
       }
     });
   });
@@ -86,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.remove(['oauth_authenticated', 'token', 'workspace_name', 'workspace_id', 'bot_id', 'owner'], () => {
       updateOAuthUI(false);
       notionStatusDot.classList.remove('connected');
-      showToast(chrome.i18n.getMessage("toastDisconnected"));
+      showToast(window.I18n.getMessage("toastDisconnected"));
       tokenInput.value = '';
     });
   });
@@ -152,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.get(['kindleRegion'], (result) => {
       const region = result.kindleRegion || 'https://read.amazon.com/notebook';
       chrome.tabs.update({ url: region }, () => {
-        showToast(chrome.i18n.getMessage("toastNavigating"));
+        showToast(window.I18n.getMessage("toastNavigating"));
       });
     });
   });
@@ -164,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const titleProperty = titlePropertyInput.value.trim();
     const authorProperty = authorPropertyInput.value.trim();
     const kindleRegion = kindleRegionInput.value;
+    const ui_language = uiLanguageInput ? uiLanguageInput.value : 'browser_default';
 
     // Validate and extract database ID from URL if needed
     const urlPattern = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
@@ -177,24 +183,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Validation
     if (!token) {
-      showToast(chrome.i18n.getMessage("toastEnterToken"));
+      showToast(window.I18n.getMessage("toastEnterToken"));
       return;
     }
 
     if (!databaseId) {
-      showToast(chrome.i18n.getMessage("toastEnterDatabaseId"));
+      showToast(window.I18n.getMessage("toastEnterDatabaseId"));
       return;
     }
 
     if (!databaseId.match(/^[0-9a-f]{32}$/i)) {
-      showToast(chrome.i18n.getMessage("toastInvalidDatabaseId"));
+      showToast(window.I18n.getMessage("toastInvalidDatabaseId"));
       return;
     }
 
     // Save settings
-    chrome.storage.local.set({ token, databaseId, titleProperty, authorProperty, kindleRegion }, () => {
+    chrome.storage.local.set({ token, databaseId, titleProperty, authorProperty, kindleRegion, ui_language }, async () => {
       notionStatusDot.classList.add('connected');
-      showToast(chrome.i18n.getMessage("toastSettingsSaved"));
+
+      // Re-apply translations immediately if language changed
+      await window.I18n.init();
+      window.I18n.applyToDOM();
+
+      showToast(window.I18n.getMessage("toastSettingsSaved"));
       tokenInput.type = 'password';
       document.querySelector('.eye-open').classList.remove('hidden');
       document.querySelector('.eye-closed').classList.add('hidden');
@@ -206,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (!tab) {
-        showToast(chrome.i18n.getMessage("toastNoActiveTab"));
+        showToast(window.I18n.getMessage("toastNoActiveTab"));
         return;
       }
 
@@ -216,11 +227,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (onSupportedPage) {
         exportWithRetry(tab.id);
       } else {
-        showToast(chrome.i18n.getMessage("toastNavigateFirst"));
+        showToast(window.I18n.getMessage("toastNavigateFirst"));
       }
     } catch (error) {
       console.error('Error getting active tab:', error);
-      showToast(chrome.i18n.getMessage("toastFailedGetTab"));
+      showToast(window.I18n.getMessage("toastFailedGetTab"));
     }
   });
 
@@ -238,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => exportWithRetry(tabId, attempt + 1, maxAttempts).then(resolve), delay);
           } else {
             spinner.classList.add('hidden');
-            showToast(chrome.i18n.getMessage("toastExportFailed"));
+            showToast(window.I18n.getMessage("toastExportFailed"));
             resolve();
           }
         } else {
