@@ -178,6 +178,23 @@ function groupHighlightsByChapter(highlights) {
   return { groups, noChapter };
 }
 
+// Helper: split text into chunks of maxLen to respect Notion's 2000 char limit per rich_text element
+function splitTextIntoRichTextElements(content, annotations) {
+  const MAX_LEN = 2000;
+  if (content.length <= MAX_LEN) {
+    const el = { text: { content } };
+    if (annotations) el.annotations = annotations;
+    return [el];
+  }
+  const elements = [];
+  for (let i = 0; i < content.length; i += MAX_LEN) {
+    const el = { text: { content: content.slice(i, i + MAX_LEN) } };
+    if (annotations) el.annotations = annotations;
+    elements.push(el);
+  }
+  return elements;
+}
+
 // Helper function to create a highlight block with location
 function createHighlightBlock(highlight) {
   const { text, color, note, location } = highlight;
@@ -185,8 +202,8 @@ function createHighlightBlock(highlight) {
 
   const blocks = [];
 
-  // Create quote block with location info
-  const richText = [{ text: { content: text } }];
+  // Create quote block with location info — split long text to stay within 2000 char limit
+  const richText = splitTextIntoRichTextElements(text);
 
   // Add location info to the quote if available
   if (location) {
@@ -218,10 +235,7 @@ function createHighlightBlock(highlight) {
             annotations: { bold: true, color: 'red' }
           },
           { text: { content: ' ' } },
-          {
-            text: { content: note },
-            annotations: { italic: true }
-          }
+          ...splitTextIntoRichTextElements(note, { italic: true })
         ],
         icon: {
           type: 'emoji',
@@ -701,14 +715,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
 
             if (allBlocks[i]?.type === 'quote' && allBlocks[i].quote?.rich_text?.[0]?.text) {
-              // Get the text content from the first rich_text element (the actual highlight text)
-              let text = allBlocks[i].quote.rich_text[0].text.content;
-              // Handle case where location info is embedded - strip it out for comparison
-              // Location is added as additional rich_text elements, so we only use the first
+              // Concatenate all rich_text chunks for the highlight text (long text is split into ≤2000 char chunks)
+              // Stop before location elements (which have gray/italic annotations or start with newline)
+              const rtElements = allBlocks[i].quote.rich_text;
+              let text = '';
+              for (const rt of rtElements) {
+                if (rt.text?.content === '\n' || rt.annotations?.color === 'gray') break;
+                text += rt.text?.content || '';
+              }
               let note = '';
               if (allBlocks[i + 1]?.type === 'callout' && allBlocks[i + 1].callout?.rich_text?.length >= 3) {
-                // Extract the actual note content from the third rich_text element
-                note = allBlocks[i + 1].callout.rich_text[2].text.content.trim();
+                // Concatenate all note content chunks (from index 2 onward, skipping "Note:" label and space)
+                const noteRt = allBlocks[i + 1].callout.rich_text;
+                for (let j = 2; j < noteRt.length; j++) {
+                  note += noteRt[j].text?.content || '';
+                }
+                note = note.trim();
               }
               existingHighlights.push({ text: text.trim(), note: note || '' });
               i += note ? 1 : 0;
