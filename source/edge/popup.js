@@ -60,6 +60,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // Check if user is on a supported Kindle highlights page
+  const SUPPORTED_DOMAINS = [
+    'read.amazon.com', 'read.amazon.ca', 'read.amazon.co.uk',
+    'read.amazon.de', 'read.amazon.fr', 'read.amazon.es',
+    'read.amazon.it', 'read.amazon.co.jp', 'read.amazon.com.au',
+    'read.amazon.in', 'read.amazon.com.mx', 'read.amazon.com.br'
+  ];
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (tab?.url) {
+      const url = new URL(tab.url);
+      if (SUPPORTED_DOMAINS.includes(url.hostname)) {
+        amazonStatusDot.classList.add('connected');
+      }
+    }
+  } catch (e) { /* ignore */ }
+
   // ... (version loading code) ...
 
   // Connect with Notion

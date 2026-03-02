@@ -30,9 +30,20 @@ function getBgMessage(key, substitutions) {
     let msg = customMessages[key].message;
     if (substitutions) {
       if (!Array.isArray(substitutions)) substitutions = [substitutions];
+      // First resolve positional $1$, $2$ etc.
       substitutions.forEach((sub, i) => {
         msg = msg.replace(new RegExp(`\\$${i + 1}\\$`, 'g'), sub);
       });
+      // Then resolve named placeholders (e.g. $HIGHLIGHTS$) via the placeholders map
+      const placeholders = customMessages[key].placeholders;
+      if (placeholders) {
+        for (const [name, def] of Object.entries(placeholders)) {
+          const idx = parseInt(def.content?.replace('$', ''), 10);
+          if (!isNaN(idx) && substitutions[idx - 1] !== undefined) {
+            msg = msg.replace(new RegExp(`\\$${name}\\$`, 'gi'), substitutions[idx - 1]);
+          }
+        }
+      }
     }
     return msg;
   }
@@ -834,7 +845,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           paragraph: {
             rich_text: [
               {
-                text: { content: getBgMessage('bgCountBlock', [highlightCount.toString(), noteCount.toString()]) },
+                text: { content: getBgMessage('bgCountBlock', [highlights.length.toString(), highlights.filter(h => h.note).length.toString()]) },
                 annotations: { bold: true }
               }
             ]
@@ -904,7 +915,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
         }
         console.log('All appends completed successfully');
-        sendResponse({ status: getBgMessage('bgStatusExportSuccess', [highlightCount.toString(), noteCount.toString()]) });
+        sendResponse({ status: getBgMessage('bgStatusExportSuccess', [highlights.length.toString(), highlights.filter(h => h.note).length.toString()]) });
 
         // Cache highlights in SRS vault for daily review
         cacheHighlights({ title, author, highlights, notionPageId: pageId || createData?.id })
