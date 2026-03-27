@@ -16,6 +16,30 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
+// Simple HTML escaping for text content
+function escapeHtml(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Escape for inclusion inside single-quoted JavaScript string literals
+function jsStringEscape(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, '\\\'')
+    .replace(/"/g, '\\"')
+    .replace(/\r/g, '\\r')
+    .replace(/\n/g, '\\n')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -155,7 +179,7 @@ app.get('/oauth/callback', (req, res) => {
         <head><title>OAuth Error</title></head>
         <body>
           <h1>OAuth Error</h1>
-          <p>Error: ${error}</p>
+          <p>Error: ${escapeHtml(error)}</p>
           <p>You can close this window.</p>
         </body>
       </html>
@@ -187,8 +211,8 @@ app.get('/oauth/callback', (req, res) => {
           // Send message to extension
           window.opener.postMessage({
             type: 'oauth-callback',
-            code: '${code}',
-            state: '${state}'
+            code: '${jsStringEscape(code)}',
+            state: '${jsStringEscape(state)}'
           }, '*');
 
           // Close window after 2 seconds
