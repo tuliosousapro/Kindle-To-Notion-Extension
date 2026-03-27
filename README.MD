@@ -203,6 +203,7 @@ This template helps you:
 - > Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
 >
 1. Once in the highlights page, open the extension popup and click **"Export to Notion."**
+<<<<<<< HEAD
 2. Check the status message in the pop-up for success or errors.
 3. Verify the new page in your Notion database.
 <<<<<<< HEAD
@@ -211,7 +212,14 @@ This template helps you:
 >>>>>>> 37a3fd4 (Refactor README for better readability)
 =======
 >>>>>>> a64fe18 (feat: Introduce Notion OAuth, first-time setup onboarding, multi-browser background scripts, and add a 10-second timeout to Notion API requests.)
+<<<<<<< HEAD
 >>>>>>> 79b80c0 (feat: Introduce Notion OAuth, first-time setup onboarding, multi-browser background scripts, and add a 10-second timeout to Notion API requests.)
+=======
+=======
+3. Check the status message in the pop-up for success or errors.
+4. Verify the new page in your Notion database.
+>>>>>>> 04188a1 (Update README.MD)
+>>>>>>> 861c5ea (Update README.MD)
 
 ### Supported Kindle Regions
 
