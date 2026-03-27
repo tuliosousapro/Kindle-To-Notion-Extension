@@ -121,8 +121,8 @@ This template helps you:
 - > Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
 >
 1. Once in the highlights page, open the extension popup and click **"Export to Notion."**
-2. Check the status message in the pop-up for success or errors.
-3. Verify the new page in your Notion database.
+3. Check the status message in the pop-up for success or errors.
+4. Verify the new page in your Notion database.
 
 #### Supported Kindle Regions
 
