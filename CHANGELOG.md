@@ -16,3 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Notion OAuth authentication integration to replace manual token entry.
 - Background script enhancements to handle OAuth and Notion API interactions securely.
 - Cross-browser extension structure supporting Chrome, Edge, and Mozilla seamlessly.
+
+### Fixed
+
+- Added a 10-second timeout to all Notion API and proxy server requests using `AbortController` to prevent the extension from hanging on slow networks.

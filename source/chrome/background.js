@@ -1,3 +1,20 @@
+
+async function fetchWithTimeout(url, options = {}, timeout = 10000) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    return response;
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error(`Request timed out after ${timeout / 1000} seconds`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 // ========================================
 // OAuth Configuration and Handlers
 // ========================================
@@ -87,7 +104,7 @@ async function exchangeCodeForToken(code, state, savedState) {
 
   try {
     // Call proxy server to exchange code for token
-    const response = await fetch(`${OAUTH_CONFIG.proxyServerUrl}/oauth/token`, {
+    const response = await fetchWithTimeout(`${OAUTH_CONFIG.proxyServerUrl}/oauth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -125,7 +142,7 @@ async function exchangeCodeForToken(code, state, savedState) {
 // Search for databases in Notion workspace
 async function searchNotionDatabases(token) {
   try {
-    const response = await fetch('https://api.notion.com/v1/search', {
+    const response = await fetchWithTimeout('https://api.notion.com/v1/search', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -659,7 +676,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         let searchResponse;
         try {
           // Notion API 2025-09-03: Use /v1/data_sources for querying
-          searchResponse = await fetch('https://api.notion.com/v1/data_sources/' + databaseId + '/query', {
+          searchResponse = await fetchWithTimeout('https://api.notion.com/v1/data_sources/' + databaseId + '/query', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -692,7 +709,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           do {
             let blocksResponse;
             try {
-              blocksResponse = await fetch('https://api.notion.com/v1/blocks/' + pageId + '/children?page_size=100' + (startCursor ? '&start_cursor=' + startCursor : ''), {
+              blocksResponse = await fetchWithTimeout('https://api.notion.com/v1/blocks/' + pageId + '/children?page_size=100' + (startCursor ? '&start_cursor=' + startCursor : ''), {
                 headers: {
                   'Authorization': `Bearer ${token}`,
                   'Notion-Version': '2025-09-03'
@@ -773,7 +790,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             console.log('Updating count block:', countBlockId, 'with', totalHighlights, 'highlights and', totalNotes, 'notes');
 
             try {
-              const updateResponse = await fetch(`https://api.notion.com/v1/blocks/${countBlockId}`, {
+              const updateResponse = await fetchWithTimeout(`https://api.notion.com/v1/blocks/${countBlockId}`, {
                 method: 'PATCH',
                 headers: {
                   'Authorization': `Bearer ${token}`,
@@ -811,7 +828,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             console.log(`Appending batch ${Math.floor(i / 100) + 1} of ${Math.ceil(newBlocksToAppend.length / 100)} with ${batch.length} blocks`);
             let appendResponse;
             try {
-              appendResponse = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
+              appendResponse = await fetchWithTimeout(`https://api.notion.com/v1/blocks/${pageId}/children`, {
                 method: 'PATCH',
                 headers: {
                   'Authorization': `Bearer ${token}`,
@@ -872,7 +889,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         let createResponse;
         try {
-          createResponse = await fetch('https://api.notion.com/v1/pages', {
+          createResponse = await fetchWithTimeout('https://api.notion.com/v1/pages', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -898,7 +915,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           console.log(`Appending batch ${i + 1} of ${batches.length}`);
           let appendResponse;
           try {
-            appendResponse = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
+            appendResponse = await fetchWithTimeout(`https://api.notion.com/v1/blocks/${pageId}/children`, {
               method: 'PATCH',
               headers: {
                 'Authorization': `Bearer ${token}`,

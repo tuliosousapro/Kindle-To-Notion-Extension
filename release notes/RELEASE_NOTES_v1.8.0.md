@@ -32,3 +32,4 @@
 
 - Structuring of background scripts and service workers for robust API interaction.
 - Translation coverage for JS context and HTML UI.
+- Added a 10-second timeout to all Notion API and proxy server requests to prevent UI hangs.
