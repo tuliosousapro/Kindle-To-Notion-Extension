@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const tokenInput = document.getElementById('token');
   const databaseIdInput = document.getElementById('databaseId');
+  const databasePicker = document.getElementById('databasePicker');
+  const databasePickerGroup = document.getElementById('databasePickerGroup');
+  const databaseIdGroup = document.getElementById('databaseIdGroup');
   const titlePropertyInput = document.getElementById('titleProperty');
   const authorPropertyInput = document.getElementById('authorProperty');
   const kindleRegionInput = document.getElementById('kindleRegion');
@@ -37,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const connectedWorkspaceName = document.getElementById('connectedWorkspaceName');
   const disconnectButton = document.getElementById('disconnectNotion');
   const manualTokenGroup = document.querySelector('.manual-token-group');
+  const manualSetupToggle = document.getElementById('manualSetupToggle');
 
   // Load saved settings
   chrome.storage.local.get(['token', 'databaseId', 'titleProperty', 'authorProperty', 'kindleRegion', 'ui_language', 'oauth_authenticated', 'workspace_name'], (result) => {
@@ -55,6 +59,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Show OAuth status if authenticated via OAuth
     if (result.oauth_authenticated && result.workspace_name) {
       updateOAuthUI(true, result.workspace_name);
+      // Auto-fetch databases if no databaseId is set yet
+      if (!result.databaseId) {
+        fetchAndDisplayDatabases();
+      } else {
+        // Show the picker pre-loaded with saved databaseId
+        fetchAndDisplayDatabases(result.databaseId);
+      }
     } else {
       updateOAuthUI(false);
     }
@@ -97,6 +108,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         showToast(window.I18n.getMessage("toastConnectedNotion"));
         updateOAuthUI(true, response.workspace_name);
         notionStatusDot.classList.add('connected');
+        // Auto-fetch databases after successful OAuth
+        fetchAndDisplayDatabases();
       } else {
         showToast(window.I18n.getMessage("toastConnectionFailed") + ': ' + (response?.error || 'Unknown error'));
       }
@@ -119,13 +132,102 @@ document.addEventListener('DOMContentLoaded', async () => {
       connectedBadge.classList.remove('hidden');
       connectedWorkspaceName.textContent = `Connected to ${workspaceName}`;
       manualTokenGroup.classList.add('hidden');
+      databaseIdGroup.style.display = 'none';
       document.querySelector('.divider-text').classList.add('hidden');
+      manualSetupToggle.classList.remove('hidden');
     } else {
       connectButton.classList.remove('hidden');
       connectedBadge.classList.add('hidden');
       manualTokenGroup.classList.remove('hidden');
+      databaseIdGroup.style.display = '';
       document.querySelector('.divider-text').classList.remove('hidden');
+      manualSetupToggle.classList.add('hidden');
     }
+  }
+
+  // Toggle manual setup fields when OAuth is connected
+  manualSetupToggle.addEventListener('click', () => {
+    const isExpanded = !manualTokenGroup.classList.contains('hidden');
+    const icon = manualSetupToggle.querySelector('svg');
+    if (isExpanded) {
+      manualTokenGroup.classList.add('hidden');
+      databaseIdGroup.style.display = 'none';
+      icon.innerHTML = '<path d="M12 5v14M5 12h14"></path>';
+    } else {
+      manualTokenGroup.classList.remove('hidden');
+      databaseIdGroup.style.display = '';
+      icon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"></line>';
+    }
+  });
+
+  // Fetch databases from Notion and display in picker
+  function fetchAndDisplayDatabases(preselectedId) {
+    chrome.runtime.sendMessage({ action: 'fetchDatabases' }, (response) => {
+      if (chrome.runtime.lastError || !response || !response.success) {
+        // Fall back to manual entry
+        databasePickerGroup.style.display = 'none';
+        databaseIdGroup.style.display = '';
+        return;
+      }
+
+      const databases = response.databases;
+      if (!databases || databases.length === 0) {
+        databasePickerGroup.style.display = 'none';
+        databaseIdGroup.style.display = '';
+        return;
+      }
+
+      // If exactly 1 database and no databaseId set yet, auto-set it
+      if (databases.length === 1 && !preselectedId) {
+        const dbId = databases[0].id.replace(/-/g, '');
+        databaseIdInput.value = dbId;
+        chrome.storage.local.set({ databaseId: dbId }, () => {
+          notionStatusDot.classList.add('connected');
+          showToast(window.I18n.getMessage('toastDatabaseAutoSet') || 'Database auto-detected and set!');
+        });
+      }
+
+      // Populate the dropdown
+      databasePicker.innerHTML = '';
+      if (databases.length > 1) {
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = window.I18n.getMessage('optionSelectDatabase') || '-- Select a database --';
+        databasePicker.appendChild(placeholder);
+      }
+
+      databases.forEach(db => {
+        const option = document.createElement('option');
+        const rawId = db.id.replace(/-/g, '');
+        option.value = rawId;
+        let title = 'Untitled Database';
+        if (db.title && db.title.length > 0 && db.title[0].plain_text) {
+          title = db.title[0].plain_text;
+        }
+        option.textContent = title;
+        databasePicker.appendChild(option);
+      });
+
+      // Pre-select the saved database ID
+      const currentId = preselectedId || databaseIdInput.value;
+      if (currentId) {
+        databasePicker.value = currentId;
+      } else if (databases.length === 1) {
+        databasePicker.value = databases[0].id.replace(/-/g, '');
+      }
+
+      // Show picker, hide manual input
+      databasePickerGroup.style.display = '';
+      databaseIdGroup.style.display = 'none';
+
+      // When user changes selection, update the databaseId input
+      databasePicker.addEventListener('change', () => {
+        const selectedId = databasePicker.value;
+        if (selectedId) {
+          databaseIdInput.value = selectedId;
+        }
+      });
+    });
   }
 
   // ... (rest of the existing code) ...
@@ -198,8 +300,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    // Validation
-    if (!token) {
+    // Validation — skip token check if OAuth is active
+    const isOAuth = connectedBadge && !connectedBadge.classList.contains('hidden');
+    if (!token && !isOAuth) {
       showToast(window.I18n.getMessage("toastEnterToken"));
       return;
     }

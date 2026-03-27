@@ -552,6 +552,31 @@ input::placeholder {
   background: var(--border-light);
 }
 
+/* Manual Setup Toggle */
+.manual-setup-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  background: none;
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--muted-slate);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.manual-setup-toggle:hover {
+  color: var(--brand-gradient-start);
+  border-color: var(--brand-gradient-start);
+  background: rgba(99, 102, 241, 0.04);
+}
+
 /* Tab nav: now 3 columns */
 .tab-navigation {
   grid-template-columns: 1fr 1fr 1fr;

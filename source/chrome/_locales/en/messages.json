@@ -1,4 +1,4 @@
-﻿{
+{
   "extensionName": {
     "message": "Kindle to Notion Extension – Export Kindle Highlights to Notion"
   },
@@ -67,6 +67,9 @@
   },
   "dividerOr": {
     "message": "OR"
+  },
+  "useManualSetup": {
+    "message": "Use manual setup instead"
   },
   "labelNotionApiToken": {
     "message": "Notion API Token"
@@ -464,5 +467,20 @@
   },
   "langBrowserDefault": {
     "message": "Browser Default"
+  },
+  "labelSelectDatabase": {
+    "message": "Select Database"
+  },
+  "optionLoadingDatabases": {
+    "message": "Loading databases..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Select a database --"
+  },
+  "helpSelectDatabase": {
+    "message": "Choose the database shared with the integration"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "Database auto-detected and set!"
   }
 }

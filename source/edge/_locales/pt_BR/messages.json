@@ -1,4 +1,4 @@
-﻿{
+{
   "extensionName": {
     "message": "Kindle to Notion – Exporte Destaques do Kindle para o Notion"
   },
@@ -67,6 +67,9 @@
   },
   "dividerOr": {
     "message": "OU"
+  },
+  "useManualSetup": {
+    "message": "Usar configuração manual"
   },
   "labelNotionApiToken": {
     "message": "Token da API do Notion"
@@ -464,5 +467,20 @@
   },
   "langBrowserDefault": {
     "message": "Padrão do Navegador"
+  },
+  "labelSelectDatabase": {
+    "message": "Selecionar Banco de Dados"
+  },
+  "optionLoadingDatabases": {
+    "message": "Carregando bancos de dados..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Selecione um banco de dados --"
+  },
+  "helpSelectDatabase": {
+    "message": "Escolha o banco de dados compartilhado com a integração"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "Banco de dados detectado e configurado automaticamente!"
   }
 }

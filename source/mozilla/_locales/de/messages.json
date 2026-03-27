@@ -1,4 +1,4 @@
-﻿{
+{
   "extensionName": {
     "message": "Kindle to Notion – Kindle-Markierungen nach Notion exportieren"
   },
@@ -67,6 +67,9 @@
   },
   "dividerOr": {
     "message": "ODER"
+  },
+  "useManualSetup": {
+    "message": "Manuelle Einrichtung verwenden"
   },
   "labelNotionApiToken": {
     "message": "Notion API-Token"
@@ -464,5 +467,20 @@
   },
   "langBrowserDefault": {
     "message": "Browser-Standard"
+  },
+  "labelSelectDatabase": {
+    "message": "Datenbank auswählen"
+  },
+  "optionLoadingDatabases": {
+    "message": "Datenbanken werden geladen..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Datenbank auswählen --"
+  },
+  "helpSelectDatabase": {
+    "message": "Wähle die Datenbank, die mit der Integration geteilt wurde"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "Datenbank automatisch erkannt und eingestellt!"
   }
 }

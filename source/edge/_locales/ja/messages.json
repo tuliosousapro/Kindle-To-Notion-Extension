@@ -1,4 +1,4 @@
-﻿{
+{
   "extensionName": {
     "message": "Kindle to Notion – Kindleのハイライトをnotionにエクスポート"
   },
@@ -67,6 +67,9 @@
   },
   "dividerOr": {
     "message": "または"
+  },
+  "useManualSetup": {
+    "message": "手動設定を使用する"
   },
   "labelNotionApiToken": {
     "message": "Notion APIトークン"
@@ -464,5 +467,20 @@
   },
   "langBrowserDefault": {
     "message": "ブラウザのデフォルト"
+  },
+  "labelSelectDatabase": {
+    "message": "データベースを選択"
+  },
+  "optionLoadingDatabases": {
+    "message": "データベースを読み込み中..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- データベースを選択 --"
+  },
+  "helpSelectDatabase": {
+    "message": "インテグレーションと共有されたデータベースを選択してください"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "データベースが自動検出され、設定されました！"
   }
 }

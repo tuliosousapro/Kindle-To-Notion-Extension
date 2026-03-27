@@ -464,5 +464,20 @@
   },
   "langBrowserDefault": {
     "message": "Predefinito del browser"
+  },
+  "labelSelectDatabase": {
+    "message": "Seleziona database"
+  },
+  "optionLoadingDatabases": {
+    "message": "Caricamento database..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Seleziona un database --"
+  },
+  "helpSelectDatabase": {
+    "message": "Scegli il database condiviso con l'integrazione"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "Database rilevato e impostato automaticamente!"
   }
 }

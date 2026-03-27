@@ -219,6 +219,12 @@
                 </svg>
               </button>
             </div>
+            <button class="manual-setup-toggle hidden" id="manualSetupToggle" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"></path>
+              </svg>
+              <span data-i18n="useManualSetup">Use manual setup instead</span>
+            </button>
             <div class="divider-text" data-i18n="dividerOr">OR</div>
           </div>
 
@@ -252,7 +258,18 @@
             </small>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" id="databasePickerGroup" style="display: none;">
+            <label>
+              <span class="label-text" data-i18n="labelSelectDatabase">Select Database</span>
+              <span class="required">*</span>
+            </label>
+            <select id="databasePicker" class="form-input">
+              <option value="" data-i18n="optionLoadingDatabases">Loading databases...</option>
+            </select>
+            <small class="help-text" data-i18n="helpSelectDatabase">Choose the database shared with the integration</small>
+          </div>
+
+          <div class="form-group" id="databaseIdGroup">
             <label for="databaseId">
               <span class="label-text" data-i18n="labelDatabaseId">Database ID</span>
               <span class="required">*</span>

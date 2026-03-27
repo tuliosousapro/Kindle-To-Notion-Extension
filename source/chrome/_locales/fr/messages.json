@@ -1,4 +1,4 @@
-﻿{
+{
   "extensionName": {
     "message": "Kindle to Notion – Exportez vos surlignages Kindle vers Notion"
   },
@@ -67,6 +67,9 @@
   },
   "dividerOr": {
     "message": "OU"
+  },
+  "useManualSetup": {
+    "message": "Utiliser la configuration manuelle"
   },
   "labelNotionApiToken": {
     "message": "Token API Notion"
@@ -464,5 +467,20 @@
   },
   "langBrowserDefault": {
     "message": "Par défaut du navigateur"
+  },
+  "labelSelectDatabase": {
+    "message": "Sélectionner la base de données"
+  },
+  "optionLoadingDatabases": {
+    "message": "Chargement des bases de données..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Sélectionnez une base de données --"
+  },
+  "helpSelectDatabase": {
+    "message": "Choisissez la base de données partagée avec l'intégration"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "Base de données détectée et configurée automatiquement !"
   }
 }

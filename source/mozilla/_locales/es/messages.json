@@ -1,4 +1,4 @@
-﻿{
+{
   "extensionName": {
     "message": "Kindle to Notion – Exporta subrayados de Kindle a Notion"
   },
@@ -67,6 +67,9 @@
   },
   "dividerOr": {
     "message": "O"
+  },
+  "useManualSetup": {
+    "message": "Usar configuración manual"
   },
   "labelNotionApiToken": {
     "message": "Token API de Notion"
@@ -464,5 +467,20 @@
   },
   "langBrowserDefault": {
     "message": "Predeterminado"
+  },
+  "labelSelectDatabase": {
+    "message": "Seleccionar base de datos"
+  },
+  "optionLoadingDatabases": {
+    "message": "Cargando bases de datos..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Selecciona una base de datos --"
+  },
+  "helpSelectDatabase": {
+    "message": "Elige la base de datos compartida con la integración"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "¡Base de datos detectada y configurada automáticamente!"
   }
 }

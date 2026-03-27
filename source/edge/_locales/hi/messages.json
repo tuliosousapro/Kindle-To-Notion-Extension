@@ -464,5 +464,20 @@
   },
   "langBrowserDefault": {
     "message": "ब्राउज़र डिफ़ॉल्ट"
+  },
+  "labelSelectDatabase": {
+    "message": "डेटाबेस चुनें"
+  },
+  "optionLoadingDatabases": {
+    "message": "डेटाबेस लोड हो रहे हैं..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- डेटाबेस चुनें --"
+  },
+  "helpSelectDatabase": {
+    "message": "इंटीग्रेशन के साथ साझा किया गया डेटाबेस चुनें"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "डेटाबेस स्वचालित रूप से पहचाना और सेट किया गया!"
   }
 }
