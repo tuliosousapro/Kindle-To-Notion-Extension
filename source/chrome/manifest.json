@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Kindle to Notion Extension – Export Kindle Highlights to Notion",
-  "version": "1.7.0",
-  "description": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database",
-  "permissions": ["storage", "tabs"],
+  "name": "__MSG_extensionName__",
+  "version": "1.8.0",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
+  "permissions": ["storage", "tabs", "identity", "alarms", "notifications"],
   "host_permissions": [
     "https://ler.amazon.com.br/notebook*",
     "https://read.amazon.com/notebook*",
@@ -52,7 +53,8 @@
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "action": {
     "default_popup": "popup.html",
@@ -68,7 +70,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["popup.css", "onboarding.css", "welcome.html", "welcome.css", "welcome.js"],
+      "resources": ["popup.css", "onboarding.css"],
       "matches": ["<all_urls>"]
     }
   ]

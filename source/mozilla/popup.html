@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,10 @@
   <link rel="stylesheet" href="popup.css">
   <script src="onboarding-check.js"></script>
 </head>
+
 <body>
   <!-- Background gradient -->
-  <div class="background-gradient"></div>
+
 
   <div class="container">
     <!-- Header -->
@@ -20,7 +22,7 @@
           <div class="logo-glow"></div>
         </div>
         <div class="brand-info">
-          <h1>Kindle to Notion</h1>
+          <h1 data-i18n="appTitle">Kindle to Notion</h1>
           <span class="version" id="versionInfo"></span>
         </div>
       </div>
@@ -34,12 +36,12 @@
         <div class="status-indicator">
           <div class="status-item">
             <div class="status-dot" id="amazonStatusDot"></div>
-            <span class="status-label">Amazon</span>
+            <span class="status-label" data-i18n="statusAmazon">Amazon</span>
           </div>
           <div class="status-divider"></div>
           <div class="status-item">
             <div class="status-dot" id="notionStatusDot"></div>
-            <span class="status-label">Notion</span>
+            <span class="status-label" data-i18n="statusNotion">Notion</span>
           </div>
         </div>
       </div>
@@ -52,14 +54,23 @@
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          <span>Export</span>
+          <span data-i18n="tabExport">Export</span>
+        </button>
+        <button class="tab-btn" id="tab-review-btn" data-tab="review">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <span data-i18n="tabReview">Review</span>
         </button>
         <button class="tab-btn" id="tab-settings-btn" data-tab="settings">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="3"></circle>
-            <path d="M12 1v6m0 6v6m6.364-15.364l-4.243 4.243m-4.242 4.242l-4.243 4.243m16.97-4.243l-4.242-4.242m-4.243-4.243l-4.242 4.243"></path>
+            <path
+              d="M12 1v6m0 6v6m6.364-15.364l-4.243 4.243m-4.242 4.242l-4.243 4.243m16.97-4.243l-4.242-4.242m-4.243-4.243l-4.242 4.243">
+            </path>
           </svg>
-          <span>Settings</span>
+          <span data-i18n="tabSettings">Settings</span>
         </button>
       </div>
 
@@ -73,7 +84,7 @@
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
-              <span>Export to Notion</span>
+              <span data-i18n="exportToNotion">Export to Notion</span>
             </span>
             <div class="button-shine"></div>
           </button>
@@ -83,7 +94,7 @@
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
             </svg>
-            <span>Go to Highlights</span>
+            <span data-i18n="goToHighlights">Go to Highlights</span>
           </button>
 
           <!-- Spinner -->
@@ -96,95 +107,228 @@
         </div>
       </div>
 
+      <!-- Review Tab -->
+      <div class="tab-panel" id="review-panel">
+        <!-- Stats Bar -->
+        <div class="glass-card review-stats-card">
+          <div class="review-stats">
+            <div class="stat-item">
+              <span class="stat-value" id="streakCount">0</span>
+              <span class="stat-label" data-i18n="statStreak">Streak</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value" id="vaultCount">0</span>
+              <span class="stat-label" data-i18n="statInVault">In Vault</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value" id="starredCount">0</span>
+              <span class="stat-label" data-i18n="statStarred">Starred</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Card Stack -->
+        <div class="review-card-container" id="reviewCardContainer">
+          <!-- Empty state -->
+          <div class="review-empty" id="reviewEmpty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted-slate)" stroke-width="1.5"
+              opacity="0.5">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <p class="empty-title" data-i18n="noHighlightsTitle">No highlights yet</p>
+            <p class="empty-subtitle" data-i18n="noHighlightsSubtitle">Export a book to start your daily review</p>
+          </div>
+
+          <!-- Active review card (populated by JS) -->
+          <div class="review-card glass-card hidden" id="reviewCard">
+            <div class="review-card-header">
+              <span class="review-progress" id="reviewProgress">1 / 5</span>
+              <span class="review-color-dot" id="reviewColorDot"></span>
+            </div>
+            <blockquote class="review-quote" id="reviewQuote"></blockquote>
+            <div class="review-meta">
+              <span class="review-book" id="reviewBook"></span>
+              <span class="review-chapter" id="reviewChapter"></span>
+            </div>
+            <div class="review-note hidden" id="reviewNote"></div>
+            <div class="review-actions">
+              <button class="review-action-btn forgot-btn" id="reviewForgot" data-i18n-title="btnResetShowMore"
+                title="Reset — show more often">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="1 4 1 10 7 10"></polyline>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+              </button>
+              <button class="review-action-btn dismiss-btn" id="reviewDismiss" data-i18n-title="btnDismissSeen"
+                title="Dismiss — seen it">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+              <button class="review-action-btn star-btn" id="reviewStar" data-i18n-title="btnStarKeep"
+                title="Star — keep forever">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                  </polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- All done state -->
+          <div class="review-done hidden" id="reviewDone">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--success-text)" stroke-width="1.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <p class="done-title" data-i18n="reviewDoneTitle">All done for today!</p>
+            <p class="done-subtitle" data-i18n="reviewDoneSubtitle">Come back tomorrow for more</p>
+          </div>
+        </div>
+      </div>
+
       <!-- Settings Tab -->
       <div class="tab-panel" id="settings-panel">
         <div class="glass-card settings-card">
 
-          <div class="form-group">
+          <div class="connect-section">
+            <button class="connect-button" id="connectNotion">
+              <span class="button-content">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                  <polyline points="10 17 15 12 10 7"></polyline>
+                  <line x1="15" y1="12" x2="3" y2="12"></line>
+                </svg>
+                <span data-i18n="connectWithNotion">Connect with Notion</span>
+              </span>
+            </button>
+            <div id="connectedBadge" class="connected-badge hidden">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span id="connectedWorkspaceName" data-i18n="connectedToWorkspace">Connected to Workspace</span>
+              <button class="disconnect-btn" id="disconnectNotion" title="Disconnect">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <button class="manual-setup-toggle hidden" id="manualSetupToggle" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"></path>
+              </svg>
+              <span data-i18n="useManualSetup">Use manual setup instead</span>
+            </button>
+            <div class="divider-text" data-i18n="dividerOr">OR</div>
+          </div>
+
+          <div class="form-group manual-token-group">
             <label for="token">
-              <span class="label-text">Notion API Token</span>
+              <span class="label-text" data-i18n="labelNotionApiToken">Notion API Token</span>
               <span class="required">*</span>
             </label>
             <div class="input-wrapper">
-              <input
-                type="password"
-                id="token"
-                placeholder="ntn_xxxxxxxxxxxxx"
-                autocomplete="off"
-                required
-              >
-              <button class="input-icon-btn" id="toggleToken" type="button" aria-label="Toggle visibility">
-                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <input type="password" id="token" data-i18n-placeholder="placeholderToken" placeholder="ntn_xxxxxxxxxxxxx"
+                autocomplete="off" required>
+              <button class="input-icon-btn" id="toggleToken" type="button" aria-label="Toggle visibility"
+                data-i18n-title="toggleVisibility">
+                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                   <circle cx="12" cy="12" r="3"></circle>
                 </svg>
-                <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                  </path>
                   <line x1="1" y1="1" x2="23" y2="23"></line>
                 </svg>
               </button>
             </div>
             <small class="help-text">
-              Generate at <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a>
+              <span data-i18n="helpGenerateToken">Generate at</span> <a href="https://www.notion.so/my-integrations"
+                target="_blank">notion.so/my-integrations</a>
             </small>
           </div>
 
-          <div class="form-group">
-            <label for="databaseId">
-              <span class="label-text">Database ID</span>
+          <div class="form-group" id="databasePickerGroup" style="display: none;">
+            <label>
+              <span class="label-text" data-i18n="labelSelectDatabase">Select Database</span>
               <span class="required">*</span>
             </label>
-            <input
-              type="text"
-              id="databaseId"
-              placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-              autocomplete="off"
-              required
-            >
-            <small class="help-text">Copy from your Notion database URL</small>
+            <select id="databasePicker" class="form-input">
+              <option value="" data-i18n="optionLoadingDatabases">Loading databases...</option>
+            </select>
+            <small class="help-text" data-i18n="helpSelectDatabase">Choose the database shared with the integration</small>
+          </div>
+
+          <div class="form-group" id="databaseIdGroup">
+            <label for="databaseId">
+              <span class="label-text" data-i18n="labelDatabaseId">Database ID</span>
+              <span class="required">*</span>
+            </label>
+            <input type="text" id="databaseId" data-i18n-placeholder="placeholderDatabaseId"
+              placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" required>
+            <small class="help-text" data-i18n="helpDatabaseId">Copy from your Notion database URL</small>
           </div>
 
           <div class="form-group">
             <label for="titleProperty">
-              <span class="label-text">Book Title Property</span>
+              <span class="label-text" data-i18n="labelBookTitleProperty">Book Title Property</span>
             </label>
-            <input
-              type="text"
-              id="titleProperty"
-              placeholder="Book Title"
-              autocomplete="off"
-            >
+            <input type="text" id="titleProperty" data-i18n-placeholder="placeholderBookTitle" placeholder="Book Title"
+              autocomplete="off">
           </div>
 
           <div class="form-group">
             <label for="authorProperty">
-              <span class="label-text">Author Property</span>
+              <span class="label-text" data-i18n="labelAuthorProperty">Author Property</span>
             </label>
-            <input
-              type="text"
-              id="authorProperty"
-              placeholder="Author"
-              autocomplete="off"
-            >
+            <input type="text" id="authorProperty" data-i18n-placeholder="placeholderAuthor" placeholder="Author"
+              autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="uiLanguage">
+              <span class="label-text" data-i18n="labelInterfaceLanguage">Interface Language</span>
+            </label>
+            <select id="uiLanguage">
+              <option value="browser_default" data-i18n="langBrowserDefault">Browser Default</option>
+              <option value="en">English (US)</option>
+              <option value="pt_BR">Português (BR)</option>
+              <option value="de">Deutsch</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="it">Italiano</option>
+              <option value="ja">日本語 (Japanese)</option>
+            </select>
           </div>
 
           <div class="form-group">
             <label for="kindleRegion">
-              <span class="label-text">Kindle Region</span>
+              <span class="label-text" data-i18n="labelKindleRegion">Kindle Region</span>
             </label>
             <select id="kindleRegion">
-              <option value="https://read.amazon.com/notebook">🇺🇸 United States</option>
-              <option value="https://ler.amazon.com.br/notebook">🇧🇷 Brazil</option>
-              <option value="https://read.amazon.ca/notebook">🇨🇦 Canada</option>
-              <option value="https://read.amazon.co.uk/notebook">🇬🇧 United Kingdom</option>
-              <option value="https://read.amazon.de/notebook">🇩🇪 Germany</option>
-              <option value="https://read.amazon.fr/notebook">🇫🇷 France</option>
-              <option value="https://read.amazon.es/notebook">🇪🇸 Spain</option>
-              <option value="https://read.amazon.it/notebook">🇮🇹 Italy</option>
-              <option value="https://read.amazon.co.jp/notebook">🇯🇵 Japan</option>
-              <option value="https://read.amazon.com.au/notebook">🇦🇺 Australia</option>
-              <option value="https://read.amazon.in/notebook">🇮🇳 India</option>
-              <option value="https://read.amazon.com.mx/notebook">🇲🇽 Mexico</option>
+              <option value="https://read.amazon.com/notebook" data-i18n="regionUS">🇺🇸 United States</option>
+              <option value="https://ler.amazon.com.br/notebook" data-i18n="regionBR">🇧🇷 Brazil</option>
+              <option value="https://read.amazon.ca/notebook" data-i18n="regionCA">🇨🇦 Canada</option>
+              <option value="https://read.amazon.co.uk/notebook" data-i18n="regionUK">🇬🇧 United Kingdom</option>
+              <option value="https://read.amazon.de/notebook" data-i18n="regionDE">🇩🇪 Germany</option>
+              <option value="https://read.amazon.fr/notebook" data-i18n="regionFR">🇫🇷 France</option>
+              <option value="https://read.amazon.es/notebook" data-i18n="regionES">🇪🇸 Spain</option>
+              <option value="https://read.amazon.it/notebook" data-i18n="regionIT">🇮🇹 Italy</option>
+              <option value="https://read.amazon.co.jp/notebook" data-i18n="regionJP">🇯🇵 Japan</option>
+              <option value="https://read.amazon.com.au/notebook" data-i18n="regionAU">🇦🇺 Australia</option>
+              <option value="https://read.amazon.in/notebook" data-i18n="regionIN">🇮🇳 India</option>
+              <option value="https://read.amazon.com.mx/notebook" data-i18n="regionMX">🇲🇽 Mexico</option>
             </select>
           </div>
 
@@ -195,7 +339,7 @@
                 <polyline points="17 21 17 13 7 13 7 21"></polyline>
                 <polyline points="7 3 7 8 15 8"></polyline>
               </svg>
-              <span>Save Settings</span>
+              <span data-i18n="saveSettings">Save Settings</span>
             </span>
             <div class="button-shine"></div>
           </button>
@@ -209,6 +353,8 @@
 
   </div>
 
+  <script src="i18n.js"></script>
   <script src="popup.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,486 @@
+{
+  "extensionName": {
+    "message": "Kindle to Notion – Exporte Destaques do Kindle para o Notion"
+  },
+  "extensionDescription": {
+    "message": "Exporte destaques do Kindle para o Notion com 1 clique. Organize por livro, tag e sincronize notas do Kindle com o banco de dados do Notion"
+  },
+  "appTitle": {
+    "message": "Kindle to Notion"
+  },
+  "tabExport": {
+    "message": "Exportar"
+  },
+  "tabReview": {
+    "message": "Revisar"
+  },
+  "tabSettings": {
+    "message": "Configurações"
+  },
+  "exportToNotion": {
+    "message": "Exportar para o Notion"
+  },
+  "goToHighlights": {
+    "message": "Ir para Destaques"
+  },
+  "statusAmazon": {
+    "message": "Amazon"
+  },
+  "statusNotion": {
+    "message": "Notion"
+  },
+  "statStreak": {
+    "message": "Sequência"
+  },
+  "statInVault": {
+    "message": "No Cofre"
+  },
+  "statStarred": {
+    "message": "Favoritos"
+  },
+  "noHighlightsTitle": {
+    "message": "Nenhum destaque ainda"
+  },
+  "noHighlightsSubtitle": {
+    "message": "Exporte um livro para iniciar sua revisão diária"
+  },
+  "reviewDoneTitle": {
+    "message": "Tudo pronto por hoje!"
+  },
+  "reviewDoneSubtitle": {
+    "message": "Volte amanhã para mais"
+  },
+  "btnResetShowMore": {
+    "message": "Resetar — mostrar com mais frequência"
+  },
+  "btnDismissSeen": {
+    "message": "Dispensar — já visto"
+  },
+  "btnStarKeep": {
+    "message": "Favoritar — manter para sempre"
+  },
+  "connectWithNotion": {
+    "message": "Conectar com Notion"
+  },
+  "connectedToWorkspace": {
+    "message": "Conectado ao Workspace"
+  },
+  "dividerOr": {
+    "message": "OU"
+  },
+  "useManualSetup": {
+    "message": "Usar configuração manual"
+  },
+  "labelNotionApiToken": {
+    "message": "Token da API do Notion"
+  },
+  "labelDatabaseId": {
+    "message": "ID do Banco de Dados"
+  },
+  "labelBookTitleProperty": {
+    "message": "Propriedade do Título do Livro"
+  },
+  "labelAuthorProperty": {
+    "message": "Propriedade do Autor"
+  },
+  "labelKindleRegion": {
+    "message": "Região do Kindle"
+  },
+  "placeholderToken": {
+    "message": "ntn_xxxxxxxxxxxxx"
+  },
+  "placeholderDatabaseId": {
+    "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  "placeholderBookTitle": {
+    "message": "Título do Livro"
+  },
+  "placeholderAuthor": {
+    "message": "Autor"
+  },
+  "helpGenerateToken": {
+    "message": "Gere em"
+  },
+  "helpDatabaseId": {
+    "message": "Copie da URL do seu banco de dados no Notion"
+  },
+  "saveSettings": {
+    "message": "Salvar Configurações"
+  },
+  "toggleVisibility": {
+    "message": "Alternar visibilidade"
+  },
+  "regionUS": {
+    "message": "🇺🇸 Estados Unidos"
+  },
+  "regionBR": {
+    "message": "🇧🇷 Brasil"
+  },
+  "regionCA": {
+    "message": "🇨🇦 Canadá"
+  },
+  "regionUK": {
+    "message": "🇬🇧 Reino Unido"
+  },
+  "regionDE": {
+    "message": "🇩🇪 Alemanha"
+  },
+  "regionFR": {
+    "message": "🇫🇷 França"
+  },
+  "regionES": {
+    "message": "🇪🇸 Espanha"
+  },
+  "regionIT": {
+    "message": "🇮🇹 Itália"
+  },
+  "regionJP": {
+    "message": "🇯🇵 Japão"
+  },
+  "regionAU": {
+    "message": "🇦🇺 Austrália"
+  },
+  "regionIN": {
+    "message": "🇮🇳 Índia"
+  },
+  "regionMX": {
+    "message": "🇲🇽 México"
+  },
+  "toastConnecting": {
+    "message": "Conectando..."
+  },
+  "toastConnectedNotion": {
+    "message": "Conectado ao Notion com sucesso!"
+  },
+  "toastDisconnected": {
+    "message": "Desconectado do Notion"
+  },
+  "toastNavigating": {
+    "message": "Navegando para os destaques do Kindle..."
+  },
+  "toastEnterToken": {
+    "message": "Por favor, insira seu Token da API do Notion"
+  },
+  "toastEnterDatabaseId": {
+    "message": "Por favor, insira seu ID do Banco de Dados"
+  },
+  "toastInvalidDatabaseId": {
+    "message": "Formato de ID do Banco de Dados inválido"
+  },
+  "toastSettingsSaved": {
+    "message": "Configurações salvas com sucesso!"
+  },
+  "toastNoActiveTab": {
+    "message": "Erro: Nenhuma aba ativa encontrada"
+  },
+  "toastNavigateFirst": {
+    "message": "Por favor, navegue até a página de destaques do Kindle primeiro"
+  },
+  "toastFailedGetTab": {
+    "message": "Erro: Falha ao obter aba ativa"
+  },
+  "toastExportFailed": {
+    "message": "Falha na exportação. Verifique suas configurações."
+  },
+  "toastConnectionFailed": {
+    "message": "Falha na conexão"
+  },
+  "onboardingWelcomeTitle": {
+    "message": "Bem-vindo ao Kindle to Notion!"
+  },
+  "onboardingWelcomeDesc": {
+    "message": "Sincronize seus destaques e notas do Kindle com o Notion em um clique. Vamos configurar em poucos passos."
+  },
+  "onboardingFeature1": {
+    "message": "Exporte todos os seus destaques do Kindle"
+  },
+  "onboardingFeature2": {
+    "message": "Sincronize com o Notion em um clique"
+  },
+  "onboardingFeature3": {
+    "message": "Organize por livro e autor"
+  },
+  "onboardingGetStarted": {
+    "message": "Começar"
+  },
+  "onboardingSkipSetup": {
+    "message": "Pular Configuração"
+  },
+  "onboardingConnectTitle": {
+    "message": "Conectar ao Notion"
+  },
+  "onboardingConnectDesc": {
+    "message": "Primeiro, precisamos conectar sua conta do Notion. Você precisará de um token da API do Notion e um ID de banco de dados."
+  },
+  "onboardingStep1Title": {
+    "message": "Acesse as Integrações do Notion"
+  },
+  "onboardingStep1Desc": {
+    "message": "e crie uma nova integração"
+  },
+  "onboardingStep2Title": {
+    "message": "Copie seu Token da API"
+  },
+  "onboardingStep2Desc": {
+    "message": "Copie o \"Token de Integração Interna\" da sua nova integração"
+  },
+  "onboardingStep3Title": {
+    "message": "Crie um Banco de Dados"
+  },
+  "onboardingStep3Desc": {
+    "message": "Crie um novo banco de dados no Notion e copie sua URL ou ID"
+  },
+  "onboardingContinueSettings": {
+    "message": "Continuar para Configurações"
+  },
+  "onboardingBack": {
+    "message": "Voltar"
+  },
+  "onboardingConfigureTitle": {
+    "message": "Configure suas Preferências"
+  },
+  "onboardingConfigureDesc": {
+    "message": "Escolha como deseja conectar ao Notion: OAuth (recomendado) ou entrada manual de token."
+  },
+  "onboardingOAuthTitle": {
+    "message": "Conexão OAuth (Recomendado)"
+  },
+  "onboardingOAuthDesc": {
+    "message": "Conecte-se com segurança em um clique usando autenticação OAuth."
+  },
+  "onboardingSelectDatabase": {
+    "message": "Selecione seu Banco de Dados"
+  },
+  "onboardingSelectDatabaseDesc": {
+    "message": "Escolha o banco de dados do Notion onde deseja armazenar seus destaques do Kindle."
+  },
+  "onboardingLoadingDatabases": {
+    "message": "Carregando bancos de dados..."
+  },
+  "onboardingContinueDatabase": {
+    "message": "Continuar com Banco de Dados Selecionado"
+  },
+  "onboardingManualEntryFallback": {
+    "message": "Ou insira o ID do banco de dados manualmente:"
+  },
+  "onboardingContinueManual": {
+    "message": "Continuar com Entrada Manual"
+  },
+  "onboardingManualTokenTitle": {
+    "message": "Entrada Manual de Token"
+  },
+  "onboardingManualTokenDesc": {
+    "message": "Insira seu token da API do Notion e detalhes do banco de dados manualmente."
+  },
+  "onboardingLabelToken": {
+    "message": "Token da API do Notion:"
+  },
+  "onboardingLabelDatabaseId": {
+    "message": "ID do Banco de Dados:"
+  },
+  "onboardingLabelTitleProp": {
+    "message": "Propriedade do Título:"
+  },
+  "onboardingLabelAuthorProp": {
+    "message": "Propriedade do Autor:"
+  },
+  "onboardingTip": {
+    "message": "Você pode alterar essas configurações depois na aba Configurações"
+  },
+  "onboardingTestConnection": {
+    "message": "Testar Conexão"
+  },
+  "onboardingPlaceholderToken": {
+    "message": "Insira seu token da API do Notion"
+  },
+  "onboardingPlaceholderDatabaseId": {
+    "message": "Insira o ID ou URL do banco de dados"
+  },
+  "onboardingKindleTitle": {
+    "message": "Acesse seus Destaques do Kindle"
+  },
+  "onboardingKindleDesc": {
+    "message": "Agora você precisa navegar até a página de destaques do Kindle para começar a sincronizar."
+  },
+  "onboardingKindleStep1Title": {
+    "message": "Vá para os Destaques do Kindle"
+  },
+  "onboardingKindleStep1Desc": {
+    "message": "Navegue até a página de destaques do Kindle da sua região"
+  },
+  "onboardingKindleStep2Title": {
+    "message": "Certifique-se de estar logado"
+  },
+  "onboardingKindleStep2Desc": {
+    "message": "Verifique se você está conectado à sua conta Amazon"
+  },
+  "onboardingKindleStep3Title": {
+    "message": "Clique no ícone da extensão"
+  },
+  "onboardingKindleStep3Desc": {
+    "message": "Volte aqui e clique em \"Exportar para o Notion\" para sincronizar seus destaques"
+  },
+  "onboardingGoToHighlights": {
+    "message": "Ir para Página de Destaques"
+  },
+  "onboardingReadyTitle": {
+    "message": "Pronto para Sincronizar!"
+  },
+  "onboardingReadyDesc": {
+    "message": "Tudo configurado! Você está pronto para exportar seus destaques do Kindle para o Notion."
+  },
+  "onboardingSyncItem1": {
+    "message": "Extrair destaques dos seus livros Kindle"
+  },
+  "onboardingSyncItem2": {
+    "message": "Formatá-los como blocos do Notion"
+  },
+  "onboardingSyncItem3": {
+    "message": "Salvar no seu banco de dados do Notion"
+  },
+  "onboardingAllSet": {
+    "message": "Tudo pronto! Sua primeira sincronização acontecerá automaticamente quando você clicar em \"Exportar para o Notion\""
+  },
+  "onboardingFinish": {
+    "message": "Começar a Usar a Extensão"
+  },
+  "tooltipNext": {
+    "message": "Próximo"
+  },
+  "tooltipSkipTour": {
+    "message": "Pular Tour"
+  },
+  "onboardingToastFetchingDatabases": {
+    "message": "Buscando seus bancos de dados..."
+  },
+  "onboardingToastFoundDatabases": {
+    "message": "Encontrado(s) $COUNT$ banco(s) de dados",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1"
+      }
+    }
+  },
+  "onboardingToastNoDatabases": {
+    "message": "Nenhum banco de dados encontrado. Crie um banco de dados no Notion primeiro."
+  },
+  "onboardingToastSelectDatabase": {
+    "message": "Selecione um banco de dados"
+  },
+  "onboardingToastDatabaseSelected": {
+    "message": "Banco de dados selecionado!"
+  },
+  "onboardingToastEnterDatabaseId": {
+    "message": "Insira um ID de banco de dados"
+  },
+  "onboardingToastInvalidDatabaseUrl": {
+    "message": "Insira um URL ou ID de banco de dados do Notion válido"
+  },
+  "onboardingToastInvalidDatabaseId": {
+    "message": "Insira um ID de Banco de Dados válido de 32 caracteres"
+  },
+  "onboardingToastDatabaseSaved": {
+    "message": "ID do banco de dados salvo!"
+  },
+  "onboardingToastFillProperties": {
+    "message": "Preencha os nomes das propriedades de Título e Autor"
+  },
+  "onboardingToastSettingsSaved": {
+    "message": "Configurações salvas! Iniciando tour guiado..."
+  },
+  "bgErrorOAuthNotConfigured": {
+    "message": "OAuth não configurado. Defina o Client ID e URL do Servidor Proxy nas configurações."
+  },
+  "bgErrorNoAuthToken": {
+    "message": "Nenhum token de autenticação encontrado. Conecte-se ao Notion primeiro."
+  },
+  "bgErrorMissingTokenOrDb": {
+    "message": "Erro: Token do Notion ou ID do banco de dados ausente"
+  },
+  "bgErrorMissingProperties": {
+    "message": "Erro: Nomes de propriedades de título ou autor ausentes"
+  },
+  "bgErrorNoHighlightsData": {
+    "message": "Erro: Nenhum dado de destaque para processar"
+  },
+  "bgProgressFetchingCover": {
+    "message": "Buscando capa do livro..."
+  },
+  "bgProgressCheckingDuplicates": {
+    "message": "Verificando duplicatas..."
+  },
+  "bgProgressFetchingHighlights": {
+    "message": "Buscando destaques existentes..."
+  },
+  "bgInfoNoNewHighlights": {
+    "message": "Info: Nenhum destaque novo para adicionar"
+  },
+  "bgProgressAppendingHighlights": {
+    "message": "Adicionando $COUNT$ novos destaques...",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1"
+      }
+    }
+  },
+  "bgProgressExporting": {
+    "message": "Exportando..."
+  },
+  "bgStatusUpdatedBook": {
+    "message": "Livro atualizado com $HIGHLIGHTS$ novos destaques (incluindo $NOTES$ com notas)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "bgStatusExportSuccess": {
+    "message": "Exportação bem-sucedida! $HIGHLIGHTS$ Destaque(s) | $NOTES$ Nota(s)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "bgOtherHighlights": {
+    "message": "Outros Destaques"
+  },
+  "bgCountBlock": {
+    "message": "$HIGHLIGHTS$ Destaque(s) | $NOTES$ Nota(s)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "labelInterfaceLanguage": {
+    "message": "Idioma da Interface"
+  },
+  "langBrowserDefault": {
+    "message": "Padrão do Navegador"
+  },
+  "labelSelectDatabase": {
+    "message": "Selecionar Banco de Dados"
+  },
+  "optionLoadingDatabases": {
+    "message": "Carregando bancos de dados..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Selecione um banco de dados --"
+  },
+  "helpSelectDatabase": {
+    "message": "Escolha o banco de dados compartilhado com a integração"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "Banco de dados detectado e configurado automaticamente!"
+  }
+}

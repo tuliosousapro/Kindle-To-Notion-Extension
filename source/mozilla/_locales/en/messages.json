@@ -1,0 +1,486 @@
+{
+  "extensionName": {
+    "message": "Kindle to Notion Extension – Export Kindle Highlights to Notion"
+  },
+  "extensionDescription": {
+    "message": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database"
+  },
+  "appTitle": {
+    "message": "Kindle to Notion"
+  },
+  "tabExport": {
+    "message": "Export"
+  },
+  "tabReview": {
+    "message": "Review"
+  },
+  "tabSettings": {
+    "message": "Settings"
+  },
+  "exportToNotion": {
+    "message": "Export to Notion"
+  },
+  "goToHighlights": {
+    "message": "Go to Highlights"
+  },
+  "statusAmazon": {
+    "message": "Amazon"
+  },
+  "statusNotion": {
+    "message": "Notion"
+  },
+  "statStreak": {
+    "message": "Streak"
+  },
+  "statInVault": {
+    "message": "In Vault"
+  },
+  "statStarred": {
+    "message": "Starred"
+  },
+  "noHighlightsTitle": {
+    "message": "No highlights yet"
+  },
+  "noHighlightsSubtitle": {
+    "message": "Export a book to start your daily review"
+  },
+  "reviewDoneTitle": {
+    "message": "All done for today!"
+  },
+  "reviewDoneSubtitle": {
+    "message": "Come back tomorrow for more"
+  },
+  "btnResetShowMore": {
+    "message": "Reset — show more often"
+  },
+  "btnDismissSeen": {
+    "message": "Dismiss — seen it"
+  },
+  "btnStarKeep": {
+    "message": "Star — keep forever"
+  },
+  "connectWithNotion": {
+    "message": "Connect with Notion"
+  },
+  "connectedToWorkspace": {
+    "message": "Connected to Workspace"
+  },
+  "dividerOr": {
+    "message": "OR"
+  },
+  "useManualSetup": {
+    "message": "Use manual setup instead"
+  },
+  "labelNotionApiToken": {
+    "message": "Notion API Token"
+  },
+  "labelDatabaseId": {
+    "message": "Database ID"
+  },
+  "labelBookTitleProperty": {
+    "message": "Book Title Property"
+  },
+  "labelAuthorProperty": {
+    "message": "Author Property"
+  },
+  "labelKindleRegion": {
+    "message": "Kindle Region"
+  },
+  "placeholderToken": {
+    "message": "ntn_xxxxxxxxxxxxx"
+  },
+  "placeholderDatabaseId": {
+    "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  "placeholderBookTitle": {
+    "message": "Book Title"
+  },
+  "placeholderAuthor": {
+    "message": "Author"
+  },
+  "helpGenerateToken": {
+    "message": "Generate at"
+  },
+  "helpDatabaseId": {
+    "message": "Copy from your Notion database URL"
+  },
+  "saveSettings": {
+    "message": "Save Settings"
+  },
+  "toggleVisibility": {
+    "message": "Toggle visibility"
+  },
+  "regionUS": {
+    "message": "🇺🇸 United States"
+  },
+  "regionBR": {
+    "message": "🇧🇷 Brazil"
+  },
+  "regionCA": {
+    "message": "🇨🇦 Canada"
+  },
+  "regionUK": {
+    "message": "🇬🇧 United Kingdom"
+  },
+  "regionDE": {
+    "message": "🇩🇪 Germany"
+  },
+  "regionFR": {
+    "message": "🇫🇷 France"
+  },
+  "regionES": {
+    "message": "🇪🇸 Spain"
+  },
+  "regionIT": {
+    "message": "🇮🇹 Italy"
+  },
+  "regionJP": {
+    "message": "🇯🇵 Japan"
+  },
+  "regionAU": {
+    "message": "🇦🇺 Australia"
+  },
+  "regionIN": {
+    "message": "🇮🇳 India"
+  },
+  "regionMX": {
+    "message": "🇲🇽 Mexico"
+  },
+  "toastConnecting": {
+    "message": "Connecting..."
+  },
+  "toastConnectedNotion": {
+    "message": "Successfully connected to Notion!"
+  },
+  "toastDisconnected": {
+    "message": "Disconnected from Notion"
+  },
+  "toastNavigating": {
+    "message": "Navigating to Kindle highlights..."
+  },
+  "toastEnterToken": {
+    "message": "Please enter your Notion API Token"
+  },
+  "toastEnterDatabaseId": {
+    "message": "Please enter your Database ID"
+  },
+  "toastInvalidDatabaseId": {
+    "message": "Invalid Database ID format"
+  },
+  "toastSettingsSaved": {
+    "message": "Settings saved successfully!"
+  },
+  "toastNoActiveTab": {
+    "message": "Error: No active tab found"
+  },
+  "toastNavigateFirst": {
+    "message": "Please navigate to a Kindle highlights page first"
+  },
+  "toastFailedGetTab": {
+    "message": "Error: Failed to get active tab"
+  },
+  "toastExportFailed": {
+    "message": "Export failed. Please check your settings."
+  },
+  "toastConnectionFailed": {
+    "message": "Connection failed"
+  },
+  "onboardingWelcomeTitle": {
+    "message": "Welcome to Kindle to Notion!"
+  },
+  "onboardingWelcomeDesc": {
+    "message": "Sync your Kindle highlights and notes to Notion with just one click. Let's get you set up in a few simple steps."
+  },
+  "onboardingFeature1": {
+    "message": "Export all your Kindle highlights"
+  },
+  "onboardingFeature2": {
+    "message": "One-click sync to Notion"
+  },
+  "onboardingFeature3": {
+    "message": "Organize by book and author"
+  },
+  "onboardingGetStarted": {
+    "message": "Get Started"
+  },
+  "onboardingSkipSetup": {
+    "message": "Skip Setup"
+  },
+  "onboardingConnectTitle": {
+    "message": "Connect to Notion"
+  },
+  "onboardingConnectDesc": {
+    "message": "First, we need to connect your Notion account. You'll need a Notion API token and database ID."
+  },
+  "onboardingStep1Title": {
+    "message": "Go to Notion Integrations"
+  },
+  "onboardingStep1Desc": {
+    "message": "and create a new integration"
+  },
+  "onboardingStep2Title": {
+    "message": "Copy your API Token"
+  },
+  "onboardingStep2Desc": {
+    "message": "Copy the \"Internal Integration Token\" from your new integration"
+  },
+  "onboardingStep3Title": {
+    "message": "Create a Database"
+  },
+  "onboardingStep3Desc": {
+    "message": "Create a new database in Notion and copy its URL or ID"
+  },
+  "onboardingContinueSettings": {
+    "message": "Continue to Settings"
+  },
+  "onboardingBack": {
+    "message": "Back"
+  },
+  "onboardingConfigureTitle": {
+    "message": "Configure Your Settings"
+  },
+  "onboardingConfigureDesc": {
+    "message": "Choose how you want to connect to Notion: OAuth (recommended) or manual token entry."
+  },
+  "onboardingOAuthTitle": {
+    "message": "OAuth Connection (Recommended)"
+  },
+  "onboardingOAuthDesc": {
+    "message": "Connect securely with one click using OAuth authentication."
+  },
+  "onboardingSelectDatabase": {
+    "message": "Select Your Database"
+  },
+  "onboardingSelectDatabaseDesc": {
+    "message": "Choose the Notion database where you want to store your Kindle highlights."
+  },
+  "onboardingLoadingDatabases": {
+    "message": "Loading databases..."
+  },
+  "onboardingContinueDatabase": {
+    "message": "Continue with Selected Database"
+  },
+  "onboardingManualEntryFallback": {
+    "message": "Or enter your database ID manually:"
+  },
+  "onboardingContinueManual": {
+    "message": "Continue with Manual Entry"
+  },
+  "onboardingManualTokenTitle": {
+    "message": "Manual Token Entry"
+  },
+  "onboardingManualTokenDesc": {
+    "message": "Enter your Notion API token and database details manually."
+  },
+  "onboardingLabelToken": {
+    "message": "Notion API Token:"
+  },
+  "onboardingLabelDatabaseId": {
+    "message": "Database ID:"
+  },
+  "onboardingLabelTitleProp": {
+    "message": "Title Property:"
+  },
+  "onboardingLabelAuthorProp": {
+    "message": "Author Property:"
+  },
+  "onboardingTip": {
+    "message": "You can change these settings later in the Settings tab"
+  },
+  "onboardingTestConnection": {
+    "message": "Test Connection"
+  },
+  "onboardingPlaceholderToken": {
+    "message": "Enter your Notion API token"
+  },
+  "onboardingPlaceholderDatabaseId": {
+    "message": "Enter your database ID or URL"
+  },
+  "onboardingKindleTitle": {
+    "message": "Access Your Kindle Highlights"
+  },
+  "onboardingKindleDesc": {
+    "message": "Now you need to navigate to your Kindle highlights page to start syncing."
+  },
+  "onboardingKindleStep1Title": {
+    "message": "Go to Kindle Highlights"
+  },
+  "onboardingKindleStep1Desc": {
+    "message": "Navigate to your regional Kindle highlights page"
+  },
+  "onboardingKindleStep2Title": {
+    "message": "Make sure you're logged in"
+  },
+  "onboardingKindleStep2Desc": {
+    "message": "Ensure you're signed into your Amazon account"
+  },
+  "onboardingKindleStep3Title": {
+    "message": "Click the extension icon"
+  },
+  "onboardingKindleStep3Desc": {
+    "message": "Return here and click \"Export to Notion\" to sync your highlights"
+  },
+  "onboardingGoToHighlights": {
+    "message": "Go to Highlights Page"
+  },
+  "onboardingReadyTitle": {
+    "message": "Ready to Sync!"
+  },
+  "onboardingReadyDesc": {
+    "message": "Everything is set up! You're now ready to export your Kindle highlights to Notion."
+  },
+  "onboardingSyncItem1": {
+    "message": "Extract highlights from your Kindle books"
+  },
+  "onboardingSyncItem2": {
+    "message": "Format them as Notion blocks"
+  },
+  "onboardingSyncItem3": {
+    "message": "Save to your Notion database"
+  },
+  "onboardingAllSet": {
+    "message": "You're all set! Your first sync will happen automatically when you click \"Export to Notion\""
+  },
+  "onboardingFinish": {
+    "message": "Start Using the Extension"
+  },
+  "tooltipNext": {
+    "message": "Next"
+  },
+  "tooltipSkipTour": {
+    "message": "Skip Tour"
+  },
+  "onboardingToastFetchingDatabases": {
+    "message": "Fetching your databases..."
+  },
+  "onboardingToastFoundDatabases": {
+    "message": "Found $COUNT$ database(s)",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1"
+      }
+    }
+  },
+  "onboardingToastNoDatabases": {
+    "message": "No databases found. Please create a database in Notion first."
+  },
+  "onboardingToastSelectDatabase": {
+    "message": "Please select a database"
+  },
+  "onboardingToastDatabaseSelected": {
+    "message": "Database selected!"
+  },
+  "onboardingToastEnterDatabaseId": {
+    "message": "Please enter a database ID"
+  },
+  "onboardingToastInvalidDatabaseUrl": {
+    "message": "Please enter a valid Notion database URL or ID"
+  },
+  "onboardingToastInvalidDatabaseId": {
+    "message": "Please enter a valid 32-character Database ID"
+  },
+  "onboardingToastDatabaseSaved": {
+    "message": "Database ID saved!"
+  },
+  "onboardingToastFillProperties": {
+    "message": "Please fill in both Title and Author property names"
+  },
+  "onboardingToastSettingsSaved": {
+    "message": "Settings saved successfully! Starting guided tour..."
+  },
+  "bgErrorOAuthNotConfigured": {
+    "message": "OAuth not configured. Please set Client ID and Proxy Server URL in settings."
+  },
+  "bgErrorNoAuthToken": {
+    "message": "No authentication token found. Please connect to Notion first."
+  },
+  "bgErrorMissingTokenOrDb": {
+    "message": "Error: Missing Notion token or database ID"
+  },
+  "bgErrorMissingProperties": {
+    "message": "Error: Missing title or author property names"
+  },
+  "bgErrorNoHighlightsData": {
+    "message": "Error: No highlights data to process"
+  },
+  "bgProgressFetchingCover": {
+    "message": "Fetching book cover..."
+  },
+  "bgProgressCheckingDuplicates": {
+    "message": "Checking duplicates..."
+  },
+  "bgProgressFetchingHighlights": {
+    "message": "Fetching existing highlights..."
+  },
+  "bgInfoNoNewHighlights": {
+    "message": "Info: No new highlights to add"
+  },
+  "bgProgressAppendingHighlights": {
+    "message": "Appending $COUNT$ new highlights...",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1"
+      }
+    }
+  },
+  "bgProgressExporting": {
+    "message": "Exporting..."
+  },
+  "bgStatusUpdatedBook": {
+    "message": "Updated existing book with $HIGHLIGHTS$ new highlights (including $NOTES$ with notes)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "bgStatusExportSuccess": {
+    "message": "Export successful! $HIGHLIGHTS$ Highlight(s) | $NOTES$ Note(s)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "bgOtherHighlights": {
+    "message": "Other Highlights"
+  },
+  "bgCountBlock": {
+    "message": "$HIGHLIGHTS$ Highlight(s) | $NOTES$ Note(s)",
+    "placeholders": {
+      "HIGHLIGHTS": {
+        "content": "$1"
+      },
+      "NOTES": {
+        "content": "$2"
+      }
+    }
+  },
+  "labelInterfaceLanguage": {
+    "message": "Interface Language"
+  },
+  "langBrowserDefault": {
+    "message": "Browser Default"
+  },
+  "labelSelectDatabase": {
+    "message": "Select Database"
+  },
+  "optionLoadingDatabases": {
+    "message": "Loading databases..."
+  },
+  "optionSelectDatabase": {
+    "message": "-- Select a database --"
+  },
+  "helpSelectDatabase": {
+    "message": "Choose the database shared with the integration"
+  },
+  "toastDatabaseAutoSet": {
+    "message": "Database auto-detected and set!"
+  }
+}
