@@ -32,4 +32,7 @@
 
 - Structuring of background scripts and service workers for robust API interaction.
 - Translation coverage for JS context and HTML UI.
+<<<<<<< HEAD
 - Added a 10-second timeout to all Notion API and proxy server requests to prevent UI hangs.
+=======
+>>>>>>> d4253ec (feat: Add multi-browser support, Notion OAuth integration, and update project documentation for v1.8.0.)
