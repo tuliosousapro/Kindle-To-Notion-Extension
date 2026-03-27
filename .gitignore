@@ -22,6 +22,7 @@ build/
 .env.production.local
 
 # Logs
+tasks/
 logs/
 npm-debug.log*
 
