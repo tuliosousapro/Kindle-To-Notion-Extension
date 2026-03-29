@@ -1,9 +1,9 @@
-﻿{
+{
   "extensionName": {
-    "message": "Kindle to Notion Extension – Export Kindle Highlights to Notion"
+    "message": "Kindle to Notion - 1 क्लिक में हाइलाइट्स मुफ्त में एक्सपोर्ट करें"
   },
   "extensionDescription": {
-    "message": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database"
+    "message": "Kindle हाइलाइट्स को तुरंत Notion में एक्सपोर्ट करें। बुक नोट्स, एनोटेशन और रीडिंग इनसाइट्स के लिए वन-क्लिक सिंक। मुफ़्त, कोई साइनअप आवश्यक नहीं।"
   },
   "appTitle": {
     "message": "Kindle to Notion"
