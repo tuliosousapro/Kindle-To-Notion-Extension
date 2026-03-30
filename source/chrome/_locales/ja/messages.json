@@ -1,9 +1,9 @@
 {
   "extensionName": {
-    "message": "Kindle to Notion – Kindleのハイライトをnotionにエクスポート"
+    "message": "Kindle to Notion - ワンクリックでハイライトを無料エクスポート"
   },
   "extensionDescription": {
-    "message": "ワンクリックでKindleのハイライトをNotionにエクスポート。書籍別に整理し、KindleのメモをNotionデータベースに同期"
+    "message": "Kindleのハイライトを即座にNotionへエクスポート。読書メモや注釈、インサイトをワンクリックで同期。無料、登録不要。"
   },
   "appTitle": {
     "message": "Kindle to Notion"
