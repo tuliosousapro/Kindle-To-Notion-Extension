@@ -54,20 +54,7 @@
   <img src="https://img.shields.io/github/commit-activity/m/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green" alt="GitHub commits">
 </p>
 
-<<<<<<< HEAD
 > Don't just clone it! Give a star if it helped you... ![GitHub stars](https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green)
-=======
-<h1 align="center">Kindle To Notion Extension v1.7.0</h1>
-<p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, bookmarks, and page references</em></p>
-<p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green">  <img src="https://img.shields.io/github/commit-activity/m/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
-
-<<<<<<< HEAD
-> Don't just clone it! Gives a star if it helped you... 
->>>>>>> 7e0659d (Fix formatting and update follow link in README)
-=======
-> Don't just clone it! Gives a star if it helped you...
->>>>>>> a64fe18 (feat: Introduce Notion OAuth, first-time setup onboarding, multi-browser background scripts, and add a 10-second timeout to Notion API requests.)
 
 <p align="center">
 >>>>>>> c9e4469 (Revise README for clarity and updated content)
@@ -186,14 +173,18 @@ This template helps you:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 37a3fd4 (Refactor README for better readability)
 =======
 >>>>>>> 79b80c0 (feat: Introduce Notion OAuth, first-time setup onboarding, multi-browser background scripts, and add a 10-second timeout to Notion API requests.)
+=======
+>>>>>>> 3d73e6d (chore: resolve merge conflicts and clean up README formatting)
 2. Alternatively, navigate to your region's Kindle notebook page (see supported regions below).
 3. Once in the highlights page, open the extension popup and click **"Export to Notion."**
 4. Check the status message in the pop-up for success or errors.
 5. Verify the new page in your Notion database.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -220,6 +211,8 @@ This template helps you:
 4. Verify the new page in your Notion database.
 >>>>>>> 04188a1 (Update README.MD)
 >>>>>>> 861c5ea (Update README.MD)
+=======
+>>>>>>> 3d73e6d (chore: resolve merge conflicts and clean up README formatting)
 
 ### Supported Kindle Regions
 
@@ -259,6 +252,7 @@ This template helps you:
 - Comprehensive multi-language support (i18n) and native extensions for Chrome, Edge, and Firefox.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 <<<<<<< HEAD
@@ -266,6 +260,8 @@ This template helps you:
 >>>>>>> aaee036 (Update README with contributing and license sections)
 =======
 >>>>>>> 79b80c0 (feat: Introduce Notion OAuth, first-time setup onboarding, multi-browser background scripts, and add a 10-second timeout to Notion API requests.)
+=======
+>>>>>>> 3d73e6d (chore: resolve merge conflicts and clean up README formatting)
 
 ### ✨ v1.7.0 - Major New Features
 
@@ -298,6 +294,7 @@ This template helps you:
 <<<<<<< HEAD
 <<<<<<< HEAD
 - Accessible (WCAG 2.1) compliant UI for accessibility. Smooth transitions, toast notifications, and a streamlined workflow.
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 - accessible (WCAG 2.1) compliant UI for accessibility. Smooth transitions, toast notifications, and a streamlined workflow.
@@ -341,6 +338,8 @@ This template helps you:
 </details>
 >>>>>>> a64fe18 (feat: Introduce Notion OAuth, first-time setup onboarding, multi-browser background scripts, and add a 10-second timeout to Notion API requests.)
 >>>>>>> 79b80c0 (feat: Introduce Notion OAuth, first-time setup onboarding, multi-browser background scripts, and add a 10-second timeout to Notion API requests.)
+=======
+>>>>>>> 3d73e6d (chore: resolve merge conflicts and clean up README formatting)
 
 ---
 
@@ -348,9 +347,12 @@ This template helps you:
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 ![Come One Of Us](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTFsZXh2b3Exc2Ezd2JuMDZ1ZG94MW1kZTd3MWNreGVmeDhsMHR4diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uZIDWgDZCeHxuJOGl5/giphy.gif)
 >>>>>>> c9e4469 (Revise README for clarity and updated content)
 
+=======
+>>>>>>> 3d73e6d (chore: resolve merge conflicts and clean up README formatting)
 ---
 
 ## 🧪Development
@@ -495,13 +497,5 @@ Smash that star button ![GitHub stars](https://img.shields.io/github/stars/tulio
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 **Since 2025** | [Túlio Sousa](https://github.com/tuliosousapro)
-<<<<<<< HEAD
 
-<<<<<<< HEAD
 Follow me on X [![Follow ME](https://img.shields.io/badge/X-000000.svg?style=for-the-badge&logo=X&logoColor=white)](https://x.com/tuliosousapro)
-=======
-Follow me on X/Twitter
-=======
->>>>>>> 164c5cc (Update README with additional content and badges)
-> <a href="https://x.com/tuliosousapro"><img src="https://img.shields.io/badge/Follow_ME-000000.svg?style=for-the-badge&logo=X&logoColor=white"></a>
->>>>>>> 7e0659d (Fix formatting and update follow link in README)
