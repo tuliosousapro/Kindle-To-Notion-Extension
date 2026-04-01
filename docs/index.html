@@ -259,15 +259,15 @@
 
                 <div class="hero__social-proof">
                   <div class="social-proof__item">
-                    <span class="social-proof__number">3,000+</span>
+                    <span class="social-proof__number" data-count="3000" data-suffix="+" data-label="Readers">3,000+</span>
                     <span class="social-proof__label">Readers Trust Us</span>
                   </div>
                   <div class="social-proof__item">
-                    <span class="social-proof__number">4.8★</span>
+                    <span class="social-proof__number" data-count="4.8" data-suffix="★" data-decimals="1">4.8★</span>
                     <span class="social-proof__label">Chrome Store</span>
                   </div>
                   <div class="social-proof__item">
-                    <span class="social-proof__number">12</span>
+                    <span class="social-proof__number" data-count="12" data-suffix="">12</span>
                     <span class="social-proof__label">Regions</span>
                   </div>
                 </div>
@@ -901,6 +901,61 @@
 
       document.querySelectorAll(".animate-on-scroll").forEach((el) => {
         observer.observe(el);
+      });
+
+      // Animated counters for social proof stats
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function easeOutQuart(t) {
+        return 1 - Math.pow(1 - t, 4);
+      }
+
+      function animateCounter(el) {
+        const target = parseFloat(el.dataset.count);
+        const suffix = el.dataset.suffix || "";
+        const decimals = parseInt(el.dataset.decimals || "0", 10);
+        const duration = 1800; // ms
+        const start = performance.now();
+
+        // Format with thousands separator where needed
+        function format(val) {
+          const fixed = val.toFixed(decimals);
+          // Add comma for thousands (only integers)
+          if (decimals === 0 && val >= 1000) {
+            return Number(fixed).toLocaleString("en-US");
+          }
+          return fixed;
+        }
+
+        function step(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutQuart(progress);
+          el.textContent = format(eased * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+
+        if (prefersReduced) {
+          el.textContent = format(target) + suffix;
+        } else {
+          requestAnimationFrame(step);
+        }
+      }
+
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateCounter(entry.target);
+              counterObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      document.querySelectorAll(".social-proof__number[data-count]").forEach((el) => {
+        counterObserver.observe(el);
       });
     </script>
   </body>
