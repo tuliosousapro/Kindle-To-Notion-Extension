@@ -1,37 +1,42 @@
 /* Onboarding Styles - Clean Minimalist Design */
 :root {
   /* Design System: Colors */
-  --canvas-white: #FFFFFF;
-  --jet-black: #1A1A1A;
-  --carbon-gray: #37352F;
-  --muted-slate: #6B7280;
+  --canvas-white: #ffffff;
+  --jet-black: #1a1a1a;
+  --carbon-gray: #37352f;
+  --muted-slate: #6b7280;
 
   /* Brand Gradients */
-  --brand-gradient-start: #6366F1;
+  --brand-gradient-start: #6366f1;
   /* Indigo-500 */
-  --brand-gradient-end: #F59E0B;
+  --brand-gradient-end: #f59e0b;
   /* Amber-500 */
-  --brand-gradient: linear-gradient(135deg, var(--brand-gradient-start), var(--brand-gradient-end));
+  --brand-gradient: linear-gradient(
+    135deg,
+    var(--brand-gradient-start),
+    var(--brand-gradient-end)
+  );
 
   /* UI Tokens */
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-bg-hover: rgba(255, 255, 255, 0.95);
   --glass-border: rgba(229, 231, 235, 0.6);
   --glass-shadow: rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
   /* Blobs */
   --blob-peach: rgba(255, 228, 214, 0.6);
   --blob-periwinkle: rgba(199, 210, 254, 0.4);
 
   /* Text Colors */
-  --text-primary: #1A1A1A;
-  --text-secondary: #37352F;
-  --text-muted: #6B7280;
+  --text-primary: #1a1a1a;
+  --text-secondary: #37352f;
+  --text-muted: #6b7280;
 
   /* Accent Colors */
-  --accent-primary: #6366F1;
-  --accent-secondary: #F59E0B;
+  --accent-primary: #6366f1;
+  --accent-secondary: #f59e0b;
   --accent-success: #166534;
 
   /* Spacing */
@@ -63,7 +68,13 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   background-color: var(--canvas-white);
   color: var(--text-primary);
   width: 360px;
@@ -76,7 +87,7 @@ body {
 /* Ambient Background Bubbles */
 body::before,
 body::after {
-  content: '';
+  content: "";
   position: fixed;
   border-radius: 50%;
   filter: blur(60px);
@@ -103,7 +114,6 @@ body::after {
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translate(0, 0);
@@ -640,7 +650,7 @@ body::after {
 
 .divider-with-text::before,
 .divider-with-text::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px solid var(--glass-border);
 }
@@ -752,4 +762,18 @@ body::after {
 
 #manual-database-input::placeholder {
   color: var(--text-muted);
+}
+/* Utility Classes for DOM structure */
+.mb-12 {
+  margin-bottom: 12px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.text-sm-secondary {
+  color: var(--text-secondary);
+  font-size: 14px;
 }
