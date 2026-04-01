@@ -25,3 +25,25 @@
 - [x] Restructure HTML semantics to follow high-converting sequence (Hero -> How It Works -> Video -> Features -> Comparison -> Testimonials -> Use Cases -> Install -> FAQ -> CTA)
 - [x] Clean inline styles and ensure perfect grid alignments
 - [x] Add CSS prefers-reduced-motion for accessibility
+
+## Landing Page UI Enhancements (One at a time)
+
+### High Impact - Visual Overhaul
+- [x] **#1** Scroll-triggered IntersectionObserver animations — fade-in each section as it enters viewport (~15 lines JS)
+- [ ] **#2** Animated counters on social proof stats (3,000+, 4.8★, 12) — count up on scroll entry (~20 lines JS)
+- [ ] **#3** FAQ Accordion — click to expand/collapse each item (~30 lines JS + 20 CSS)
+- [ ] **#4** Dark Mode Toggle — `prefers-color-scheme` + manual toggle button
+- [ ] **#5** Animated Hero Background — CSS conic-gradient or dot grid replacing static blobs
+- [ ] **#6** Replace hero image with animated highlight→Notion flow mockup (CSS-only)
+- [ ] **#7** Glassmorphism Upgrade — deeper blur (20px), lower opacity (0.6), gradient borders
+
+### Medium Impact - Polish & Delight
+- [ ] **#8** Sticky Nav Scroll State — `.scrolled` class on scroll with tighter shadow
+- [ ] **#9** Typewriter Effect on Hero H1 — cycle between 3 headline variations
+- [ ] **#10** Step Connector Upgrade — animated dashed SVG line between steps
+
+### Low Effort, High Polish
+- [ ] **#11** Gradient Text on Section Titles — apply brand gradient to `section-title`
+- [ ] **#12** Testimonial Quote Mark — large `"` via `::before` pseudo-element
+- [ ] **#13** Footer Gradient Strip — `border-top` with brand gradient
+- [ ] **#14** CTA Section Gradient Background — subtle indigo tint on `.cta-final`
