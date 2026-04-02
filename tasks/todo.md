@@ -35,15 +35,15 @@
 - [ ] **#4** Dark Mode Toggle — `prefers-color-scheme` + manual toggle button (REVERTED - broke layout)
 - [x] **#5** Animated Hero Background — CSS conic-gradient or dot grid replacing static blobs
 - [x] **#6** Replace hero image with animated highlight→Notion flow mockup (CSS-only)
-- [ ] **#7** Glassmorphism Upgrade — deeper blur (20px), lower opacity (0.6), gradient borders
+- [x] **#7** Glassmorphism Upgrade — deeper blur (20px), lower opacity (0.6), gradient borders
 
 ### Medium Impact - Polish & Delight
-- [ ] **#8** Sticky Nav Scroll State — `.scrolled` class on scroll with tighter shadow
-- [ ] **#9** Typewriter Effect on Hero H1 — cycle between 3 headline variations
-- [ ] **#10** Step Connector Upgrade — animated dashed SVG line between steps
+- [x] **#8** Sticky Nav Scroll State — `.is-scrolled` class on scroll with tighter shadow
+- [x] **#9** Typewriter Effect on Hero H1 — cycle between 3 headline variations
+- [x] **#10** Step Connector Upgrade — animated dashed SVG line between steps
 
 ### Low Effort, High Polish
 - [ ] **#11** Gradient Text on Section Titles — apply brand gradient to `section-title`
-- [ ] **#12** Testimonial Quote Mark — large `"` via `::before` pseudo-element
-- [ ] **#13** Footer Gradient Strip — `border-top` with brand gradient
-- [ ] **#14** CTA Section Gradient Background — subtle indigo tint on `.cta-final`
+- [x] **#12** Testimonial Quote Mark — large `"` via `::before` pseudo-element (Implemented as ::after gradient quotes)
+- [x] **#13** Footer Gradient Strip — `border-top` with brand gradient
+- [x] **#14** CTA Section Gradient Background — subtle indigo tint on `.cta-final`
