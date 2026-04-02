@@ -949,20 +949,20 @@
         if (isDeleting) {
           typewriterElement.textContent = currentHeadline.substring(0, charIndex - 1);
           charIndex--;
-          typeSpeed = 30;
+          typeSpeed = 15;
         } else {
           typewriterElement.textContent = currentHeadline.substring(0, charIndex + 1);
           charIndex++;
-          typeSpeed = 60;
+          typeSpeed = 30;
         }
 
         if (!isDeleting && charIndex === currentHeadline.length) {
           isDeleting = true;
-          typeSpeed = 4000; // Longer pause for readability on subhead
+          typeSpeed = 3000; // Pause for readability
         } else if (isDeleting && charIndex === 0) {
           isDeleting = false;
           headlineIndex = (headlineIndex + 1) % headlines.length;
-          typeSpeed = 500;
+          typeSpeed = 400;
         }
 
         setTimeout(type, typeSpeed);
