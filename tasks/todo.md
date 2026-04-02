@@ -30,11 +30,11 @@
 
 ### High Impact - Visual Overhaul
 - [x] **#1** Scroll-triggered IntersectionObserver animations — fade-in each section as it enters viewport (~15 lines JS)
-- [ ] **#2** Animated counters on social proof stats (3,000+, 4.8★, 12) — count up on scroll entry (~20 lines JS)
-- [ ] **#3** FAQ Accordion — click to expand/collapse each item (~30 lines JS + 20 CSS)
-- [ ] **#4** Dark Mode Toggle — `prefers-color-scheme` + manual toggle button
-- [ ] **#5** Animated Hero Background — CSS conic-gradient or dot grid replacing static blobs
-- [ ] **#6** Replace hero image with animated highlight→Notion flow mockup (CSS-only)
+- [x] **#2** Animated counters on social proof stats (3,000+, 4.8★, 12) — count up on scroll entry (~20 lines JS)
+- [x] **#3** FAQ Accordion — click to expand/collapse each item (~30 lines JS + 20 CSS)
+- [ ] **#4** Dark Mode Toggle — `prefers-color-scheme` + manual toggle button (REVERTED - broke layout)
+- [x] **#5** Animated Hero Background — CSS conic-gradient or dot grid replacing static blobs
+- [x] **#6** Replace hero image with animated highlight→Notion flow mockup (CSS-only)
 - [ ] **#7** Glassmorphism Upgrade — deeper blur (20px), lower opacity (0.6), gradient borders
 
 ### Medium Impact - Polish & Delight

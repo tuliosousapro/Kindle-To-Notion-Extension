@@ -31,3 +31,4 @@
 
 3. **Clean Markup**:
    - Strictly avoid inline styles. Use global CSS classes to maintain perfect flex/grid structures and alignment.
+- Dark Mode Toggle (HTML/CSS) implementation broke page layout; reverted changes. Further testing required before attempting complex theme toggle features that interact with background properties.
