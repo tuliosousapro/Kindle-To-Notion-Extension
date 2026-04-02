@@ -1261,13 +1261,22 @@ h6 {
   line-height: 1.6;
 }
 
-/* Footer */
 .footer {
-  padding: 4rem 0;
-  border-top: 1px solid var(--border-light);
+  position: relative;
+  padding: 5rem 0;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(var(--glass-blur));
   margin-top: auto;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--brand-gradient);
 }
 
 .footer__content {
