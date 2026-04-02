@@ -352,30 +352,30 @@ h6 {
   /* Tight tracking */
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
-  min-height: 2.2em; /* Prevent jumpy layout */
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  color: var(--muted-slate);
+  margin-bottom: 3rem;
+  max-width: 700px;
+  line-height: 1.6;
+  font-weight: 400;
+  min-height: 3.2em; /* Prevent jumpy layout for 2-3 lines of text */
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
 }
 
 .cursor {
   color: var(--brand-gradient-start);
   animation: blink 0.7s infinite;
   margin-left: 2px;
+  font-weight: 400;
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
-}
-
-.hero__subtitle {
-  color: var(--muted-slate);
-  font-size: 1.25rem;
-  /* text-xl */
-  line-height: 1.6;
-  /* Relaxed leading */
-  margin-bottom: 2.5rem;
-  font-weight: 400;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out 0.2s forwards;
 }
 
 .hero__cta {

@@ -184,12 +184,10 @@
               <div class="hero__text">
                 <div class="hero__badge">Free During Beta - No Credit Card</div>
                 <h1 class="hero__title">
-                  <span id="typewriter">Export Kindle Highlights to Notion in 1 Click</span><span class="cursor">|</span>
+                  Export Kindle Highlights to Notion in 1 Click
                 </h1>
                 <p class="hero__subtitle">
-                  The privacy-first extension that syncs your Kindle highlights,
-                  notes, and annotations directly to Notion. Build your second
-                  brain without complex setup or monthly subscriptions.
+                  <span id="typewriter">The privacy-first extension that syncs your Kindle highlights, notes, and annotations directly to Notion.</span><span class="cursor">|</span>
                 </p>
 
                 <div class="hero__cta">
@@ -936,9 +934,9 @@
       // Typewriter Effect
       const typewriterElement = document.getElementById("typewriter");
       const headlines = [
-        "Export Kindle Highlights to Notion in 1 Click",
-        "Build Your Digital Brain Without Subscriptions",
-        "Turn Every Highlight Into Actionable Knowledge"
+        "The privacy-first extension that syncs your Kindle highlights, notes, and annotations directly to Notion.",
+        "Build your second brain without complex setup, recurring monthly fees, or privacy concerns.",
+        "Turn every highlight into actionable knowledge by organizing your wisdom where you work."
       ];
       let headlineIndex = 0;
       let charIndex = 0;
@@ -951,27 +949,27 @@
         if (isDeleting) {
           typewriterElement.textContent = currentHeadline.substring(0, charIndex - 1);
           charIndex--;
-          typeSpeed = 50;
+          typeSpeed = 30;
         } else {
           typewriterElement.textContent = currentHeadline.substring(0, charIndex + 1);
           charIndex++;
-          typeSpeed = 100;
+          typeSpeed = 60;
         }
 
         if (!isDeleting && charIndex === currentHeadline.length) {
           isDeleting = true;
-          typeSpeed = 3000; // Pause at end
+          typeSpeed = 4000; // Longer pause for readability on subhead
         } else if (isDeleting && charIndex === 0) {
           isDeleting = false;
           headlineIndex = (headlineIndex + 1) % headlines.length;
-          typeSpeed = 500; // Pause at start
+          typeSpeed = 500;
         }
 
         setTimeout(type, typeSpeed);
       }
 
-      // Start typewriter after a short delay
-      setTimeout(type, 1500);
+      // Start typewriter after a short delay (after H1 entrance)
+      setTimeout(type, 2000);
 
       // Header Scroll State
       const header = document.querySelector(".header");
