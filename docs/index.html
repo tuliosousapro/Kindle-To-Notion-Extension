@@ -933,6 +933,16 @@
     </div>
 
     <script>
+      // Header Scroll State
+      const header = document.querySelector(".header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          header.classList.add("is-scrolled");
+        } else {
+          header.classList.remove("is-scrolled");
+        }
+      });
+
       // Smooth scroll for internal links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
