@@ -29,11 +29,12 @@
   --neutral-text: #4b5563;
 
   /* UI Tokens */
-  --border-light: rgba(229, 231, 235, 0.6);
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-blur: 8px;
+  --border-light: rgba(229, 231, 235, 0.4);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-blur: 20px;
+  --glass-border: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
 
   /* Typography */
   --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -382,13 +383,14 @@ h6 {
 
 .mockup__window {
   flex: 1;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-light);
-  border-radius: 20px;
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid transparent;
+  border-radius: 24px;
   box-shadow: var(--shadow-2xl);
   overflow: hidden;
-  height: 280px;
+  height: 282px;
   display: flex;
   flex-direction: column;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -605,21 +607,22 @@ h6 {
 }
 
 .feature-card {
-  background: var(--glass-bg);
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(var(--glass-blur));
-  padding: 2rem;
-  border-radius: 16px;
+  padding: 2.5rem;
+  border-radius: 24px;
   text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid var(--border-light);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
   box-shadow: var(--shadow-sm);
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-2xl);
-  border-color: rgba(99, 102, 241, 0.3);
-  /* Slight indigo tint on hover */
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -20px rgba(99, 102, 241, 0.3);
+  background: linear-gradient(var(--canvas-white), var(--canvas-white)) padding-box,
+              var(--brand-gradient) border-box;
 }
 
 .feature-card__icon {
@@ -699,16 +702,17 @@ h6 {
 }
 
 .testimonial-card {
-  background: var(--glass-bg);
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(var(--glass-blur));
   padding: 2.5rem;
-  border-radius: 16px;
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid var(--border-light);
+  border: 1px solid transparent;
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .testimonial-card:hover {
@@ -780,16 +784,18 @@ h6 {
 /* Hero Badge */
 .hero__badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(12px);
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 1.25rem;
   border-radius: 9999px;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 2rem;
-  border: 1px solid var(--border-light);
+  border: 1px solid transparent;
   color: var(--brand-gradient-start);
   box-shadow: var(--shadow-sm);
+  letter-spacing: 0.02em;
 }
 
 /* Hero Trust Items */
@@ -847,14 +853,15 @@ h6 {
 }
 
 .step-card {
-  background: var(--glass-bg);
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(var(--glass-blur));
-  padding: 2rem;
-  border-radius: 16px;
+  padding: 2.5rem;
+  border-radius: 24px;
   text-align: center;
-  border: 1px solid var(--border-light);
+  border: 1px solid transparent;
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .step-card:hover {
@@ -903,14 +910,15 @@ h6 {
 }
 
 .browser-card {
-  background: var(--glass-bg);
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(var(--glass-blur));
   padding: 2.5rem 2rem;
-  border-radius: 16px;
+  border-radius: 24px;
   text-align: center;
-  border: 1px solid var(--border-light);
+  border: 1px solid transparent;
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   display: flex;
   flex-direction: column;
@@ -981,12 +989,13 @@ h6 {
 }
 
 .faq-item {
-  background: var(--glass-bg);
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(var(--glass-blur));
-  border-radius: 16px;
-  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  border: 1px solid transparent;
   overflow: hidden;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .faq-item:hover {
@@ -1076,12 +1085,13 @@ h6 {
 
 .comparison-table-wrapper {
   overflow-x: auto;
-  border-radius: 20px;
-  background: var(--glass-bg);
+  border-radius: 24px;
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--border-light);
+  border: 1px solid transparent;
   padding: 0;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-2xl);
 }
 
 .comparison-table {
@@ -1141,13 +1151,14 @@ h6 {
 }
 
 .use-case-card {
-  background: var(--glass-bg);
+  background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
+              var(--glass-border) border-box;
   backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--border-light);
-  border-radius: 16px;
+  border: 1px solid transparent;
+  border-radius: 24px;
   padding: 2.5rem;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-sm);
 }
 
