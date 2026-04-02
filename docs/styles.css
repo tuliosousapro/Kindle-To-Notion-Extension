@@ -352,6 +352,18 @@ h6 {
   /* Tight tracking */
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
+  min-height: 2.2em; /* Prevent jumpy layout */
+}
+
+.cursor {
+  color: var(--brand-gradient-start);
+  animation: blink 0.7s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .hero__subtitle {

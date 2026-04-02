@@ -184,7 +184,7 @@
               <div class="hero__text">
                 <div class="hero__badge">Free During Beta - No Credit Card</div>
                 <h1 class="hero__title">
-                  Export Kindle Highlights to Notion in 1 Click
+                  <span id="typewriter">Export Kindle Highlights to Notion in 1 Click</span><span class="cursor">|</span>
                 </h1>
                 <p class="hero__subtitle">
                   The privacy-first extension that syncs your Kindle highlights,
@@ -933,6 +933,46 @@
     </div>
 
     <script>
+      // Typewriter Effect
+      const typewriterElement = document.getElementById("typewriter");
+      const headlines = [
+        "Export Kindle Highlights to Notion in 1 Click",
+        "Build Your Digital Brain Without Subscriptions",
+        "Turn Every Highlight Into Actionable Knowledge"
+      ];
+      let headlineIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let typeSpeed = 100;
+
+      function type() {
+        const currentHeadline = headlines[headlineIndex];
+        
+        if (isDeleting) {
+          typewriterElement.textContent = currentHeadline.substring(0, charIndex - 1);
+          charIndex--;
+          typeSpeed = 50;
+        } else {
+          typewriterElement.textContent = currentHeadline.substring(0, charIndex + 1);
+          charIndex++;
+          typeSpeed = 100;
+        }
+
+        if (!isDeleting && charIndex === currentHeadline.length) {
+          isDeleting = true;
+          typeSpeed = 3000; // Pause at end
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          headlineIndex = (headlineIndex + 1) % headlines.length;
+          typeSpeed = 500; // Pause at start
+        }
+
+        setTimeout(type, typeSpeed);
+      }
+
+      // Start typewriter after a short delay
+      setTimeout(type, 1500);
+
       // Header Scroll State
       const header = document.querySelector(".header");
       window.addEventListener("scroll", () => {
