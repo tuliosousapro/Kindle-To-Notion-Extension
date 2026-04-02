@@ -863,18 +863,36 @@ h6 {
 }
 
 /* Connecting line for steps (desktop only) */
+.steps-connector {
+  position: absolute;
+  top: 44px;
+  left: 15%;
+  right: 15%;
+  width: 70%;
+  height: 2px;
+  z-index: -1;
+  display: none;
+  pointer-events: none;
+}
+
 @media (min-width: 1024px) {
-  .steps-grid::before {
-    content: "";
-    position: absolute;
-    top: 44px;
-    /* Align with circle center */
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    background: var(--border-light);
-    z-index: -1;
+  .steps-connector {
+    display: block;
   }
+}
+
+.steps-connector path {
+  stroke: var(--brand-gradient-start);
+  stroke-width: 2;
+  stroke-dasharray: 8 12;
+  stroke-linecap: round;
+  opacity: 0.3;
+  animation: flow 20s linear infinite;
+}
+
+@keyframes flow {
+  from { stroke-dashoffset: 200; }
+  to { stroke-dashoffset: 0; }
 }
 
 .step-card {
