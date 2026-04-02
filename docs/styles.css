@@ -176,9 +176,15 @@ h6 {
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2.85rem;
   margin-bottom: 1rem;
   text-shadow: none;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  letter-spacing: -0.03em;
 }
 
 .section-subtitle {
