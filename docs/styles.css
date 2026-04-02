@@ -1,5 +1,5 @@
 :root {
-  /* Design System: Colors */
+  /* Design System: Colors (Light) */
   --canvas-white: #ffffff;
   --jet-black: #1a1a1a;
   --carbon-gray: #37352f;
@@ -7,9 +7,7 @@
 
   /* Brand Gradients */
   --brand-gradient-start: #6366f1;
-  /* Indigo-500 */
   --brand-gradient-end: #f59e0b;
-  /* Amber-500 */
   --brand-gradient: linear-gradient(
     135deg,
     var(--brand-gradient-start),
@@ -36,8 +34,22 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
   /* Typography */
-  --font-primary:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+  --canvas-white: #0a0b10;
+  --jet-black: #f9fafb;
+  --carbon-gray: #e5e7eb;
+  --muted-slate: #9ca3af;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(17, 24, 39, 0.7);
+  --blob-peach: rgba(139, 92, 246, 0.15); /* Purple tint in dark */
+  --blob-periwinkle: rgba(59, 130, 246, 0.1); /* Blue tint in dark */
+  --neutral-bg: #1f2937;
+  --neutral-text: #d1d5db;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
 /* Reset and Base Styles */
@@ -56,6 +68,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Ambient Background Bubbles - Added via CSS pseudo-elements or specific container in HTML */
@@ -163,6 +176,62 @@ h6 {
   font-weight: 300;
   max-width: 600px;
   margin: 0 auto 2rem;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--carbon-gray);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 40px;
+  height: 40px;
+}
+
+.theme-toggle:hover {
+  background: var(--glass-bg);
+  color: var(--brand-gradient-start);
+  border-color: var(--brand-gradient-start);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.sun-icon {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.moon-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+[data-theme="dark"] .sun-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+[data-theme="dark"] .moon-icon {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+/* Nav Actions Adjustments */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 /* Navigation */
