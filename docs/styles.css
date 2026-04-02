@@ -758,42 +758,91 @@ h6 {
   padding: 6rem 0;
 }
 
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  max-width: 1000px;
+/* Accordion layout */
+.faq-accordion {
+  max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .faq-item {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
-  padding: 2rem;
   border-radius: 16px;
   border: 1px solid var(--border-light);
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .faq-item:hover {
-  background: rgba(255, 255, 255, 0.95);
   box-shadow: var(--shadow-sm);
 }
 
-.faq-item h3 {
-  color: var(--jet-black);
-  margin-bottom: 0.75rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+.faq-item.is-open {
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow:
+    0 4px 12px rgba(99, 102, 241, 0.08),
+    var(--shadow-sm);
 }
 
-.faq-item p {
+/* Trigger button */
+.faq-item__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--jet-black);
+  transition: color 0.2s ease;
+}
+
+.faq-item__trigger:hover {
+  color: var(--brand-gradient-start);
+}
+
+/* Animated chevron */
+.faq-chevron {
+  flex-shrink: 0;
+  color: var(--muted-slate);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+}
+
+.faq-item.is-open .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--brand-gradient-start);
+}
+
+/* Collapsible body */
+.faq-item__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.35s ease;
+  padding: 0 2rem;
+}
+
+.faq-item.is-open .faq-item__body {
+  padding: 0 2rem 1.5rem;
+  /* max-height set dynamically via JS */
+}
+
+.faq-item__body p {
   color: var(--neutral-text);
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
-.faq-item a {
+.faq-item__body a {
   color: var(--brand-gradient-start);
   text-decoration: none;
   font-weight: 500;
@@ -801,9 +850,11 @@ h6 {
   transition: border-color 0.2s ease;
 }
 
-.faq-item a:hover {
+.faq-item__body a:hover {
   border-bottom-color: currentColor;
 }
+
+
 
 /* Comparison Table Section */
 .comparison {

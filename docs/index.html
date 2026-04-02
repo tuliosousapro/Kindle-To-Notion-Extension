@@ -746,56 +746,60 @@
               <h2 class="section-title">Frequently Asked Questions</h2>
               <p class="section-subtitle">Got questions? We've got answers</p>
             </div>
-            <div class="faq-grid">
+            <div class="faq-accordion">
               <div class="faq-item animate-on-scroll" data-delay="1">
-                <h3>Is it really free?</h3>
-                <p>
-                  Yes! Kindle to Notion is 100% free and open source. No premium
-                  tiers, no hidden costs, no subscriptions.
-                </p>
+                <button class="faq-item__trigger" aria-expanded="false">
+                  <span>Is it really free?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-item__body">
+                  <p>Yes! Kindle to Notion is 100% free and open source. No premium tiers, no hidden costs, no subscriptions.</p>
+                </div>
               </div>
               <div class="faq-item animate-on-scroll" data-delay="2">
-                <h3>Is my data safe?</h3>
-                <p>
-                  Absolutely. Your data never leaves your device. We don't have
-                  servers, don't collect data, and can't see your highlights.
-                  It's just you and Notion.
-                </p>
+                <button class="faq-item__trigger" aria-expanded="false">
+                  <span>Is my data safe?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-item__body">
+                  <p>Absolutely. Your data never leaves your device. We don't have servers, don't collect data, and can't see your highlights. It's just you and Notion.</p>
+                </div>
               </div>
               <div class="faq-item animate-on-scroll" data-delay="3">
-                <h3>Do I need a Notion account?</h3>
-                <p>
-                  Yes, you need a free Notion account to use this extension.
-                  Notion is where your highlights will be saved.
-                </p>
+                <button class="faq-item__trigger" aria-expanded="false">
+                  <span>Do I need a Notion account?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-item__body">
+                  <p>Yes, you need a free Notion account. Notion is where your highlights will be saved.</p>
+                </div>
               </div>
               <div class="faq-item animate-on-scroll" data-delay="4">
-                <h3>Does it work with my Amazon region?</h3>
-                <p>
-                  We support 12 regions: US, UK, Canada, Germany, France, Spain,
-                  Italy, Japan, Australia, India, Mexico, and Brazil.
-                </p>
+                <button class="faq-item__trigger" aria-expanded="false">
+                  <span>Does it work with my Amazon region?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-item__body">
+                  <p>We support 12 regions: US, UK, Canada, Germany, France, Spain, Italy, Japan, Australia, India, Mexico, and Brazil.</p>
+                </div>
               </div>
               <div class="faq-item animate-on-scroll" data-delay="5">
-                <h3>What if I already exported a book?</h3>
-                <p>
-                  No problem! Re-export anytime. The extension detects existing
-                  highlights and only adds new ones - no duplicates.
-                </p>
+                <button class="faq-item__trigger" aria-expanded="false">
+                  <span>What if I already exported a book?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-item__body">
+                  <p>No problem! Re-export anytime. The extension detects existing highlights and only adds new ones — no duplicates.</p>
+                </div>
               </div>
               <div class="faq-item animate-on-scroll" data-delay="6">
-                <h3>Need help setting up?</h3>
-                <p>
-                  Check our
-                  <a href="https://machina-labs.gitbook.io/kindle-to-notion/"
-                    >documentation</a
-                  >
-                  for step-by-step guides, or open an issue on
-                  <a
-                    href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues"
-                    >GitHub</a
-                  >.
-                </p>
+                <button class="faq-item__trigger" aria-expanded="false">
+                  <span>Need help setting up?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="faq-item__body">
+                  <p>Check our <a href="https://machina-labs.gitbook.io/kindle-to-notion/">documentation</a> for step-by-step guides, or open an issue on <a href="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues">GitHub</a>.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -956,6 +960,41 @@
 
       document.querySelectorAll(".social-proof__number[data-count]").forEach((el) => {
         counterObserver.observe(el);
+      });
+
+      // FAQ Accordion
+      const faqItems = document.querySelectorAll(".faq-item");
+
+      faqItems.forEach((item) => {
+        const trigger = item.querySelector(".faq-item__trigger");
+        const body = item.querySelector(".faq-item__body");
+        if (!trigger || !body) return;
+
+        trigger.addEventListener("click", () => {
+          const isOpen = item.classList.contains("is-open");
+
+          // Collapse all open items first
+          faqItems.forEach((other) => {
+            const otherBody = other.querySelector(".faq-item__body");
+            const otherTrigger = other.querySelector(".faq-item__trigger");
+            if (otherBody && other !== item) {
+              other.classList.remove("is-open");
+              otherBody.style.maxHeight = "0";
+              if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
+            }
+          });
+
+          // Toggle the clicked item
+          if (isOpen) {
+            item.classList.remove("is-open");
+            body.style.maxHeight = "0";
+            trigger.setAttribute("aria-expanded", "false");
+          } else {
+            item.classList.add("is-open");
+            body.style.maxHeight = body.scrollHeight + "px";
+            trigger.setAttribute("aria-expanded", "true");
+          }
+        });
       });
     </script>
   </body>
