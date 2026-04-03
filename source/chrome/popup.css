@@ -813,3 +813,116 @@ input::placeholder {
 .hidden {
   display: none !important;
 }
+
+/* ========================================
+   Batch Export UI
+   ======================================== */
+
+.batch-export-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--border-light);
+  width: 100%;
+  align-items: center;
+}
+
+.batch-progress-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  width: 100%;
+  margin-top: var(--space-md);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--jet-black);
+}
+
+.progress-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted-slate);
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background: var(--neutral-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--brand-gradient);
+  transition: width 0.3s ease;
+}
+
+.current-book-info {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.current-book-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--carbon-gray);
+  line-height: 1.4;
+}
+
+.batch-stats {
+  display: flex;
+  gap: var(--space-md);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.batch-stat.success {
+  color: var(--success-text);
+}
+
+.batch-stat.fail {
+  color: var(--error-text);
+}
+
+.cancel-btn {
+  background: none;
+  border: none;
+  color: var(--muted-slate);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px;
+  width: fit-content;
+  align-self: center;
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.cancel-btn:hover {
+  color: var(--error-text);
+}
+
+.text-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}

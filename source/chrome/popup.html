@@ -97,6 +97,38 @@
             <span data-i18n="goToHighlights">Go to Highlights</span>
           </button>
 
+          <!-- Batch Export Section -->
+          <div class="batch-export-section hidden" id="batchExportSection">
+            <div class="divider-text" data-i18n="dividerBatch">OR</div>
+            <button class="secondary-button batch-btn" id="batchExportBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                <path d="M9 14l2 2 4-4"></path>
+              </svg>
+              <span data-i18n="exportAllBooks">Export All Books</span>
+            </button>
+          </div>
+
+          <!-- Batch Progress Panel (Full implementation) -->
+          <div class="batch-progress-panel hidden" id="batchProgressPanel">
+            <div class="progress-header">
+              <span class="progress-title" data-i18n="batchExporting">Batch Exporting...</span>
+              <span class="progress-count" id="batchProgressCount">0 / 0</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="batchProgressFill"></div>
+            </div>
+            <div class="current-book-info">
+              <span class="current-book-title" id="batchCurrentBook">Scanning library...</span>
+            </div>
+            <div class="batch-stats">
+              <span class="batch-stat success"><span id="batchSuccessCount">0</span> success</span>
+              <span class="batch-stat fail"><span id="batchFailCount">0</span> failed</span>
+            </div>
+            <button class="text-button cancel-btn" id="cancelBatchBtn" data-i18n="btnCancel">Cancel</button>
+          </div>
+
           <!-- Spinner -->
           <div id="spinner" class="spinner-overlay hidden">
             <div class="spinner-content">
@@ -354,6 +386,7 @@
   </div>
 
   <script src="i18n.js"></script>
+  <script src="batchExportUI.js"></script>
   <script src="popup.js"></script>
 </body>
 

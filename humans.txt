@@ -1,0 +1,10 @@
+/* TEAM */
+Creator: Túlio Sousa
+GitHub: https://github.com/tuliosousapro
+From: Earth
+
+/* SITE */
+Last update: 2026-04-02
+Language: English
+Doctype: Markdown, JavaScript, HTML, CSS
+Tools: Antigravity, VS Code, GitHub, Chrome DevTools

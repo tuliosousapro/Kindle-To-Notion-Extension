@@ -482,5 +482,17 @@
   },
   "toastDatabaseAutoSet": {
     "message": "Database auto-detected and set!"
+  },
+  "dividerBatch": {
+    "message": "OR"
+  },
+  "exportAllBooks": {
+    "message": "Export All Books"
+  },
+  "batchExporting": {
+    "message": "Batch Exporting..."
+  },
+  "btnCancel": {
+    "message": "Cancel"
   }
 }

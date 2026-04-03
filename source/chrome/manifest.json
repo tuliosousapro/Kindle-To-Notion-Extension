@@ -48,7 +48,7 @@
         "https://read.amazon.in/notebook*",
         "https://read.amazon.com.mx/notebook*"
       ],
-      "js": ["contentScript.js"],
+      "js": ["contentScript.js", "batchExport.js"],
       "run_at": "document_end"
     }
   ],

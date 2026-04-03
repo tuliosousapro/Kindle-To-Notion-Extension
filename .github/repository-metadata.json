@@ -1,0 +1,29 @@
+{
+  "name": "Kindle To Notion Extension",
+  "version": "1.8.0",
+  "description": "Export Kindle highlights to Notion with automatic chapter grouping, Notion OAuth integration, and page references.",
+  "author": "Túlio Sousa (tuliosousapro)",
+  "license": "MIT",
+  "repository_url": "https://github.com/tuliosousapro/Kindle-To-Notion-Extension",
+  "homepage_url": "https://machina-labs.gitbook.io/kindle-to-notion/",
+  "documentation_url": "https://machina-labs.gitbook.io/kindle-to-notion/",
+  "product_hunt_url": "https://www.producthunt.com/products/kindle2notion-extension",
+  "platforms": [
+    "Chrome",
+    "Edge",
+    "Firefox"
+  ],
+  "keywords": [
+    "Kindle",
+    "Notion",
+    "Export",
+    "Highlights",
+    "Notes",
+    "Browser Extension",
+    "Productivity",
+    "Reading",
+    "Knowledge Management"
+  ],
+  "status": "Active",
+  "last_updated": "2026-04-02"
+}
