@@ -1,10 +1,16 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "1.8.0",
+  "version": "1.9.1",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "permissions": ["storage", "tabs", "identity", "alarms", "notifications"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "identity",
+    "alarms",
+    "notifications"
+  ],
   "host_permissions": [
     "https://ler.amazon.com.br/notebook*",
     "https://read.amazon.com/notebook*",
@@ -48,7 +54,10 @@
         "https://read.amazon.in/notebook*",
         "https://read.amazon.com.mx/notebook*"
       ],
-      "js": ["contentScript.js", "batchExport.js"],
+      "js": [
+        "contentScript.js",
+        "batchExport.js"
+      ],
       "run_at": "document_end"
     }
   ],
@@ -70,8 +79,13 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["popup.css", "onboarding.css"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "popup.css",
+        "onboarding.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }

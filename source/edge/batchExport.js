@@ -21,13 +21,21 @@ function scanLibrary() {
   bookElements.forEach((el) => {
     try {
       const titleEl = el.querySelector('h2.kp-notebook-searchable') || el.querySelector('.kp-notebook-title');
-      const authorEl = el.querySelector('.kp-notebook-author') || el.querySelector('.a-color-secondary');
+      const authorElsFound = el.querySelectorAll('p.kp-notebook-metadata');
+      let authorName = 'Unknown Author';
+      
+      if (authorElsFound.length >= 2) {
+        authorName = authorElsFound[1].textContent.trim();
+      } else {
+        const authorEl = el.querySelector('.kp-notebook-author') || el.querySelector('.a-color-secondary');
+        authorName = authorEl ? authorEl.textContent.trim() : 'Unknown Author';
+      }
       const asin = el.id || ''; // Often the ID of the div is the ASIN
       
       if (titleEl) {
         books.push({
           title: titleEl.textContent.trim(),
-          author: authorEl ? authorEl.textContent.trim() : 'Unknown Author',
+          author: authorName,
           asin: asin,
           url: window.location.origin + window.location.pathname + '?asin=' + asin
         });
@@ -52,7 +60,17 @@ function parseNotebookHTML(html, bookInfo) {
   
   // Metadata fallbacks
   const title = doc.querySelector('h3.kp-notebook-metadata')?.textContent.trim() || bookInfo.title;
-  const author = doc.querySelector('p.kp-notebook-metadata')?.textContent.trim() || bookInfo.author;
+  let author = bookInfo.author;
+  
+  // Try to find the exact author element, avoiding the "Your Kindle Notes For:" paragraph
+  const authorEls = doc.querySelectorAll('p.kp-notebook-metadata');
+  if (authorEls.length >= 2) {
+    author = authorEls[1].textContent.trim(); 
+  } else {
+    author = doc.querySelector('p.a-color-secondary.kp-notebook-metadata')?.textContent.trim() || 
+             doc.querySelector('.kp-notebook-author')?.textContent.trim() || 
+             bookInfo.author;
+  }
   
   // Link extraction (supporting regional domains)
   let amazonLink = '';

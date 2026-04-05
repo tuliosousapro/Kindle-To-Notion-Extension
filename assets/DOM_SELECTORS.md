@@ -10,9 +10,9 @@ This document catalogues every DOM selector the extension depends on to extract 
 
 | Data Point | Selector | Fallback | Source |
 |---|---|---|---|
-| Book Title | `h3.kp-notebook-metadata` | `.kp-notebook-title` | `contentScript.js` |
-| Author | `p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata` | `.kp-notebook-author` | `contentScript.js` |
-| Amazon Store Link | `a.a-link-normal.kp-notebook-printable[href*="amazon."]` | URL `?asin=` param | `contentScript.js` |
+| Book Title | `h3.kp-notebook-metadata` | `.kp-notebook-title` | `contentScript.js`, `batchExport.js` |
+| Author | `p.kp-notebook-metadata:nth-of-type(2)` | `p.a-color-secondary.kp-notebook-metadata`, `.kp-notebook-author` | `contentScript.js`, `batchExport.js` |
+| Amazon Store Link | `a.a-link-normal.kp-notebook-printable[href*="amazon."]` | URL `?asin=` param | `contentScript.js`, `batchExport.js` |
 | Highlight Count | `#kp-notebook-highlights-count` | — | `contentScript.js` |
 | Note Count | `#kp-notebook-notes-count` | — | `contentScript.js` |
 
@@ -245,6 +245,20 @@ Internal extension elements, **not** Amazon DOM.
 | `.tab-btn` | All tab buttons |
 | `.tab-panel` | All tab panels |
 | `.eye-open` / `.eye-closed` | Token visibility icons |
+
+### Batch Export UI
+
+| Element ID | Purpose |
+|---|---|
+| `#batchExportSection` | Batch export button container |
+| `#batchExportBtn` | Main batch export trigger button |
+| `#batchProgressPanel` | Batch progress UI container |
+| `#batchProgressCount` | Batch current/total progress text |
+| `#batchProgressFill` | Batch visual progress bar |
+| `#batchCurrentBook` | Current book title in batch run |
+| `#batchSuccessCount` | Batch success tally |
+| `#batchFailCount` | Batch failure tally |
+| `#cancelBatchBtn` | Cancel / Done batch button |
 
 ### SRS Review Tab
 

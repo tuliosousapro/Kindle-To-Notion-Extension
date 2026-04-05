@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.1] - 2026-04-04
+
+### Fixed
+
+- Fixed an issue where the batch export author extraction inadvertently captured the "Your Kindle Notes For:" string instead of the actual author's name by leveraging strict `nth-of-type` fallback strategies.
+
+## [1.9.0] - 2026-04-02
+
+### Added
+
+- **One-Click Batch Export**: Introduced the ability to export the entire Kindle highlights library to Notion in a single batch operation directly from the Kindle notebook library list page.
+- Added a real-time batch progress dashboard inside the popup with success/failure counters and cancel functionality.
+
 ## [1.8.0] - 2026-03-27
 
 ### Added
