@@ -479,5 +479,53 @@
   },
   "toastDatabaseAutoSet": {
     "message": "डेटाबेस स्वचालित रूप से पहचाना और सेट किया गया!"
+  },
+  "starredNavBack": {
+    "message": "वापस"
+  },
+  "toastNoStarredHighlights": {
+    "message": "कोई तारांकित हाइलाइट नहीं मिले।"
+  },
+  "engagementRateTitle": {
+    "message": "Kindle to Notion पसंद आ रहा है?"
+  },
+  "engagementRateDesc": {
+    "message": "आपकी समीक्षा अन्य पाठकों को इस एक्सटेंशन को खोजने में मदद करती है। बस एक पल लगता है!"
+  },
+  "engagementRateBtn": {
+    "message": "Web Store पर रेट करें"
+  },
+  "engagementShareTitle": {
+    "message": "दोस्तों को बताएं!"
+  },
+  "engagementShareDesc": {
+    "message": "किसी को जानते हैं जो Kindle पर पढ़ता है? यह एक्सटेंशन शेयर करें!"
+  },
+  "engagementShareBtn": {
+    "message": "लिंक कॉपी करें"
+  },
+  "engagementRemindLater": {
+    "message": "बाद में याद दिलाएं"
+  },
+  "engagementDontAskAgain": {
+    "message": "दोबारा मत पूछो"
+  },
+  "settingsRate": {
+    "message": "रेट करें"
+  },
+  "settingsFeedback": {
+    "message": "फीडबैक"
+  },
+  "settingsShare": {
+    "message": "शेयर"
+  },
+  "toastLinkCopied": {
+    "message": "लिंक कॉपी हो गया!"
+  },
+  "goToLibrary": {
+    "message": "Kindle लाइब्रेरी"
+  },
+  "toastNavigatingLibrary": {
+    "message": "Kindle लाइब्रेरी खोल रहे हैं..."
   }
 }

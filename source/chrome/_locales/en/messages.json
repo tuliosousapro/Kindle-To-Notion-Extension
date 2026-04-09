@@ -482,5 +482,65 @@
   },
   "toastDatabaseAutoSet": {
     "message": "Database auto-detected and set!"
+  },
+  "dividerBatch": {
+    "message": "OR"
+  },
+  "exportAllBooks": {
+    "message": "Export All Books"
+  },
+  "batchExporting": {
+    "message": "Batch Exporting..."
+  },
+  "btnCancel": {
+    "message": "Cancel"
+  },
+  "starredNavBack": {
+    "message": "Back"
+  },
+  "toastNoStarredHighlights": {
+    "message": "No starred highlights found."
+  },
+  "engagementRateTitle": {
+    "message": "Enjoying Kindle to Notion?"
+  },
+  "engagementRateDesc": {
+    "message": "Your review helps other readers discover this extension. It only takes a moment!"
+  },
+  "engagementRateBtn": {
+    "message": "Rate on Web Store"
+  },
+  "engagementShareTitle": {
+    "message": "Spread the Word!"
+  },
+  "engagementShareDesc": {
+    "message": "Know someone who reads on Kindle? Share this extension with them!"
+  },
+  "engagementShareBtn": {
+    "message": "Copy Share Link"
+  },
+  "engagementRemindLater": {
+    "message": "Remind me later"
+  },
+  "engagementDontAskAgain": {
+    "message": "Don't ask again"
+  },
+  "settingsRate": {
+    "message": "Rate Us"
+  },
+  "settingsFeedback": {
+    "message": "Feedback"
+  },
+  "settingsShare": {
+    "message": "Share"
+  },
+  "toastLinkCopied": {
+    "message": "Link copied to clipboard!"
+  },
+  "goToLibrary": {
+    "message": "Kindle Library"
+  },
+  "toastNavigatingLibrary": {
+    "message": "Opening Kindle Library..."
   }
 }

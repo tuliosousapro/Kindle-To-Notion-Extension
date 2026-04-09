@@ -482,5 +482,53 @@
   },
   "toastDatabaseAutoSet": {
     "message": "データベースが自動検出され、設定されました！"
+  },
+  "starredNavBack": {
+    "message": "戻る"
+  },
+  "toastNoStarredHighlights": {
+    "message": "スター付きのハイライトは見つかりませんでした。"
+  },
+  "engagementRateTitle": {
+    "message": "Kindle to Notionを気に入っていますか？"
+  },
+  "engagementRateDesc": {
+    "message": "レビューが他の読者にこの拡張機能を見つける手助けになります。ほんの一瞬です！"
+  },
+  "engagementRateBtn": {
+    "message": "Web Storeで評価する"
+  },
+  "engagementShareTitle": {
+    "message": "友達に教えよう！"
+  },
+  "engagementShareDesc": {
+    "message": "Kindleで読書する友人がいますか？この拡張機能をシェアしましょう！"
+  },
+  "engagementShareBtn": {
+    "message": "リンクをコピー"
+  },
+  "engagementRemindLater": {
+    "message": "後で通知する"
+  },
+  "engagementDontAskAgain": {
+    "message": "もう聞かないで"
+  },
+  "settingsRate": {
+    "message": "評価"
+  },
+  "settingsFeedback": {
+    "message": "フィードバック"
+  },
+  "settingsShare": {
+    "message": "シェア"
+  },
+  "toastLinkCopied": {
+    "message": "リンクがコピーされました！"
+  },
+  "goToLibrary": {
+    "message": "Kindleライブラリ"
+  },
+  "toastNavigatingLibrary": {
+    "message": "Kindleライブラリを開いています..."
   }
 }

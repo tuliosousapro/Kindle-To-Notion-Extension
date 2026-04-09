@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // Check for due engagement prompt on popup open (in-app)
+  (async () => {
+    const engagementType = await checkEngagement();
+    if (engagementType) {
+      setTimeout(() => showEngagementModal(engagementType), 800);
+    }
+  })();
+
   // DOM Elements
   const tabExportBtn = document.getElementById('tab-export-btn');
   const tabSettingsBtn = document.getElementById('tab-settings-btn');
@@ -275,9 +283,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   navigateButton.addEventListener('click', () => {
     chrome.storage.local.get(['kindleRegion'], (result) => {
       const region = result.kindleRegion || 'https://read.amazon.com/notebook';
-      chrome.tabs.update({ url: region }, () => {
-        showToast(window.I18n.getMessage("toastNavigating"));
-      });
+      chrome.tabs.create({ url: region });
+      showToast(window.I18n.getMessage("toastNavigating"));
+    });
+  });
+
+  // Navigate to Kindle Library
+  document.getElementById('navigateLibrary').addEventListener('click', () => {
+    chrome.storage.local.get(['kindleRegion'], (result) => {
+      const region = result.kindleRegion || 'https://read.amazon.com/notebook';
+      const libraryUrl = region.replace('/notebook', '/kindle-library');
+      chrome.tabs.create({ url: libraryUrl });
+      showToast(window.I18n.getMessage("toastNavigatingLibrary") || "Opening Kindle Library...");
     });
   });
 
@@ -362,7 +379,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     spinner.classList.remove('hidden');
 
     return new Promise((resolve) => {
-      chrome.tabs.sendMessage(tabId, { action: 'export' }, (response) => {
+      chrome.tabs.sendMessage(tabId, { action: 'export' }, async (response) => {
         if (chrome.runtime.lastError || !response || !response.status) {
           if (attempt < maxAttempts) {
             const delay = baseDelay * Math.pow(2, attempt - 1);
@@ -376,6 +393,16 @@ document.addEventListener('DOMContentLoaded', async () => {
           spinner.classList.add('hidden');
           showToast(response.status);
           console.log('Export response:', response.status);
+
+          // Seed engagement SRS and check for in-app prompt
+          if (!response.status.startsWith('Error')) {
+            seedEngagement();
+            const engagementType = await checkEngagement();
+            if (engagementType) {
+              setTimeout(() => showEngagementModal(engagementType), 1500);
+            }
+          }
+
           resolve();
         }
       });
@@ -405,8 +432,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   let reviewQueue = [];
   let reviewIndex = 0;
   let totalReviewCount = 0;
+  let starredMode = false;
+  let starredHighlights = [];
+  let starredIndex = 0;
 
   async function loadReviewTab() {
+    // Reset mode when reloading
+    starredMode = false;
+    showStarredModeUI(false);
+
     // Load stats
     chrome.runtime.sendMessage({ action: 'srs_getStats' }, (stats) => {
       if (!stats || stats.error) return;
@@ -442,6 +476,54 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  function toggleStarredMode() {
+    if (starredMode) {
+      starredMode = false;
+      showStarredModeUI(false);
+      if (reviewQueue.length > 0) {
+        showReviewState('card');
+        renderCurrentCard();
+      } else {
+        loadReviewTab();
+      }
+      return;
+    }
+
+    chrome.runtime.sendMessage({ action: 'srs_getStarred' }, (highlights) => {
+      if (!highlights || highlights.error || (Array.isArray(highlights) && highlights.length === 0)) {
+        showToast(window.I18n.getMessage("toastNoStarredHighlights") || "No starred highlights found.");
+        return;
+      }
+
+      starredHighlights = Array.isArray(highlights) ? highlights : [];
+      starredIndex = 0;
+      starredMode = true;
+      
+      showStarredModeUI(true);
+      showReviewState('card');
+      renderCurrentCard();
+    });
+  }
+
+  function showStarredModeUI(active) {
+    const reviewActions = document.getElementById('reviewActions');
+    const starredActions = document.getElementById('starredActions');
+    const backBtn = document.getElementById('backToReviewBtn');
+    const card = document.getElementById('reviewCard');
+
+    if (active) {
+      reviewActions.classList.add('hidden');
+      starredActions.classList.remove('hidden');
+      backBtn.classList.remove('hidden');
+      card.classList.add('starred-mode-card');
+    } else {
+      reviewActions.classList.remove('hidden');
+      starredActions.classList.add('hidden');
+      backBtn.classList.add('hidden');
+      card.classList.remove('starred-mode-card');
+    }
+  }
+
   function showReviewState(state) {
     const card = document.getElementById('reviewCard');
     const empty = document.getElementById('reviewEmpty');
@@ -457,18 +539,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderCurrentCard() {
-    if (reviewIndex >= reviewQueue.length) {
+    const list = starredMode ? starredHighlights : reviewQueue;
+    const index = starredMode ? starredIndex : reviewIndex;
+    const total = list.length;
+
+    if (index >= total && total > 0 && !starredMode) {
       showReviewState('done');
+      return;
+    } else if (total === 0) {
+      showReviewState('empty');
       return;
     }
 
-    const h = reviewQueue[reviewIndex];
+    const h = list[index];
     const card = document.getElementById('reviewCard');
 
     // Remove exit animation class
     card.classList.remove('card-exit');
 
-    document.getElementById('reviewProgress').textContent = `${reviewIndex + 1} / ${totalReviewCount}`;
+    document.getElementById('reviewProgress').textContent = `${index + 1} / ${total}`;
     document.getElementById('reviewColorDot').setAttribute('data-color', h.color || 'default');
     document.getElementById('reviewQuote').textContent = h.text;
     document.getElementById('reviewBook').textContent = h.bookTitle;
@@ -492,7 +581,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function handleReviewAction(action) {
     const h = reviewQueue[reviewIndex];
-    if (!h) return;
+    if (!h || starredMode) return;
 
     const card = document.getElementById('reviewCard');
     card.classList.add('card-exit');
@@ -522,5 +611,127 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('reviewDismiss').addEventListener('click', () => handleReviewAction('dismiss'));
   document.getElementById('reviewStar').addEventListener('click', () => handleReviewAction('star'));
   document.getElementById('reviewForgot').addEventListener('click', () => handleReviewAction('forgot'));
+
+  // Starred mode listeners
+  document.getElementById('viewStarredBtn').addEventListener('click', toggleStarredMode);
+  document.getElementById('backToReviewBtn').addEventListener('click', toggleStarredMode);
+
+  document.getElementById('starredPrev').addEventListener('click', () => {
+    if (starredIndex > 0) {
+      starredIndex--;
+      renderCurrentCard();
+    }
+  });
+
+  document.getElementById('starredNext').addEventListener('click', () => {
+    if (starredIndex < starredHighlights.length - 1) {
+      starredIndex++;
+      renderCurrentCard();
+    }
+  });
+
+  // ========================================
+  // Engagement Modal Logic
+  // ========================================
+
+  const engagementOverlay = document.getElementById('engagementOverlay');
+  const engagementIcon = document.getElementById('engagementIcon');
+  const engagementTitle = document.getElementById('engagementTitle');
+  const engagementDesc = document.getElementById('engagementDesc');
+  const engagementCtaContent = document.getElementById('engagementCtaContent');
+  const engagementCta = document.getElementById('engagementCta');
+  let currentEngagementType = null;
+
+  const ENGAGEMENT_CONTENT = {
+    rate: {
+      icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+      titleKey: 'engagementRateTitle',
+      titleFallback: 'Enjoying Kindle to Notion?',
+      descKey: 'engagementRateDesc',
+      descFallback: 'Your review helps other readers discover this extension. It only takes a moment!',
+      btnKey: 'engagementRateBtn',
+      btnFallback: 'Rate on Web Store',
+      action: () => chrome.tabs.create({ url: ENGAGEMENT_CONFIG.reviewUrl })
+    },
+    share: {
+      icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>',
+      titleKey: 'engagementShareTitle',
+      titleFallback: 'Spread the Word!',
+      descKey: 'engagementShareDesc',
+      descFallback: 'Know someone who reads on Kindle? Share this extension with them!',
+      btnKey: 'engagementShareBtn',
+      btnFallback: 'Copy Share Link',
+      action: async () => {
+        const ok = await copyShareLink();
+        if (ok) showToast(window.I18n.getMessage('toastLinkCopied') || 'Link copied to clipboard!');
+        hideEngagementModal();
+      }
+    }
+  };
+
+  function showEngagementModal(type) {
+    const content = ENGAGEMENT_CONTENT[type];
+    if (!content) return;
+    currentEngagementType = type;
+
+    engagementIcon.innerHTML = content.icon;
+    engagementTitle.textContent = window.I18n.getMessage(content.titleKey) || content.titleFallback;
+    engagementDesc.textContent = window.I18n.getMessage(content.descKey) || content.descFallback;
+    engagementCtaContent.textContent = window.I18n.getMessage(content.btnKey) || content.btnFallback;
+
+    engagementOverlay.classList.remove('hidden');
+
+    // Advance SRS interval so push notifications don't duplicate
+    recordEngagementShown();
+  }
+
+  function hideEngagementModal() {
+    engagementOverlay.classList.add('hidden');
+    currentEngagementType = null;
+  }
+
+  // CTA button
+  engagementCta.addEventListener('click', () => {
+    const content = ENGAGEMENT_CONTENT[currentEngagementType];
+    if (content) content.action();
+    if (currentEngagementType !== 'share') hideEngagementModal();
+  });
+
+  // Snooze
+  document.getElementById('engagementSnooze').addEventListener('click', () => {
+    snoozeEngagement();
+    hideEngagementModal();
+  });
+
+  // Dismiss permanently
+  document.getElementById('engagementDismiss').addEventListener('click', () => {
+    dismissEngagement();
+    hideEngagementModal();
+  });
+
+  // Close on overlay click (outside modal)
+  engagementOverlay.addEventListener('click', (e) => {
+    if (e.target === engagementOverlay) {
+      snoozeEngagement();
+      hideEngagementModal();
+    }
+  });
+
+  // ========================================
+  // Settings Footer Links
+  // ========================================
+
+  document.getElementById('footerRate').addEventListener('click', () => {
+    chrome.tabs.create({ url: ENGAGEMENT_CONFIG.reviewUrl });
+  });
+
+  document.getElementById('footerFeedback').addEventListener('click', () => {
+    chrome.tabs.create({ url: ENGAGEMENT_CONFIG.feedbackUrl });
+  });
+
+  document.getElementById('footerShare').addEventListener('click', async () => {
+    const ok = await copyShareLink();
+    if (ok) showToast(window.I18n.getMessage('toastLinkCopied') || 'Link copied to clipboard!');
+  });
 
 });

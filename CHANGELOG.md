@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Extension Feedback System**: Integrated a smart engagement engine that triggers review prompts based on export activity, along with a persistent feedback/share footer in settings.
+- **Starred Highlights Browsing**: Implemented a dedicated view in the review tab to navigate through favorited highlights using next/previous controls.
+- Added `repository-metadata.json` for structured repository documentation.
+- Created a centralized reference document for all Kindle DOM Selectors.
+
+### Changed
+
+- Improved UI alignment and spacing in the extension popup and onboarding screens.
+- Fixed contrast issues for inactive tabs, improved baseline alignment in the header, and addressed various padding/margin inconsistencies for a polished glassmorphism design.
+- Updated Google Privacy Policy to accurately reflect the extension's tech stack and permission requirements.
+- Updated `ABOUT.md` extension documentation to align with current features and settings (v1.9.1).
+- Revised Chrome Web Store description to highlight new features like batch export and the UI/UX redesign.
+
+## [1.9.1] - 2026-04-04
+
+### Fixed
+
+- Fixed an issue where the batch export author extraction inadvertently captured the "Your Kindle Notes For:" string instead of the actual author's name by leveraging strict `nth-of-type` fallback strategies.
+
+## [1.9.0] - 2026-04-02
+
+### Added
+
+- **One-Click Batch Export**: Introduced the ability to export the entire Kindle highlights library to Notion in a single batch operation directly from the Kindle notebook library list page.
+- Added a real-time batch progress dashboard inside the popup with success/failure counters and cancel functionality.
+
 ## [1.8.0] - 2026-03-27
 
 ### Added

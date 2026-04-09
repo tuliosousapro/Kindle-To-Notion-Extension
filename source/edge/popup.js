@@ -275,9 +275,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   navigateButton.addEventListener('click', () => {
     chrome.storage.local.get(['kindleRegion'], (result) => {
       const region = result.kindleRegion || 'https://read.amazon.com/notebook';
-      chrome.tabs.update({ url: region }, () => {
-        showToast(window.I18n.getMessage("toastNavigating"));
-      });
+      chrome.tabs.create({ url: region });
+      showToast(window.I18n.getMessage("toastNavigating"));
     });
   });
 

@@ -115,14 +115,14 @@ body::after {
 }
 
 .onboarding-container {
-  padding: var(--space-lg);
+  padding: var(--space-lg) var(--space-lg) calc(var(--space-xl) * 1.5);
   min-height: 500px;
   position: relative;
 }
 
 /* Progress Bar */
 .onboarding-progress {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
 }
 
 .progress-bar {
@@ -256,6 +256,10 @@ body::after {
   font-size: 16px;
   width: 20px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 /* Instructions */
@@ -297,6 +301,8 @@ body::after {
   font-weight: 700;
   flex-shrink: 0;
   box-shadow: var(--shadow-sm);
+  line-height: 1;
+  padding: 0;
 }
 
 .instruction-content strong {
@@ -396,6 +402,10 @@ body::after {
   font-size: 16px;
   width: 20px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 /* Notices */
@@ -405,7 +415,7 @@ body::after {
   /* Amber */
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-radius: var(--radius-sm);
-  margin: var(--space-md) 0;
+  margin: var(--space-md) 0 var(--space-xl) 0;
   text-align: left;
   backdrop-filter: blur(10px);
 }
@@ -425,18 +435,21 @@ body::after {
 
 /* Buttons */
 .btn-primary {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
   background: var(--jet-black);
   color: var(--canvas-white);
   border: none;
-  padding: var(--space-sm) var(--space-lg);
+  padding: 12px var(--space-lg);
   border-radius: 9999px;
   /* Pill */
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
-  margin: var(--space-xs) var(--space-xs);
-  min-width: 120px;
+  margin-bottom: var(--space-md);
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -454,19 +467,22 @@ body::after {
 }
 
 .btn-secondary {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   color: var(--jet-black);
   border: 1px solid var(--glass-border);
-  padding: var(--space-sm) var(--space-lg);
+  padding: 10px var(--space-lg);
   border-radius: 9999px;
   /* Pill */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-normal);
-  margin: var(--space-xs) var(--space-xs);
-  min-width: 120px;
+  margin-bottom: var(--space-md);
 }
 
 .btn-secondary:hover {
@@ -634,7 +650,7 @@ body::after {
   display: flex;
   align-items: center;
   text-align: center;
-  margin: var(--space-xl) 0;
+  margin: 32px 0;
   opacity: 0.6;
 }
 

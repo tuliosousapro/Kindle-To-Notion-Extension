@@ -93,6 +93,19 @@ loadOAuthConfig();
 // Initialize SRS daily review alarm
 initSRS();
 
+// Initialize Engagement SRS alarm (checks every 12 hours)
+const ENGAGEMENT_ALARM = 'k2n-engagement';
+(async () => {
+  const existing = await chrome.alarms.get(ENGAGEMENT_ALARM);
+  if (!existing) {
+    chrome.alarms.create(ENGAGEMENT_ALARM, {
+      periodInMinutes: 720,   // 12 hours
+      delayInMinutes: 180     // First check after 3 hours
+    });
+    console.log('[Engagement] Alarm registered (12h cycle).');
+  }
+})();
+
 // Handle OAuth token exchange via proxy server
 async function exchangeCodeForToken(code, state, savedState) {
   // Verify state matches (CSRF protection)
@@ -985,13 +998,67 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // SRS Alarm & Notification Listeners
 // ========================================
 
-chrome.alarms.onAlarm.addListener((alarm) => {
+chrome.alarms.onAlarm.addListener(async (alarm) => {
   handleReviewAlarm(alarm.name);
+
+  // Engagement SRS alarm
+  if (alarm.name === ENGAGEMENT_ALARM) {
+    try {
+      const state = await new Promise(resolve => {
+        chrome.storage.local.get(['engagementSRS'], (r) => resolve(r.engagementSRS));
+      });
+      if (!state || state.dismissed) return;
+      if (Date.now() < state.nextPromptAt) return;
+
+      await loadCustomI18n();
+      const type = state.promptCount % 2 === 0 ? 'rate' : 'share';
+      const notifId = `k2n-engagement-${type}`;
+
+      if (type === 'rate') {
+        chrome.notifications.create(notifId, {
+          type: 'basic',
+          iconUrl: 'icons/icon96.png',
+          title: getBgMessage('engagementRateTitle') || 'Enjoying Kindle to Notion?',
+          message: getBgMessage('engagementRateDesc') || 'Your review helps other readers discover this extension.',
+          priority: 1
+        });
+      } else {
+        chrome.notifications.create(notifId, {
+          type: 'basic',
+          iconUrl: 'icons/icon96.png',
+          title: getBgMessage('engagementShareTitle') || 'Spread the Word!',
+          message: getBgMessage('engagementShareDesc') || 'Know someone who reads on Kindle? Share this extension!',
+          priority: 1
+        });
+      }
+
+      // Advance the SRS interval
+      state.promptCount++;
+      state.interval = Math.min(
+        Math.ceil(state.interval * 1.5),
+        30
+      );
+      state.nextPromptAt = Date.now() + (state.interval * 86_400_000);
+      await chrome.storage.local.set({ engagementSRS: state });
+      console.log(`[Engagement] Push sent (${type}). Next in ${state.interval} days.`);
+    } catch (e) {
+      console.error('[Engagement] Alarm handler error:', e);
+    }
+  }
 });
 
 chrome.notifications.onClicked.addListener((notificationId) => {
   if (notificationId === 'k2n-daily-review') {
-    // Open the extension popup (best effort — opens a new tab with popup as fallback)
+    chrome.action.openPopup?.() || chrome.tabs.create({ url: chrome.runtime.getURL('popup.html') });
+    chrome.notifications.clear(notificationId);
+  }
+
+  // Engagement notification clicks
+  if (notificationId === 'k2n-engagement-rate') {
+    chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/kindle-to-notion-export-h/camgnmkmolfidaefoidblkkloimnmalo/reviews' });
+    chrome.notifications.clear(notificationId);
+  }
+  if (notificationId === 'k2n-engagement-share') {
     chrome.action.openPopup?.() || chrome.tabs.create({ url: chrome.runtime.getURL('popup.html') });
     chrome.notifications.clear(notificationId);
   }

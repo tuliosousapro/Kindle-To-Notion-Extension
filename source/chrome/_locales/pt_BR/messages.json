@@ -482,5 +482,53 @@
   },
   "toastDatabaseAutoSet": {
     "message": "Banco de dados detectado e configurado automaticamente!"
+  },
+  "starredNavBack": {
+    "message": "Voltar"
+  },
+  "toastNoStarredHighlights": {
+    "message": "Nenhum destaque favorito encontrado."
+  },
+  "engagementRateTitle": {
+    "message": "Gostando do Kindle to Notion?"
+  },
+  "engagementRateDesc": {
+    "message": "Sua avaliação ajuda outros leitores a descobrir esta extensão. Leva apenas um momento!"
+  },
+  "engagementRateBtn": {
+    "message": "Avaliar na Web Store"
+  },
+  "engagementShareTitle": {
+    "message": "Espalhe a Palavra!"
+  },
+  "engagementShareDesc": {
+    "message": "Conhece alguém que lê no Kindle? Compartilhe esta extensão!"
+  },
+  "engagementShareBtn": {
+    "message": "Copiar Link"
+  },
+  "engagementRemindLater": {
+    "message": "Lembrar depois"
+  },
+  "engagementDontAskAgain": {
+    "message": "Não perguntar novamente"
+  },
+  "settingsRate": {
+    "message": "Avaliar"
+  },
+  "settingsFeedback": {
+    "message": "Feedback"
+  },
+  "settingsShare": {
+    "message": "Compartilhar"
+  },
+  "toastLinkCopied": {
+    "message": "Link copiado!"
+  },
+  "goToLibrary": {
+    "message": "Biblioteca Kindle"
+  },
+  "toastNavigatingLibrary": {
+    "message": "Abrindo Biblioteca Kindle..."
   }
 }
