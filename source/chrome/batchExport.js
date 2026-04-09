@@ -152,7 +152,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const { url, bookInfo } = message;
     
     // 1. Fetch the book's notebook page
+    let isTimedOut = false;
+    const fetchTimeout = setTimeout(() => {
+      isTimedOut = true;
+      sendResponse({ success: false, error: "Timeout: Failed to fetch notebook HTML within 15 seconds." });
+    }, 15000); // 15 second timeout
+
     chrome.runtime.sendMessage({ action: 'fetchChapterData', url }, (response) => {
+      if (isTimedOut) return;
+      clearTimeout(fetchTimeout);
+
       if (!response || !response.success || !response.html) {
         sendResponse({ success: false, error: "Failed to fetch notebook HTML" });
         return;

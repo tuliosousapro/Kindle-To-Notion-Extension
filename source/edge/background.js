@@ -41,6 +41,19 @@ async function loadCustomI18n() {
   }
 }
 
+// Initialize Engagement SRS alarm (checks every 3 days)
+const ENGAGEMENT_ALARM = 'k2n-engagement';
+(async () => {
+  const existing = await chrome.alarms.get(ENGAGEMENT_ALARM);
+  if (!existing) {
+    chrome.alarms.create(ENGAGEMENT_ALARM, {
+      periodInMinutes: 4320,   // 3 days
+      delayInMinutes: 180      // First check after 3 hours
+    });
+    console.log('[Engagement] Alarm registered (3-day cycle).');
+  }
+})();
+
 // Background custom I18n helper
 function getBgMessage(key, substitutions) {
   if (customMessages && customMessages[key]) {

@@ -76,13 +76,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const books = response.books;
         const total = books.length;
-        let success = 0;
-        let fail = 0;
+        let successCount = 0;
+        let failCount = 0;
 
         batchProgressCount.textContent = `0 / ${total}`;
         batchProgressFill.style.width = "0%";
 
         // Step B: Iterate and Export
+        let currentDelay = 1500; // Base delay
+        const maxRetries = 3;
+
         for (let i = 0; i < total; i++) {
           if (batchCancelled) break;
 
@@ -91,20 +94,45 @@ document.addEventListener('DOMContentLoaded', async () => {
           batchProgressCount.textContent = `${i + 1} / ${total}`;
           batchProgressFill.style.width = `${((i + 1) / total) * 100}%`;
 
-          // Process one book
-          const result = await exportBook(tab.id, book);
-          
-          if (result.success) {
-            success++;
-            batchSuccessCount.textContent = success;
-          } else {
-            fail++;
-            batchFailCount.textContent = fail;
-            console.warn(`Failed to export ${book.title}:`, result.error);
+          let retryCount = 0;
+          let isSuccess = false;
+          let result = null;
+
+          while (retryCount <= maxRetries && !isSuccess && !batchCancelled) {
+            // Process one book
+            result = await exportBook(tab.id, book);
+            
+            if (result.success) {
+              isSuccess = true;
+              successCount++;
+              batchSuccessCount.textContent = successCount;
+              // Adaptive delay: recover progressively on success, minimum 800ms
+              currentDelay = Math.max(800, currentDelay - 200);
+            } else {
+              // Check if rate limited (HTTP 429)
+              const errorText = (result.error || '').toLowerCase();
+              const isRateLimited = errorText.includes('429') || errorText.includes('rate limit') || errorText.includes('too many requests');
+              
+              if (isRateLimited && retryCount < maxRetries) {
+                retryCount++;
+                console.warn(`Rate limit hit for ${book.title}. Retrying ${retryCount}/${maxRetries} after backoff...`);
+                currentDelay += 2000; // Increase delay significantly to backoff
+                batchCurrentBook.textContent = `${book.title} (Rate limit wait...)`;
+                // Add immediate inline delay for the retry
+                await new Promise(r => setTimeout(r, currentDelay));
+              } else {
+                failCount++;
+                batchFailCount.textContent = failCount;
+                console.warn(`Failed to export ${book.title}:`, result.error);
+                break; // Break retry loop on permanent failure
+              }
+            }
           }
 
-          // Small delay between books to respect rate limits
-          if (i < total - 1) await new Promise(r => setTimeout(r, 1500));
+          // Adaptive delay between books to respect Notion's rate limits
+          if (i < total - 1 && !batchCancelled) {
+            await new Promise(r => setTimeout(r, currentDelay));
+          }
         }
 
         // Show final result

@@ -4,12 +4,11 @@
   --jet-black: #1A1A1A;
   --carbon-gray: #37352F;
   --muted-slate: #6B7280;
+  --kindle-orange: #FF9900;
 
   /* Brand Gradients */
-  --brand-gradient-start: #6366F1;
-  /* Indigo-500 */
-  --brand-gradient-end: #F59E0B;
-  /* Amber-500 */
+  --brand-gradient-start: var(--kindle-orange);
+  --brand-gradient-end: #E88A00;
   --brand-gradient: linear-gradient(135deg, var(--brand-gradient-start), var(--brand-gradient-end));
 
   /* Functional Colors */
@@ -32,8 +31,8 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
   /* Blobs */
-  --blob-peach: rgba(255, 228, 214, 0.6);
-  --blob-periwinkle: rgba(199, 210, 254, 0.4);
+  --blob-orange-primary: rgba(255, 153, 0, 0.1);
+  --blob-orange-secondary: rgba(255, 153, 0, 0.05);
 
   /* Spacing */
   --space-xs: 8px;
@@ -45,7 +44,8 @@
   /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
 
   /* Transitions */
   --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -65,7 +65,7 @@
 body {
   width: 380px;
   min-height: 500px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--carbon-gray);
   background-color: var(--canvas-white);
   overflow-x: hidden;
@@ -78,15 +78,15 @@ body::after {
   content: '';
   position: fixed;
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(100px);
   z-index: -1;
-  animation: float 10s ease-in-out infinite;
+  animation: float 20s ease-in-out infinite;
 }
 
 body::before {
   width: 300px;
   height: 300px;
-  background: var(--blob-peach);
+  background: var(--blob-orange-primary);
   top: -10%;
   right: -20%;
   animation-delay: 0s;
@@ -95,22 +95,16 @@ body::before {
 body::after {
   width: 250px;
   height: 250px;
-  background: var(--blob-periwinkle);
+  background: var(--blob-orange-secondary);
   bottom: -10%;
   left: -20%;
-  animation-delay: -5s;
+  animation-delay: -10s;
 }
 
 @keyframes float {
-
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  50% {
-    transform: translate(15px, 25px);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
 }
 
 /* Container */
@@ -152,12 +146,13 @@ body::after {
 }
 
 .brand-info h1 {
-  font-size: 16px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
   font-weight: 700;
   color: var(--jet-black);
   margin: 0;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 .version {
@@ -190,8 +185,7 @@ body::after {
 .glass-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(99, 102, 241, 0.3);
-  /* Brand hint on hover */
+  border-color: var(--accent-primary);
 }
 
 /* Status Card */
@@ -467,8 +461,7 @@ select:focus {
   outline: none;
   background: var(--canvas-white);
   border-color: var(--brand-gradient-start);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-  /* Indigo ring */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 input::placeholder {
@@ -799,7 +792,7 @@ input::placeholder {
 }
 
 .dismiss-btn:hover {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(255, 153, 0, 0.1);
   color: var(--brand-gradient-start);
 }
 
@@ -850,7 +843,7 @@ input::placeholder {
 
 .starred-mode-card {
   border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.2), var(--shadow-md);
+  box-shadow: var(--shadow-md);
 }
 
 .starred-mode-card .review-quote {
@@ -1077,7 +1070,7 @@ input::placeholder {
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(99, 102, 241, 0.15);
+  box-shadow: var(--shadow-lg);
   max-width: 340px;
   width: 100%;
   text-align: center;
@@ -1104,7 +1097,7 @@ input::placeholder {
   align-items: center;
   justify-content: center;
   margin: 0 auto var(--space-md);
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
 .engagement-icon svg {
