@@ -134,7 +134,7 @@ body::after {
 .brand {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
 .logo-container {
@@ -157,12 +157,15 @@ body::after {
   color: var(--jet-black);
   margin: 0;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .version {
   font-size: 11px;
   color: var(--muted-slate);
   font-weight: 500;
+  display: block;
+  margin-top: 2px;
 }
 
 /* Main Content */
@@ -233,7 +236,8 @@ body::after {
 .status-divider {
   width: 1px;
   height: 16px;
-  background: var(--border-light);
+  background: var(--muted-slate);
+  opacity: 0.3;
 }
 
 /* Tab Navigation */
@@ -257,7 +261,7 @@ body::after {
   background: transparent;
   border: none;
   border-radius: var(--radius-sm);
-  color: var(--muted-slate);
+  color: #4b5563; /* slightly darker for better contrast */
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -266,7 +270,7 @@ body::after {
 
 .tab-btn:hover {
   color: var(--jet-black);
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .tab-btn.active {
@@ -297,6 +301,12 @@ body::after {
   }
 }
 
+.action-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
 /* Buttons */
 .primary-button {
   width: 100%;
@@ -315,7 +325,14 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
+  width: 100%;
 }
 
 .primary-button:hover {
@@ -375,6 +392,13 @@ body::after {
   font-weight: 600;
   width: 100%;
   justify-content: center;
+}
+
+.connect-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: center;
 }
 
 .disconnect-btn {
@@ -612,7 +636,7 @@ input::placeholder {
 }
 
 .stat-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--muted-slate);
   text-transform: uppercase;

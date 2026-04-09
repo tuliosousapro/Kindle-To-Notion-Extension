@@ -134,7 +134,7 @@ body::after {
 .brand {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
 .logo-container {
@@ -157,12 +157,15 @@ body::after {
   color: var(--jet-black);
   margin: 0;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .version {
   font-size: 11px;
   color: var(--muted-slate);
   font-weight: 500;
+  display: block;
+  margin-top: 2px;
 }
 
 /* Main Content */
@@ -233,7 +236,8 @@ body::after {
 .status-divider {
   width: 1px;
   height: 16px;
-  background: var(--border-light);
+  background: var(--muted-slate);
+  opacity: 0.3;
 }
 
 /* Tab Navigation */
@@ -257,7 +261,7 @@ body::after {
   background: transparent;
   border: none;
   border-radius: var(--radius-sm);
-  color: var(--muted-slate);
+  color: #4b5563; /* slightly darker for better contrast */
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -266,7 +270,7 @@ body::after {
 
 .tab-btn:hover {
   color: var(--jet-black);
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .tab-btn.active {
@@ -297,6 +301,12 @@ body::after {
   }
 }
 
+.action-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
 /* Buttons */
 .primary-button {
   width: 100%;
@@ -315,7 +325,14 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
+  width: 100%;
 }
 
 .primary-button:hover {
@@ -375,6 +392,13 @@ body::after {
   font-weight: 600;
   width: 100%;
   justify-content: center;
+}
+
+.connect-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: center;
 }
 
 .disconnect-btn {
@@ -612,7 +636,7 @@ input::placeholder {
 }
 
 .stat-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--muted-slate);
   text-transform: uppercase;
@@ -779,6 +803,64 @@ input::placeholder {
   color: var(--brand-gradient-start);
 }
 
+/* Starred Mode & Navigation */
+.clickable-stat {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.clickable-stat:hover {
+  background: rgba(245, 158, 11, 0.1);
+  transform: translateY(-1px);
+}
+
+.clickable-stat:hover .stat-value {
+  color: var(--brand-gradient-end);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.back-to-review {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--muted-slate);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color var(--transition-fast);
+}
+
+.back-to-review:hover {
+  color: var(--brand-gradient-start);
+}
+
+.starred-mode-card {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.2), var(--shadow-md);
+}
+
+.starred-mode-card .review-quote {
+  border-left-color: var(--brand-gradient-end);
+}
+
+.action-spacer {
+  flex-shrink: 0;
+}
+
 .star-btn:hover {
   border-color: var(--brand-gradient-end);
   color: var(--brand-gradient-end);
@@ -925,4 +1007,153 @@ input::placeholder {
   border: none;
   cursor: pointer;
   font-family: inherit;
+}
+
+/* ========================================
+   Settings Footer Links
+   ======================================== */
+
+.settings-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-light);
+}
+
+.settings-footer-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: var(--muted-slate);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.settings-footer-link:hover {
+  color: var(--brand-gradient-start);
+  background: rgba(99, 102, 241, 0.06);
+  transform: translateY(-1px);
+}
+
+.footer-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border-light);
+  flex-shrink: 0;
+}
+
+/* ========================================
+   Engagement Modal
+   ======================================== */
+
+.engagement-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  animation: fadeIn var(--transition-normal);
+}
+
+.engagement-modal {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(99, 102, 241, 0.15);
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  animation: modalScaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.engagement-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+}
+
+.engagement-icon svg {
+  color: var(--canvas-white);
+}
+
+.engagement-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--jet-black);
+  margin: 0 0 var(--space-xs);
+  letter-spacing: -0.02em;
+}
+
+.engagement-desc {
+  font-size: 13px;
+  color: var(--muted-slate);
+  line-height: 1.5;
+  margin: 0 0 var(--space-md);
+}
+
+.engagement-cta {
+  margin-bottom: var(--space-sm);
+}
+
+.engagement-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.engagement-dismiss-btn {
+  background: none;
+  border: none;
+  color: var(--muted-slate);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px;
+  font-family: inherit;
+  transition: color var(--transition-fast);
+}
+
+.engagement-dismiss-btn:hover {
+  color: var(--jet-black);
+}
+
+.engagement-dismiss-sep {
+  color: var(--border-light);
+  font-size: 14px;
 }

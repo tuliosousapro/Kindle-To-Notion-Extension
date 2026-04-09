@@ -1,4 +1,10 @@
-# UI/UX Pro Max Analysis Plan
+# Project Tasks
+
+## Documentation Updates
+
+- [x] Update `ABOUT.md` with current settings, Batch Export, and Review functionality (v1.9.1)
+
+## UI/UX Pro Max Analysis Plan
 
 - [x] Read Brand Guidelines
 - [x] Analyze `docs/index.html` vs Guidelines
@@ -55,3 +61,7 @@
 
 - [x] Create standardized repository metadata JSON file in `.github/repository-metadata.json`
 - [x] Create `humans.txt` file in root directory
+
+## Pending Features
+
+- [x] Starred highlights browsing mode in Review tab

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tuliosousapro.github.io/Kindle-To-Notion-Extension/sitemap.xml

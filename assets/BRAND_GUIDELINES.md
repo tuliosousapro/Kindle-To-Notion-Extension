@@ -1,125 +1,93 @@
 # Brand & UI/UX Style Guidelines
 
 ## 1. Brand Essence
-Kindle To Notion is a premium, seamless, and magical tool bridging the gap between raw reading and structured knowledge.
+
+Kindle To Notion is a premium tool bridging the gap between raw reading and structured knowledge. It positions itself as the ultimate, free, local-first alternative to Readwise and similar cloud-based services.
 
 - **Voice & Tone:**
   - **Premium & Professional:** The language should be concise, confident, and clear.
-  - **Frictionless & Magical:** Emphasize the ease of use ("1-click", "zero-setup", "wizardry").
-  - **Direct (Blunt but Helpful):** Provide instructions without fluff. Respect the user's intelligence and time.
+  - **Frictionless:** Emphasize the ease of use and instant setup without signups.
+  - **Direct (Blunt but Helpful):** Provide instructions without fluff. Respect the user's intelligence and time. Focus on speed, privacy, and zero monthly costs.
 
 ---
 
-## 2. Color Palette & Gradients
+## 2. Color Palette & Theming
 
-The design relies heavily on a vibrant gradient contrasting with deep blacks and clean whites.
+The design relies on a striking contrast between Jet Black, Canvas White, and vibrant Kindle Orange to guide the user's eyes and create a premium feel.
 
-### Primary Gradient (The "Magic" Gradient)
-Used for key accents, iconic backgrounds, and highlights.
+### Core Colors (Tailwind v4 Theme)
 
-- **Start:** `#6366F1` (Indigo-500)
-- **End:** `#F59E0B` (Amber-500)
-- **CSS Variable:** `--brand-gradient: linear-gradient(135deg, var(--brand-gradient-start), var(--brand-gradient-end));`
-
-### Core Colors
-
-- **Canvas White:** `#FFFFFF` (`--canvas-white`) - Used for primary backgrounds when not glassmorphic.
-- **Jet Black:** `#1A1A1A` (`--jet-black`) - Used for primary text on light backgrounds and primary solid buttons.
-- **Carbon Gray:** `#37352F` (`--carbon-gray`) - Used for secondary text, mimicking Notion's aesthetic.
-- **Muted Slate:** `#6B7280` (`--muted-slate`) - Used for tertiary text, placeholders, and borders.
-
-### Functional Colors
-
-- **Success:** Background `#DCFCE7` (`--success-bg`), Text `#166534` (`--success-text`)
-- **Warning:** Background `#FEF9C3` (`--warning-bg`), Text `#854D0E` (`--warning-text`)
-- **Error:** Background `#FEE2E2` (`--error-bg`), Text `#991B1B` (`--error-text`)
+- **Canvas White:** `#FFFFFF` (`--color-canvas-white`) - Primary background and default container background.
+- **Jet Black:** `#1A1A1A` (`--color-jet-black`) - Primary action buttons, primary text on light backgrounds, strong headings.
+- **Carbon Gray:** `#37352F` (`--color-carbon-gray`) - Secondary text, standard body copy, closely mimicking Notion's aesthetic.
+- **Muted Slate:** `#6B7280` (`--color-muted-slate`) - Tertiary text, placeholders, light borders, and dividers.
+- **Kindle Orange:** `#FF9900` (`--color-kindle-orange`) - Primary brand accent color, used for CTA backgrounds, icons, ambient glow, badges, and highlights.
 
 ---
 
-## 3. Ambient Background & Glassmorphism
+## 3. Ambient Background & UI Treatments
 
-To create a premium, "living" interface, the UI employs ambient, floating blobs behind a frosted glass layer.
+To create a premium, "living" interface, the UI employs ambient, floating blobs rather than solid linear gradients.
 
 ### Ambient Blobs
-Large, slow-moving, blurred, colored orbs that sit fixed in the background.
 
-- **Peach Blob:** `rgba(255, 228, 214, 0.6)` (`--blob-peach`)
-- **Periwinkle Blob:** `rgba(199, 210, 254, 0.4)` (`--blob-periwinkle`)
-- **Effect:** Must be heavily blurred (`filter: blur(60px)` to `blur(80px)`) and animated with a slow `float` keyframe (10s ease-in-out infinite).
+Large, slow-moving, blurred, colored orbs that sit fixed in the background to provide a sense of depth and life.
 
-### Glassmorphism System
-Used for primary containers, cards, and sticky headers.
+- **Orange Blob:** `bg-kindle-orange/10` or `bg-kindle-orange/5` (`rgba(255, 153, 0, 0.1)`)
+- **Effect:** Must be heavily blurred (`blur-[100px]` to `blur-[120px]`) and given animated keyframes `(scale, x, y)` over slow durations (20s to 25s infinite loop) to float effortlessly in the background.
 
-- **Glass Background:** `rgba(255, 255, 255, 0.85)` (`--glass-bg`)
-- **Glass Blur:** `8px` to `12px` (`--glass-blur`, `backdrop-filter: blur(var(--glass-blur))`)
-- **Border Light:** `rgba(229, 231, 235, 0.6)` (`--border-light`) - Applied as a 1px solid border to glass elements to give structure.
+### UI Containers & Glassmorphism
+
+- **Cards & Features:** Utilize `bg-white/5` with `backdrop-blur-sm`, or solid `bg-white` with a crisp `border-muted-slate/10` border.
+- **Shadows:** Very subtle shadow for resting states, shifting to deep, colorful shadows `shadow-kindle-orange/5` or `shadow-xl` on hover to emphasize interactivity.
 
 ---
 
 ## 4. Typography System
 
-**Primary Font:** `Inter`, falling back to `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`.
+The typographical scale utilizes a modern sans-serif paired with a highly distinctive display font to give a tech-forward yet approachable feel.
 
-- **Headings (h1-h6):** Weighted heavily (`800` or `700`), colored Jet Black, with tight letter spacing (`letter-spacing: -0.02em;` to `-0.04em;`).
-- **Body Text:** Weighted normally (`400` or `500`), colored Carbon Gray or Muted Slate.
-- **Line Height:** Relaxed leading for body text (`1.6`), tighter leading for headings (`1.1`).
+- **Display/Headings Font:** `Space Grotesk` (`--font-display`). Used for h1, h2, bold hero text, numbers, and important visual markers.
+- **Primary Body Font:** `Inter` (`--font-sans`). Used for paragraph text, lists, and secondary elements.
+- **Font Stack:** Both fallback to `ui-sans-serif, system-ui, sans-serif`.
+- **Styling:** Headings are tightly tracked (negative letter-spacing or `tracking-tight`), and body copy relies on a relaxed leading (`leading-relaxed`) to improve readability of reading-centric text.
 
 ---
 
 ## 5. UI Components
 
-### Variables Mapping
+### Buttons & Links
 
-#### Spacing (`--space-*`)
+- **Primary Button (Dark):** 
+  - Background: Jet Black
+  - Text: Canvas White
+  - Shape: Fully rounded corners (`rounded-2xl` or larger)
+  - Hover: Accent transition, optionally bringing in Kindle Orange or increasing shadow depth (`hover:shadow-kindle-orange/20`).
+- **Accent Badges (Pills):**
+  - Background: `bg-kindle-orange/10`
+  - Text: `text-kindle-orange`
+  - Padding: Typically `px-4 py-2`
+  - Icon integration: Always pair short text labels with an elegant icon (e.g., Zap `w-4 h-4`).
+  - Shape: Fully rounded (`rounded-full`)
 
-- `xs`: 8px
-- `sm`: 12px
-- `md`: 16px
-- `lg`: 24px
-- `xl`: 32px
+### Structural Shapes
 
-#### Border Radius (`--radius-*`)
+- **Border Radius:** Heavy use of exaggerated rounded corners for a modern, approachable aesthetic.
+  - General cards: `rounded-2xl`
+  - Standard feature containers: `rounded-3xl`
+  - Large wrapper containers: `rounded-[2.5rem]` or `rounded-[3rem]`
+  - Icons and inner avatars: `rounded-full` or slightly squared `rounded-[1.2rem]` or `rounded-xl`
 
-- `sm`: 8px
-- `md`: 12px
-- `lg`: 16px
-- **Pills (Buttons):** `9999px`
+### Animations
 
-#### Shadows (`--shadow-*`)
-
-- `sm`: `0 1px 2px 0 rgba(0, 0, 0, 0.05)` (Subtle depth)
-- `md`: `0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)` (Hover states)
-- `lg`: `0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)` (Elevated popups/modals)
-- `2xl`: `0 25px 50px -12px rgba(0, 0, 0, 0.25)` (Major page focal points, hero images)
-
-### Buttons
-
-- **Primary Button:**
-  - Background: Jet Black (`--jet-black`)
-  - Text: Canvas White (`--canvas-white`)
-  - Shape: Pill (`border-radius: 9999px`)
-  - Hover: Transform translateY(-2px), add `shadow-lg`, darken background to `#000000`.
-- **Secondary Button:**
-  - Background: Semi-transparent white (`rgba(255, 255, 255, 0.5)`)
-  - Text: Jet Black
-  - Border: 1px solid `--border-light`
-  - Shape: Pill (`border-radius: 9999px`)
-
-### Forms & Inputs
-
-- **Inputs:** Semi-transparent white background, subtle border.
-- **Focus State:** White background, Indigo ring (`box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);`), border color transitions to `--brand-gradient-start`.
-
-### Layout
-
-- Utilize CSS Grid and Flexbox exclusively.
-- Central alignments for landing pages (Hero, Features, Testimonials).
-- Clean, vertical stacks for the extension popup UI.
+- **Scroll animations:** Continuous marquees using CSS `@keyframes scroll` (e.g., Social Proof testimonials).
+- **Hover micro-interactions:** Gentle translation (e.g., `group-hover:translate-x-1` on arrows) or icon scaling (`group-hover:scale-110`). Avoid jarring jumps.
+- **3D & Spatial:** Use nested `perspective` and `transformStyle: "preserve-3d"` setups on visual showcases (like book carousels) with slow infinite rotations.
 
 ---
 
 ## 6. Implementation Notes for Developers
 
-1. **NEVER use raw CSS colors.** Always use the CSS custom properties (`var(--<name>)`) defined in `:root`.
-2. **Extensions Architecture:** Since this extension runs across Chrome, Edge, and Firefox without a build step, do not introduce SCSS, Tailwind, or complex build tools. Maintain vanilla CSS with variable usage.
-3. **Animations:** Keep animations purposeful. Micro-interactions on hover (scale, translateY, shadow increase) and ambient background floats are required; excessive motion is discouraged. Use the predefined `--transition-fast` (200ms) and `--transition-normal` (300ms) cubic-beziers.
+1. **Colors & Theming:** Use Tailwind CSS variables (`--color-*`) consistently for all component styling (e.g., `text-jet-black`, `bg-canvas-white`) instead of raw hardcoded HEX colors.
+2. **Typography Setup:** Ensure Google fonts (`Inter` and `Space Grotesk`) are imported in the root CSS context. Use `font-display` utility classes for titles.
+3. **Animations:** Keep motion purposeful. Micro-interactions on hover (scale, shadow increase) and ambient background floats are required to elevate the UI to a premium level. Excessive motion should be avoided; ensure a harmonious flow.

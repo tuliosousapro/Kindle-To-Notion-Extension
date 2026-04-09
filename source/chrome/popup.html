@@ -97,6 +97,16 @@
             <span data-i18n="goToHighlights">Go to Highlights</span>
           </button>
 
+          <button class="secondary-button" id="navigateLibrary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              <line x1="9" y1="7" x2="15" y2="7"></line>
+              <line x1="9" y1="11" x2="13" y2="11"></line>
+            </svg>
+            <span data-i18n="goToLibrary">Kindle Library</span>
+          </button>
+
           <!-- Batch Export Section -->
           <div class="batch-export-section hidden" id="batchExportSection">
             <div class="divider-text" data-i18n="dividerBatch">OR</div>
@@ -154,10 +164,10 @@
               <span class="stat-label" data-i18n="statInVault">In Vault</span>
             </div>
             <div class="stat-divider"></div>
-            <div class="stat-item">
+            <button class="stat-item clickable-stat" id="viewStarredBtn" title="View Favorites">
               <span class="stat-value" id="starredCount">0</span>
               <span class="stat-label" data-i18n="statStarred">Starred</span>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -177,7 +187,15 @@
           <!-- Active review card (populated by JS) -->
           <div class="review-card glass-card hidden" id="reviewCard">
             <div class="review-card-header">
-              <span class="review-progress" id="reviewProgress">1 / 5</span>
+              <div class="header-left">
+                <button class="back-to-review hidden" id="backToReviewBtn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <span data-i18n="starredNavBack">Back</span>
+                </button>
+                <span class="review-progress" id="reviewProgress">1 / 5</span>
+              </div>
               <span class="review-color-dot" id="reviewColorDot"></span>
             </div>
             <blockquote class="review-quote" id="reviewQuote"></blockquote>
@@ -186,7 +204,7 @@
               <span class="review-chapter" id="reviewChapter"></span>
             </div>
             <div class="review-note hidden" id="reviewNote"></div>
-            <div class="review-actions">
+            <div class="review-actions" id="reviewActions">
               <button class="review-action-btn forgot-btn" id="reviewForgot" data-i18n-title="btnResetShowMore"
                 title="Reset — show more often">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -206,6 +224,21 @@
                   <polygon
                     points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
                   </polygon>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Starred navigation (hidden by default) -->
+            <div class="review-actions hidden" id="starredActions">
+              <button class="review-action-btn" id="starredPrev" title="Previous">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <div class="action-spacer" style="width: 52px;"></div>
+              <button class="review-action-btn" id="starredNext" title="Next">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"></polyline>
                 </svg>
               </button>
             </div>
@@ -375,10 +408,56 @@
             </span>
             <div class="button-shine"></div>
           </button>
+
+          <!-- Settings Footer Links -->
+          <div class="settings-footer">
+            <button class="settings-footer-link" id="footerRate" title="Rate on Web Store">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span data-i18n="settingsRate">Rate Us</span>
+            </button>
+            <div class="footer-divider"></div>
+            <button class="settings-footer-link" id="footerFeedback" title="Give Feedback">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span data-i18n="settingsFeedback">Feedback</span>
+            </button>
+            <div class="footer-divider"></div>
+            <button class="settings-footer-link" id="footerShare" title="Share Extension">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              <span data-i18n="settingsShare">Share</span>
+            </button>
+          </div>
         </div>
       </div>
 
     </main>
+
+    <!-- Engagement Modal Overlay -->
+    <div class="engagement-overlay hidden" id="engagementOverlay">
+      <div class="engagement-modal">
+        <div class="engagement-icon" id="engagementIcon"></div>
+        <h2 class="engagement-title" id="engagementTitle"></h2>
+        <p class="engagement-desc" id="engagementDesc"></p>
+        <button class="primary-button engagement-cta" id="engagementCta">
+          <span class="button-content" id="engagementCtaContent"></span>
+          <div class="button-shine"></div>
+        </button>
+        <div class="engagement-dismiss">
+          <button class="engagement-dismiss-btn" id="engagementSnooze" data-i18n="engagementRemindLater">Remind me later</button>
+          <span class="engagement-dismiss-sep">&middot;</span>
+          <button class="engagement-dismiss-btn" id="engagementDismiss" data-i18n="engagementDontAskAgain">Don't ask again</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast-notification" role="status"></div>
@@ -386,6 +465,7 @@
   </div>
 
   <script src="i18n.js"></script>
+  <script src="engagement.js"></script>
   <script src="batchExportUI.js"></script>
   <script src="popup.js"></script>
 </body>

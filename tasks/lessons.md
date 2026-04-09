@@ -31,4 +31,11 @@
 
 3. **Clean Markup**:
    - Strictly avoid inline styles. Use global CSS classes to maintain perfect flex/grid structures and alignment.
-- Dark Mode Toggle (HTML/CSS) implementation broke page layout; reverted changes. Further testing required before attempting complex theme toggle features that interact with background properties.
+
+4. **Experimental Features**:
+   - Dark Mode Toggle (HTML/CSS) implementation broke page layout; reverted changes. Further testing required before attempting complex theme toggle features that interact with background properties.
+
+## 📝 Feature Review For Docs
+
+1. **Keep documentation updated**:
+   - Always verify `manifest.json` versions and active `popup.html` features (such as Batch Export and Review tabs) to ensure `ABOUT.md` accurately reflects the latest extension state.

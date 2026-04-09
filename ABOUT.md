@@ -24,6 +24,14 @@ This friction kills the feedback loop between reading and thinking. The more you
 
 The extension reads the currently open Kindle notebook page in your browser, extracts all available data, and creates a formatted Notion page inside your chosen database.
 
+### Spaced Repetition Review
+
+Beyond just exporting, the extension includes a built-in **Review** tab that surfaces a daily curated set of your past highlights, helping you retain and interact with your old notes. It tracks your daily review streak and allows you to star your favorite highlights.
+
+### Batch Export
+
+Instead of exporting one book at a time, users can choose to export their entire Kindle library with a single click.
+
 ### Data Extraction
 
 From each Kindle book, the extension captures:
@@ -146,7 +154,7 @@ source/
 
 ## Project Status
 
-**Current version:** v1.8.0
+**Current version:** v1.9.1
 
 | Milestone | Status |
 |---|---|
@@ -154,6 +162,8 @@ source/
 | Edge Add-ons | Published |
 | Mozilla Add-ons | Published |
 | Product Hunt | Featured |
+| Batch Export | Shipped (v1.9.0) |
+| Spaced Repetition | Shipped (v1.9.0) |
 | Notion OAuth | Shipped (v1.8.0) |
 | Chapter Grouping | Shipped (v1.7.0) |
 | i18n / Multi-language | Shipped (v1.8.0) |

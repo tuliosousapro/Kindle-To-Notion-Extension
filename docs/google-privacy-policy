@@ -1,104 +1,105 @@
-# Kindle2Notion Extension Privacy Policy
+# Kindle To Notion Extension Privacy Policy
 
-**Last Updated: October 15, 2025**
+**Last Updated: April 7, 2026**
 
-This Privacy Policy outlines how the Kindle2Notion Extension ("we," "us," or "our") collects, uses, protects, and shares your data. Our goal is to ensure transparency and safeguard your privacy while enabling the extension’s functionality.
+This Privacy Policy outlines how the Kindle To Notion Extension ("we," "us," or "our") collects, uses, protects, and shares your data. Our goal is to ensure transparency and safeguard your privacy while enabling the extension’s functionality.
 
 ---
 
 ## 1. Data We Collect
 
-We collect only what’s necessary to export your Kindle highlights and notes to Notion:
+We collect only what’s necessary to export your Kindle highlights and notes to Notion. The extension is built with **Pure Vanilla JavaScript (ES6+)** and contains **Zero external NPM dependencies**, ensuring maximum transparency and security.
 
-- **Kindle Highlights and Notes**: Text, book titles, authors, and cover image URLs from `https://ler.amazon.com.br/notebook` and `https://read.amazon.com/notebook`. Used to transfer your data to Notion.
-- **Notion Integration Data**: Your Notion API token and database ID, provided by you. Needed to connect and send data to your Notion account.
-- **Technical Data**: Browser version, IP address, and error logs. Helps us improve the extension and fix issues.
+- **Kindle Content**: Book titles, authors, Amazon product links (ASINs), highlights (text, color, location, chapter), notes, and bookmarks. This data is extracted from your Kindle notebook pages across 12 supported regional domains.
+- **Book Metadata**: High-resolution cover image URLs retrieved directly from Amazon product pages.
+- **Notion Integration Data**: Your Notion API token and database ID, provided by you. These are needed to connect and send data to your Notion account.
+- **Technical Data**: The extension uses browser-native permissions:
+    - `storage`: Only to save your settings, Notion token, and database IDs locally.
+    - `tabs` & `host_permissions`: To interact with Kindle and Amazon pages.
+    - `identity`: To facilitate Notion OAuth integration.
+    - `alarms`: To schedule daily review reminders (SRS feature).
+    - `notifications`: To provide feedback on export status.
 
-We don’t collect personal info (e.g., name or email) unless you share it for support.
+We do **not** collect personal info (e.g., name or email) and we do **not** use any third-party tracking or analytics.
 
 ---
 
 ## 2. How We Use Your Data
 
 Your data is used solely to:
-- Export Kindle highlights and notes to Notion.
-- Enhance the extension’s performance and troubleshoot problems.
-- Assist you if you reach out for support.
+- Export and organize Kindle highlights, notes, and bookmarks in Notion.
+- Retrieve book cover images for a better visual experience in your Notion database.
+- Authenticate with Notion via a **secure, pass-through OAuth proxy server** (this server facilitates the secure exchange of authorization codes for tokens and does not store your data).
+- Provide daily review notifications if the SRS feature is enabled.
 
-We do **not** use your data for ads or sell it to anyone.
+We do **not** use your data for advertising or sell it to any third parties.
 
 ---
 
 ## 3. Data Sharing
 
 We share your data only when essential:
-- **With Notion**: To complete the export process via their API.
-- **For Legal Reasons**: If required by law or to prevent harm (e.g., fraud).
+- **With Notion**: To complete the export process via their official API.
+- **For Legal Reasons**: If required by law or to prevent harm (e.g., security threats).
 
-No other parties get your data—no analytics, no marketers.
+No other parties have access to your data.
 
 ---
 
 ## 4. Data Security
 
 We protect your data with:
-- **HTTPS**: Secure data transmission to Notion.
-- **Local Storage**: Notion API token and database ID stored encrypted in Chrome’s local storage.
-- **In-Memory Processing**: Kindle data is processed during export and not saved.
-
-No system is 100% secure, but we take every reasonable step to keep your data safe.
+- **HTTPS**: Encrypted data transmission to Notion and Amazon.
+- **Secure Local Storage**: Your Notion API token and database identifiers are stored **only locally** in your browser's secure storage.
+- **In-Memory Processing**: Kindle data is processed during the export flow and is not persistently stored on any of our servers.
 
 ---
 
 ## 5. Web Browsing Activity
 
-We access your browsing **only** on:
-- `https://ler.amazon.com.br/notebook`
-- `https://read.amazon.com/notebook`
+We access your browsing activity **only** on the following authorized domains:
+- **Kindle Notebooks**: `read.amazon.com`, `ler.amazon.com.br`, `read.amazon.ca`, `read.amazon.co.uk`, `read.amazon.de`, `read.amazon.fr`, `read.amazon.es`, `read.amazon.it`, `read.amazon.co.jp`, `read.amazon.com.au`, `read.amazon.in`, `read.amazon.com.mx`.
+- **Amazon Store Pages**: Regional `www.amazon.*` domains (used solely to fetch book cover images).
+- **Notion API**: `api.notion.com`.
 
-This is necessary to retrieve your highlights and notes. No other sites are monitored.
+No other websites are monitored or accessed.
 
 ---
 
 ## 6. Your Rights
 
-You control your data:
-- **Manage**: Edit or delete your Notion token and database ID in the extension’s popup.
-- **Delete**: Email us to remove any support-related data.
-- **Stop**: Uninstall the extension to end all data collection.
-
-See “Contact Us” below for details.
+You have full control over your data:
+- **Manage**: You can update or clear your Notion tokens and settings directly within the extension's popup.
+- **Delete**: Uninstalling the extension immediately removes all data stored in the browser's local storage.
 
 ---
 
 ## 7. Data Retention
 
-We keep data only as long as needed:
-- **Kindle Data**: Deleted after export (no storage).
-- **Technical Logs**: Kept for 30 days, then erased (anonymized unless tied to support).
-- **Support Info**: Removed after resolution or upon request.
+- **Kindle Data**: Not retained; deleted immediately after the export process completes.
+- **Extension Settings**: Persistently stored in your browser's local storage until changed by you or the extension is uninstalled.
 
 ---
 
 ## 8. Limited Use Compliance
 
-We follow Chrome Web Store’s Limited Use rules:
-- Data is used only for the extension’s purpose.
-- No ads, no credit checks, no unauthorized transfers.
-- Human access is limited to support (with consent) or legal/security needs.
+We strictly adhere to the Chrome Web Store’s **Limited Use** requirements:
+- Data is used exclusively for the extension's stated purpose.
+- No unauthorized transfers or sales of user data.
+- No use of data for creditworthiness or lending purposes.
 
 ---
 
 ## 9. Policy Updates
 
-We may revise this policy as needed. Check back here (linked in the extension popup and Chrome Web Store) for the latest version.
+We may update this policy to reflect changes in the extension or browser requirements. The latest version will always be linked in the extension's popup and the Chrome Web Store.
 
 ---
 
 ## 10. Contact Us
 
-Questions or requests? Reach us at:
+For questions or support:
 - **Email**: contato@tuliosousa.pro
-- **Website**: [Kindle To Notion Extension](https://github.com/tuliosousapro/Kindle-To-Notion-Extension)
+- **GitHub**: [Kindle To Notion Extension](https://github.com/tuliosousapro/Kindle-To-Notion-Extension)
 
-**By using Kindle2Notion, you accept this policy. If you disagree, please don’t use the extension.**
+**By using Kindle To Notion, you agree to this policy.**
