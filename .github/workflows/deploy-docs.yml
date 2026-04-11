@@ -2,7 +2,7 @@ name: Deploy Docs site to Pages
 
 on:
   push:
-    branches: ["webpage-fix"]
+    branches: ["extension-ui-fix-and-improve"]
   workflow_dispatch:
 
 permissions:
