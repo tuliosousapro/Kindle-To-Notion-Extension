@@ -1,6 +1,9 @@
 import { motion } from "motion/react";
 import { ChevronLeft, Zap, Calendar, Tag, ArrowRight, History } from "lucide-react";
 
+// @ts-ignore
+import rawChangelog from "../../../CHANGELOG.md?raw";
+
 interface ChangelogEntry {
   version: string;
   date: string;
@@ -9,57 +12,70 @@ interface ChangelogEntry {
   changes: string[];
 }
 
-const CHANGELOG_DATA: ChangelogEntry[] = [
-  {
-    version: "v1.8.0",
-    date: "March 28, 2026",
-    title: "The Global Sync Update",
-    type: "major",
-    changes: [
-      "Added Multi-Region Support: Now supporting Kindle notebooks from all Amazon regions (.com, .co.uk, .com.br, etc.).",
-      "Enhanced Sync Engine: Optimized the export process, making it up to 3x faster for large libraries.",
-      "Improved Formatting: Better handling of special characters and book metadata in Notion.",
-      "Open Source Transition: The extension is now fully open-source for maximum transparency.",
-      "New UI/UX: Refreshed the extension popup with a cleaner, more intuitive design."
-    ]
-  },
-  {
-    version: "v1.7.2",
-    date: "February 15, 2026",
-    title: "Stability & Performance",
-    type: "patch",
-    changes: [
-      "Fixed a bug where some highlights would duplicate on slow connections.",
-      "Improved Notion API error handling and retry logic.",
-      "Reduced extension bundle size by 20% for faster loading.",
-      "Updated dependencies to latest secure versions."
-    ]
-  },
-  {
-    version: "v1.7.0",
-    date: "January 10, 2026",
-    title: "Notion Template Integration",
-    type: "minor",
-    changes: [
-      "Direct integration with Machina Labs Reading Center template.",
-      "Added 'Last Synced' timestamp to book metadata in Notion.",
-      "Support for custom tags during the export process.",
-      "Added a 'Welcome Guide' for first-time users."
-    ]
-  },
-  {
-    version: "v1.6.0",
-    date: "November 20, 2025",
-    title: "Initial Public Release",
-    type: "major",
-    changes: [
-      "First stable release of Kindle To Notion extension.",
-      "Core sync functionality between Kindle Notebook and Notion.",
-      "Basic metadata extraction (Title, Author, Cover).",
-      "Support for Chrome and Edge browsers."
-    ]
+function parseChangelog(markdown: string): ChangelogEntry[] {
+  const entries: ChangelogEntry[] = [];
+  const versionRegex = /^## \[([^\]]+)\] - (\d{4}-\d{2}-\d{2})/;
+  const sections = markdown.split('\n## [');
+  
+  // Custom titles matching the old hardcoded ones for flavor
+  const titleMap: Record<string, string> = {
+    "1.8.0": "The Global Sync Update",
+    "1.7.2": "Stability & Performance",
+    "1.7.0": "Notion Template Integration",
+    "1.6.0": "Initial Public Release"
+  };
+
+  // Process each section that corresponds to a release
+  // (index 0 is the prologue: "# Changelog...")
+  for (let i = 1; i < sections.length; i++) {
+    const rawSection = '## [' + sections[i];
+    const lines = rawSection.split('\n');
+    const firstLine = lines[0];
+    const match = firstLine.match(versionRegex);
+    if (!match) continue;
+    
+    const versionMatch = match[1];
+    const dateMatch = match[2];
+    
+    // Parse date reliably without timezone offset bugs
+    const dateParts = dateMatch.split('-');
+    const dateObj = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+    const formattedDate = dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    
+    let type: 'major' | 'minor' | 'patch' = 'patch';
+    if (versionMatch.endsWith('.0.0')) type = 'major';
+    else if (versionMatch.endsWith('.0')) type = 'minor';
+    
+    const currentTitle = titleMap[versionMatch] || "Release v" + versionMatch;
+    
+    const changes: string[] = [];
+    for (const line of lines) {
+      const trimmed = line.trim();
+      // Extract bullet points
+      if (trimmed.startsWith('- ')) {
+        // Strip markdown bold if present, actually let's keep the "**" inside 
+        // since the old page didn't use react-markdown it will render text exactly.
+        // Actually the old data didn't have bold markdown in it. If there is, we might 
+        // want to strip or render html. Let's see if we should strip markdown bold just in case:
+        let text = trimmed.substring(2).trim();
+        text = text.replace(/\*\*(.*?)\*\*/g, '$1');
+        text = text.replace(/`(.*?)`/g, '$1');
+        changes.push(text);
+      }
+    }
+    
+    entries.push({
+      version: "v" + versionMatch,
+      date: formattedDate,
+      title: currentTitle,
+      type,
+      changes
+    });
   }
-];
+  return entries;
+}
+
+const CHANGELOG_DATA: ChangelogEntry[] = parseChangelog(rawChangelog);
 
 interface ChangelogPageProps {
   onBack: () => void;
