@@ -2,7 +2,7 @@
   <img src="https://github.com/tuliosousapro/Kindle-To-Notion-Extension/blob/480e8b64c0543e412d64665dc5ad3a11124101e1/assets/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg" alt="Kindle To Notion Extension Banner" width="100%" />
 </p>
 
-<h1 align="center">Kindle To Notion Extension v1.8.0</h1>
+<h1 align="center">Kindle To Notion Extension v1.9.2</h1>
 <p align="center"><em>Export Kindle highlights to Notion with automatic chapter grouping, Notion OAuth integration, and page references</em></p>
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logoColor=white">  <img src="https://img.shields.io/badge/Made%20with-JavaScript-blue?style=for-the-badge&logo=javascript&logoColor=blue">  <img src="https://img.shields.io/badge/Notion-API-blue?style=for-the-badge&logo=notion&logoColor=blue">  <img src="https://img.shields.io/badge/Platform-Chromium%20Extension-green?style=for-the-badge&logo=googlechrome&logoColor=green">  <img src="https://img.shields.io/chrome-web-store/v/camgnmkmolfidaefoidblkkloimnmalo?label=Chrome%20Web%20Store&style=for-the-badge&logo=chromewebstore&logoColor=blue">  <img src="https://img.shields.io/github/issues/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&logo=fireship&logoColor=white&color=fc9d08">  <img src="https://img.shields.io/github/stars/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=Stars&labelColor=000&color=green">  <img src="https://img.shields.io/github/commit-activity/m/tuliosousapro/Kindle-To-Notion-Extension?style=for-the-badge&x=3&logo=github&logoColor=white&label=commits&labelColor=000&color=green">
@@ -148,6 +148,42 @@ This template helps you:
 ## 🧙‍♂️Features
 
 <details open>
+<summary>### ✨ v1.9.2 - Smart Feedback & Refinement</summary>
+
+**⭐ Extension Feedback System:**
+
+- Integrated a smart engagement engine with review prompts based on activity and a persistent feedback footer.
+
+**📑 Starred Highlights Browsing:**
+
+- Dedicated view in the review tab to navigate favorited highlights with next/previous controls.
+
+**🔍 Reliability & Performance:**
+
+- **Dynamic Rate-Limiting**: Replaced hardcoded delays with an intelligent mechanism for smoother batch exports.
+- **Network Timeouts**: Implemented `AbortController` timeouts for all requests to prevent hanging on slow connections.
+
+**🎨 Polished Experience:**
+
+- Major Landing Page overhaul with scroll animations, FAQ accordion, and glassmorphism enhancements.
+- Precise UI/UX refinements across popup and onboarding screens.
+
+</details>
+
+<details>
+<summary>### ✨ v1.9.0 - Batch Export Power</summary>
+
+**📦 One-Click Batch Export:**
+
+- Export your entire Kindle library to Notion in a single operation from the notebook list page.
+
+**📊 Real-time Progress Dashboard:**
+
+- Live tracking of export progress with success/failure counters and cancel functionality.
+
+</details>
+
+<details>
 <summary>### ✨ v1.8.0 - Major New Features</summary>
 
 **🔐 Notion OAuth Integration:**
