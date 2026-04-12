@@ -1,0 +1,29 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"https://github.com/tuliosousapro/Kindle-To-Notion-Extension/blob/480e8b64c0543e412d64665dc5ad3a11124101e1/assets/Leonardo_Phoenix_10_Create_a_banner_image_for_the_GitHub_repos_2.jpg\" alt=\"Kindle To Notion Extension Banner\" width=\"100%\" /> </p>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuliosousapro/Kindle-To-Notion-Extension.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tuliosousapro/Kindle-To-Notion-Extension/issues"
+  },
+  "homepage": "https://github.com/tuliosousapro/Kindle-To-Notion-Extension#readme",
+  "devDependencies": {
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "jsdom": "^29.0.2"
+  }
+}
