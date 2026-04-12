@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.9.2] - 2026-04-11
 
 ### Added
 
@@ -13,9 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Starred Highlights Browsing**: Implemented a dedicated view in the review tab to navigate through favorited highlights using next/previous controls.
 - Added `repository-metadata.json` for structured repository documentation.
 - Created a centralized reference document for all Kindle DOM Selectors.
+- Created formal `BRAND_GUIDELINES.md` to ensure consistent visual and tonal identity across features.
+- Added `humans.txt` file to the repository root.
 
 ### Changed
 
+- **Landing Page Overhaul**: Upgraded the documentation site with scroll-triggered animations, animated counters, FAQ accordion, new animated hero background, glassmorphism enhancements, and sticky nav features.
+- **Batch Export Reliability**: Replaced the hardcoded delay with a dynamic rate-limiting mechanism and implemented a timeout for network requests (`fetchChapterData`) to prevent the extension from hanging indefinitely on slow networks.
+- Deployed documentation and marketing site to GitHub Pages for production-ready hosting.
 - Improved UI alignment and spacing in the extension popup and onboarding screens.
 - Fixed contrast issues for inactive tabs, improved baseline alignment in the header, and addressed various padding/margin inconsistencies for a polished glassmorphism design.
 - Updated Google Privacy Policy to accurately reflect the extension's tech stack and permission requirements.

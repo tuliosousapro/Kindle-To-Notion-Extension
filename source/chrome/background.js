@@ -93,16 +93,16 @@ loadOAuthConfig();
 // Initialize SRS daily review alarm
 initSRS();
 
-// Initialize Engagement SRS alarm (checks every 12 hours)
+// Initialize Engagement SRS alarm (checks every 3 days)
 const ENGAGEMENT_ALARM = 'k2n-engagement';
 (async () => {
   const existing = await chrome.alarms.get(ENGAGEMENT_ALARM);
   if (!existing) {
     chrome.alarms.create(ENGAGEMENT_ALARM, {
-      periodInMinutes: 720,   // 12 hours
-      delayInMinutes: 180     // First check after 3 hours
+      periodInMinutes: 4320,   // 3 days
+      delayInMinutes: 180      // First check after 3 hours
     });
-    console.log('[Engagement] Alarm registered (12h cycle).');
+    console.log('[Engagement] Alarm registered (3-day cycle).');
   }
 })();
 
