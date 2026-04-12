@@ -15,7 +15,7 @@ interface ChangelogEntry {
 function parseChangelog(markdown: string): ChangelogEntry[] {
   const entries: ChangelogEntry[] = [];
   const versionRegex = /^## \[([^\]]+)\] - (\d{4}-\d{2}-\d{2})/;
-  const sections = markdown.split('\n## [');
+  const sections = markdown.split(/\r?\n## \[ /);
   
   // Custom titles matching the old hardcoded ones for flavor
   const titleMap: Record<string, string> = {
