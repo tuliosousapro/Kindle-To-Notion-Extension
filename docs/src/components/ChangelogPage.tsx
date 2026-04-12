@@ -58,8 +58,7 @@ function parseChangelog(markdown: string): ChangelogEntry[] {
         // Actually the old data didn't have bold markdown in it. If there is, we might 
         // want to strip or render html. Let's see if we should strip markdown bold just in case:
         let text = trimmed.substring(2).trim();
-        text = text.replace(/\*\*(.*?)\*\*/g, '$1');
-        text = text.replace(/`(.*?)`/g, '$1');
+        let text = trimmed.substring(2).trim().replace(/\*\*(.*?)\*\*/g, '$1').replace(/`(.*?)`/g, '$1').replace(/\[(.*?)\]\(.*?\)/g, '$1');
         changes.push(text);
       }
     }
