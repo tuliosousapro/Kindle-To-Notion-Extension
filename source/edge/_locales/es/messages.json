@@ -1,9 +1,9 @@
 {
   "extensionName": {
-    "message": "Kindle to Notion – Exporta subrayados de Kindle a Notion"
+    "message": "Kindle to Notion - Exporta subrayados en 1 clic gratis"
   },
   "extensionDescription": {
-    "message": "Exporta subrayados de Kindle a Notion con 1 clic. Organiza por libro y sincroniza notas de Kindle con tu base de datos de Notion"
+    "message": "Exporta subrayados de Kindle a Notion al instante. Sincronización en un clic de notas, anotaciones e ideas de lectura. Gratis, sin registro."
   },
   "appTitle": {
     "message": "Kindle to Notion"
@@ -482,5 +482,53 @@
   },
   "toastDatabaseAutoSet": {
     "message": "¡Base de datos detectada y configurada automáticamente!"
+  },
+  "starredNavBack": {
+    "message": "Volver"
+  },
+  "toastNoStarredHighlights": {
+    "message": "No se encontraron subrayados favoritos."
+  },
+  "engagementRateTitle": {
+    "message": "¿Te gusta Kindle to Notion?"
+  },
+  "engagementRateDesc": {
+    "message": "Tu reseña ayuda a otros lectores a descubrir esta extensión. ¡Solo toma un momento!"
+  },
+  "engagementRateBtn": {
+    "message": "Valorar en Web Store"
+  },
+  "engagementShareTitle": {
+    "message": "¡Compártelo!"
+  },
+  "engagementShareDesc": {
+    "message": "¿Conoces a alguien que lea en Kindle? ¡Comparte esta extensión!"
+  },
+  "engagementShareBtn": {
+    "message": "Copiar enlace"
+  },
+  "engagementRemindLater": {
+    "message": "Recordar más tarde"
+  },
+  "engagementDontAskAgain": {
+    "message": "No preguntar de nuevo"
+  },
+  "settingsRate": {
+    "message": "Valorar"
+  },
+  "settingsFeedback": {
+    "message": "Feedback"
+  },
+  "settingsShare": {
+    "message": "Compartir"
+  },
+  "toastLinkCopied": {
+    "message": "¡Enlace copiado!"
+  },
+  "goToLibrary": {
+    "message": "Biblioteca Kindle"
+  },
+  "toastNavigatingLibrary": {
+    "message": "Abriendo Biblioteca Kindle..."
   }
 }

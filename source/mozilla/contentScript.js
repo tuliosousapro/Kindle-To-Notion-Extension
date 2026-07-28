@@ -116,7 +116,7 @@ function extractLocation(highlightElement) {
     if (locationText) return locationText;
 
     // Final fallback: search all text in container for location pattern
-    const locationMatch = allText.match(/(location|posição|position)\s*\d+/i);
+    const locationMatch = container.textContent.match(/(location|posição|position)\s*\d+/i);
     if (locationMatch) {
       return locationMatch[0];
     }

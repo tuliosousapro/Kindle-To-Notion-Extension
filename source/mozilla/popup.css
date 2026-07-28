@@ -1034,7 +1034,7 @@ input::placeholder {
 
 .settings-footer-link:hover {
   color: var(--brand-gradient-start);
-  background: rgba(255, 153, 0, 0.06);
+  background: rgba(99, 102, 241, 0.06);
   transform: translateY(-1px);
 }
 
@@ -1149,4 +1149,4 @@ input::placeholder {
 .engagement-dismiss-sep {
   color: var(--border-light);
   font-size: 14px;
-}
+}

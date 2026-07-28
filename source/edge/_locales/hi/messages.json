@@ -1,9 +1,9 @@
-﻿{
+{
   "extensionName": {
-    "message": "Kindle to Notion Extension – Export Kindle Highlights to Notion"
+    "message": "Kindle to Notion - 1 क्लिक में हाइलाइट्स मुफ्त में एक्सपोर्ट करें"
   },
   "extensionDescription": {
-    "message": "1-click export of Kindle highlights to Notion. Organize by book, tag, and sync Kindle notes to Notion database"
+    "message": "Kindle हाइलाइट्स को तुरंत Notion में एक्सपोर्ट करें। बुक नोट्स, एनोटेशन और रीडिंग इनसाइट्स के लिए वन-क्लिक सिंक। मुफ़्त, कोई साइनअप आवश्यक नहीं।"
   },
   "appTitle": {
     "message": "Kindle to Notion"
@@ -479,5 +479,53 @@
   },
   "toastDatabaseAutoSet": {
     "message": "डेटाबेस स्वचालित रूप से पहचाना और सेट किया गया!"
+  },
+  "starredNavBack": {
+    "message": "वापस"
+  },
+  "toastNoStarredHighlights": {
+    "message": "कोई तारांकित हाइलाइट नहीं मिले।"
+  },
+  "engagementRateTitle": {
+    "message": "Kindle to Notion पसंद आ रहा है?"
+  },
+  "engagementRateDesc": {
+    "message": "आपकी समीक्षा अन्य पाठकों को इस एक्सटेंशन को खोजने में मदद करती है। बस एक पल लगता है!"
+  },
+  "engagementRateBtn": {
+    "message": "Web Store पर रेट करें"
+  },
+  "engagementShareTitle": {
+    "message": "दोस्तों को बताएं!"
+  },
+  "engagementShareDesc": {
+    "message": "किसी को जानते हैं जो Kindle पर पढ़ता है? यह एक्सटेंशन शेयर करें!"
+  },
+  "engagementShareBtn": {
+    "message": "लिंक कॉपी करें"
+  },
+  "engagementRemindLater": {
+    "message": "बाद में याद दिलाएं"
+  },
+  "engagementDontAskAgain": {
+    "message": "दोबारा मत पूछो"
+  },
+  "settingsRate": {
+    "message": "रेट करें"
+  },
+  "settingsFeedback": {
+    "message": "फीडबैक"
+  },
+  "settingsShare": {
+    "message": "शेयर"
+  },
+  "toastLinkCopied": {
+    "message": "लिंक कॉपी हो गया!"
+  },
+  "goToLibrary": {
+    "message": "Kindle लाइब्रेरी"
+  },
+  "toastNavigatingLibrary": {
+    "message": "Kindle लाइब्रेरी खोल रहे हैं..."
   }
 }
