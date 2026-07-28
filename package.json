@@ -1,0 +1,15 @@
+{
+  "name": "kindle-to-notion-extension",
+  "private": true,
+  "type": "module",
+  "version": "1.6.0",
+  "description": "Export Kindle highlights and notes directly to Notion databases",
+  "scripts": {
+    "lint": "eslint \"source/**/*.js\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0"
+  }
+}
