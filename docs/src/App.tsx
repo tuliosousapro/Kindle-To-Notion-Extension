@@ -9,16 +9,16 @@ import { WelcomePage } from "./components/WelcomePage";
 import { LegalPage } from "./components/LegalPage";
 import { BlogPage } from "./components/BlogPage";
 import { ChangelogPage } from "./components/ChangelogPage";
-import { 
-  BookOpen, 
-  CheckCircle2, 
-  Chrome, 
-  Download, 
-  Github, 
-  Layers, 
-  Lock, 
-  MousePointer2, 
-  ShieldCheck, 
+import {
+  BookOpen,
+  CheckCircle2,
+  Chrome,
+  Download,
+  Github,
+  Layers,
+  Lock,
+  MousePointer2,
+  ShieldCheck,
   Zap,
   Globe,
   Quote,
@@ -39,7 +39,7 @@ import {
 } from "lucide-react";
 
 const FeatureCard = ({ icon: Icon, title, description }: { icon: any, title: string, description: string }) => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -54,7 +54,7 @@ const FeatureCard = ({ icon: Icon, title, description }: { icon: any, title: str
 );
 
 const Step = ({ number, title, description, icon: Icon }: { number: string, title: string, description: string, icon: any }) => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -81,7 +81,7 @@ interface FAQItemProps {
 
 const FAQItem = ({ question, answer, isOpen, onClick }: FAQItemProps) => (
   <div className="border-b border-muted-slate/10 last:border-0">
-    <button 
+    <button
       onClick={onClick}
       className="w-full py-6 flex items-center justify-between text-left group focus:outline-none focus:ring-2 focus:ring-kindle-orange/50 rounded-lg px-4"
       aria-expanded={isOpen}
@@ -186,9 +186,9 @@ const SpinningBooks = () => {
       {/* Background Rings - Subtle and elegant */}
       <div className="absolute w-[250px] h-[250px] md:w-[400px] md:h-[400px] rounded-full border border-muted-slate/10" style={{ transform: "rotateX(75deg)" }} />
       <div className="absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full border border-muted-slate/5" style={{ transform: "rotateX(75deg)" }} />
-      
+
       {/* Central Logo - The "Notion" hub */}
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
@@ -197,9 +197,9 @@ const SpinningBooks = () => {
         <div className="w-16 h-16 md:w-20 md:h-20 bg-kindle-orange rounded-[1.2rem] md:rounded-[1.5rem] flex items-center justify-center shadow-lg shadow-kindle-orange/20">
           <BookOpen className="w-8 h-8 md:w-12 md:h-12 text-white" />
         </div>
-        
+
         {/* Pulsing effect */}
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0, 0.2] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="absolute inset-0 bg-kindle-orange rounded-[2rem] md:rounded-[2.5rem] -z-10"
@@ -210,13 +210,13 @@ const SpinningBooks = () => {
       <div className="absolute inset-0 flex items-center justify-center" style={{ transformStyle: "preserve-3d" }}>
         {books.map((book, index) => {
           const initialAngle = (index / books.length) * (Math.PI * 2);
-          
+
           return (
-            <CarouselItem 
-              key={book.id} 
-              book={book} 
-              initialAngle={initialAngle} 
-              rotate={rotate} 
+            <CarouselItem
+              key={book.id}
+              book={book}
+              initialAngle={initialAngle}
+              rotate={rotate}
               radius={radius}
             />
           );
@@ -240,7 +240,7 @@ const CarouselItem = ({ book, initialAngle, rotate, radius }: CarouselItemProps)
     const currentAngle = initialAngle + (r * Math.PI) / 180;
     return Math.sin(currentAngle) * radius;
   });
-  
+
   const z = useTransform(rotate, (r: number) => {
     const currentAngle = initialAngle + (r * Math.PI) / 180;
     return Math.cos(currentAngle) * radius;
@@ -272,8 +272,8 @@ const CarouselItem = ({ book, initialAngle, rotate, radius }: CarouselItemProps)
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Book Cover Card */}
-        <div 
-          className="w-16 h-24 md:w-24 md:h-32 rounded-lg md:rounded-xl overflow-hidden shadow-2xl border border-muted-slate/10 bg-white transition-all duration-500 group-hover:scale-110 group-hover:z-50" 
+        <div
+          className="w-16 h-24 md:w-24 md:h-32 rounded-lg md:rounded-xl overflow-hidden shadow-2xl border border-muted-slate/10 bg-white transition-all duration-500 group-hover:scale-110 group-hover:z-50"
           style={{ backfaceVisibility: "hidden" }}
         >
           <img
@@ -288,18 +288,18 @@ const CarouselItem = ({ book, initialAngle, rotate, radius }: CarouselItemProps)
             </span>
           </div>
         </div>
-        
+
         {/* Back of the book */}
-        <div 
-          className="absolute inset-0 w-16 h-24 md:w-24 md:h-32 rounded-lg md:rounded-xl bg-kindle-orange/20 border border-kindle-orange/10 flex items-center justify-center -z-10" 
+        <div
+          className="absolute inset-0 w-16 h-24 md:w-24 md:h-32 rounded-lg md:rounded-xl bg-kindle-orange/20 border border-kindle-orange/10 flex items-center justify-center -z-10"
           style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }}
         >
           <BookOpen className="w-8 h-8 md:w-10 md:h-10 text-kindle-orange/40" />
         </div>
       </motion.div>
-      
+
       {/* Reflection/Shadow below */}
-      <motion.div 
+      <motion.div
         style={{ opacity: useTransform(z, [-280, 280], [0, 0.2]) }}
         className="absolute -bottom-6 md:-bottom-8 left-1/2 -translate-x-1/2 w-12 md:w-16 h-3 md:h-4 bg-black blur-xl rounded-full"
       />
@@ -311,9 +311,9 @@ const TrustBadges = () => (
   <div className="flex flex-col items-center gap-4 opacity-60 hover:opacity-100 transition-opacity">
     <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-carbon-gray">Featured on</span>
     <div className="flex flex-wrap items-center justify-center gap-6">
-      <a 
-        href="https://www.producthunt.com/products/kindle2notion-extension" 
-        target="_blank" 
+      <a
+        href="https://www.producthunt.com/products/kindle2notion-extension"
+        target="_blank"
         rel="noopener noreferrer"
         className="hover:scale-105 transition-transform"
       >
@@ -345,9 +345,9 @@ const NotionTemplateSection = () => {
                   </div>
                 </div>
               </div>
-              <img 
-                src="https://www.notion.com/_next/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fpublic.notion-static.com%2Ftemplate%2F42e933e3-954d-4a10-bc4d-c0039f52839d%2F1756346706460%2Fdesktop.jpg&w=3840&q=75" 
-                alt="Notion Template Preview" 
+              <img
+                src="https://www.notion.com/_next/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fpublic.notion-static.com%2Ftemplate%2F42e933e3-954d-4a10-bc4d-c0039f52839d%2F1756346706460%2Fdesktop.jpg&w=3840&q=75"
+                alt="Notion Template Preview"
                 className="w-full h-auto object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -365,9 +365,9 @@ const NotionTemplateSection = () => {
             <p className="text-xl text-carbon-gray mb-12 leading-relaxed">
               Ready to supercharge your reading? Download our custom-built Notion template to organize your library perfectly and sync your highlights with ease.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <a 
+              <a
                 href="https://www.notion.so/pt-br/templates/reading-center-powered-by-machina-labs"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -446,8 +446,8 @@ const SocialProof = () => {
     <div className="mt-16 w-full overflow-hidden relative">
       <div className="flex gap-8 animate-scroll hover:[animation-play-state:paused] w-max">
         {[...testimonials, ...testimonials, ...testimonials].map((t, i) => (
-          <div 
-            key={i} 
+          <div
+            key={i}
             className="flex-shrink-0 w-[350px] p-8 rounded-3xl bg-white border border-muted-slate/10 shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="flex gap-1 mb-4">
@@ -511,7 +511,7 @@ const SubstackIcon = (props: any) => (
 
 const ReadwiseComparison = ({ onBack, onInstall }: { onBack: () => void, onInstall: () => void }) => {
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(0);
-  
+
   const features = [
     { name: "Price", kindle: "100% Free", readwise: "$8 - $15 / month" },
     { name: "Privacy", kindle: "Local-only (No servers)", readwise: "Cloud-based storage" },
@@ -562,7 +562,7 @@ const ReadwiseComparison = ({ onBack, onInstall }: { onBack: () => void, onInsta
   return (
     <div className="min-h-screen bg-canvas-white pt-32 pb-24 px-6">
       <div className="max-w-5xl mx-auto">
-        <button 
+        <button
           onClick={onBack}
           className="flex items-center gap-2 text-carbon-gray hover:text-jet-black mb-12 transition-colors font-medium"
         >
@@ -898,7 +898,7 @@ const ReadwiseComparison = ({ onBack, onInstall }: { onBack: () => void, onInsta
             </div>
             <div className="bg-white rounded-[2rem] p-8 md:p-12 border border-muted-slate/10 shadow-sm">
               {comparisonFaqs.map((faq, index) => (
-                <FAQItem 
+                <FAQItem
                   key={index}
                   question={faq.question}
                   answer={faq.answer}
@@ -927,7 +927,7 @@ const ReadwiseComparison = ({ onBack, onInstall }: { onBack: () => void, onInsta
                 Join thousands of avid readers who have automated their knowledge management. Build a permanent archive of your insights today.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button 
+                <button
                   onClick={onInstall}
                   className="w-full sm:w-auto bg-kindle-orange text-white px-14 py-7 rounded-2xl font-bold text-2xl transition-all flex items-center justify-center gap-4 shadow-2xl shadow-kindle-orange/20 hover:scale-105 active:scale-100"
                 >
@@ -951,7 +951,7 @@ const ReadwiseComparison = ({ onBack, onInstall }: { onBack: () => void, onInsta
               { name: 'Facebook', icon: FacebookIcon, color: '#1877F2', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent("https://kindletonotion.com")}` },
               { name: 'Reddit', icon: RedditIcon, color: '#FF4500', url: `https://www.reddit.com/submit?url=${encodeURIComponent("https://kindletonotion.com")}&title=${encodeURIComponent("Export your Kindle highlights to Notion in 1 click with Kindle To Notion!")}` },
             ].map((platform) => (
-              <a 
+              <a
                 key={platform.name}
                 href={platform.url}
                 target="_blank"
@@ -971,7 +971,7 @@ const ReadwiseComparison = ({ onBack, onInstall }: { onBack: () => void, onInsta
 
 const ClippingsComparison = ({ onBack, onInstall }: { onBack: () => void, onInstall: () => void }) => {
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(0);
-  
+
   const features = [
     { name: "Price", kindle: "100% Free", clippings: "$1.99 / month (Pro)" },
     { name: "Sync Method", kindle: "Direct Cloud Sync", clippings: "Manual File Upload" },
@@ -1021,7 +1021,7 @@ const ClippingsComparison = ({ onBack, onInstall }: { onBack: () => void, onInst
   return (
     <div className="min-h-screen bg-canvas-white pt-32 pb-24 px-6">
       <div className="max-w-5xl mx-auto">
-        <button 
+        <button
           onClick={onBack}
           className="flex items-center gap-2 text-carbon-gray hover:text-jet-black mb-12 transition-colors font-medium"
         >
@@ -1358,7 +1358,7 @@ const ClippingsComparison = ({ onBack, onInstall }: { onBack: () => void, onInst
             </div>
             <div className="bg-white rounded-[2rem] p-8 md:p-12 border border-muted-slate/10 shadow-sm">
               {comparisonFaqs.map((faq, index) => (
-                <FAQItem 
+                <FAQItem
                   key={index}
                   question={faq.question}
                   answer={faq.answer}
@@ -1387,7 +1387,7 @@ const ClippingsComparison = ({ onBack, onInstall }: { onBack: () => void, onInst
                 Join thousands of avid readers who have automated their knowledge management. Build a permanent archive of your insights today.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button 
+                <button
                   onClick={onInstall}
                   className="w-full sm:w-auto bg-kindle-orange text-white px-14 py-7 rounded-2xl font-bold text-2xl transition-all flex items-center justify-center gap-4 shadow-2xl shadow-kindle-orange/20 hover:scale-105 active:scale-100"
                 >
@@ -1411,7 +1411,7 @@ const ClippingsComparison = ({ onBack, onInstall }: { onBack: () => void, onInst
               { name: 'Facebook', icon: FacebookIcon, color: '#1877F2', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent("https://kindletonotion.com")}` },
               { name: 'Reddit', icon: RedditIcon, color: '#FF4500', url: `https://www.reddit.com/submit?url=${encodeURIComponent("https://kindletonotion.com")}&title=${encodeURIComponent("Export your Kindle highlights to Notion in 1 click with Kindle To Notion!")}` },
             ].map((platform) => (
-              <a 
+              <a
                 key={platform.name}
                 href={platform.url}
                 target="_blank"
@@ -1431,7 +1431,7 @@ const ClippingsComparison = ({ onBack, onInstall }: { onBack: () => void, onInst
 
 const SnippetComparison = ({ onBack, onInstall }: { onBack: () => void, onInstall: () => void }) => {
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(0);
-  
+
   const features = [
     { name: "Price", kindle: "100% Free", snippet: "$2.99 / month" },
     { name: "Privacy", kindle: "Local-only (No servers)", snippet: "Cloud-based storage" },
@@ -1481,7 +1481,7 @@ const SnippetComparison = ({ onBack, onInstall }: { onBack: () => void, onInstal
   return (
     <div className="min-h-screen bg-canvas-white pt-32 pb-24 px-6">
       <div className="max-w-5xl mx-auto">
-        <button 
+        <button
           onClick={onBack}
           className="flex items-center gap-2 text-carbon-gray hover:text-jet-black mb-12 transition-colors font-medium"
         >
@@ -1830,7 +1830,7 @@ const SnippetComparison = ({ onBack, onInstall }: { onBack: () => void, onInstal
             </div>
             <div className="bg-white rounded-[2rem] p-8 md:p-12 border border-muted-slate/10 shadow-sm">
               {comparisonFaqs.map((faq, index) => (
-                <FAQItem 
+                <FAQItem
                   key={index}
                   question={faq.question}
                   answer={faq.answer}
@@ -1859,7 +1859,7 @@ const SnippetComparison = ({ onBack, onInstall }: { onBack: () => void, onInstal
                 Join thousands of avid readers who have automated their knowledge management. Build a permanent archive of your insights today.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button 
+                <button
                   onClick={onInstall}
                   className="w-full sm:w-auto bg-kindle-orange text-white px-14 py-7 rounded-2xl font-bold text-2xl transition-all flex items-center justify-center gap-4 shadow-2xl shadow-kindle-orange/20 hover:scale-105 active:scale-100"
                 >
@@ -1883,7 +1883,7 @@ const SnippetComparison = ({ onBack, onInstall }: { onBack: () => void, onInstal
               { name: 'Facebook', icon: FacebookIcon, color: '#1877F2', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent("https://kindletonotion.com")}` },
               { name: 'Reddit', icon: RedditIcon, color: '#FF4500', url: `https://www.reddit.com/submit?url=${encodeURIComponent("https://kindletonotion.com")}&title=${encodeURIComponent("Export your Kindle highlights to Notion in 1 click with Kindle To Notion!")}` },
             ].map((platform) => (
-              <a 
+              <a
                 key={platform.name}
                 href={platform.url}
                 target="_blank"
@@ -1945,7 +1945,7 @@ const FloatingShare = () => {
   ];
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       className="fixed right-6 bottom-32 z-50 hidden lg:flex flex-col gap-2"
@@ -2109,7 +2109,7 @@ export default function App() {
 
   useEffect(() => {
     const ua = navigator.userAgent;
-    
+
     // Detection order is important as some browsers include other browser names in UA
     if (/Edg\//i.test(ua)) {
       setBrowserInfo({ name: "Edge", icon: Globe });
@@ -2132,7 +2132,7 @@ export default function App() {
       {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-muted-slate/10 bg-canvas-white/80 backdrop-blur-md">
         <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" aria-label="Main navigation">
-          <button 
+          <button
             onClick={() => {
               setCurrentPage('landing');
               window.scrollTo(0, 0);
@@ -2154,7 +2154,7 @@ export default function App() {
                 <a href="#faq" className="hover:text-kindle-orange transition-colors focus:outline-none focus:ring-2 focus:ring-kindle-orange/50 rounded-lg px-2 py-1">FAQ</a>
               </div>
             )}
-            <button 
+            <button
               onClick={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
               className="flex items-center gap-2 px-6 py-2.5 bg-kindle-orange text-white text-sm font-bold rounded-xl shadow-lg shadow-kindle-orange/20 hover:translate-y-[-2px] active:translate-y-[0px] transition-all focus:ring-2 focus:ring-offset-2 focus:ring-kindle-orange"
             >
@@ -2182,7 +2182,7 @@ export default function App() {
       ) : currentPage === 'privacy' || currentPage === 'terms' ? (
         <LegalPage type={currentPage} onBack={() => setCurrentPage('landing')} />
       ) : currentPage === 'readwise-comparison' ? (
-        <ReadwiseComparison 
+        <ReadwiseComparison
           onBack={() => {
             setCurrentPage('landing');
             window.scrollTo(0, 0);
@@ -2191,7 +2191,7 @@ export default function App() {
           onInstall={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
         />
       ) : currentPage === 'clippings-comparison' ? (
-        <ClippingsComparison 
+        <ClippingsComparison
           onBack={() => {
             setCurrentPage('landing');
             window.scrollTo(0, 0);
@@ -2200,7 +2200,7 @@ export default function App() {
           onInstall={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
         />
       ) : currentPage === 'snippet-comparison' ? (
-        <SnippetComparison 
+        <SnippetComparison
           onBack={() => {
             setCurrentPage('landing');
             window.scrollTo(0, 0);
@@ -2212,422 +2212,422 @@ export default function App() {
         <main>
           {/* Hero Section */}
           <section className="pt-48 pb-24 px-6 relative overflow-hidden" aria-labelledby="hero-title">
-        <MeshBackground />
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col items-center"
-            >
+            <MeshBackground />
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="flex flex-col items-center"
+                >
                   <div className="inline-flex items-center gap-2 px-4 py-2 -mb-4 rounded-full bg-kindle-orange/5 border border-kindle-orange/10 text-kindle-orange text-xs font-bold tracking-widest uppercase z-10">
                     <Zap className="w-3 h-3" aria-hidden="true" />
-                    v1.8.0 • Open Source & Free
+                    v1.9.2 • Open Source & Free
                   </div>
                   <h1 id="hero-title" className="text-6xl md:text-8xl font-display font-bold mb-8 tracking-tight leading-[1.05] text-jet-black">
-                Export Kindle Highlights to<br />
-                <span className="text-kindle-orange">Notion in 1 Click</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-carbon-gray max-w-2xl mb-12 leading-relaxed">
-                Stop losing your best ideas. Send your Kindle highlights to Notion with one click. No more manual typing. Just your notes, perfectly organized.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center gap-5">
-                <button 
-                  onClick={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
-                  className="w-full sm:w-auto bg-kindle-orange text-white px-12 py-6 rounded-2xl font-bold text-xl transition-all flex items-center justify-center gap-3 shadow-xl hover:translate-y-[-2px] active:translate-y-[0px]"
+                    Export Kindle Highlights to<br />
+                    <span className="text-kindle-orange">Notion in 1 Click</span>
+                  </h1>
+                  <p className="text-xl md:text-2xl text-carbon-gray max-w-2xl mb-12 leading-relaxed">
+                    Stop losing your best ideas. Send your Kindle highlights to Notion with one click. No more manual typing. Just your notes, perfectly organized.
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-center gap-5">
+                    <button
+                      onClick={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
+                      className="w-full sm:w-auto bg-kindle-orange text-white px-12 py-6 rounded-2xl font-bold text-xl transition-all flex items-center justify-center gap-3 shadow-xl hover:translate-y-[-2px] active:translate-y-[0px]"
+                    >
+                      <BrowserIcon className="w-6 h-6" />
+                      Add to {browserInfo.name}
+                    </button>
+                  </div>
+
+                  <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-jet-black/70">
+                      <ShieldCheck className="w-5 h-5 text-kindle-orange" />
+                      100% Private - No Data Collection
+                    </div>
+                    <div className="flex items-center gap-2 text-sm font-semibold text-jet-black/70">
+                      <Lock className="w-5 h-5 text-kindle-orange" />
+                      Encrypted Local Storage
+                    </div>
+                    <div className="flex items-center gap-2 text-sm font-semibold text-jet-black/70">
+                      <Globe className="w-5 h-5 text-kindle-orange" />
+                      Multi-Region Support
+                    </div>
+                  </div>
+                  <div className="mt-8 flex flex-col items-center">
+                    <TrustBadges />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                  className="relative flex flex-col items-center mt-32 w-full"
                 >
-                  <BrowserIcon className="w-6 h-6" />
-                  Add to {browserInfo.name}
+                  <div className="text-center mb-0 max-w-2xl mx-auto z-10">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-kindle-orange/10 text-kindle-orange text-[10px] font-bold tracking-widest uppercase mb-2">
+                      <Layers className="w-3 h-3" />
+                      Visual Knowledge Hub
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-display font-bold text-jet-black tracking-tight leading-tight">
+                      All your book insights living inside <br className="hidden md:block" />
+                      <span className="text-kindle-orange">your second brain.</span>
+                    </h2>
+                  </div>
+                  <div className="relative w-full max-w-4xl flex items-center justify-center -mt-8">
+                    <SpinningBooks />
+                  </div>
+                </motion.div>
+              </div>
+
+              <SocialProof />
+            </div>
+          </section>
+
+          {/* Direct Value Section */}
+          <section className="py-40 px-6 bg-muted-slate/[0.03]">
+            <div className="max-w-7xl mx-auto">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 text-jet-black tracking-tight">
+                  Read it once.<br />
+                  <span className="text-kindle-orange">Keep it forever.</span>
+                </h2>
+                <p className="text-xl md:text-2xl text-carbon-gray mb-16 leading-relaxed max-w-2xl mx-auto">
+                  Your Kindle notes are trapped. We set them free. Send everything to Notion automatically so you can actually use what you read.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-8 text-left">
+                  <div className="p-10 rounded-3xl bg-white border border-muted-slate/10">
+                    <div className="text-kindle-orange font-bold text-sm mb-4 uppercase tracking-widest">The Old Way</div>
+                    <p className="text-carbon-gray text-base italic leading-relaxed">"Copying and pasting by hand. It's slow, boring, and you'll probably never do it."</p>
+                  </div>
+                  <div className="p-10 rounded-3xl bg-jet-black text-canvas-white shadow-xl">
+                    <div className="text-kindle-orange font-bold text-sm mb-4 uppercase tracking-widest">The KindleToNotion Way</div>
+                    <p className="text-canvas-white/80 text-base leading-relaxed">"One click and you're done. Your notes are safe in Notion, easy to find, and ready to use."</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Features Grid */}
+          <section id="features" className="py-40 px-6 bg-muted-slate/[0.02]">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-24 max-w-3xl mx-auto">
+                <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-jet-black tracking-tight">Everything you need.</h2>
+                <p className="text-xl md:text-2xl text-carbon-gray">Simple, fast, and built for people who love to read.</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Feature 1 */}
+                <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
+                  <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <Brain className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Remember Everything</h3>
+                  <p className="text-carbon-gray leading-relaxed flex-grow">We show you your best notes every day so you never forget what you read. It's like a workout for your brain.</p>
+                </div>
+
+                {/* Feature 2 */}
+                <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
+                  <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <Quote className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Keep Your Colors</h3>
+                  <p className="text-carbon-gray leading-relaxed flex-grow">Your blue, yellow, and red highlights look exactly the same in Notion.</p>
+                </div>
+
+                {/* Feature 3 */}
+                <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
+                  <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <StickyNote className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Keep Your Notes</h3>
+                  <p className="text-carbon-gray leading-relaxed flex-grow">Your personal thoughts are saved right next to your highlights.</p>
+                </div>
+
+                {/* Feature 4 */}
+                <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
+                  <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <Download className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Export All at Once</h3>
+                  <p className="text-carbon-gray leading-relaxed flex-grow">Send your whole library to Notion with a single click.</p>
+                </div>
+
+                {/* Feature 5 */}
+                <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
+                  <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <Globe className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Works Everywhere</h3>
+                  <p className="text-carbon-gray leading-relaxed flex-grow">Supports Amazon stores in the US, UK, Canada, Brazil, India, Japan, and more.</p>
+                </div>
+
+                {/* Feature 6 */}
+                <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
+                  <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <BookOpen className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Complete Data</h3>
+                  <p className="text-carbon-gray leading-relaxed flex-grow">We export everything you need: Author name, Book Title, and Book cover. Your Notion database will look like a professional library.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Target Audience Section */}
+          <section className="py-40 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-24">
+                <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-jet-black tracking-tight">Built for People Who Love to Read</h2>
+                <p className="text-xl md:text-2xl text-carbon-gray max-w-2xl mx-auto">Perfect for anyone who wants to remember what they read and build a library of their best ideas.</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <GraduationCap className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Students</h3>
+                  <p className="text-carbon-gray leading-relaxed">Organize your school notes and research. Build a library of everything you learn.</p>
+                </div>
+
+                <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <Brain className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Professionals</h3>
+                  <p className="text-carbon-gray leading-relaxed">Build your "Second Brain". Connect ideas from different books to solve problems at work.</p>
+                </div>
+
+                <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <PenTool className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Writers</h3>
+                  <p className="text-carbon-gray leading-relaxed">Collect great quotes and inspiration for your next project. Never lose a good idea again.</p>
+                </div>
+
+                <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <Infinity className="w-7 h-7 text-kindle-orange" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Lifelong Learners</h3>
+                  <p className="text-carbon-gray leading-relaxed">Keep a digital diary of every book you read. See how much you've learned over time.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          {/* Comparison Section */}
+          <section className="py-40 px-6 bg-muted-slate/[0.03]">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-24">
+                <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-jet-black tracking-tight">Why Readers Choose Us</h2>
+                <p className="text-xl md:text-2xl text-carbon-gray max-w-2xl mx-auto">Compare Kindle to Notion with other export tools and see why we're the preferred choice for privacy and speed.</p>
+              </div>
+
+              <div className="overflow-x-auto">
+                <div className="min-w-[800px] bg-white rounded-[2.5rem] border border-muted-slate/10 shadow-xl overflow-hidden">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-muted-slate/5">
+                        <th className="p-8 text-sm font-bold text-muted-slate uppercase tracking-widest bg-muted-slate/[0.02]">Feature</th>
+                        <th className="p-8 text-sm font-bold text-kindle-orange uppercase tracking-widest bg-kindle-orange/[0.03]">Kindle to Notion</th>
+                        <th className="p-8 text-sm font-bold text-muted-slate uppercase tracking-widest">Readwise</th>
+                        <th className="p-8 text-sm font-bold text-muted-slate uppercase tracking-widest">Clippings.io</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-jet-black">
+                      <tr className="border-b border-muted-slate/5">
+                        <td className="p-8 font-medium">Price</td>
+                        <td className="p-8 font-bold text-kindle-orange bg-kindle-orange/[0.03]">Free (Beta)</td>
+                        <td className="p-8 text-carbon-gray">$8-15/month</td>
+                        <td className="p-8 text-carbon-gray">$1.99/month</td>
+                      </tr>
+                      <tr className="border-b border-muted-slate/5">
+                        <td className="p-8 font-medium">Notion Integration</td>
+                        <td className="p-8 bg-kindle-orange/[0.03]">
+                          <div className="flex items-center gap-2 font-bold text-kindle-orange">
+                            <Check className="w-5 h-5" /> Native
+                          </div>
+                        </td>
+                        <td className="p-8 text-carbon-gray">Yes</td>
+                        <td className="p-8 text-carbon-gray">
+                          <div className="flex items-center gap-2">
+                            <X className="w-5 h-5 text-red-400" /> No
+                          </div>
+                        </td>
+                      </tr>
+                      <tr className="border-b border-muted-slate/5">
+                        <td className="p-8 font-medium">Signup Required</td>
+                        <td className="p-8 bg-kindle-orange/[0.03]">
+                          <div className="flex items-center gap-2 font-bold text-kindle-orange">
+                            <X className="w-5 h-5" /> No
+                          </div>
+                        </td>
+                        <td className="p-8 text-carbon-gray">Yes</td>
+                        <td className="p-8 text-carbon-gray">Yes</td>
+                      </tr>
+                      <tr className="border-b border-muted-slate/5">
+                        <td className="p-8 font-medium">Data Privacy</td>
+                        <td className="p-8 bg-kindle-orange/[0.03]">
+                          <div className="flex items-center gap-2 font-bold text-kindle-orange">
+                            <ShieldCheck className="w-5 h-5" /> 100% Local
+                          </div>
+                        </td>
+                        <td className="p-8 text-carbon-gray">Cloud-based</td>
+                        <td className="p-8 text-carbon-gray">Cloud-based</td>
+                      </tr>
+                      <tr className="border-b border-muted-slate/5">
+                        <td className="p-8 font-medium">Colored Highlights</td>
+                        <td className="p-8 bg-kindle-orange/[0.03]">
+                          <div className="flex items-center gap-2 font-bold text-kindle-orange">
+                            <Check className="w-5 h-5" /> Yes
+                          </div>
+                        </td>
+                        <td className="p-8 text-carbon-gray">Yes</td>
+                        <td className="p-8 text-carbon-gray">
+                          <div className="flex items-center gap-2">
+                            <X className="w-5 h-5 text-red-400" /> No
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="p-8 font-medium">Open Source</td>
+                        <td className="p-8 bg-kindle-orange/[0.03]">
+                          <div className="flex items-center gap-2 font-bold text-kindle-orange">
+                            <Check className="w-5 h-5" /> Yes
+                          </div>
+                        </td>
+                        <td className="p-8 text-carbon-gray">No</td>
+                        <td className="p-8 text-carbon-gray">No</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Testimonials Section */}
+              <div className="mt-32">
+                <div className="text-center mb-16">
+                  <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 text-jet-black tracking-tight">What Users Are Saying</h3>
+                  <p className="text-lg text-carbon-gray">Real experiences from knowledge workers and book lovers</p>
+                </div>
+
+                <SocialProof />
+              </div>
+            </div>
+          </section>
+
+          {/* Workflow Section */}
+          <section id="how-it-works" className="py-40 px-6 bg-jet-black text-canvas-white overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-full h-full bg-kindle-orange/5 blur-[120px] rounded-full -z-0" />
+            <div className="max-w-7xl mx-auto relative z-10">
+              <div className="text-center mb-24 max-w-3xl mx-auto">
+                <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 tracking-tight leading-tight">
+                  Export your highlights in<br />
+                  <span className="text-kindle-orange">3 easy steps.</span>
+                </h2>
+                <p className="text-canvas-white/60 text-xl">The fastest way to bridge the gap between your books and your brain.</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-12 relative">
+                {/* Connector Lines (Desktop) */}
+                <div className="hidden lg:block absolute top-1/2 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-kindle-orange/30 to-transparent -translate-y-1/2 -z-0" />
+
+                <Step
+                  number="1"
+                  icon={MousePointer2}
+                  title="Open Extension"
+                  description="Click 'Go to Highlights' to open your Kindle notebook in your browser."
+                />
+                <Step
+                  number="2"
+                  icon={Zap}
+                  title="Trigger Export"
+                  description="Choose 'Export to Notion' for a single book or 'Export All' for your library."
+                />
+                <Step
+                  number="3"
+                  icon={Layers}
+                  title="Sync & Organize"
+                  description="Your highlights appear instantly in Notion, perfectly formatted and tagged."
+                />
+              </div>
+
+              <div className="mt-24 text-center">
+                <button
+                  onClick={() => {
+                    const welcomeBtn = document.querySelector('button[onClick*="setShowWelcome"]');
+                    if (welcomeBtn) (welcomeBtn as HTMLButtonElement).click();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl transition-all border border-white/10 backdrop-blur-sm flex items-center gap-3 mx-auto group"
+                >
+                  <Zap className="w-5 h-5 text-kindle-orange group-hover:scale-110 transition-transform" />
+                  See Full Setup Guide
                 </button>
               </div>
-              
-              <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4">
-                <div className="flex items-center gap-2 text-sm font-semibold text-jet-black/70">
-                  <ShieldCheck className="w-5 h-5 text-kindle-orange" />
-                  100% Private - No Data Collection
-                </div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-jet-black/70">
-                  <Lock className="w-5 h-5 text-kindle-orange" />
-                  Encrypted Local Storage
-                </div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-jet-black/70">
-                  <Globe className="w-5 h-5 text-kindle-orange" />
-                  Multi-Region Support
-                </div>
-              </div>
-              <div className="mt-8 flex flex-col items-center">
-                <TrustBadges />
-              </div>
-            </motion.div>
+            </div>
+          </section>
 
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="relative flex flex-col items-center mt-32 w-full"
-            >
-              <div className="text-center mb-0 max-w-2xl mx-auto z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-kindle-orange/10 text-kindle-orange text-[10px] font-bold tracking-widest uppercase mb-2">
-                  <Layers className="w-3 h-3" />
-                  Visual Knowledge Hub
-                </div>
-                <h2 className="text-3xl md:text-5xl font-display font-bold text-jet-black tracking-tight leading-tight">
-                  All your book insights living inside <br className="hidden md:block" />
-                  <span className="text-kindle-orange">your second brain.</span>
+          {/* FAQ Section */}
+          <section id="faq" className="py-32 px-6 bg-muted-slate/[0.03]">
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 text-jet-black tracking-tight">Frequently Asked Questions</h2>
+                <p className="text-xl text-carbon-gray">Got questions? We've got answers</p>
+              </div>
+              <div className="bg-white rounded-[2rem] p-8 md:p-12 border border-muted-slate/10 shadow-sm">
+                {faqs.map((faq, index) => (
+                  <FAQItem
+                    key={index}
+                    question={faq.question}
+                    answer={faq.answer}
+                    isOpen={openFAQIndex === index}
+                    onClick={() => setOpenFAQIndex(openFAQIndex === index ? null : index)}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Final CTA */}
+          <section className="py-40 px-6">
+            <div className="max-w-7xl mx-auto rounded-[4rem] bg-jet-black p-20 md:p-32 text-center relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-kindle-orange/10 blur-[120px] rounded-full -mr-48 -mt-48" />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-6xl md:text-8xl font-display font-bold mb-10 tracking-tight text-canvas-white">
+                  Ready to build your<br />
+                  <span className="text-kindle-orange">knowledge library?</span>
                 </h2>
-              </div>
-              <div className="relative w-full max-w-4xl flex items-center justify-center -mt-8">
-                <SpinningBooks />
-              </div>
-            </motion.div>
-          </div>
-
-          <SocialProof />
-        </div>
-      </section>
-
-      {/* Direct Value Section */}
-      <section className="py-40 px-6 bg-muted-slate/[0.03]">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 text-jet-black tracking-tight">
-              Read it once.<br />
-              <span className="text-kindle-orange">Keep it forever.</span>
-            </h2>
-            <p className="text-xl md:text-2xl text-carbon-gray mb-16 leading-relaxed max-w-2xl mx-auto">
-              Your Kindle notes are trapped. We set them free. Send everything to Notion automatically so you can actually use what you read.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-8 text-left">
-              <div className="p-10 rounded-3xl bg-white border border-muted-slate/10">
-                <div className="text-kindle-orange font-bold text-sm mb-4 uppercase tracking-widest">The Old Way</div>
-                <p className="text-carbon-gray text-base italic leading-relaxed">"Copying and pasting by hand. It's slow, boring, and you'll probably never do it."</p>
-              </div>
-              <div className="p-10 rounded-3xl bg-jet-black text-canvas-white shadow-xl">
-                <div className="text-kindle-orange font-bold text-sm mb-4 uppercase tracking-widest">The KindleToNotion Way</div>
-                <p className="text-canvas-white/80 text-base leading-relaxed">"One click and you're done. Your notes are safe in Notion, easy to find, and ready to use."</p>
-              </div>
+                <p className="text-canvas-white/60 text-2xl mb-16 max-w-2xl mx-auto leading-relaxed">
+                  Join thousands of avid readers who have automated their knowledge management. Build a permanent archive of your insights today.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                  <button
+                    onClick={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
+                    className="w-full sm:w-auto bg-kindle-orange text-white px-14 py-7 rounded-2xl font-bold text-2xl transition-all flex items-center justify-center gap-4 shadow-2xl shadow-kindle-orange/20 hover:scale-105 active:scale-100"
+                  >
+                    <BrowserIcon className="w-8 h-8" />
+                    Add to {browserInfo.name}
+                  </button>
+                </div>
+              </motion.div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section id="features" className="py-40 px-6 bg-muted-slate/[0.02]">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24 max-w-3xl mx-auto">
-            <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-jet-black tracking-tight">Everything you need.</h2>
-            <p className="text-xl md:text-2xl text-carbon-gray">Simple, fast, and built for people who love to read.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
-              <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Brain className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Remember Everything</h3>
-              <p className="text-carbon-gray leading-relaxed flex-grow">We show you your best notes every day so you never forget what you read. It's like a workout for your brain.</p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
-              <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Quote className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Keep Your Colors</h3>
-              <p className="text-carbon-gray leading-relaxed flex-grow">Your blue, yellow, and red highlights look exactly the same in Notion.</p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
-              <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <StickyNote className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Keep Your Notes</h3>
-              <p className="text-carbon-gray leading-relaxed flex-grow">Your personal thoughts are saved right next to your highlights.</p>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
-              <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Download className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Export All at Once</h3>
-              <p className="text-carbon-gray leading-relaxed flex-grow">Send your whole library to Notion with a single click.</p>
-            </div>
-
-            {/* Feature 5 */}
-            <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
-              <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Globe className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Works Everywhere</h3>
-              <p className="text-carbon-gray leading-relaxed flex-grow">Supports Amazon stores in the US, UK, Canada, Brazil, India, Japan, and more.</p>
-            </div>
-
-            {/* Feature 6 */}
-            <div className="p-10 rounded-[2rem] bg-white border border-muted-slate/10 hover:border-kindle-orange/30 transition-all group shadow-sm hover:shadow-xl flex flex-col">
-              <div className="w-14 h-14 rounded-2xl bg-kindle-orange/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <BookOpen className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Complete Data</h3>
-              <p className="text-carbon-gray leading-relaxed flex-grow">We export everything you need: Author name, Book Title, and Book cover. Your Notion database will look like a professional library.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Target Audience Section */}
-      <section className="py-40 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-jet-black tracking-tight">Built for People Who Love to Read</h2>
-            <p className="text-xl md:text-2xl text-carbon-gray max-w-2xl mx-auto">Perfect for anyone who wants to remember what they read and build a library of their best ideas.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <GraduationCap className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Students</h3>
-              <p className="text-carbon-gray leading-relaxed">Organize your school notes and research. Build a library of everything you learn.</p>
-            </div>
-
-            <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Brain className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Professionals</h3>
-              <p className="text-carbon-gray leading-relaxed">Build your "Second Brain". Connect ideas from different books to solve problems at work.</p>
-            </div>
-
-            <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <PenTool className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Writers</h3>
-              <p className="text-carbon-gray leading-relaxed">Collect great quotes and inspiration for your next project. Never lose a good idea again.</p>
-            </div>
-
-            <div className="p-10 rounded-[2.5rem] bg-muted-slate/[0.03] border border-muted-slate/5 hover:border-kindle-orange/20 transition-all group">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Infinity className="w-7 h-7 text-kindle-orange" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-jet-black font-display">Lifelong Learners</h3>
-              <p className="text-carbon-gray leading-relaxed">Keep a digital diary of every book you read. See how much you've learned over time.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* Comparison Section */}
-      <section className="py-40 px-6 bg-muted-slate/[0.03]">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-jet-black tracking-tight">Why Readers Choose Us</h2>
-            <p className="text-xl md:text-2xl text-carbon-gray max-w-2xl mx-auto">Compare Kindle to Notion with other export tools and see why we're the preferred choice for privacy and speed.</p>
-          </div>
-
-          <div className="overflow-x-auto">
-            <div className="min-w-[800px] bg-white rounded-[2.5rem] border border-muted-slate/10 shadow-xl overflow-hidden">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-muted-slate/5">
-                    <th className="p-8 text-sm font-bold text-muted-slate uppercase tracking-widest bg-muted-slate/[0.02]">Feature</th>
-                    <th className="p-8 text-sm font-bold text-kindle-orange uppercase tracking-widest bg-kindle-orange/[0.03]">Kindle to Notion</th>
-                    <th className="p-8 text-sm font-bold text-muted-slate uppercase tracking-widest">Readwise</th>
-                    <th className="p-8 text-sm font-bold text-muted-slate uppercase tracking-widest">Clippings.io</th>
-                  </tr>
-                </thead>
-                <tbody className="text-jet-black">
-                  <tr className="border-b border-muted-slate/5">
-                    <td className="p-8 font-medium">Price</td>
-                    <td className="p-8 font-bold text-kindle-orange bg-kindle-orange/[0.03]">Free (Beta)</td>
-                    <td className="p-8 text-carbon-gray">$8-15/month</td>
-                    <td className="p-8 text-carbon-gray">$1.99/month</td>
-                  </tr>
-                  <tr className="border-b border-muted-slate/5">
-                    <td className="p-8 font-medium">Notion Integration</td>
-                    <td className="p-8 bg-kindle-orange/[0.03]">
-                      <div className="flex items-center gap-2 font-bold text-kindle-orange">
-                        <Check className="w-5 h-5" /> Native
-                      </div>
-                    </td>
-                    <td className="p-8 text-carbon-gray">Yes</td>
-                    <td className="p-8 text-carbon-gray">
-                      <div className="flex items-center gap-2">
-                        <X className="w-5 h-5 text-red-400" /> No
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-muted-slate/5">
-                    <td className="p-8 font-medium">Signup Required</td>
-                    <td className="p-8 bg-kindle-orange/[0.03]">
-                      <div className="flex items-center gap-2 font-bold text-kindle-orange">
-                        <X className="w-5 h-5" /> No
-                      </div>
-                    </td>
-                    <td className="p-8 text-carbon-gray">Yes</td>
-                    <td className="p-8 text-carbon-gray">Yes</td>
-                  </tr>
-                  <tr className="border-b border-muted-slate/5">
-                    <td className="p-8 font-medium">Data Privacy</td>
-                    <td className="p-8 bg-kindle-orange/[0.03]">
-                      <div className="flex items-center gap-2 font-bold text-kindle-orange">
-                        <ShieldCheck className="w-5 h-5" /> 100% Local
-                      </div>
-                    </td>
-                    <td className="p-8 text-carbon-gray">Cloud-based</td>
-                    <td className="p-8 text-carbon-gray">Cloud-based</td>
-                  </tr>
-                  <tr className="border-b border-muted-slate/5">
-                    <td className="p-8 font-medium">Colored Highlights</td>
-                    <td className="p-8 bg-kindle-orange/[0.03]">
-                      <div className="flex items-center gap-2 font-bold text-kindle-orange">
-                        <Check className="w-5 h-5" /> Yes
-                      </div>
-                    </td>
-                    <td className="p-8 text-carbon-gray">Yes</td>
-                    <td className="p-8 text-carbon-gray">
-                      <div className="flex items-center gap-2">
-                        <X className="w-5 h-5 text-red-400" /> No
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-8 font-medium">Open Source</td>
-                    <td className="p-8 bg-kindle-orange/[0.03]">
-                      <div className="flex items-center gap-2 font-bold text-kindle-orange">
-                        <Check className="w-5 h-5" /> Yes
-                      </div>
-                    </td>
-                    <td className="p-8 text-carbon-gray">No</td>
-                    <td className="p-8 text-carbon-gray">No</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Testimonials Section */}
-          <div className="mt-32">
-            <div className="text-center mb-16">
-              <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 text-jet-black tracking-tight">What Users Are Saying</h3>
-              <p className="text-lg text-carbon-gray">Real experiences from knowledge workers and book lovers</p>
-            </div>
-            
-            <SocialProof />
-          </div>
-        </div>
-      </section>
-
-      {/* Workflow Section */}
-      <section id="how-it-works" className="py-40 px-6 bg-jet-black text-canvas-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-kindle-orange/5 blur-[120px] rounded-full -z-0" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-24 max-w-3xl mx-auto">
-            <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 tracking-tight leading-tight">
-              Export your highlights in<br />
-              <span className="text-kindle-orange">3 easy steps.</span>
-            </h2>
-            <p className="text-canvas-white/60 text-xl">The fastest way to bridge the gap between your books and your brain.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-12 relative">
-            {/* Connector Lines (Desktop) */}
-            <div className="hidden lg:block absolute top-1/2 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-kindle-orange/30 to-transparent -translate-y-1/2 -z-0" />
-            
-            <Step 
-              number="1"
-              icon={MousePointer2}
-              title="Open Extension"
-              description="Click 'Go to Highlights' to open your Kindle notebook in your browser."
-            />
-            <Step 
-              number="2"
-              icon={Zap}
-              title="Trigger Export"
-              description="Choose 'Export to Notion' for a single book or 'Export All' for your library."
-            />
-            <Step 
-              number="3"
-              icon={Layers}
-              title="Sync & Organize"
-              description="Your highlights appear instantly in Notion, perfectly formatted and tagged."
-            />
-          </div>
-
-          <div className="mt-24 text-center">
-             <button 
-                onClick={() => {
-                  const welcomeBtn = document.querySelector('button[onClick*="setShowWelcome"]');
-                  if (welcomeBtn) (welcomeBtn as HTMLButtonElement).click();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl transition-all border border-white/10 backdrop-blur-sm flex items-center gap-3 mx-auto group"
-              >
-                <Zap className="w-5 h-5 text-kindle-orange group-hover:scale-110 transition-transform" />
-                See Full Setup Guide
-              </button>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section id="faq" className="py-32 px-6 bg-muted-slate/[0.03]">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 text-jet-black tracking-tight">Frequently Asked Questions</h2>
-            <p className="text-xl text-carbon-gray">Got questions? We've got answers</p>
-          </div>
-          <div className="bg-white rounded-[2rem] p-8 md:p-12 border border-muted-slate/10 shadow-sm">
-            {faqs.map((faq, index) => (
-              <FAQItem 
-                key={index}
-                question={faq.question}
-                answer={faq.answer}
-                isOpen={openFAQIndex === index}
-                onClick={() => setOpenFAQIndex(openFAQIndex === index ? null : index)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-40 px-6">
-        <div className="max-w-7xl mx-auto rounded-[4rem] bg-jet-black p-20 md:p-32 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-kindle-orange/10 blur-[120px] rounded-full -mr-48 -mt-48" />
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-6xl md:text-8xl font-display font-bold mb-10 tracking-tight text-canvas-white">
-              Ready to build your<br />
-              <span className="text-kindle-orange">knowledge library?</span>
-            </h2>
-            <p className="text-canvas-white/60 text-2xl mb-16 max-w-2xl mx-auto leading-relaxed">
-              Join thousands of avid readers who have automated their knowledge management. Build a permanent archive of your insights today.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button 
-                onClick={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
-                className="w-full sm:w-auto bg-kindle-orange text-white px-14 py-7 rounded-2xl font-bold text-2xl transition-all flex items-center justify-center gap-4 shadow-2xl shadow-kindle-orange/20 hover:scale-105 active:scale-100"
-              >
-                <BrowserIcon className="w-8 h-8" />
-                Add to {browserInfo.name}
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-      <NotionTemplateSection />
-    </main>
-  )}
+          </section>
+          <NotionTemplateSection />
+        </main>
+      )}
 
       {/* Spread the Word Section */}
       <section className="py-32 px-6 bg-canvas-white border-t border-muted-slate/5">
@@ -2649,7 +2649,7 @@ export default function App() {
               { name: 'Facebook', icon: FacebookIcon, color: '#1877F2', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent("https://kindletonotion.com")}` },
               { name: 'Reddit', icon: RedditIcon, color: '#FF4500', url: `https://www.reddit.com/submit?url=${encodeURIComponent("https://kindletonotion.com")}&title=${encodeURIComponent("Export your Kindle highlights to Notion in 1 click with Kindle To Notion!")}` }
             ].map((platform) => (
-              <a 
+              <a
                 key={platform.name}
                 href={platform.url}
                 target="_blank"
@@ -2665,8 +2665,8 @@ export default function App() {
         </div>
       </section>
 
-  {/* Footer */}
-  <footer className="py-24 px-6 border-t border-muted-slate/10 bg-white">
+      {/* Footer */}
+      <footer className="py-24 px-6 border-t border-muted-slate/10 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-16">
             <div className="space-y-8">
@@ -2679,7 +2679,7 @@ export default function App() {
               <p className="text-carbon-gray max-w-xs text-base leading-relaxed">
                 The premium bridge between Kindle and Notion. Built for knowledge workers and avid readers.
               </p>
-              <button 
+              <button
                 onClick={() => window.open('https://chromewebstore.google.com/detail/kindle2notion-extension/camgnmkmolfidaefoidblkkloimnmalo', '_blank')}
                 className="bg-jet-black text-canvas-white px-6 py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-lg hover:translate-y-[-2px] active:translate-y-[0px] focus:ring-2 focus:ring-offset-2 focus:ring-jet-black"
                 aria-label={`Get ${browserInfo.name} Extension`}
@@ -2709,36 +2709,36 @@ export default function App() {
                 <h5 className="text-xs font-bold text-jet-black uppercase tracking-widest">Compare</h5>
                 <ul className="space-y-3 text-sm text-carbon-gray text-left">
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('readwise-comparison');
                         window.scrollTo(0, 0);
                         window.history.pushState({}, '', '/alternative/readwise.html');
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Kindle To Notion vs Readwise
                     </button>
                   </li>
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('clippings-comparison');
                         window.scrollTo(0, 0);
                         window.history.pushState({}, '', '/alternative/clippings.html');
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Kindle To Notion vs Clippings.io
                     </button>
                   </li>
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('snippet-comparison');
                         window.scrollTo(0, 0);
                         window.history.pushState({}, '', '/alternative/snippet.html');
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Kindle To Notion vs Snippet
@@ -2750,22 +2750,22 @@ export default function App() {
                 <h5 className="text-xs font-bold text-jet-black uppercase tracking-widest">Legal</h5>
                 <ul className="space-y-3 text-sm text-carbon-gray text-left">
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('privacy');
                         window.scrollTo(0, 0);
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Privacy Policy
                     </button>
                   </li>
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('terms');
                         window.scrollTo(0, 0);
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Terms of Service
@@ -2777,35 +2777,35 @@ export default function App() {
                 <h5 className="text-xs font-bold text-jet-black uppercase tracking-widest">Resources</h5>
                 <ul className="space-y-3 text-sm text-carbon-gray text-left">
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('blog');
                         window.scrollTo(0, 0);
                         window.history.pushState({}, '', '/blog');
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Blog
                     </button>
                   </li>
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('changelog');
                         window.scrollTo(0, 0);
                         window.history.pushState({}, '', '/changelog');
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Changelog
                     </button>
                   </li>
                   <li>
-                    <button 
+                    <button
                       onClick={() => {
                         setCurrentPage('welcome');
                         window.scrollTo(0, 0);
-                      }} 
+                      }}
                       className="hover:text-kindle-orange transition-colors text-left w-full"
                     >
                       Welcome Guide
