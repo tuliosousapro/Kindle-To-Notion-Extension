@@ -496,9 +496,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const title = document.querySelector('h3.kp-notebook-metadata')?.textContent.trim() ||
                  document.querySelector('.kp-notebook-title')?.textContent.trim() ||
                  'Unknown Title';
-    const author = document.querySelector('p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata')?.textContent.trim() ||
-                  document.querySelector('.kp-notebook-author')?.textContent.trim() ||
-                  'Unknown Author';
+
+    let author = 'Unknown Author';
+    const authorEls = document.querySelectorAll('p.kp-notebook-metadata');
+    if (authorEls.length >= 2) {
+      author = authorEls[1].textContent.trim() || 'Unknown Author';
+    } else {
+      author = document.querySelector('p.a-spacing-none.a-spacing-top-micro.a-size-base.a-color-secondary.kp-notebook-selectable.kp-notebook-metadata')?.textContent.trim() ||
+               document.querySelector('.kp-notebook-author')?.textContent.trim() ||
+               'Unknown Author';
+    }
 
     // Extract Amazon store link for the current book (supporting all regions)
     // First, try to get ASIN from URL and construct proper regional link
