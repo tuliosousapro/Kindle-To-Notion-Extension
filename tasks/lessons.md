@@ -39,3 +39,15 @@
 
 1. **Keep documentation updated**:
    - Always verify `manifest.json` versions and active `popup.html` features (such as Batch Export and Review tabs) to ensure `ABOUT.md` accurately reflects the latest extension state.
+
+## 🤖 CI/CD & Static Analysis (ESLint)
+
+1. **Root Configuration for Dev Tools**:
+   - To run CI linting workflows (`npm ci`), a root-level `package.json` and `package-lock.json` are mandatory. Define all build/linting tools as `devDependencies` at the root.
+   - Specify `"type": "module"` in `package.json` to eliminate typeless configuration file parsing warnings from ESLint/Node.
+
+2. **Shared Scope in WebExtensions**:
+   - Since extensions often load multiple script files in `popup.html` sharing the same global scope, define these shared functions/variables under `globals` in `eslint.config.js` to prevent `no-undef` errors.
+
+3. **Lexical Scope Errors**:
+   - Block-scoped variables (e.g., `const allText` declared inside a try-catch block) are not accessible outside that block. Standardize on properties like `container.textContent` or extend variable scope to prevent runtime ReferenceErrors and failing linter checks.
