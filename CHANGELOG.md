@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed ReferenceError in `contentScript.js` where undefined variable `allText` was referenced outside its block scope.
+- Restored ESLint devDependencies and the `"lint"` script to `package.json` that were lost during the `main` branch merge.
+- Renamed `eslint.config.js` to `eslint.config.mjs` to support ES module parsing within a CommonJS environment.
 
 ## [1.9.2] - 2026-04-11
 
