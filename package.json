@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/tuliosousapro/Kindle-To-Notion-Extension#readme",
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
+    "@eslint/js": "^10.0.1",
     "eslint": "^9.19.0",
     "globals": "^15.14.0",
     "jest": "^29.7.0",
