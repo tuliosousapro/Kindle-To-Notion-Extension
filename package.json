@@ -28,6 +28,6 @@
     "globals": "^17.8.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jsdom": "^24.0.0"
+    "jsdom": "^30.0.1"
   }
 }
