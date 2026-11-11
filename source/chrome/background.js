@@ -379,6 +379,25 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 });
 
+function getFallbackDomainUrl(amazonLink, normalizedUrl, retryCount) {
+  const asinMatch = amazonLink.match(/\/dp\/([A-Z0-9]{10})/);
+  if (!asinMatch) return null;
+
+  const asin = asinMatch[1];
+  let altUrl = null;
+
+  if (retryCount === 0) {
+    altUrl = `https://www.amazon.com.br/dp/${asin}`;
+  } else if (retryCount === 1) {
+    altUrl = `https://www.amazon.com/dp/${asin}`;
+  }
+
+  if (altUrl && altUrl !== normalizedUrl) {
+    return altUrl;
+  }
+  return null;
+}
+
 async function fetchHighResCover(amazonLink, retryCount = 0) {
   const maxRetries = 2;
 
@@ -409,21 +428,9 @@ async function fetchHighResCover(amazonLink, retryCount = 0) {
       // Retry with different domain if first attempt failed
       if (retryCount < maxRetries) {
         console.log('Retrying with different approach...');
-
-        // Try extracting ASIN and using different regional domains
-        const asinMatch = amazonLink.match(/\/dp\/([A-Z0-9]{10})/);
-        if (asinMatch && retryCount === 0) {
-          // First retry: try .com.br if not already
-          const altUrl = `https://www.amazon.com.br/dp/${asinMatch[1]}`;
-          if (altUrl !== normalizedUrl) {
-            return await fetchHighResCover(altUrl, retryCount + 1);
-          }
-        } else if (asinMatch && retryCount === 1) {
-          // Second retry: try .com
-          const altUrl = `https://www.amazon.com/dp/${asinMatch[1]}`;
-          if (altUrl !== normalizedUrl) {
-            return await fetchHighResCover(altUrl, retryCount + 1);
-          }
+        const altUrl = getFallbackDomainUrl(amazonLink, normalizedUrl, retryCount);
+        if (altUrl) {
+          return await fetchHighResCover(altUrl, retryCount + 1);
         }
       }
       return '';
@@ -450,21 +457,10 @@ async function fetchHighResCover(amazonLink, retryCount = 0) {
 
     // Retry with different domain
     if (retryCount < maxRetries) {
-      const asinMatch = amazonLink.match(/\/dp\/([A-Z0-9]{10})/);
-      if (asinMatch) {
-        if (retryCount === 0) {
-          const altUrl = `https://www.amazon.com.br/dp/${asinMatch[1]}`;
-          if (altUrl !== normalizedUrl) {
-            console.log('Retrying with .com.br domain...');
-            return await fetchHighResCover(altUrl, retryCount + 1);
-          }
-        } else if (retryCount === 1) {
-          const altUrl = `https://www.amazon.com/dp/${asinMatch[1]}`;
-          if (altUrl !== normalizedUrl) {
-            console.log('Retrying with .com domain...');
-            return await fetchHighResCover(altUrl, retryCount + 1);
-          }
-        }
+      const altUrl = getFallbackDomainUrl(amazonLink, normalizedUrl, retryCount);
+      if (altUrl) {
+        console.log(`Retrying with ${retryCount === 0 ? '.com.br' : '.com'} domain...`);
+        return await fetchHighResCover(altUrl, retryCount + 1);
       }
     }
 
