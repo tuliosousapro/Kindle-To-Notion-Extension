@@ -502,8 +502,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     // Extract Amazon store link for the current book (supporting all regions)
     // First, try to get ASIN from URL and construct proper regional link
-    let amazonLink = '';
-    let asin = null;
+    let amazonLink;
+    let asin;
 
     // Try to get ASIN from URL parameter
     const urlParams = new URLSearchParams(window.location.search);

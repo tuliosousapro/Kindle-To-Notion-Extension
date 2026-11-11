@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
           let retryCount = 0;
           let isSuccess = false;
-          let result = null;
+          let result;
 
           while (retryCount <= maxRetries && !isSuccess && !batchCancelled) {
             // Process one book
