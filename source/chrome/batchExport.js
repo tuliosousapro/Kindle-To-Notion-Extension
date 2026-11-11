@@ -60,7 +60,7 @@ function parseNotebookHTML(html, bookInfo) {
   
   // Metadata fallbacks
   const title = doc.querySelector('h3.kp-notebook-metadata')?.textContent.trim() || bookInfo.title;
-  let author = bookInfo.author;
+  let author;
   
   // Try to find the exact author element, avoiding the "Your Kindle Notes For:" paragraph
   const authorEls = doc.querySelectorAll('p.kp-notebook-metadata');

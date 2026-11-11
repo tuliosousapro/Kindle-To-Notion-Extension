@@ -156,7 +156,7 @@ app.post('/oauth/token', async (req, res) => {
     console.error('❌ Error during token exchange:', error);
     res.status(500).json({
       error: 'server_error',
-      error_description: error.message
+      error_description: process.env.NODE_ENV === 'production' ? 'An internal server error occurred' : error.message
     });
   }
 });
@@ -234,7 +234,7 @@ app.use((err, req, res, next) => {
   console.error('❌ Server error:', err);
   res.status(500).json({
     error: 'server_error',
-    error_description: err.message
+    error_description: process.env.NODE_ENV === 'production' ? 'An internal server error occurred' : err.message
   });
 });
 

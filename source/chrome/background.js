@@ -7,7 +7,7 @@ async function fetchWithTimeout(url, options = {}, timeout = 10000) {
     return response;
   } catch (error) {
     if (error.name === 'AbortError') {
-      throw new Error(`Request timed out after ${timeout / 1000} seconds`);
+      throw new Error(`Request timed out after ${timeout / 1000} seconds`, { cause: error });
     }
     throw error;
   } finally {

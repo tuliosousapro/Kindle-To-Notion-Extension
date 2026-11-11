@@ -497,7 +497,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                  document.querySelector('.kp-notebook-title')?.textContent.trim() ||
                  'Unknown Title';
 
-    let author = 'Unknown Author';
+    let author;
     const authorEls = document.querySelectorAll('p.kp-notebook-metadata');
     if (authorEls.length >= 2) {
       author = authorEls[1].textContent.trim() || 'Unknown Author';
@@ -509,8 +509,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     // Extract Amazon store link for the current book (supporting all regions)
     // First, try to get ASIN from URL and construct proper regional link
-    let amazonLink = '';
-    let asin = null;
+    let amazonLink;
+    let asin;
 
     // Try to get ASIN from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
