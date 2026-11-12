@@ -1,3 +1,69 @@
+/**
+ * Safely parses HTML and appends allowed elements to the target node,
+ * preventing XSS vulnerabilities from unsanitized translations.
+ */
+function setSafeHTML(element, htmlString) {
+  element.textContent = '';
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, 'text/html');
+
+  function sanitizeNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return document.createTextNode(node.textContent);
+    }
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const tag = node.tagName.toUpperCase();
+      const allowedTags = ['B', 'I', 'A', 'STRONG', 'EM'];
+      if (allowedTags.includes(tag)) {
+        const el = document.createElement(tag);
+        if (tag === 'A') {
+          const href = node.getAttribute('href');
+          if (href) {
+            // Trim whitespace and control characters to prevent bypasses like " javascript:"
+            // eslint-disable-next-line no-control-regex
+              const sanitizedHref = href.replace(/^[\s\x00-\x1F\x7F-\x9F]+/, '');
+            let isAllowedProtocol;
+            try {
+              const url = new URL(sanitizedHref, window.location.href);
+              const allowedProtocols = ['http:', 'https:', 'chrome-extension:', 'moz-extension:', 'edge-extension:'];
+              isAllowedProtocol = allowedProtocols.includes(url.protocol);
+            } catch (e) {
+              // If it's not a valid URL (e.g., a relative path), we check if it starts with a valid character and no malicious protocol
+              isAllowedProtocol = /^(?:[a-zA-Z0-9\-_.!~*'();/?:@&=+$,]|%[0-9a-fA-F]{2})+$/.test(sanitizedHref) && !/^[a-z0-9]+:/i.test(sanitizedHref);
+            }
+
+            if (isAllowedProtocol) {
+              el.setAttribute('href', sanitizedHref);
+              if (/^https?:\/\//i.test(sanitizedHref)) {
+                el.setAttribute('target', '_blank');
+                el.setAttribute('rel', 'noopener noreferrer');
+              }
+            }
+          }
+        }
+        for (const child of node.childNodes) {
+          const safeChild = sanitizeNode(child);
+          if (safeChild) el.appendChild(safeChild);
+        }
+        return el;
+      } else {
+        const frag = document.createDocumentFragment();
+        for (const child of node.childNodes) {
+          const safeChild = sanitizeNode(child);
+          if (safeChild) frag.appendChild(safeChild);
+        }
+        return frag;
+      }
+    }
+    return null;
+  }
+
+  for (const child of doc.body.childNodes) {
+    const safeChild = sanitizeNode(child);
+    if (safeChild) element.appendChild(safeChild);
+  }
+}
+
 // Global I18n helper to support custom UI language selection
 window.I18n = {
   customMessages: null,
@@ -58,7 +124,7 @@ window.I18n = {
       if (key) {
         const message = this.getMessage(key);
         if (message) {
-          element.innerHTML = message; // Using innerHTML if translations intentionally hold tags
+          setSafeHTML(element, message);
         }
       }
     });
