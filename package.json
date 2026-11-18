@@ -24,10 +24,10 @@
   "homepage": "https://github.com/tuliosousapro/Kindle-To-Notion-Extension#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.13.0",
+    "eslint": "^10.15.0",
     "globals": "^17.14.0",
     "jest": "^30.5.1",
     "jest-environment-jsdom": "^30.5.2",
-    "jsdom": "^31.0.0"
+    "jsdom": "^31.0.1"
   }
 }
